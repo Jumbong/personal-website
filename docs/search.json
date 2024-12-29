@@ -142,35 +142,35 @@
   {
     "objectID": "index_gdr.html",
     "href": "index_gdr.html",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.\n\n\n\n\nConstruction du bilan d’entreprise (bilan_entreprise.qmd)\n\n\n\n\n\nReglementation prudentielle (reglementation_prudentielle.qmd)\n\n\n\n\n\nDéfinition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)\n\n\n\n\n\n\nInvestissement socialement responsable (ISR.qmd)"
   },
   {
     "objectID": "index_gdr.html#analyse-financière",
     "href": "index_gdr.html#analyse-financière",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Construction du bilan d’entreprise (bilan_entreprise.qmd)"
   },
   {
     "objectID": "index_gdr.html#reglementation-prudentielle",
     "href": "index_gdr.html#reglementation-prudentielle",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Reglementation prudentielle (reglementation_prudentielle.qmd)"
   },
   {
     "objectID": "index_gdr.html#risques-financiers",
     "href": "index_gdr.html#risques-financiers",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Définition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
   },
   {
     "objectID": "index_gdr.html#autres-sujets",
     "href": "index_gdr.html#autres-sujets",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Investissement socialement responsable (ISR.qmd)"
   },
@@ -179,7 +179,7 @@
     "href": "about.html",
     "title": "A propos de moi",
     "section": "",
-    "text": "Cheryl KOUADIO\n\n\n\n\nEtudiante gestion des risques financiers\n\n\nÉcole Nationale de la Statistique et de l’analyse de l’information\n\n\n\nEmail : cheryl.s.kouadio@gmail.com\n\n\nCV (Français/English) : cv_cheryl_kouadio_fr.pdf/cv_cheryl_kouadio_en.pdf\n\n\n\n\nIntérêts\n\nJe m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.\n\n\n\n Back to top"
+    "text": "Jumbong Junior\n\n\n\n\nEtudiante gestion des risques financiers\n\n\nÉcole Nationale de la Statistique et de l’analyse de l’information\n\n\n\nEmail : jumbong.jr@gmail.com\n\n\nCV (Français/English) : cv_cheryl_kouadio_fr.pdf/cv_cheryl_kouadio_en.pdf\n\n\n\n\nIntérêts\n\nJe m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.\n\n\n\n Back to top"
   },
   {
     "objectID": "3A/ISR.html",
@@ -240,21 +240,21 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "",
     "text": "Ce site web a été conçu et généré à l’aide de Quarto, dans le but principal d’offrir un soutien aux étudiants de l’ENSAI qui pourraient se trouver face à des défis similaires à ceux que j’ai rencontrés au cours de mon parcours académique, notamment durant mes 2ème et 3ème années d’étude. L’intention derrière la création de ce site n’est pas de remplacer les enseignements prodigués par nos estimés professeurs. Au contraire, il vise à compléter leur travail remarquable en partageant mes expériences personnelles et les projets que j’ai réalisés. L’objectif est de fournir une ressource supplémentaire qui peut aider les étudiants à naviguer dans leurs propres projets et défis académiques."
   },
   {
     "objectID": "index.html#régressions",
     "href": "index.html#régressions",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "Régressions",
     "text": "Régressions\n\nRegression linéaire (regression_lin.qmd)\nRegression ridge et lasso (lasso_ridge.qmd)"
   },
   {
     "objectID": "index.html#classifications",
     "href": "index.html#classifications",
-    "title": "Cheryl KOUADIO",
+    "title": "Jumbong Junior",
     "section": "Classifications",
     "text": "Classifications\n\nApplications des arbres & forêts aléatoires sur un jeu de données (arbres_&_forets_aleatoires.html)"
   },

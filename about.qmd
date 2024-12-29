@@ -3,14 +3,14 @@ title: "A propos de moi"
 ---
 
 <div class="box">
-<h1 style="display: block;">Cheryl KOUADIO</h1>
+<h1 style="display: block;">Jumbong Junior</h1>
 
 <div class="container">
 <ul>
     <li> Etudiante gestion des risques financiers </li>
     <li> École Nationale de la Statistique et de l'analyse de l'information </li>
     <br>
-    <li> Email : cheryl.s.kouadio@gmail.com </li>
+    <li> Email : jumbong.jr@gmail.com </li>
     <li> CV (Français/English) : [cv_cheryl_kouadio_fr.pdf](CV/CV_Cheryl_KOUADIO___3A-fr.pdf)/[cv_cheryl_kouadio_en.pdf](CV/CV_Cheryl_KOUADIO___3A-en.pdf)
 </ul> 
 
