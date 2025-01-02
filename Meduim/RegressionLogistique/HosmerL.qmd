@@ -1,0 +1,263 @@
+---
+title: " Evaluation of the Logistic Regression : The Hosmer-Lemeshow test"
+sidebar: auto
+author:
+  - Jumbong Junior 
+categories: []
+tags: []
+title-block-banner: false
+html:
+    code-fold : true
+jupyter: python3
+
+---
+
+
+# Hosmer-Lemeshow Test
+
+The Hosmer-Lemeshow test assesses whether the observed proportions of events (e.g., success or default) match the expected event rates in the subgroups of the model population.
+
+## Key Concepts
+
+To understand the Hosmer-Lemeshow test, it is important to identify key concepts and definitions:
+
+1. **Observed Proportions of Events**: The proportion of observed successes or failures in the data.
+2. **Expected Event Rates**: The predicted probabilities of success or failure derived from the logistic regression model.
+3. **Logistic Regression**: Logistic regression analyzes the relationship between a dependent categorical variable and a set of independent explanatory variables.
+4. **Dependent Variable**: The dependent variable has two categories:
+   - Failure or Success
+   - Default or Non-default
+5. **Goal of Logistic Regression**:
+   - Predict the probability of an event ("success" or "default") for any given value of the predictor(s).
+
+### Logistic Regression Model
+
+- Let  Y be the dependent variable:
+  $Y = \begin{cases} 
+  1 & \text{if default} \\
+  0 & \text{if not default}
+  \end{cases}$
+
+- Let $( X_1, \ldots, X_p )$ represent the set of  p \explanatory variables.
+
+- The logistic regression equation can be written as:
+  $$
+  \text{logit}(P(Y = 1 \mid X)) = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p
+  $$
+
+- Solving for  P:
+  $$
+  P(Y = 1 \mid X) = \frac{1}{1 + \exp{-(\beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p)}}
+  $$
+
+- Here,  $\beta_0, \beta_1, \ldots, \beta_p $ are parameters to be estimated.
+
+### Computing Probabilities
+
+For a dataset with  N individuals:
+
+1. For each individual  i, compute the probability of success:
+   $$
+   P_i = P(Y_i = 1 \mid X_1^i, \ldots, X_p^i) = \frac{1}{1 + \exp{-(\beta_0 + \beta_1 X_1^i + \ldots + \beta_p X_p^i)}}
+   $$
+
+2. $P_i$ represents the expected probability for individual i .
+
+3. Create a table of individuals with their observed outcomes  Y and predicted probabilities $P_i$.
+
+#### Example Table
+After computing $P_i$ for all individuals, the results can be summarized in a table:
+
+| Individual | Event ($Y$) | $P_i$ |
+|------------|----------------|-----------|
+| 1          | 1              | 0.8       |
+| 2          | 0              | 0.2       |
+| 3          | 1              | 0.9       |
+| 4          | 0              | 0.1       |
+| ...        | ...            | ...       |
+| N    | 1              | 0.95      |
+
+If the logistic regression fits well, the predicted probability $P_i$ for each individual should align closely with the observed outcome Y Specifically:
+
+- When Y=1 (the event occurred), 
+$P_i$ should be close to 1, reflecting high confidence in predicting the event.
+
+- When Y = 0 (the event did not occur), $P_i$ should be close to 0, reflecting high confidence in predicting non-occurrence.
+
+### Performing the Hosmer-Lemeshow Test
+
+After this stage, it is not difficult to carry out the Hosmer-Lemeshow test. What is necessary is grouping individuals. The Hosmer-Lemeshow test can be performed by dividing the predicted probabilities (Pi) into deciles (10 groups based on percentile ranks) and then computing the Chi-square statistic that compares the predicted to the observed frequencies (Hyeoun-AE, 2013).
+
+The value of the Hosmer-Lemeshow statistic is given by:
+
+$$
+H = \sum_{g=1}^{G} \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
+$$
+
+Where:
+
+- G : Number of groups (typically 10).
+- $O_g$ : Observed number of events in group g.
+- $E_g$ : Expected number of events in group g or the sum of predicted probabilities for the group g ($\sum_{i =1}^{n_g}P_i$). 
+- $n_g$ : Total number of individuals in group g.
+
+### Example of Computing Each Element in One Group
+
+To illustrate how the statistic is computed for a single group  g :
+
+- Suppose the group contains  $n_g = 100$ individuals.
+- Out of these,  $O_g = 20$ individuals experienced the event (e.g., default).
+- The sum of predicted probabilities for the group is  $E_g = 18.5$.
+
+Using the formula:
+
+$$
+H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
+$$
+
+Substitute the values:
+
+- First term:  $\frac{(20 - 18.5)^2}{18.5}$
+- Second term:  $\frac{(100 - 20 - (100 - 18.5))^2}{100 - 18.5}$
+
+Calculate each term and sum them to obtain the contribution of group  g to the overall Hosmer-Lemeshow statistic.
+
+### Interpreting the Hosmer-Lemeshow Test
+
+Under the null hypothesis (the observed default numbers correspond to the expected default numbers), the test statistic asymptotically follows the  $\chi^2 $ distribution with  G - 2  degrees of freedom, where  G is the number of groups.
+
+- If the p-value is higher than 5%, it indicates a small statistic and thus a limited gap between observed defaults and expected defaults, suggesting a good model fit.
+- If the p-value is lower than 5%, it indicates a significant discrepancy between observed and expected values, suggesting a poor model fit.
+
+**Caution**: Hosmer and Lemeshow recommend avoiding the use of this test when there is a small number of observations (less than 400), as the test may yield unreliable results.
+
+# Application in python
+
+To implement the Hosmer-Lemeshow test in python, a dataset is essential. The dependent variable or the event Y is generated using the bernouilli distribution. To simplify, only two independent continuous variables $X_1$ and $X_2$ are drawn from the normal distribution. In this example, the dataset have 1000 individuals.
+
+```{python}
+
+#Entry : Python package, the number of indivuals and the parameter of the normal law : 0.5
+#Output : A dataset of 1000 individuals.
+# Objective : Generate a dataset of 1000 individuals. Generate the Y variable using the bernouill law and X1 and X2 using the normal law.
+import jupyter_cache
+import pandas as pd
+import numpy as np 
+
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate data for 1000 individuals
+n_individuals = 1000
+
+# Generate X1 and X2 from a normal distribution
+X1 = np.random.normal(loc=0, scale=1, size=n_individuals)
+X2 = np.random.normal(loc=0, scale=1, size=n_individuals)
+
+# Generate Y using a Bernoulli distribution with a fixed probability of 0.5
+Y = np.random.binomial(1, 0.5, size=n_individuals)
+
+# Create a DataFrame
+data = pd.DataFrame({
+    'X1': X1,
+    'X2': X2,
+    'Y': Y
+})
+
+# Display the first few rows of the dataset
+data.head(4)
+``` 
+
+The parameters of logistic regression is estimated and the probability of the event $P_(Y =1 | X_1, X_2)$.
+
+```{python}
+
+# Entry : the data dataset data_2.
+# Output : A dataset with the event variable Y and the Pi expected probability computed for each individuals.
+# Objective : Estimating of parameters and compute pi using sm.Logit.
+
+import statsmodels.api as sm
+
+# Prepare the data for logistic regression
+X = data[['X1', 'X2']]
+X = sm.add_constant(X)  # Add an intercept term
+y = data['Y']
+
+# Fit the logistic regression model
+logit_model = sm.Logit(y, X)
+result = logit_model.fit()
+
+# Predict the probability of Y = 1 for each individual
+data['P(Y=1 | X1, X2)'] = result.predict(X)
+
+# Add an Individual ID column
+data['Individual'] = range(1, len(data) + 1)
+
+data_2 = data = data[['Individual', 'Y', 'P(Y=1 | X1, X2)']]
+
+data_2.head(5)
+```
+
+To compute the Hosmer-test, individuals are divided into deciles (10 g groups) based on their predicted probabilities $P_i$. For each group g,  compute the Observed number of the event in each group g ($O_g$) and the expected number of event in each group g ($E_g$). 
+
+```{python}
+# Entry : the dataset data_2.
+# Output : the group of deciles with the O_g observed number of event by group and the E_g expected number of event by group.
+
+
+# Create decile groups based on the predicted probabilities
+data_2['Decile'] = pd.qcut(data_2['P(Y=1 | X1, X2)'], q=10, labels=False) + 1
+
+# Calculate Observed (Og) and Expected (Eg) numbers for each decile group
+grouped = data_2.groupby('Decile').agg(
+    n_g=('Y', 'size'),  # Number of individuals per group
+    O_g=('Y', 'sum'),  # Observed number of events
+    E_g=('P(Y=1 | X1, X2)', 'sum')  # Expected number of events
+).reset_index()
+
+grouped.head(5)
+```
+
+Finally, it is easier to compute the value of the Hosmer-Lemeshow statistic. 
+
+```{python}
+
+# Entry : the grouped dataset.
+# Output : the Hosmer-Lemeshow test.
+# Objective : Using the grouped data in order to calculate the Hosmer-Lemeshow statistic HL.
+
+# Compute the Hosmer-Lemeshow test statistic
+
+# Calculate the HL term for each group
+grouped['HL_term'] = ((grouped['O_g'] - grouped['E_g']) ** 2) / grouped['E_g'] + \
+                     ((grouped['n_g'] - grouped['O_g'] - (grouped['n_g'] - grouped['E_g'])) ** 2) / (grouped['n_g'] - grouped['E_g'])
+
+# Calculate the total HL statistic
+HL_statistic = grouped['HL_term'].sum()
+
+# Degrees of freedom: Number of groups - 2
+degrees_of_freedom = len(grouped) - 2
+
+# Display the Hosmer-Lemeshow test results
+HL_statistic, degrees_of_freedom
+
+```
+
+Under the null hypothesis (the observed default numbers correspond to the expected default numbers) the test statistic asymptotically follows a $\chi_2$ distribution with 8 degrees of freedom. The p value is given by the code below.
+
+```{python}
+# Entry : the HL_statistic and the degrees_of_freedom.
+# Output : the P value of the test.
+# Objective : Knowing that the HL follows the chi2 distribution with 8 degrees of freedom, we compute the p value.
+
+from scipy.stats import chi2
+
+# Calculate the p-value for the HL test
+p_value = 1 - chi2.cdf(HL_statistic, degrees_of_freedom)
+
+# Display the p-value
+p_value
+```
+
+In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit.

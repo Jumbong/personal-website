@@ -3,11 +3,36 @@ title: "Jumbong Junior"
 ---
 
 <div class="box">
-Ce site web a été conçu et généré à l'aide de Quarto, dans le but principal d'offrir un soutien aux étudiants de l'ENSAI qui pourraient se trouver face à des défis similaires à ceux que j'ai rencontrés au cours de mon parcours académique, notamment durant mes 2ème et 3ème années d'étude.
-L'intention derrière la création de ce site n'est pas de remplacer les enseignements prodigués par nos estimés professeurs. Au contraire, il vise à compléter leur travail remarquable en partageant mes expériences personnelles et les projets que j'ai réalisés. L'objectif est de fournir une ressource supplémentaire qui peut aider les étudiants à naviguer dans leurs propres projets et défis académiques.
+
+This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.
+
 </div>
 
-# Théorie des valeurs extrêmes
+# Meduim Publications
+
+*Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.*
+
+- **Credit Scoring modellling approach.**
+    - Definition of default and construction of the database.
+    - Outliers Identification and Treatment
+    - Missing data analysis
+    - Database splitting
+    - Pre-selection of explanatory variables
+    - Methodological Approach To Merge Modalities of qualitative variables
+    - Methodological Approach To Discretize Quantitative variables
+    - Monotony and Stability
+    - Oversampling
+    - Logistic Regression
+        - Definition
+        - Fitting The logistic Regression
+        - Evaluation of the logistic Regression
+            - Analysis of the statistical significance of the model
+            - The overall fit of the model : Likelihhod ratio test
+            - Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic
+        - Contribution of variables
+    - Model performances
+   
+
 - Résumé de la théorie des valeurs extrêmes ([EVT_resume.pdf](3A/EVT/EVT_resume.pdf))
 
 

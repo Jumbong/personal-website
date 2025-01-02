@@ -11,6 +11,7 @@ execute:
   
 website:
   title: "Jumbong Junior"
+  favicon: "flavicon.jpeg"
   back-to-top-navigation: true
   navbar:
     left:
@@ -30,6 +31,6 @@ format:
     css: styles.css
     toc: true
     toc-location: left
-    toc-title: "Sommaire"
+    toc-title: "Summary"
     df-print: kable    
 
