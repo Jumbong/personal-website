@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -36,12 +36,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-659650fc26dc25888fc1474f317bb8ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-511458d06496c42ba8743d19720671ed.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -161,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Meduim Publications</h1>
 <p><em>Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.</em></p>
 <ul>
-<li><p><strong>Credit Scoring modellling approach.</strong></p>
+<li><strong>Credit Scoring modellling approach.</strong>
 <ul>
 <li>Definition of default and construction of the database.</li>
 <li>Outliers Identification and Treatment</li>
@@ -186,8 +186,11 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li>Model performances</li>
 </ul></li>
-<li><p><a href="Medium/RegressionLogistique/bias_sample.qmd">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a></p></li>
-<li><p>Résumé de la théorie des valeurs extrêmes (<a href="3A/EVT/EVT_resume.pdf">EVT_resume.pdf</a>)</p></li>
+<li>Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression (<a href="./Meduim/RegressionLogistique/bias_sample.html">bias_sample.qmd</a>)</li>
+</ul>
+<p>Meduim/RegressionLogistique/bias_sample.qmd</p>
+<ul>
+<li>Résumé de la théorie des valeurs extrêmes (<a href="3A/EVT/EVT_resume.pdf">EVT_resume.pdf</a>)</li>
 </ul>
 <p>in Maximum-likelihood Logistic Regression # Microéconometrie appliquée - Résumé des méthodes de microéconométrie appliquée enseignée à la promo 2024-2025 Ensai (<a href="2A/Courses.pdf">applied_micro.pdf</a>)</p>
 </section>
@@ -443,8 +446,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -560,7 +561,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
