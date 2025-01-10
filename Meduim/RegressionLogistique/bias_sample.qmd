@@ -24,7 +24,6 @@ beta_hat - log[((1 - tau)/tau)(bar(y)/(1 - bar(y)))]
 In latex ,the formular is given by :
 $$
 \hat{\beta}_0 - \ln\left[\left(\frac{1-\tau}{\tau}\right)\left(\frac{\bar{y}}{1-\bar{y}}\right)\right]
-
 $$
 
 where $\hat{\beta_0}$ is the intercept of the logistic regression model after oversampling, $\tau$ is the proportion of the minority class in the original dataset (or in population), and $\bar{y}$ is the proportion of the minority class in the oversampled dataset (or in sample).
@@ -39,7 +38,7 @@ $$
 
 where 
 $$
-p(x, $\alpha$, $\beta$) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)} 
+p(x, \alpha, $\beta) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)} 
 $$
 
 and where y is the dependent variable, x is the independent variable, $\alpha$ and $\beta$ are the parameters to be estimated using the maximum likelihood method (MLE).
@@ -47,7 +46,6 @@ and where y is the dependent variable, x is the independent variable, $\alpha$ a
 For generating the the bernouilli trial y using for a fixed parameter P, we use the following equation :
 
 $$
-
 y(p) = 
 \begin{cases}
 \text{dummy} \leftarrow \mathrm{rnd}(1), \\
