@@ -1,0 +1,151 @@
+---
+title: " Missing data treatment and imputation in python"
+sidebar: auto
+author:
+  - Jumbong Junior 
+categories: []
+tags: []
+title-block-banner: false
+html:
+    code-fold : true
+jupyter: python3
+
+---
+
+
+# Introduction 
+
+
+ ```{python}
+
+ # Importation des bibliothèques nécessaires
+import pandas as pd
+import numpy as np
+from sklearn.experimental import enable_iterative_imputer  # Activation de l'IterativeImputer
+from sklearn.impute import IterativeImputer
+from sklearn.ensemble import RandomForestRegressor
+
+# Définition de la fonction
+def miss_forest_application_fold_mmsa(data_base_train, data_base_test, list_raw_ratios):
+    # Assurez-vous que les valeurs manquantes sont bien définies comme np.nan
+   # data_base_train = data_base_train.replace({None: np.nan, 'NA': np.nan, 'null': np.nan})
+    #data_base_test = data_base_test.replace({None: np.nan, 'NA': np.nan, 'null': np.nan})
+    
+    # Préparation des données d'entraînement
+    base_raw_ratios_train = data_base_train[list_raw_ratios].copy()
+    
+    # Imputation sur la base d'entraînement
+    imputer = IterativeImputer(
+        estimator=RandomForestRegressor(n_estimators=100, random_state=42),
+        max_iter=10,
+        random_state=42
+    )
+    imp_train = pd.DataFrame(
+        imputer.fit_transform(base_raw_ratios_train),
+        columns=list_raw_ratios,
+        index=base_raw_ratios_train.index
+    )
+    
+    # Remplacement des valeurs imputées dans la base d'entraînement originale
+    data_base_train.update(imp_train)
+    
+    # Imputation sur la base de test
+    base_raw_ratios_test = data_base_test[list_raw_ratios].copy()
+    imp_test = pd.DataFrame(
+        imputer.transform(base_raw_ratios_test),
+        columns=list_raw_ratios,
+        index=base_raw_ratios_test.index
+    )
+    
+    # Remplacement des valeurs imputées dans la base de test originale
+    data_base_test.update(imp_test)
+    
+    # Calcul des erreurs (facultatif)
+    errors = abs(imp_train - base_raw_ratios_train)
+    rmse_train = pd.DataFrame({
+        "ratios": list_raw_ratios,
+        "RMSE": np.sqrt((errors**2).mean(axis=0))
+    })
+
+    print(f" The error is given by {errors}")
+    
+    # Sélection des variables à garder ou à supprimer
+    vars_to_keep = rmse_train.loc[rmse_train["RMSE"] < 1000, "ratios"]
+    vars_to_drop = rmse_train.loc[rmse_train["RMSE"] > 0.5, "ratios"]
+    
+    # Filtrage des variables dans les bases d'entraînement et de test
+    final_train = data_base_train.loc[:, ~data_base_train.columns.isin(vars_to_drop)]
+    final_test = data_base_test.loc[:, data_base_test.columns.isin(vars_to_keep)]
+    
+    # Résultats finaux
+    return {
+        "final_train": final_train,
+        "final_test": final_test
+    }
+
+# Exemple de DataFrame
+data_train = pd.DataFrame({
+    "A": [1, 2, np.nan, 4],
+    "B": [np.nan, 2, 3, 4],
+    "C": [5, 6, 7, np.nan]
+})
+
+data_test = pd.DataFrame({
+    "A": [np.nan, 2, 3],
+    "B": [1, np.nan, 3],
+    "C": [4, 5, np.nan]
+})
+
+list_vars = ["A", "B", "C"]
+results = miss_forest_application_fold_mmsa(data_train, data_test, list_vars)
+
+results["final_train"], results["final_test"]
+
+```
+
+
+
+
+```{python}
+
+import pandas as pd
+import numpy as np
+import sys
+import sklearn.neighbors._base
+sys.modules['sklearn.neighbors.base'] = sklearn.neighbors._base
+from missingpy import MissForest
+
+
+# No module named sklearn.neighbors.base
+
+# Sample DataFrame with missing values
+data = {
+    'A': [1, 2, np.nan, 4],
+    'B': [np.nan, 2, 3, 4],
+    'C': ['cat', np.nan, 'dog', 'cat'],
+    'D': [1.5, 2.5, np.nan, 4.5]
+}
+df = pd.DataFrame(data)
+
+print("Original DataFrame:")
+print(df)
+
+# Convert categorical column to numerical codes (if needed)
+df['C'] = df['C'].astype('category').cat.codes.replace(-1, np.nan)
+
+# Instantiate MissForest
+imputer = MissForest(random_state=42)
+
+# Impute missing values
+imputed_array = imputer.fit_transform(df.values)
+
+# Convert back to a DataFrame
+df_imputed = pd.DataFrame(imputed_array, columns=df.columns)
+
+# Convert categorical columns back to original categories
+df_imputed['C'] = df_imputed['C'].round().astype(int).map({0: 'cat', 1: 'dog'})
+
+print("\nDataFrame After Imputation:")
+print(df_imputed)
+
+```
