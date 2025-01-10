@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Cheryl Kouadio">
+<meta name="author" content="Jumbong Junior">
 
-<title>Investissement Socialement Responsable (ISR): De quoi parle-t-on ? – Jumbong Junior</title>
+<title>Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression – Jumbong Junior</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,25 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../flavicon.jpeg" rel="icon" type="image/jpeg">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,8 +71,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -82,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jumbong Junior</span>
     </a>
   </div>
@@ -93,15 +122,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../index_gdr.html"> 
+    <a class="nav-link" href="../../index_gdr.html"> 
 <span class="menu-text">Gestion des risques</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">A propos de moi</span></a>
   </li>  
 </ul>
@@ -120,17 +149,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#quest-ce-que-linvestissement-socialement-responsable" id="toc-quest-ce-que-linvestissement-socialement-responsable" class="nav-link active" data-scroll-target="#quest-ce-que-linvestissement-socialement-responsable">Qu’est-ce-que l’Investissement Socialement Responsable ?</a></li>
-  <li><a href="#pourquoi-faire-un-investissement-socialement-responsable" id="toc-pourquoi-faire-un-investissement-socialement-responsable" class="nav-link" data-scroll-target="#pourquoi-faire-un-investissement-socialement-responsable">Pourquoi faire un investissement socialement responsable ?</a>
-  <ul class="collapse">
-  <li><a href="#pour-les-entreprises" id="toc-pour-les-entreprises" class="nav-link" data-scroll-target="#pour-les-entreprises">Pour les entreprises :</a></li>
-  <li><a href="#pour-les-investisseurs" id="toc-pour-les-investisseurs" class="nav-link" data-scroll-target="#pour-les-investisseurs">Pour les investisseurs :</a></li>
-  </ul></li>
-  <li><a href="#comment-investir" id="toc-comment-investir" class="nav-link" data-scroll-target="#comment-investir">Comment investir?</a>
-  <ul class="collapse">
-  <li><a href="#comment-souscrire-à-un-fonds-isr" id="toc-comment-souscrire-à-un-fonds-isr" class="nav-link" data-scroll-target="#comment-souscrire-à-un-fonds-isr">Comment souscrire à un fonds ISR ?</a></li>
-  <li><a href="#comment-choisir-une-entreprise-isr" id="toc-comment-choisir-une-entreprise-isr" class="nav-link" data-scroll-target="#comment-choisir-une-entreprise-isr">Comment choisir une entreprise ISR ?</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   </ul>
 </nav>
 </nav>
@@ -143,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Investissement Socialement Responsable (ISR): De quoi parle-t-on ?</h1>
+<h1 class="title">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</h1>
 </div>
 
 
@@ -153,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Cheryl Kouadio </p>
+             <p>Jumbong Junior </p>
           </div>
   </div>
     
@@ -166,78 +185,48 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="quest-ce-que-linvestissement-socialement-responsable" class="level2">
-<h2 class="anchored" data-anchor-id="quest-ce-que-linvestissement-socialement-responsable">Qu’est-ce-que l’Investissement Socialement Responsable ?</h2>
-<p>L’Investissement Socialement Responsable (ISR) représente une approche d’investissement qui privilégie l’intégration de critères extra-financiers, notamment les critères ESG (Environnementaux, Sociaux et de Gouvernance), dans les décisions d’investissement, que ce soit pour un individu ou pour une entreprise.</p>
-<p>Les critères ESG englobent des aspects tels que le respect de l’environnement (Environnementaux), le bien-être des salariés (Sociaux) et la qualité de la gouvernance au sein des entreprises (Gouvernance). Ils servent à évaluer la durabilité et l’éthique des investissements au-delà des performances financières traditionnelles. Ce faisant, ils offrent un cadre pour mesurer l’impact des entreprises sur la société et l’environnement, soulignant l’importance croissante des enjeux écologiques, climatiques et sociaux dans le monde actuel.</p>
-<p>En outre, l’adoption de ces critères est souvent liée à la mise en œuvre de stratégies de Responsabilité Sociétale des Entreprises (RSE), illustrant un engagement vers une gestion d’entreprise plus responsable et transparente. Ainsi, l’ISR incarne non seulement une démarche d’investissement éthique mais également une vision à long terme visant à concilier performance économique et impact social positif.</p>
-</section>
-<section id="pourquoi-faire-un-investissement-socialement-responsable" class="level2">
-<h2 class="anchored" data-anchor-id="pourquoi-faire-un-investissement-socialement-responsable">Pourquoi faire un investissement socialement responsable ?</h2>
-<p>L’ISR présente de multiples avantages tant pour les investisseurs que pour les entreprises engagées dans cette démarche. Ces avantages reflètent l’évolution des attentes sociétales et la reconnaissance croissante de l’importance de la durabilité et de l’éthique dans le monde des affaires. J’en ai identifier certains dans les points suivants.</p>
-<section id="pour-les-entreprises" class="level3">
-<h3 class="anchored" data-anchor-id="pour-les-entreprises">Pour les entreprises :</h3>
-<ol type="1">
-<li><p><strong>Meilleure image :</strong> Une forte performance ESG peut significativement améliorer la réputation d’une entreprise. Elle témoigne de son engagement envers des pratiques durables et éthiques, ce qui peut renforcer la confiance des consommateurs, des partenaires et des investisseurs.</p></li>
-<li><p><strong>Meilleure performance financière :</strong> De nombreuses études démontrent que les entreprises avec une notation ESG élevée tendent de meilleures performances financièrement sur le long terme. Cela s’explique par une meilleure anticipation des risques, une gestion plus efficace et une capacité à saisir les opportunités de marché liées à la durabilité.</p></li>
-<li><p><strong>Meilleure gestion des risques :</strong> L’adoption de pratiques ESG solides permet aux entreprises de mieux identifier et gérer les risques, qu’ils soient climatiques, sociaux ou de marché.</p></li>
-<li><p><strong>Meilleure attractivité pour les investisseurs :</strong> En démontrant un engagement clair envers la durabilité et l’éthique, les entreprises attirent davantage d’investisseurs conscients de l’importance des critères ESG. Cette attractivité accrue peut se traduire par un accès facilité au capital et à de meilleures conditions de financement.</p></li>
-</ol>
-</section>
-<section id="pour-les-investisseurs" class="level3">
-<h3 class="anchored" data-anchor-id="pour-les-investisseurs">Pour les investisseurs :</h3>
-<ol type="1">
-<li><p><strong>Contribution à la réduction de certains risques financiers :</strong> En investissant dans des entreprise intégrant les critères ESG dans leur processus de décision, les investisseurs contribuent indirectement à une meilleure identification et anticipation les risques liés au changement climatique, aux problématiques sociales, et aux défis de gouvernance, ce qui contribue à une meilleure protection de leur capital sur le long terme.</p></li>
-<li><p><strong>Impact positif sur la société :</strong> L’ISR permet aux investisseurs de contribuer activement à une économie plus durable et équitable. En choisissant d’investir dans des entreprises qui adoptent des pratiques responsables, ils favorisent des modèles économiques respectueux de l’environnement et du bien-être social.</p></li>
-</ol>
-<p>En somme, l’ISR offre une perspective d’investissement qui va au-delà des retours financiers immédiats pour embrasser des bénéfices à long terme, tant sur le plan économique que social et environnemental.</p>
-</section>
-</section>
-<section id="comment-investir" class="level2">
-<h2 class="anchored" data-anchor-id="comment-investir">Comment investir?</h2>
-<section id="comment-souscrire-à-un-fonds-isr" class="level3">
-<h3 class="anchored" data-anchor-id="comment-souscrire-à-un-fonds-isr">Comment souscrire à un fonds ISR ?</h3>
-<p>Souscrire à un fonds<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ISR (Investissement Socialement Responsable) est une démarche accessible pour tout particulier souhaitant allier rendement financier et impact positif sur la société et l’environnement<span class="citation" data-cites="comment">[@comment]</span>. En consultant son conseiller financier ou son établissement bancaire, il est possible de placer son argent dans une variété de produits financiers responsables, parmi lesquels :</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In this article, the impact of sampling bias and class imbalance on logistic regression models is explored. The article covers two topics :</p>
 <ul>
-<li><p>Assurance-vie</p></li>
-<li><p>Plan d’Épargne en Actions (PEA) : (sous réserver de s’assurer que le fonds ISR choisi est bien éligible au PEA) Offre la possibilité de placer son épargne en actions de sociétés européennes.</p></li>
-<li><p>Les compte-titres ordinaires(CTO) : permet d’investir en bourse sur les marchés financiers français et/ou étrangers et dans tout type de valeurs mobilières (OPC<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, actions, obligations, monétaire, warrants, trackers…).</p></li>
-<li><p>L’épargne salariale ou les plans d’épargne d’entreprise (PEE) : un produit d’épargne collectif qui permet aux salariés d’une entreprise de se constituer un portefeuille de valeurs mobilières qui peuvent proposer des fonds ISR.</p></li>
-<li><p>Enfin, certains produits d’épargne retraite individuelle, comme le Plan d’Epargne Retraite (PER).</p></li>
+<li><p>First, we hypothesize that the predictive performance of a logistic regression model is related to the sampling bias associated with the data and it has a perrformance advantage when the data is balanced. The hypothesis is testing with two simulated datasets : a balanced dataset (50:50) and an imbalanced dataset (80:20). Each dataset will be sampled to produce samples with the following distribution : 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, 99:1.</p></li>
+<li><p>Second, in the case of class imbalance data, if the oversampling technique is used the intercept of the logistic regression model after oversampling need to be adjusted. In other words, let denote <span class="math inline">\(\hat{\beta_0}\)</span> the intercept of the logistic regression model after oversampling, then the following correction needs to be performed on it :</p></li>
 </ul>
-<p>Ces véhicules d’investissement permettent aux particuliers de contribuer à une économie plus durable tout en recherchant une performance financière. Il est recommandé de se rapprocher d’un conseiller pour déterminer le produit le mieux adapté à ses objectifs financiers et à ses valeurs éthiques.</p>
-</section>
-<section id="comment-choisir-une-entreprise-isr" class="level3">
-<h3 class="anchored" data-anchor-id="comment-choisir-une-entreprise-isr">Comment choisir une entreprise ISR ?</h3>
-<p>Choisir une entreprise ou un fonds ISR (Investissement Socialement Responsable) nécessite une approche combinant analyses personnelle, financière et extra-financière, cette dernière se concentrant sur les critères ESG (Environnementaux, Sociaux et de Gouvernance)<span class="citation" data-cites="comment2021">[@comment2021]</span>.</p>
-<p>Pour choisir efficacement une entreprise ISR, il est crucial de réaliser une analyse à triple volet :</p>
-<ul>
-<li><p><strong>Analyse des motivations personnelles</strong> : Vos convictions personnelles constituent un excellent moyen de choisir le fonds <strong>ISR</strong>&nbsp;qui vous convient le mieux. Elles vous aideront à identifier le type de placement à privilégier et définir par exemple des fonds thématiques, d’exclusion (normatifs<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> ou sectoriels), Best effort, Best in Class, Best in Universe.</p></li>
-<li><p><strong>Analyse financière :</strong> Elle permet d’évaluer la performance économique de l’entreprise, sa santé financière, sa capacité à générer des profits et à maintenir une croissance durable. Cette analyse est indispensable pour s’assurer que l’entreprise est non seulement responsable, mais aussi viable et performante à long terme.</p></li>
-<li><p><strong>Analyse extra-financière (ESG) :</strong> Cette analyse complète l’évaluation financière en examinant comment l’entreprise aborde les défis et saisit les opportunités liées aux critères environnementaux, sociaux et de gouvernance. Cela permet de choisir des fonds intégrant les critères ESG comme les fonds labellisés ISR.</p></li>
-</ul>
-<blockquote class="blockquote">
-<div id="tbl" style="background-color : #f3fadc; text-color : black;">
-<p><strong>Label ISR :</strong></p>
-<p>Le Label ISR est une certification officielle du ministère de l’économie et des finances français qui garantit que le fonds d’investissement respecte des critères ESG stricts<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> dans ses choix d’investissement. Il assure également que le fonds investit dans des entreprises qui adhèrent à ces principes, offrant ainsi une couche supplémentaire de confiance pour les investisseurs soucieux de l’impact de leurs placements.</p>
-<p>Ce label est attribué aux fonds candidats lorsque ceux-ci sont conformes aux exigences du label,classées en 6 catégories, qui constituent les 6 piliers du référentiel <span class="citation" data-cites="critèresa">[@critèresa]</span>.</p>
-</div>
-</blockquote>
-
-
-</section>
-</section>
-
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Souvent appelé fonds de placement. Il s’agit d’une société d’ordre public ou privé qui investit du capital pour soutenir des projets souvent innovants.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>organismes de placement collectif<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Les fonds d’investissement d’exclusion normatifs font référence aux fonds faisant l’objet de plusieurs controverses.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>cf liste des fonds labellisés <span class="citation" data-cites="listede">[@listede]</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<p>beta_hat - log[((1 - tau)/tau)(bar(y)/(1 - bar(y)))] In latex ,the formular is given by : $$ _0 - </p>
+<p>$$</p>
+<p>where <span class="math inline">\(\hat{\beta_0}\)</span> is the intercept of the logistic regression model after oversampling, <span class="math inline">\(\tau\)</span> is the proportion of the minority class in the original dataset (or in population), and <span class="math inline">\(\bar{y}\)</span> is the proportion of the minority class in the oversampled dataset (or in sample).</p>
+<ol type="1">
+<li>Simulated Data Generation</li>
 </ol>
-</section></div></main> <!-- /main -->
+<p>Many authors document that, for logistic regressionthe , the probability distribution of the dependent variable is assumed to be Bernoulli and the mass function f is given by :</p>
+<p><span class="math display">\[
+f(y, x, \alpha, \beta) = p(x, \alpha, \beta)^y(1-p(x, \alpha, \beta))^{1-y}
+\]</span></p>
+<p>where <span class="math display">\[
+p(x, $\alpha$, $\beta$) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)}
+\]</span></p>
+<p>and where y is the dependent variable, x is the independent variable, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the parameters to be estimated using the maximum likelihood method (MLE).</p>
+<p>For generating the the bernouilli trial y using for a fixed parameter P, we use the following equation :</p>
+<p>$$</p>
+y(p) =
+<span class="math display">\[\begin{cases}
+\text{dummy} \leftarrow \mathrm{rnd}(1), \\
+0, &amp; \text{if dummy} &lt; p, \\
+1, &amp; \text{otherwise}.
+\end{cases}\]</span>
+<p>$$</p>
+<p>where rnd(1) is a random number generator that generates a random number between 0 and 1.</p>
+<p>The conditional bernouilli trials y are then generated by substituting of <span class="math inline">\(p(x, \alpha, \beta)\)</span> :</p>
+$$ y(x, , ) =
+<span class="math display">\[\begin{cases}
+0, &amp; \text{if rnd(1)} &lt; p(x, \alpha, \beta), \\
+1, &amp; \text{otherwise}.
+\end{cases}\]</span>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
