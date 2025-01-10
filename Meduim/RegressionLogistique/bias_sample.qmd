@@ -20,15 +20,13 @@ In this article, the impact of sampling bias and class imbalance on logistic reg
 
 - Second, in the case of class imbalance data, if the oversampling technique is used the intercept of the logistic regression model after oversampling need to be adjusted. In other words, let denote $\hat{\beta_0}$ the intercept of the logistic regression model after oversampling, then the following correction needs to be performed on it : 
 
-beta_hat - log[((1 - tau)/tau)(bar(y)/(1 - bar(y)))] 
-In latex ,the formular is given by :
 $$
 \hat{\beta}_0 - \ln\left[\left(\frac{1-\tau}{\tau}\right)\left(\frac{\bar{y}}{1-\bar{y}}\right)\right]
 $$
 
 where $\hat{\beta_0}$ is the intercept of the logistic regression model after oversampling, $\tau$ is the proportion of the minority class in the original dataset (or in population), and $\bar{y}$ is the proportion of the minority class in the oversampled dataset (or in sample).
 
-1. Simulated Data Generation
+# 1. Simulated Data Generation
 
 Many authors document that, for logistic regressionthe , the probability distribution of the dependent variable is assumed to be Bernoulli and the mass function f is given by :
 
@@ -38,7 +36,7 @@ $$
 
 where 
 $$
-p(x, \alpha, $\beta) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)} 
+p(x, \alpha, \beta) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)} 
 $$
 
 and where y is the dependent variable, x is the independent variable, $\alpha$ and $\beta$ are the parameters to be estimated using the maximum likelihood method (MLE).
@@ -64,4 +62,5 @@ y(x, \alpha, \beta) =
 0, & \text{if rnd(1)} < p(x, \alpha, \beta), \\
 1, & \text{otherwise}.
 \end{cases}
+$$
 
