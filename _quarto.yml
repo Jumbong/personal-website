@@ -6,7 +6,7 @@ project:
     - "!3A/var_application.qmd" # Ignore a specific file
     - "!ignored-dir/" # Ignore a specific directory
 execute:
-  cache: true
+  #cache: true
   freeze: auto  
   
 website:
