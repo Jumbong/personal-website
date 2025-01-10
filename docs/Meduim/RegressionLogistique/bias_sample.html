@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jumbong Junior">
 
-<title>Jumbong Junior</title>
+<title>Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression – Jumbong Junior</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./flavicon.jpeg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,8 +71,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -81,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jumbong Junior</span>
     </a>
   </div>
@@ -92,15 +122,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index_gdr.html"> 
+    <a class="nav-link" href="../../index_gdr.html"> 
 <span class="menu-text">Gestion des risques</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">A propos de moi</span></a>
   </li>  
 </ul>
@@ -119,12 +149,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#meduim-publications" id="toc-meduim-publications" class="nav-link active" data-scroll-target="#meduim-publications">Meduim Publications</a></li>
-  <li><a href="#apprentissage-supervisée" id="toc-apprentissage-supervisée" class="nav-link" data-scroll-target="#apprentissage-supervisée">Apprentissage supervisée</a>
-  <ul class="collapse">
-  <li><a href="#régressions" id="toc-régressions" class="nav-link" data-scroll-target="#régressions">Régressions</a></li>
-  <li><a href="#classifications" id="toc-classifications" class="nav-link" data-scroll-target="#classifications">Classifications</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   </ul>
 </nav>
 </nav>
@@ -137,13 +162,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Jumbong Junior</h1>
+<h1 class="title">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
     
   
     
@@ -154,66 +185,45 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="box">
-<p>This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.</p>
-</div>
-<section id="meduim-publications" class="level1">
-<h1>Meduim Publications</h1>
-<p><em>Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.</em></p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In this article, the impact of sampling bias and class imbalance on logistic regression models is explored. The article covers two topics :</p>
 <ul>
-<li><p><strong>Credit Scoring modellling approach.</strong></p>
-<ul>
-<li>Definition of default and construction of the database.</li>
-<li>Outliers Identification and Treatment</li>
-<li>Missing data analysis</li>
-<li>Database splitting</li>
-<li>Pre-selection of explanatory variables</li>
-<li>Methodological Approach To Merge Modalities of qualitative variables</li>
-<li>Methodological Approach To Discretize Quantitative variables</li>
-<li>Monotony and Stability</li>
-<li>Oversampling</li>
-<li>Logistic Regression
-<ul>
-<li>Definition</li>
-<li>Fitting The logistic Regression</li>
-<li>Evaluation of the logistic Regression
-<ul>
-<li>Analysis of the statistical significance of the model</li>
-<li>The overall fit of the model : Likelihhod ratio test</li>
-<li>Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic</li>
-</ul></li>
-<li>Contribution of variables</li>
-</ul></li>
-<li>Model performances</li>
-</ul></li>
-<li><p><a href="Medium/RegressionLogistique/bias_sample.qmd">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a></p></li>
-<li><p>Résumé de la théorie des valeurs extrêmes (<a href="3A/EVT/EVT_resume.pdf">EVT_resume.pdf</a>)</p></li>
+<li><p>First, we hypothesize that the predictive performance of a logistic regression model is related to the sampling bias associated with the data and it has a perrformance advantage when the data is balanced. The hypothesis is testing with two simulated datasets : a balanced dataset (50:50) and an imbalanced dataset (80:20). Each dataset will be sampled to produce samples with the following distribution : 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, 99:1.</p></li>
+<li><p>Second, in the case of class imbalance data, if the oversampling technique is used the intercept of the logistic regression model after oversampling need to be adjusted. In other words, let denote <span class="math inline">\(\hat{\beta_0}\)</span> the intercept of the logistic regression model after oversampling, then the following correction needs to be performed on it :</p></li>
 </ul>
-<p>in Maximum-likelihood Logistic Regression # Microéconometrie appliquée - Résumé des méthodes de microéconométrie appliquée enseignée à la promo 2024-2025 Ensai (<a href="2A/Courses.pdf">applied_micro.pdf</a>)</p>
-</section>
-<section id="apprentissage-supervisée" class="level1">
-<h1>Apprentissage supervisée</h1>
-<ul>
-<li>Advanced Techniques in Machine Learning: Kernel Trick and Support Vector Machines (SVM) (<a href="./3A/Apprentisage-stat/Tp2.html">kernel_and_svm.qmd</a>)</li>
-<li>Gradient boosting (<a href="./3A/Apprentisage-stat/Tp3.html">gradient_boosting.qmd</a>)</li>
-<li>Features selection (<a href="./3A/Apprentisage-stat/Tp4.html">features_selection.qmd</a>)</li>
-</ul>
-<section id="régressions" class="level2">
-<h2 class="anchored" data-anchor-id="régressions">Régressions</h2>
-<ul>
-<li>Regression linéaire (<a href="./2A/App_sup/reg_lin.html">regression_lin.qmd</a>)</li>
-<li>Regression ridge et lasso (<a href="./3A/Apprentisage-stat/Tp1.html">lasso_ridge.qmd</a>)</li>
-</ul>
-</section>
-<section id="classifications" class="level2">
-<h2 class="anchored" data-anchor-id="classifications">Classifications</h2>
-<ul>
-<li>Applications des arbres &amp; forêts aléatoires sur un jeu de données (<a href="2A/App_sup/arbres_&amp;_forets_aleatoires.html">arbres_&amp;_forets_aleatoires.html</a>)
-</li>
-</ul>
+<p>beta_hat - log[((1 - tau)/tau)(bar(y)/(1 - bar(y)))] In latex ,the formular is given by : $$ _0 - </p>
+<p>$$</p>
+<p>where <span class="math inline">\(\hat{\beta_0}\)</span> is the intercept of the logistic regression model after oversampling, <span class="math inline">\(\tau\)</span> is the proportion of the minority class in the original dataset (or in population), and <span class="math inline">\(\bar{y}\)</span> is the proportion of the minority class in the oversampled dataset (or in sample).</p>
+<ol type="1">
+<li>Simulated Data Generation</li>
+</ol>
+<p>Many authors document that, for logistic regressionthe , the probability distribution of the dependent variable is assumed to be Bernoulli and the mass function f is given by :</p>
+<p><span class="math display">\[
+f(y, x, \alpha, \beta) = p(x, \alpha, \beta)^y(1-p(x, \alpha, \beta))^{1-y}
+\]</span></p>
+<p>where <span class="math display">\[
+p(x, $\alpha$, $\beta$) = \frac{\exp(\alpha + \beta x)}{1 + \exp(\alpha + \beta x)}
+\]</span></p>
+<p>and where y is the dependent variable, x is the independent variable, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the parameters to be estimated using the maximum likelihood method (MLE).</p>
+<p>For generating the the bernouilli trial y using for a fixed parameter P, we use the following equation :</p>
+<p>$$</p>
+y(p) =
+<span class="math display">\[\begin{cases}
+\text{dummy} \leftarrow \mathrm{rnd}(1), \\
+0, &amp; \text{if dummy} &lt; p, \\
+1, &amp; \text{otherwise}.
+\end{cases}\]</span>
+<p>$$</p>
+<p>where rnd(1) is a random number generator that generates a random number between 0 and 1.</p>
+<p>The conditional bernouilli trials y are then generated by substituting of <span class="math inline">\(p(x, \alpha, \beta)\)</span> :</p>
+$$ y(x, , ) =
+<span class="math display">\[\begin{cases}
+0, &amp; \text{if rnd(1)} &lt; p(x, \alpha, \beta), \\
+1, &amp; \text{otherwise}.
+\end{cases}\]</span>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
