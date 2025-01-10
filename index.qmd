@@ -33,7 +33,7 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
     - Model performances
 - [Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
 
-Meduim/RegressionLogistique/bias_sample.qmd
+
 
 - Résumé de la théorie des valeurs extrêmes ([EVT_resume.pdf](3A/EVT/EVT_resume.pdf))
 
