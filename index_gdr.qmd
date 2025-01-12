@@ -21,5 +21,3 @@ Compte tenu de ma spécialisation en gestion des risques, les contenus que je pr
     -   Implémentation de la VaR sur python ([var_application.qmd](3A/var_application.qmd))
 
 
-## Autres sujets 
--   Investissement socialement responsable ([ISR.qmd](3A/ISR.qmd))

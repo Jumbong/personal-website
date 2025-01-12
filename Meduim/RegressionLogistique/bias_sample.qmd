@@ -5,6 +5,7 @@ author:
   - Jumbong Junior 
 categories: []
 tags: []
+fontsize: 14pt
 title-block-banner: false
 html:
     code-fold : true
@@ -64,3 +65,249 @@ y(x, \alpha, \beta) =
 \end{cases}
 $$
 
+
+In order to generate the data, the following steps will be respected : 
+- Generate x the predictor variable from a uniform distribution, which ranges from 0 to 10.
+- Choose the parameters $\alpha$ and $\beta$, which will help to genererate the distribution of the dependent variable y.
+- Generate the dependent variable y using the logistic function $p(x, \alpha, \beta)$.
+
+
+## 1.1 Numerical Approach to determine the value of $\beta$
+
+The numerical approach consists to determine, for a given value of $\alpha =-10$, the value of $\beta$ that will allow to have a proportion of y=1 equal to 0.5 in the case of a balanced dataset and 0.2 in the case of an imbalanced dataset.
+
+The optimization problem can be formulated as follows :
+
+
+$$
+\min_{\beta} \left( \text{prop} - \frac{1}{n}\sum_{i=1}^{n} \frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)} \right)^2 
+$$
+
+where $\text{prop}$ is the proportion of y=1 in the dataset, $x_i$ is the predictor variable, and $n$ is the number of observations.
+
+The optimization problem can be solved using the `scipy.optimize.minimize` function with the Nelder-Mead method.
+
+
+
+```{python}
+import numpy as np
+from scipy.optimize import minimize
+
+# Define the logistic function
+def logistic_function(x, alpha, beta):
+    return 1 / (1 + np.exp(-(alpha + beta * x)))
+
+# Objective function: minimize the squared difference between mean(pi) and 0.2
+def objective(alpha, prop, beta, n):
+    x = np.random.uniform(0, 10, n)  # Simulate x values
+    pi = logistic_function(x, alpha, beta)
+    return (np.mean(pi) - 0.2)**2  # Target mean(pi) = 0.2
+
+# Initial guesses for alpha and beta
+initial_params = [0]
+
+# Optimize alpha and beta
+result = minimize(lambda params: objective(-10, 0.2, params, 50000), initial_params, method='Nelder-Mead')
+
+# Get optimized alpha and beta
+beta_opt = result.x
+print(f"Optimized alpha: {-10}, beta: {beta_opt}")
+
+# Generate x and simulate y
+x = np.random.uniform(0, 10, 1000)
+pi = logistic_function(x, -10, beta_opt)
+y = (np.random.uniform(0, 1, 1000) < pi).astype(int)
+
+# Verify proportions
+y_mean = np.mean(y)
+print(f"Proportion of y=1: {y_mean:.2f}, y=0: {1-y_mean:.2f}")
+```
+
+
+
+## Simulated Data Generation with $\alpha = -10$ 
+
+The graphical approach consists to fix the value of $\alpha$ for example $\alpha = -10$ and to vary the value of $\beta$ in order to see the suitable distribution of the dependent variable y.
+
+Let's consider two cases :
+
+  - Case A : A balanced dataset with 50:50 distribution of y=0 and y=1.
+  - Case B : An imbalanced dataset with 80:20 distribution of y=0 and y=1.
+
+The code below generates the data for the two cases and plots the proportion of y=1 as a function of beta.
+
+The graph @fig-simulate_case_data, both the datasets have a total of 50,000 events, with the Case A dataset having a class distribution of about 50:50 and Case B dataset having a class distribution of about 80:20.
+
+```{python}
+#| label: fig-simulate_case_data
+#| fig-cap: Simulated data from logistic model with alpha=-10, beta=2 and alpha=-10, beta=beta_opt
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Inputs : n_events, alpha, beta, random_state
+# Outputs : x, y, prop_y0, prop_y1
+# Objective : Simulate data from a logistic model with given alpha, beta.
+
+def simulate_case_data(n_events, alpha, beta, random_state=42):
+    """
+    Simulate data from a logistic model with given alpha, beta.
+    
+    x ~ Uniform(0, 10), y ~ Bernoulli(pi(x)), 
+    where pi(x) = exp(alpha + beta*x) / (1 + exp(alpha + beta*x)).
+
+    Parameters
+    ----------
+    n_events : int
+        Number of observations (events) to generate.
+    alpha : float
+        Intercept (alpha) for the logistic function.
+    beta : float
+        Slope (beta) for the logistic function.
+    random_state : int
+        Seed for reproducibility.
+
+    Returns
+    -------
+    x : np.ndarray of shape (n_events,)
+        Predictor values sampled from Uniform(0,10).
+    y : np.ndarray of shape (n_events,)
+        Binary outcomes (0 or 1) from Bernoulli trials.
+    prop_y0 : float
+        Proportion of y==0 in the dataset.
+    prop_y1 : float
+        Proportion of y==1 in the dataset.
+    """
+    np.random.seed(random_state)
+    
+    # 1) Draw x from Uniform(0,10)
+    x = np.random.uniform(0, 10, size=n_events)
+    
+    # 2) Compute pi(x, alpha, beta)
+    logit = alpha + beta*x
+    pi = np.exp(logit) / (1.0 + np.exp(logit))
+    
+    # 3) Generate y via Bernoulli(pi)
+    dummy = np.random.rand(n_events)
+    y = (dummy < pi).astype(int)
+    
+    # 4) Calculate proportions of 0 and 1
+    prop_y0 = np.mean(y == 0)
+    prop_y1 = np.mean(y == 1)
+    
+    return x, y, prop_y0, prop_y1
+
+# ---------------- Example usage ----------------
+
+
+# Case A: alpha=-10, beta=2 --> expected ~50:50 distribution
+xA, yA, p0_A, p1_A = simulate_case_data(
+    n_events=50000,
+    alpha=-10,
+    beta=2,
+    random_state=42
+)
+
+# Case B: alpha=-10, beta=3.85 --> expected ~80:20 distribution
+xB, yB, p0_B, p1_B = simulate_case_data(
+    n_events=50000,
+    alpha=-10,
+    beta=beta_opt,
+    random_state=42
+)
+
+# Verify proportions
+
+# Suppose p0_A, p1_A, p0_B, p1_B are already defined
+# e.g., p0_A = 0.50; p1_A = 0.50; p0_B = 0.80; p1_B = 0.20
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))  # 1 row, 2 columns
+
+# -------- LEFT SUBPLOT: Case A -----------
+ax1 = axes[0]
+bar_container_A = ax1.bar(['y=0', 'y=1'], [p0_A, p1_A], color=['steelblue', 'orange'])
+ax1.set_title('Proportion of y=0 and y=1 in Case A')
+ax1.set_xlabel('y')
+ax1.set_ylabel('Proportion')
+ax1.bar_label(bar_container_A, fmt='%.2f')
+
+# -------- RIGHT SUBPLOT: Case B -----------
+ax2 = axes[1]
+bar_container_B = ax2.bar(['y=0', 'y=1'], [p0_B, p1_B], color=['steelblue', 'orange'])
+ax2.set_title('Proportion of y=0 and y=1 in Case B')
+ax2.set_xlabel('y')
+ax2.set_ylabel('Proportion')
+ax2.bar_label(bar_container_B, fmt='%.2f')
+
+plt.tight_layout()  # improves spacing
+plt.show()
+
+
+
+```
+
+
+
+The theoretical properties of the simulated datasets are presented in @fig-plot_logit_vs_x. The left subplot shows the probability of y=1 as a function of x for Case A and Case B. The right subplot shows the logit function as a function of x for Case A and Case B. The logit function is given by $\alpha + \beta x$.
+ 
+```{python}
+#| label: fig-plot_logit_vs_x
+#| fig-cap: Logit vs. x for Case A and Case B
+import numpy as np
+import matplotlib.pyplot as plt
+
+def logistic(x, alpha, beta):
+    return np.exp(alpha + beta*x) / (1.0 + np.exp(alpha + beta*x))
+
+x_values = np.linspace(0, 10, 50000)
+
+# Case A
+alpha_A, beta_A = -10, 2
+pi_A = logistic(x_values, alpha_A, beta_A)
+logit_A = alpha_A + beta_A * x_values
+
+# Case B
+alpha_B, beta_B = -10, beta_opt
+pi_B = logistic(x_values, alpha_B, beta_B)
+logit_B = alpha_B + beta_B * x_values
+
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+# (a) Probability vs. x for Case A
+axes[0, 0].plot(x_values, pi_A, 'r')
+axes[0, 0].set_title('Case A: Probability vs. x')
+axes[0, 0].set_xlabel('x')
+axes[0, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')  # <-- raw string
+# Add horizontal line at y=0.5 and vertical line at x= 5
+axes[0, 0].axhline(y=0.5, color='k', linestyle='--')
+axes[0, 0].axvline(x=5, color='k', linestyle='--')
+# (b) Logit vs. x for Case A
+axes[0, 1].plot(x_values, logit_A, 'r')
+axes[0, 1].set_title('Case A: Logit vs. x')
+axes[0, 1].set_xlabel('x')
+axes[0, 1].set_ylabel(r'$\alpha + \beta x$')      # <-- raw string
+
+# (c) Probability vs. x for Case B
+axes[1, 0].plot(x_values, pi_B, 'r')
+axes[1, 0].set_title('Case B: Probability vs. x')
+axes[1, 0].set_xlabel('x')
+axes[1, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')  # <-- raw string
+# Add horizontal line at y=0.5 and vertical line at x= 5
+axes[1, 0].axhline(y=0.2, color='k', linestyle='--')
+axes[1, 0].axvline(x=5, color='k', linestyle='--')
+
+# (d) Logit vs. x for Case B
+axes[1, 1].plot(x_values, logit_B, 'r')
+axes[1, 1].set_title('Case B: Logit vs. x')
+axes[1, 1].set_xlabel('x')
+axes[1, 1].set_ylabel(r'$\alpha + \beta x$')      # <-- raw string
+
+plt.tight_layout()
+plt.show()
+```
+
+# Methodology
+
+To test the hypothesis that sampling bias controls the optimal class balance required for the best predictive performance of maximum-likelihood logistic regression, samples will be drawn from the two datasets (Case A and Case B) with varying class distributions. The class distributions will be as follows: 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1, respectively.
+
+For each 
