@@ -465,8 +465,7 @@ plt.show()
 We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.
 
 ```{python} 
-#| label: fig-plot_boxplot_metrics_A
-#| fig-cap: Boxplot of performance metrics for Case A sub-samples
+
 
 from sklearn.metrics import (
     roc_auc_score,
