@@ -28,6 +28,7 @@ format:
     theme:
       light: cosmo
       dark: superhero
+    mainfont: Times New Roman
     css: styles.css
     toc: true
     toc-location: left

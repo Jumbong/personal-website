@@ -275,7 +275,7 @@ y(x, \alpha, \beta) =
 \]</span></p>
 <p>where <span class="math inline">\(\text{prop}\)</span> is the proportion of y=1 in the dataset, <span class="math inline">\(x_i\)</span> is the predictor variable, and <span class="math inline">\(n\)</span> is the number of observations.</p>
 <p>The optimization problem can be solved using the <code>scipy.optimize.minimize</code> function with the Nelder-Mead method.</p>
-<div id="018af1d2" class="cell" data-execution_count="1">
+<div id="8b9224bc" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -308,8 +308,8 @@ y(x, \alpha, \beta) =
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> np.mean(y)</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of y=1: </span><span class="sc">{</span>y_mean<span class="sc">:.2f}</span><span class="ss">, y=0: </span><span class="sc">{</span><span class="dv">1</span><span class="op">-</span>y_mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Optimized alpha: -10, beta: [1.236125]
-Proportion of y=1: 0.18, y=0: 0.82</code></pre>
+<pre><code>Optimized alpha: -10, beta: [1.24075]
+Proportion of y=1: 0.19, y=0: 0.81</code></pre>
 </div>
 </div>
 </section>
@@ -403,20 +403,20 @@ Proportion of y=1: 0.18, y=0: 0.82</code></pre>
 <span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppose p0_A, p1_A, p0_B, p1_B are already defined</span></span>
 <span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g., p0_A = 0.50; p1_A = 0.50; p0_B = 0.80; p1_B = 0.20</span></span>
 <span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))  <span class="co"># 1 row, 2 columns</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))  <span class="co"># 1 row, 2 columns</span></span>
 <span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- LEFT SUBPLOT: Case A -----------</span></span>
 <span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>bar_container_A <span class="op">=</span> ax1.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_A, p1_A], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'orange'</span>])</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Proportion of y=0 and y=1 in Case A'</span>)</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>bar_container_A <span class="op">=</span> ax1.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_A, p1_A], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'steelblue'</span>])</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Case A'</span>)</span>
 <span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'y'</span>)</span>
 <span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Proportion'</span>)</span>
 <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>ax1.bar_label(bar_container_A, fmt<span class="op">=</span><span class="st">'</span><span class="sc">%.2f</span><span class="st">'</span>)</span>
 <span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- RIGHT SUBPLOT: Case B -----------</span></span>
 <span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>bar_container_B <span class="op">=</span> ax2.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_B, p1_B], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'orange'</span>])</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Proportion of y=0 and y=1 in Case B'</span>)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>bar_container_B <span class="op">=</span> ax2.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_B, p1_B], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'steelblue'</span>])</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Case B'</span>)</span>
 <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'y'</span>)</span>
 <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Proportion'</span>)</span>
 <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>ax2.bar_label(bar_container_B, fmt<span class="op">=</span><span class="st">'</span><span class="sc">%.2f</span><span class="st">'</span>)</span>
@@ -427,7 +427,7 @@ Proportion of y=1: 0.18, y=0: 0.82</code></pre>
 <div id="fig-simulate_case_data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-simulate_case_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="bias_sample_files/figure-html/fig-simulate_case_data-output-1.png" width="950" height="374" class="figure-img">
+<img src="bias_sample_files/figure-html/fig-simulate_case_data-output-1.png" width="470" height="278" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulate_case_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alpha=-10, beta=beta_opt
@@ -456,7 +456,7 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>pi_B <span class="op">=</span> logistic(x_values, alpha_B, beta_B)</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>logit_B <span class="op">=</span> alpha_B <span class="op">+</span> beta_B <span class="op">*</span> x_values</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) Probability vs. x for Case A</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>, <span class="dv">0</span>].plot(x_values, pi_A, <span class="st">'r'</span>)</span>
@@ -493,7 +493,7 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 <div id="fig-plot_logit_vs_x" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plot_logit_vs_x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="bias_sample_files/figure-html/fig-plot_logit_vs_x-output-1.png" width="948" height="758" class="figure-img">
+<img src="bias_sample_files/figure-html/fig-plot_logit_vs_x-output-1.png" width="477" height="470" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot_logit_vs_x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B

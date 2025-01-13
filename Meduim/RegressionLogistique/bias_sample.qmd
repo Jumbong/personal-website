@@ -5,12 +5,15 @@ author:
   - Jumbong Junior 
 categories: []
 tags: []
-fontsize: 14pt
-title-block-banner: false
-html:
-    code-fold : true
-jupyter: python3
 
+title-block-banner: false
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 16pt
+
+jupyter: python3
+        
 ---
 
 # Introduction 
@@ -221,20 +224,20 @@ xB, yB, p0_B, p1_B = simulate_case_data(
 # Suppose p0_A, p1_A, p0_B, p1_B are already defined
 # e.g., p0_A = 0.50; p1_A = 0.50; p0_B = 0.80; p1_B = 0.20
 
-fig, axes = plt.subplots(1, 2, figsize=(10, 4))  # 1 row, 2 columns
+fig, axes = plt.subplots(1, 2, figsize=(5, 3))  # 1 row, 2 columns
 
 # -------- LEFT SUBPLOT: Case A -----------
 ax1 = axes[0]
-bar_container_A = ax1.bar(['y=0', 'y=1'], [p0_A, p1_A], color=['steelblue', 'orange'])
-ax1.set_title('Proportion of y=0 and y=1 in Case A')
+bar_container_A = ax1.bar(['y=0', 'y=1'], [p0_A, p1_A], color=['steelblue', 'steelblue'])
+ax1.set_title('Case A')
 ax1.set_xlabel('y')
 ax1.set_ylabel('Proportion')
 ax1.bar_label(bar_container_A, fmt='%.2f')
 
 # -------- RIGHT SUBPLOT: Case B -----------
 ax2 = axes[1]
-bar_container_B = ax2.bar(['y=0', 'y=1'], [p0_B, p1_B], color=['steelblue', 'orange'])
-ax2.set_title('Proportion of y=0 and y=1 in Case B')
+bar_container_B = ax2.bar(['y=0', 'y=1'], [p0_B, p1_B], color=['steelblue', 'steelblue'])
+ax2.set_title('Case B')
 ax2.set_xlabel('y')
 ax2.set_ylabel('Proportion')
 ax2.bar_label(bar_container_B, fmt='%.2f')
@@ -271,7 +274,7 @@ alpha_B, beta_B = -10, beta_opt
 pi_B = logistic(x_values, alpha_B, beta_B)
 logit_B = alpha_B + beta_B * x_values
 
-fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+fig, axes = plt.subplots(2, 2, figsize=(5, 5))
 
 # (a) Probability vs. x for Case A
 axes[0, 0].plot(x_values, pi_A, 'r')
@@ -310,4 +313,294 @@ plt.show()
 
 To test the hypothesis that sampling bias controls the optimal class balance required for the best predictive performance of maximum-likelihood logistic regression, samples will be drawn from the two datasets (Case A and Case B) with varying class distributions. The class distributions will be as follows: 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1, respectively.
 
-For each 
+For each each class sample distribution, 1000 monte-carlo simulations will be carried out and for each simulation the maximum-likelihood logistic regression model will be fitted. The predictive performance of the model will be evaluated using AUC(Area Under the Curve), AU-PCR(Area Under the Precision-Recall Curve), Precision, Recall, F1-score. Those metrics are computed from elements of the confusion matrix : True Positive (TP), False Positive (FP), True Negative (TN), False Negative (FN). The confusion matrix is the matrix with the observed in columns and the predicted in rows. 
+
+# Results
+
+## Case A : Balanced Dataset
+
+The Case A dataset has a balanced class distribution of 50:50. This will be the true distribution of the dataset. Eight random samples will be extracted from the Case A population with varying class distributions of 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1. 
+A sample with a class distributiion of 60:40 from the Case A is referred as $A_{60:40}$.
+The sample size for each of the eight samples is determinded by fixing the lenght of the majority class (class 0) at 5000. In order word, for the $A_{60:40}$ sample, the number of observations in class 0 is 5000 and the number of observations in class 1 is :
+
+$$
+\text{Number of observations in class 1} = \frac{40}{60} \times 5000 = 3333
+$$
+
+### Eight sub-samples generated from Case A.
+
+The code below generates the eight sub-samples from the Case A dataset with varying class distributions. 
+
+```{python}
+# Case A: Balanced dataset
+# Inputs : dependent variable y_A, independent variable x_A, majority_class_size0 = 5000, fraction_class0 = 0.5, random_state = 42
+# Outputs : X_sub, y_sub
+
+def create_subsample_fixed_majority(
+    X, y, 
+    fraction_class0=0.6,  # e.g., 0.6 => 60:40
+    majority_class0_size=5000,
+    random_state=42
+):
+    """
+    Extract a subsample where the number of class-0 = majority_class0_size,
+    and overall fraction of class-0 is fraction_class0.
+    
+    Returns X_sub, y_sub.
+    """
+    np.random.seed(random_state)
+    
+    # Indices of class 0 and 1 in the population
+    idx_0 = np.where(y == 0)[0]
+    idx_1 = np.where(y == 1)[0]
+    
+    # We fix #class0 = 5000
+    n0 = majority_class0_size
+    
+    # fraction_class0 = n0 / (n0 + n1) => n1 = n0 * (1 - p)/p
+    p = fraction_class0
+    n1 = int(round(n0 * (1 - p) / p))
+    
+    chosen_0 = np.random.choice(idx_0, size=n0, replace=False)
+    chosen_1 = np.random.choice(idx_1, size=n1, replace=False)
+    
+    chosen_indices = np.concatenate([chosen_0, chosen_1])
+    np.random.shuffle(chosen_indices)
+    
+    return X[chosen_indices], y[chosen_indices]
+```
+
+The code below generates the eight sub-samples from the Case A dataset with varying class distributions.
+
+```{python}
+# Module : Generation
+# Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.
+# Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).
+
+fractions_class0 = [0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.98, 0.99]
+
+samples_A = {}
+for frac0 in fractions_class0:
+    X_sub, y_sub = create_subsample_fixed_majority(
+        xA, yA, 
+        fraction_class0=frac0, 
+        majority_class0_size=5000,
+        random_state=42
+    )
+    # Store or process each sample
+    samples_A[frac0] = (X_sub, y_sub)
+    
+    # Print actual distribution
+    actual_n0 = np.sum(y_sub == 0)
+    actual_n1 = np.sum(y_sub == 1)
+    print(f"Desired ratio {int(frac0*100)}:{int((1-frac0)*100)}",
+          f" => #class0={actual_n0}, #class1={actual_n1}, total={len(y_sub)}",
+          f" => ratio0={actual_n0/len(y_sub):.3f}, ratio1={actual_n1/len(y_sub):.3f}")
+```
+
+A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true $p(x)$ versus the estimated $p(x)$ is presented in @fig-plot_true_vs_estimated_p_A.
+
+```{python}
+#| label: fig-plot_true_vs_estimated_p_A
+#| fig-cap: True vs. estimated p(x) for Case A sub-samples
+
+import numpy as np
+import pandas as pd 
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+
+# Inputs : samples_A, fractions_class0
+# Outputs : fig
+
+
+
+
+# For illustration, let's create a 2 x 4 grid to show all eight ratio-samples
+fig, axes = plt.subplots(nrows=4, ncols=2, figsize=(6,8))
+axes = axes.ravel()  # flatten into 1D array [ax0, ax1, ..., ax7]
+
+# Hardcode alpha=-10, beta=2 for "true" logistic in Case A
+ALPHA_TRUE = -10
+BETA_TRUE  = 2
+
+for i, (label, (X_sub, y_sub)) in enumerate(samples_A.items()):
+    ax = axes[i]
+    
+    # 1) Put the data into a DataFrame for convenience
+    df_sub = pd.DataFrame({
+        'X': X_sub,       # predictor
+        'y': y_sub        # binary outcome
+    })
+    
+    # 2) Add a constant column for the intercept in statsmodels
+    df_sub = sm.add_constant(df_sub, has_constant='add')  
+    # Now df_sub has columns ['const', 'X', 'y']
+    
+    # 3) Fit the logistic model
+    model = sm.Logit(df_sub['y'], df_sub[['const', 'X']])
+    results = model.fit(disp=False)  # disp=False to suppress output
+    
+    # 4) Predict the fitted probability
+    df_sub['pi_pred'] = results.predict(df_sub[['const', 'X']])
+    
+    # 5) Compute the "true" pi for comparison
+    df_sub['pi_true'] = logistic(df_sub['X'].values, alpha=ALPHA_TRUE, beta=BETA_TRUE)
+    
+    # 6) Plot pi_true vs. pi_pred
+    ax.scatter(df_sub['pi_true'], df_sub['pi_pred'], 
+               alpha=0.3, s=10, color='blue', edgecolors='none')
+    # Add a diagonal line for reference
+    ax.plot([0, 1], [0, 1], color='black', linestyle='--')
+    # 7) Decorate the subplot
+    ax.set_xlabel("True pi(x)")
+    ax.set_ylabel("Predicted pi_hat(x)")
+    ax.set_title(f"{label}")  # e.g., "Case A60:40"
+
+plt.tight_layout()
+plt.show()
+```
+
+### Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.
+
+We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.
+
+```{python} 
+#| label: fig-plot_boxplot_metrics_A
+#| fig-cap: Boxplot of performance metrics for Case A sub-samples
+
+from sklearn.metrics import (
+    roc_auc_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    average_precision_score
+)
+
+def evaluate_model_performance(y_true, y_proba, threshold=0.5):
+    """
+    Given true labels and predicted probabilities, compute AUC, AU-PRC,
+    Precision, Recall, and F1 at a chosen threshold.
+    """
+    # 1) AUC (ROC)
+    auc = roc_auc_score(y_true, y_proba)
+    
+    # 2) AU-PRC (average precision)
+    auprc = average_precision_score(y_true, y_proba)
+    
+    # 3) Convert probas -> hard predictions
+    y_pred = (y_proba >= threshold).astype(int)
+    
+    # 4) Precision, Recall, F1
+    prec = precision_score(y_true, y_pred, zero_division=0)
+    rec  = recall_score(y_true, y_pred, zero_division=0)
+    f1   = f1_score(y_true, y_pred, zero_division=0)
+    
+    return auc, auprc, prec, rec, f1
+
+from sklearn.model_selection import train_test_split
+
+MC_RUNS = 1000
+SAMPLE_SIZE = 5000  # e.g., majority class size if using a fixed majority approach
+ratios = [0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.98, 0.99]
+results_list = []
+
+for r in ratios:
+    for mc_i in range(MC_RUNS):
+        # 1) Create a random subsample
+        #    Use None or vary random_state so each iteration is unique
+        X_sub, y_sub = create_subsample_fixed_majority(
+            xA, yA,
+            fraction_class0=r,
+            majority_class0_size=SAMPLE_SIZE,
+            random_state=None
+        )
+        
+        # 2) Split the subsample into train/test
+        #    stratify ensures class distribution is preserved
+        X_train, X_test, y_train, y_test = train_test_split(
+            X_sub,
+            y_sub,
+            test_size=0.3,
+            random_state=None,
+            stratify=y_sub
+        )
+        
+        # Prepare DataFrame for the training set
+        df_train = pd.DataFrame({'X': X_train, 'y': y_train})
+        df_train = sm.add_constant(df_train, prepend=True, has_constant='add')  
+        # => columns: ['const', 'X', 'y']
+        
+        # 3) Fit logistic regression on the TRAIN portion
+        logit_model = sm.Logit(df_train['y'], df_train[['const', 'X']])
+        result = logit_model.fit(disp=False)
+        
+        # 4) Predict probabilities on the TEST portion
+        df_test = pd.DataFrame({'X': X_test})
+        df_test = sm.add_constant(df_test, prepend=True, has_constant='add')
+        
+        y_proba_test = result.predict(df_test[['const', 'X']])
+        
+        # 5) Evaluate performance metrics on the TEST set
+        auc, auprc, prec, rec, f1 = evaluate_model_performance(y_test, y_proba_test, threshold=0.5)
+        
+        # 6) Store results
+        results_list.append({
+            'ratio_0': r,
+            'auc': auc,
+            'auprc': auprc,
+            'precision': prec,
+            'recall': rec,
+            'f1': f1
+        })
+
+# Convert collected results to a DataFrame
+df_results = pd.DataFrame(results_list)
+df_results.head()
+
+```
+
+The boxplot of the performance metrics for each of the eight sub-samples from Case A is presented in @fig-plot_boxplot_metrics_A.
+
+```{python}
+#| label: fig-plot_boxplot_metrics_A
+#| fig-cap: Boxplot of performance metrics for Case A sub-samples
+
+# Module : Plotting
+# Inputs : df_results, ratios
+# Outputs : a boxplot 4x2 of the performances metrics for each ratio.
+# Objective : Filter the results for each ratio and plot the boxplot of the performance metrics. the results must be fig, axes = plt.subplots(4,2, figsize=(10,12)).
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Suppose 'df_results' contains columns: ratio_0, auc, auprc, precision, recall, f1
+# Suppose 'ratios' = [0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.98, 0.99]
+
+fig, axes = plt.subplots(nrows=4, ncols=2, figsize=(10, 12))
+axes = axes.ravel()  # Flatten (4x2) -> (8,)
+
+metrics = ['auc', 'auprc', 'precision', 'recall', 'f1']  # which metrics to show
+
+for i, ratio in enumerate(ratios):
+    ax = axes[i]
+    
+    # Filter df_results for the current ratio
+    df_ratio = df_results[df_results['ratio_0'] == ratio]
+    print(df_ratio[['auc','auprc','precision','recall','f1']].std()
+)
+    # We can make a new df that includes only the metrics we want
+    # For instance, to get boxplot of [auc, auprc, precision, recall, f1]:
+    # one approach: melt the dataframe so we have columns: [metric, value]
+    df_melt = df_ratio[metrics].melt(var_name='Metric', value_name='Value')
+    
+    # Create a boxplot on this subplot
+    sns.boxplot(data=df_melt, x='Metric', y='Value', ax=ax)
+    
+    ax.set_title(f"Ratio_0 = {ratio:.2f}")
+    ax.set_xlabel("")
+    ax.set_ylabel("Performance Value")
+    # Optionally rotate x-labels if you have many metrics
+    ax.tick_params(axis='x', rotation=20)
+
+plt.tight_layout()
+plt.show()
+```
