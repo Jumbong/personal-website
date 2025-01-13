@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -104,6 +104,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -190,6 +193,14 @@ window.Quarto = {
   <li><a href="#simulated-data-generation-with-alpha--10" id="toc-simulated-data-generation-with-alpha--10" class="nav-link" data-scroll-target="#simulated-data-generation-with-alpha--10">Simulated Data Generation with <span class="math inline">\(\alpha = -10\)</span></a></li>
   </ul></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#case-a-balanced-dataset" id="toc-case-a-balanced-dataset" class="nav-link" data-scroll-target="#case-a-balanced-dataset">Case A : Balanced Dataset</a>
+  <ul class="collapse">
+  <li><a href="#eight-sub-samples-generated-from-case-a." id="toc-eight-sub-samples-generated-from-case-a." class="nav-link" data-scroll-target="#eight-sub-samples-generated-from-case-a.">Eight sub-samples generated from Case A.</a></li>
+  <li><a href="#distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations." id="toc-distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations." class="nav-link" data-scroll-target="#distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -275,7 +286,7 @@ y(x, \alpha, \beta) =
 \]</span></p>
 <p>where <span class="math inline">\(\text{prop}\)</span> is the proportion of y=1 in the dataset, <span class="math inline">\(x_i\)</span> is the predictor variable, and <span class="math inline">\(n\)</span> is the number of observations.</p>
 <p>The optimization problem can be solved using the <code>scipy.optimize.minimize</code> function with the Nelder-Mead method.</p>
-<div id="018af1d2" class="cell" data-execution_count="1">
+<div id="5e77644b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -308,8 +319,8 @@ y(x, \alpha, \beta) =
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> np.mean(y)</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of y=1: </span><span class="sc">{</span>y_mean<span class="sc">:.2f}</span><span class="ss">, y=0: </span><span class="sc">{</span><span class="dv">1</span><span class="op">-</span>y_mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Optimized alpha: -10, beta: [1.236125]
-Proportion of y=1: 0.18, y=0: 0.82</code></pre>
+<pre><code>Optimized alpha: -10, beta: [1.24175]
+Proportion of y=1: 0.20, y=0: 0.80</code></pre>
 </div>
 </div>
 </section>
@@ -403,20 +414,20 @@ Proportion of y=1: 0.18, y=0: 0.82</code></pre>
 <span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppose p0_A, p1_A, p0_B, p1_B are already defined</span></span>
 <span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g., p0_A = 0.50; p1_A = 0.50; p0_B = 0.80; p1_B = 0.20</span></span>
 <span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))  <span class="co"># 1 row, 2 columns</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))  <span class="co"># 1 row, 2 columns</span></span>
 <span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- LEFT SUBPLOT: Case A -----------</span></span>
 <span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>bar_container_A <span class="op">=</span> ax1.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_A, p1_A], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'orange'</span>])</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Proportion of y=0 and y=1 in Case A'</span>)</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>bar_container_A <span class="op">=</span> ax1.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_A, p1_A], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'steelblue'</span>])</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Case A'</span>)</span>
 <span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'y'</span>)</span>
 <span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Proportion'</span>)</span>
 <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>ax1.bar_label(bar_container_A, fmt<span class="op">=</span><span class="st">'</span><span class="sc">%.2f</span><span class="st">'</span>)</span>
 <span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- RIGHT SUBPLOT: Case B -----------</span></span>
 <span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>bar_container_B <span class="op">=</span> ax2.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_B, p1_B], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'orange'</span>])</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Proportion of y=0 and y=1 in Case B'</span>)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>bar_container_B <span class="op">=</span> ax2.bar([<span class="st">'y=0'</span>, <span class="st">'y=1'</span>], [p0_B, p1_B], color<span class="op">=</span>[<span class="st">'steelblue'</span>, <span class="st">'steelblue'</span>])</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Case B'</span>)</span>
 <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'y'</span>)</span>
 <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Proportion'</span>)</span>
 <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>ax2.bar_label(bar_container_B, fmt<span class="op">=</span><span class="st">'</span><span class="sc">%.2f</span><span class="st">'</span>)</span>
@@ -427,7 +438,7 @@ Proportion of y=1: 0.18, y=0: 0.82</code></pre>
 <div id="fig-simulate_case_data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-simulate_case_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="bias_sample_files/figure-html/fig-simulate_case_data-output-1.png" width="950" height="374" class="figure-img">
+<img src="bias_sample_files/figure-html/fig-simulate_case_data-output-1.png" width="470" height="278" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulate_case_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alpha=-10, beta=beta_opt
@@ -456,7 +467,7 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>pi_B <span class="op">=</span> logistic(x_values, alpha_B, beta_B)</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>logit_B <span class="op">=</span> alpha_B <span class="op">+</span> beta_B <span class="op">*</span> x_values</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) Probability vs. x for Case A</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>, <span class="dv">0</span>].plot(x_values, pi_A, <span class="st">'r'</span>)</span>
@@ -493,7 +504,7 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 <div id="fig-plot_logit_vs_x" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plot_logit_vs_x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="bias_sample_files/figure-html/fig-plot_logit_vs_x-output-1.png" width="948" height="758" class="figure-img">
+<img src="bias_sample_files/figure-html/fig-plot_logit_vs_x-output-1.png" width="477" height="470" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot_logit_vs_x-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
@@ -507,9 +518,430 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <section id="methodology" class="level1">
 <h1>Methodology</h1>
 <p>To test the hypothesis that sampling bias controls the optimal class balance required for the best predictive performance of maximum-likelihood logistic regression, samples will be drawn from the two datasets (Case A and Case B) with varying class distributions. The class distributions will be as follows: 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1, respectively.</p>
-<p>For each</p>
+<p>For each each class sample distribution, 1000 monte-carlo simulations will be carried out and for each simulation the maximum-likelihood logistic regression model will be fitted. The predictive performance of the model will be evaluated using AUC(Area Under the Curve), AU-PCR(Area Under the Precision-Recall Curve), Precision, Recall, F1-score. Those metrics are computed from elements of the confusion matrix : True Positive (TP), False Positive (FP), True Negative (TN), False Negative (FN). The confusion matrix is the matrix with the observed in columns and the predicted in rows.</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="case-a-balanced-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="case-a-balanced-dataset">Case A : Balanced Dataset</h2>
+<p>The Case A dataset has a balanced class distribution of 50:50. This will be the true distribution of the dataset. Eight random samples will be extracted from the Case A population with varying class distributions of 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1. A sample with a class distributiion of 60:40 from the Case A is referred as <span class="math inline">\(A_{60:40}\)</span>. The sample size for each of the eight samples is determinded by fixing the lenght of the majority class (class 0) at 5000. In order word, for the <span class="math inline">\(A_{60:40}\)</span> sample, the number of observations in class 0 is 5000 and the number of observations in class 1 is :</p>
+<p><span class="math display">\[
+\text{Number of observations in class 1} = \frac{40}{60} \times 5000 = 3333
+\]</span></p>
+<section id="eight-sub-samples-generated-from-case-a." class="level3">
+<h3 class="anchored" data-anchor-id="eight-sub-samples-generated-from-case-a.">Eight sub-samples generated from Case A.</h3>
+<p>The code below generates the eight sub-samples from the Case A dataset with varying class distributions.</p>
+<div id="20f78107" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Case A: Balanced dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : dependent variable y_A, independent variable x_A, majority_class_size0 = 5000, fraction_class0 = 0.5, random_state = 42</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs : X_sub, y_sub</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_subsample_fixed_majority(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    X, y, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    fraction_class0<span class="op">=</span><span class="fl">0.6</span>,  <span class="co"># e.g., 0.6 =&gt; 60:40</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    majority_class0_size<span class="op">=</span><span class="dv">5000</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Extract a subsample where the number of class-0 = majority_class0_size,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">    and overall fraction of class-0 is fraction_class0.</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns X_sub, y_sub.</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    np.random.seed(random_state)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Indices of class 0 and 1 in the population</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    idx_0 <span class="op">=</span> np.where(y <span class="op">==</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    idx_1 <span class="op">=</span> np.where(y <span class="op">==</span> <span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We fix #class0 = 5000</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    n0 <span class="op">=</span> majority_class0_size</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fraction_class0 = n0 / (n0 + n1) =&gt; n1 = n0 * (1 - p)/p</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> fraction_class0</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    n1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">round</span>(n0 <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> p) <span class="op">/</span> p))</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    chosen_0 <span class="op">=</span> np.random.choice(idx_0, size<span class="op">=</span>n0, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    chosen_1 <span class="op">=</span> np.random.choice(idx_1, size<span class="op">=</span>n1, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    chosen_indices <span class="op">=</span> np.concatenate([chosen_0, chosen_1])</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(chosen_indices)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X[chosen_indices], y[chosen_indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The code below generates the eight sub-samples from the Case A dataset with varying class distributions.</p>
+<div id="a826d4b9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Generation</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>fractions_class0 <span class="op">=</span> [<span class="fl">0.50</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.98</span>, <span class="fl">0.99</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>samples_A <span class="op">=</span> {}</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> frac0 <span class="kw">in</span> fractions_class0:</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    X_sub, y_sub <span class="op">=</span> create_subsample_fixed_majority(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        xA, yA, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        fraction_class0<span class="op">=</span>frac0, </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        majority_class0_size<span class="op">=</span><span class="dv">5000</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store or process each sample</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    samples_A[frac0] <span class="op">=</span> (X_sub, y_sub)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print actual distribution</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    actual_n0 <span class="op">=</span> np.<span class="bu">sum</span>(y_sub <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    actual_n1 <span class="op">=</span> np.<span class="bu">sum</span>(y_sub <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Desired ratio </span><span class="sc">{</span><span class="bu">int</span>(frac0<span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span><span class="bu">int</span>((<span class="dv">1</span><span class="op">-</span>frac0)<span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f" =&gt; #class0=</span><span class="sc">{</span>actual_n0<span class="sc">}</span><span class="ss">, #class1=</span><span class="sc">{</span>actual_n1<span class="sc">}</span><span class="ss">, total=</span><span class="sc">{</span><span class="bu">len</span>(y_sub)<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f" =&gt; ratio0=</span><span class="sc">{</span>actual_n0<span class="op">/</span><span class="bu">len</span>(y_sub)<span class="sc">:.3f}</span><span class="ss">, ratio1=</span><span class="sc">{</span>actual_n1<span class="op">/</span><span class="bu">len</span>(y_sub)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Desired ratio 50:50  =&gt; #class0=5000, #class1=5000, total=10000  =&gt; ratio0=0.500, ratio1=0.500
+Desired ratio 60:40  =&gt; #class0=5000, #class1=3333, total=8333  =&gt; ratio0=0.600, ratio1=0.400
+Desired ratio 70:30  =&gt; #class0=5000, #class1=2143, total=7143  =&gt; ratio0=0.700, ratio1=0.300
+Desired ratio 80:19  =&gt; #class0=5000, #class1=1250, total=6250  =&gt; ratio0=0.800, ratio1=0.200
+Desired ratio 90:9  =&gt; #class0=5000, #class1=556, total=5556  =&gt; ratio0=0.900, ratio1=0.100
+Desired ratio 95:5  =&gt; #class0=5000, #class1=263, total=5263  =&gt; ratio0=0.950, ratio1=0.050
+Desired ratio 98:2  =&gt; #class0=5000, #class1=102, total=5102  =&gt; ratio0=0.980, ratio1=0.020
+Desired ratio 99:1  =&gt; #class0=5000, #class1=51, total=5051  =&gt; ratio0=0.990, ratio1=0.010</code></pre>
+</div>
+</div>
+<p>A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true <span class="math inline">\(p(x)\)</span> versus the estimated <span class="math inline">\(p(x)\)</span> is presented in <strong>?@fig-plot_true_vs_estimated_p_A</strong>.</p>
+<div id="cell-fig-plot_true_vs_estimated_p_A" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : samples_A, fractions_class0</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs : fig</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># For illustration, let's create a 2 x 4 grid to show all eight ratio-samples</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">4</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">8</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.ravel()  <span class="co"># flatten into 1D array [ax0, ax1, ..., ax7]</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Hardcode alpha=-10, beta=2 for "true" logistic in Case A</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>ALPHA_TRUE <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>BETA_TRUE  <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (label, (X_sub, y_sub)) <span class="kw">in</span> <span class="bu">enumerate</span>(samples_A.items()):</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1) Put the data into a DataFrame for convenience</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    df_sub <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'X'</span>: X_sub,       <span class="co"># predictor</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">'y'</span>: y_sub        <span class="co"># binary outcome</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2) Add a constant column for the intercept in statsmodels</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    df_sub <span class="op">=</span> sm.add_constant(df_sub, has_constant<span class="op">=</span><span class="st">'add'</span>)  </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Now df_sub has columns ['const', 'X', 'y']</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3) Fit the logistic model</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> sm.Logit(df_sub[<span class="st">'y'</span>], df_sub[[<span class="st">'const'</span>, <span class="st">'X'</span>]])</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)  <span class="co"># disp=False to suppress output</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4) Predict the fitted probability</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    df_sub[<span class="st">'pi_pred'</span>] <span class="op">=</span> results.predict(df_sub[[<span class="st">'const'</span>, <span class="st">'X'</span>]])</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5) Compute the "true" pi for comparison</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    df_sub[<span class="st">'pi_true'</span>] <span class="op">=</span> logistic(df_sub[<span class="st">'X'</span>].values, alpha<span class="op">=</span>ALPHA_TRUE, beta<span class="op">=</span>BETA_TRUE)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 6) Plot pi_true vs. pi_pred</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    ax.scatter(df_sub[<span class="st">'pi_true'</span>], df_sub[<span class="st">'pi_pred'</span>], </span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>               alpha<span class="op">=</span><span class="fl">0.3</span>, s<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'blue'</span>, edgecolors<span class="op">=</span><span class="st">'none'</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a diagonal line for reference</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    ax.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 7) Decorate the subplot</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"True pi(x)"</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Predicted pi_hat(x)"</span>)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># e.g., "Case A60:40"</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-plot_true_vs_estimated_p_a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot_true_vs_estimated_p_a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="bias_sample_files/figure-html/fig-plot_true_vs_estimated_p_a-output-1.png" width="566" height="758" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot_true_vs_estimated_p_a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: True vs.&nbsp;estimated p(x) for Case A sub-samples
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations." class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.</h3>
+<p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.</p>
+<div id="a0dcf3da" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    roc_auc_score,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    precision_score,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    recall_score,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    f1_score,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    average_precision_score</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_model_performance(y_true, y_proba, threshold<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Given true labels and predicted probabilities, compute AUC, AU-PRC,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Precision, Recall, and F1 at a chosen threshold.</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1) AUC (ROC)</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    auc <span class="op">=</span> roc_auc_score(y_true, y_proba)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2) AU-PRC (average precision)</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    auprc <span class="op">=</span> average_precision_score(y_true, y_proba)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3) Convert probas -&gt; hard predictions</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> (y_proba <span class="op">&gt;=</span> threshold).astype(<span class="bu">int</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4) Precision, Recall, F1</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    prec <span class="op">=</span> precision_score(y_true, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    rec  <span class="op">=</span> recall_score(y_true, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    f1   <span class="op">=</span> f1_score(y_true, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> auc, auprc, prec, rec, f1</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>MC_RUNS <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>SAMPLE_SIZE <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># e.g., majority class size if using a fixed majority approach</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> [<span class="fl">0.50</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.98</span>, <span class="fl">0.99</span>]</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>results_list <span class="op">=</span> []</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> ratios:</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mc_i <span class="kw">in</span> <span class="bu">range</span>(MC_RUNS):</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 1) Create a random subsample</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>        <span class="co">#    Use None or vary random_state so each iteration is unique</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>        X_sub, y_sub <span class="op">=</span> create_subsample_fixed_majority(</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>            xA, yA,</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>            fraction_class0<span class="op">=</span>r,</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>            majority_class0_size<span class="op">=</span>SAMPLE_SIZE,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="va">None</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2) Split the subsample into train/test</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">#    stratify ensures class distribution is preserved</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>            X_sub,</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>            y_sub,</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>            test_size<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>            stratify<span class="op">=</span>y_sub</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare DataFrame for the training set</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>        df_train <span class="op">=</span> pd.DataFrame({<span class="st">'X'</span>: X_train, <span class="st">'y'</span>: y_train})</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>        df_train <span class="op">=</span> sm.add_constant(df_train, prepend<span class="op">=</span><span class="va">True</span>, has_constant<span class="op">=</span><span class="st">'add'</span>)  </span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># =&gt; columns: ['const', 'X', 'y']</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3) Fit logistic regression on the TRAIN portion</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>        logit_model <span class="op">=</span> sm.Logit(df_train[<span class="st">'y'</span>], df_train[[<span class="st">'const'</span>, <span class="st">'X'</span>]])</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> logit_model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 4) Predict probabilities on the </span><span class="al">TEST</span><span class="co"> portion</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>        df_test <span class="op">=</span> pd.DataFrame({<span class="st">'X'</span>: X_test})</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        df_test <span class="op">=</span> sm.add_constant(df_test, prepend<span class="op">=</span><span class="va">True</span>, has_constant<span class="op">=</span><span class="st">'add'</span>)</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>        y_proba_test <span class="op">=</span> result.predict(df_test[[<span class="st">'const'</span>, <span class="st">'X'</span>]])</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 5) Evaluate performance metrics on the </span><span class="al">TEST</span><span class="co"> set</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>        auc, auprc, prec, rec, f1 <span class="op">=</span> evaluate_model_performance(y_test, y_proba_test, threshold<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 6) Store results</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>        results_list.append({</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>            <span class="st">'ratio_0'</span>: r,</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>            <span class="st">'auc'</span>: auc,</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>            <span class="st">'auprc'</span>: auprc,</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">'precision'</span>: prec,</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">'recall'</span>: rec,</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">'f1'</span>: f1</span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert collected results to a DataFrame</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>df_results <span class="op">=</span> pd.DataFrame(results_list)</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>df_results.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ratio_0</th>
+<th data-quarto-table-cell-role="th">auc</th>
+<th data-quarto-table-cell-role="th">auprc</th>
+<th data-quarto-table-cell-role="th">precision</th>
+<th data-quarto-table-cell-role="th">recall</th>
+<th data-quarto-table-cell-role="th">f1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.5</td>
+<td>0.981480</td>
+<td>0.981799</td>
+<td>0.921699</td>
+<td>0.926000</td>
+<td>0.923844</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.5</td>
+<td>0.986999</td>
+<td>0.987421</td>
+<td>0.936327</td>
+<td>0.931333</td>
+<td>0.933824</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.5</td>
+<td>0.983871</td>
+<td>0.983998</td>
+<td>0.933868</td>
+<td>0.932000</td>
+<td>0.932933</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.5</td>
+<td>0.986359</td>
+<td>0.987016</td>
+<td>0.932450</td>
+<td>0.938667</td>
+<td>0.935548</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.5</td>
+<td>0.986392</td>
+<td>0.986549</td>
+<td>0.931968</td>
+<td>0.940667</td>
+<td>0.936297</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The boxplot of the performance metrics for each of the eight sub-samples from Case A is presented in <strong>?@fig-plot_boxplot_metrics_A</strong>.</p>
+<div id="cell-fig-plot_boxplot_metrics_A" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Plotting</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : df_results, ratios</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs : a boxplot 4x2 of the performances metrics for each ratio.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Filter the results for each ratio and plot the boxplot of the performance metrics. the results must be fig, axes = plt.subplots(4,2, figsize=(10,12)).</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppose 'df_results' contains columns: ratio_0, auc, auprc, precision, recall, f1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppose 'ratios' = [0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.98, 0.99]</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">4</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">12</span>))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.ravel()  <span class="co"># Flatten (4x2) -&gt; (8,)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> [<span class="st">'auc'</span>, <span class="st">'auprc'</span>, <span class="st">'precision'</span>, <span class="st">'recall'</span>, <span class="st">'f1'</span>]  <span class="co"># which metrics to show</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ratio <span class="kw">in</span> <span class="bu">enumerate</span>(ratios):</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter df_results for the current ratio</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    df_ratio <span class="op">=</span> df_results[df_results[<span class="st">'ratio_0'</span>] <span class="op">==</span> ratio]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df_ratio[[<span class="st">'auc'</span>,<span class="st">'auprc'</span>,<span class="st">'precision'</span>,<span class="st">'recall'</span>,<span class="st">'f1'</span>]].std()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We can make a new df that includes only the metrics we want</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For instance, to get boxplot of [auc, auprc, precision, recall, f1]:</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># one approach: melt the dataframe so we have columns: [metric, value]</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    df_melt <span class="op">=</span> df_ratio[metrics].melt(var_name<span class="op">=</span><span class="st">'Metric'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a boxplot on this subplot</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    sns.boxplot(data<span class="op">=</span>df_melt, x<span class="op">=</span><span class="st">'Metric'</span>, y<span class="op">=</span><span class="st">'Value'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"Ratio_0 = </span><span class="sc">{</span>ratio<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">""</span>)</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Performance Value"</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optionally rotate x-labels if you have many metrics</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>auc          0.001527
+auprc        0.001499
+precision    0.006325
+recall       0.006745
+f1           0.004427
+dtype: float64
+auc          0.001762
+auprc        0.002396
+precision    0.008276
+recall       0.009666
+f1           0.006122
+dtype: float64
+auc          0.002168
+auprc        0.004055
+precision    0.011298
+recall       0.013842
+f1           0.009049
+dtype: float64
+auc          0.002591
+auprc        0.006804
+precision    0.015962
+recall       0.019797
+f1           0.012994
+dtype: float64
+auc          0.003665
+auprc        0.015293
+precision    0.025765
+recall       0.034871
+f1           0.023825
+dtype: float64
+auc          0.005481
+auprc        0.029534
+precision    0.039406
+recall       0.053686
+f1           0.038613
+dtype: float64
+auc          0.008155
+auprc        0.061111
+precision    0.072217
+recall       0.090414
+f1           0.071070
+dtype: float64
+auc          0.011382
+auprc        0.100393
+precision    0.108544
+recall       0.131241
+f1           0.109618
+dtype: float64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-plot_boxplot_metrics_a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot_boxplot_metrics_a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="bias_sample_files/figure-html/fig-plot_boxplot_metrics_a-output-2.png" width="950" height="1142" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot_boxplot_metrics_a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Boxplot of performance metrics for Case A sub-samples
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
