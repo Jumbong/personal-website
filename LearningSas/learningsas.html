@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jumbong Junior">
 
-<title>Jumbong Junior</title>
+<title>Learning SAS – Jumbong Junior</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +21,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./flavicon.jpeg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -81,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Jumbong Junior</span>
     </a>
   </div>
@@ -92,15 +127,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index_gdr.html"> 
+    <a class="nav-link" href="../index_gdr.html"> 
 <span class="menu-text">Gestion des risques</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">A propos de moi</span></a>
   </li>  
 </ul>
@@ -119,13 +154,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#meduim-publications" id="toc-meduim-publications" class="nav-link active" data-scroll-target="#meduim-publications">Meduim Publications</a></li>
-  <li><a href="#apprentissage-supervisée" id="toc-apprentissage-supervisée" class="nav-link" data-scroll-target="#apprentissage-supervisée">Apprentissage supervisée</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#régressions" id="toc-régressions" class="nav-link" data-scroll-target="#régressions">Régressions</a></li>
-  <li><a href="#classifications" id="toc-classifications" class="nav-link" data-scroll-target="#classifications">Classifications</a></li>
+  <li><a href="#libname" id="toc-libname" class="nav-link" data-scroll-target="#libname">Libname</a></li>
   </ul></li>
-  <li><a href="#learning-sas" id="toc-learning-sas" class="nav-link" data-scroll-target="#learning-sas"></a><a href="./LearningSas/learningsas.html" target="_self" class="nav-link" data-scroll-target="./LearningSas/learningsas.html">Learning Sas</a></li>
+  <li><a href="#data-step" id="toc-data-step" class="nav-link" data-scroll-target="#data-step">Data Step</a>
+  <ul class="collapse">
+  <li><a href="#operator-summary-table" id="toc-operator-summary-table" class="nav-link" data-scroll-target="#operator-summary-table">Operator summary table</a>
+  <ul class="collapse">
+  <li><a href="#table-of-comparison-operators" id="toc-table-of-comparison-operators" class="nav-link" data-scroll-target="#table-of-comparison-operators">Table of comparison operators</a></li>
+  <li><a href="#logical-operators-table" id="toc-logical-operators-table" class="nav-link" data-scroll-target="#logical-operators-table">Logical operators table</a></li>
+  <li><a href="#arithmetic-operators-table" id="toc-arithmetic-operators-table" class="nav-link" data-scroll-target="#arithmetic-operators-table">Arithmetic operators table</a></li>
+  <li><a href="#operator-of-concatenation" id="toc-operator-of-concatenation" class="nav-link" data-scroll-target="#operator-of-concatenation">Operator of concatenation</a></li>
+  </ul></li>
+  <li><a href="#variables-selection" id="toc-variables-selection" class="nav-link" data-scroll-target="#variables-selection">Variables Selection</a></li>
+  <li><a href="#observation-filtration" id="toc-observation-filtration" class="nav-link" data-scroll-target="#observation-filtration">Observation filtration</a></li>
+  <li><a href="#compute-the-cumulative-sum-by-group-of-a-variable." id="toc-compute-the-cumulative-sum-by-group-of-a-variable." class="nav-link" data-scroll-target="#compute-the-cumulative-sum-by-group-of-a-variable.">Compute the cumulative sum by group of a variable.</a></li>
+  <li><a href="#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." id="toc-compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." class="nav-link" data-scroll-target="#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.">Compute the frequency of a variable in a dataset and export results to a excel sheet.</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -138,13 +184,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Jumbong Junior</h1>
+<h1 class="title">Learning SAS</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
     
   
     
@@ -155,74 +207,259 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="box">
-<p>This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.</p>
-</div>
-<section id="meduim-publications" class="level1">
-<h1>Meduim Publications</h1>
-<p><em>Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.</em></p>
-<ul>
-<li><p><strong>Credit Scoring modellling approach.</strong></p>
-<ul>
-<li>Definition of default and construction of the database.</li>
-<li>Outliers Identification and Treatment</li>
-<li>Missing data analysis</li>
-<li>Database splitting</li>
-<li>Pre-selection of explanatory variables</li>
-<li>Methodological Approach To Merge Modalities of qualitative variables</li>
-<li>Methodological Approach To Discretize Quantitative variables</li>
-<li>Monotony and Stability</li>
-<li>Oversampling</li>
-<li>Logistic Regression
-<ul>
-<li>Definition</li>
-<li>Fitting The logistic Regression</li>
-<li>Evaluation of the logistic Regression
-<ul>
-<li>Analysis of the statistical significance of the model</li>
-<li>The overall fit of the model : Likelihhod ratio test</li>
-<li>Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic</li>
-<li><a href="./Meduim/RegressionLogistique/HosmerL.html" target="_self">Hosmer-Lemeshow test</a></li>
-</ul></li>
-<li>Contribution of variables</li>
-</ul></li>
-<li>Model performances
-<ul>
-<li>Accuracy Ratio or Gini</li>
-<li>stability test</li>
-</ul></li>
-</ul></li>
-<li><p><a href="./Meduim/RegressionLogistique/bias_sample.html" target="_self">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a></p></li>
-<li><p>Résumé de la théorie des valeurs extrêmes (<a href="3A/EVT/EVT_resume.pdf">EVT_resume.pdf</a>)</p></li>
-</ul>
-<p>in Maximum-likelihood Logistic Regression # Microéconometrie appliquée - Résumé des méthodes de microéconométrie appliquée enseignée à la promo 2024-2025 Ensai (<a href="2A/Courses.pdf">applied_micro.pdf</a>)</p>
-</section>
-<section id="apprentissage-supervisée" class="level1">
-<h1>Apprentissage supervisée</h1>
-<ul>
-<li>Advanced Techniques in Machine Learning: Kernel Trick and Support Vector Machines (SVM) (<a href="./3A/Apprentisage-stat/Tp2.html">kernel_and_svm.qmd</a>)</li>
-<li>Gradient boosting (<a href="./3A/Apprentisage-stat/Tp3.html">gradient_boosting.qmd</a>)</li>
-<li>Features selection (<a href="./3A/Apprentisage-stat/Tp4.html">features_selection.qmd</a>)</li>
-</ul>
-<section id="régressions" class="level2">
-<h2 class="anchored" data-anchor-id="régressions">Régressions</h2>
-<ul>
-<li>Regression linéaire (<a href="./2A/App_sup/reg_lin.html">regression_lin.qmd</a>)</li>
-<li>Regression ridge et lasso (<a href="./3A/Apprentisage-stat/Tp1.html">lasso_ridge.qmd</a>)</li>
-</ul>
-</section>
-<section id="classifications" class="level2">
-<h2 class="anchored" data-anchor-id="classifications">Classifications</h2>
-<ul>
-<li>Applications des arbres &amp; forêts aléatoires sur un jeu de données (<a href="2A/App_sup/arbres_&amp;_forets_aleatoires.html">arbres_&amp;_forets_aleatoires.html</a>)
-</li>
-</ul>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This document is a compilation of what is essential to know about SAS programming. The are two notions that are fondamental to understand before diving into the SaS programming language. These are the data step and the proc step.</p>
+<p>The data step consists to create a dataset and to manipulate it. The proc step is used to analyze the data.</p>
+<p>Before starting, let’s talk about the <code>libname</code>.</p>
+<section id="libname" class="level3">
+<h3 class="anchored" data-anchor-id="libname">Libname</h3>
+<p>The <code>libname</code> statement is used to assign a library reference name to a physical location. The example below shows how to assign the reference name <code>Inputs</code> and <code>outputs</code> to the physical location <code>/home/u63691422/EPG1V2/data</code> and <code>/home/u63691422/EPG1V2/Jumbong_Training/Outputs</code> respectively.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Tlibname Inputs "/home/u63691422/EPG1V2/data" ;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>libname Outputs "/home/u63691422/EPG1V2/Jumbong_Training/Outputs";</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="learning-sas" class="level1">
-<h1><a href="./LearningSas/learningsas.html" target="_self">Learning Sas</a></h1>
+<section id="data-step" class="level1">
+<h1>Data Step</h1>
+<p>The syntax of the data step is as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    SET Inputs.mydata;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="operator-summary-table" class="level2">
+<h2 class="anchored" data-anchor-id="operator-summary-table">Operator summary table</h2>
+<section id="table-of-comparison-operators" class="level3">
+<h3 class="anchored" data-anchor-id="table-of-comparison-operators">Table of comparison operators</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LT</td>
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="even">
+<td>GT</td>
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="odd">
+<td>LE</td>
+<td>&lt;=</td>
+<td>Less than or equal to</td>
+</tr>
+<tr class="even">
+<td>GE</td>
+<td>&gt;=</td>
+<td>Greater than or equal to</td>
+</tr>
+<tr class="odd">
+<td>EQ</td>
+<td>=</td>
+<td>Equal to</td>
+</tr>
+<tr class="even">
+<td>NE</td>
+<td>^=</td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td>IN</td>
+<td>IN</td>
+<td>In a list of values</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="logical-operators-table" class="level3">
+<h3 class="anchored" data-anchor-id="logical-operators-table">Logical operators table</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AND</td>
+<td>&amp;</td>
+<td>Logical AND</td>
+</tr>
+<tr class="even">
+<td>OR</td>
+<td>!</td>
+<td>Logical OR</td>
+</tr>
+<tr class="odd">
+<td>NOT</td>
+<td>~</td>
+<td>Logical NOT</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arithmetic-operators-table" class="level3">
+<h3 class="anchored" data-anchor-id="arithmetic-operators-table">Arithmetic operators table</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ADD</td>
+<td>+</td>
+<td>Addition</td>
+</tr>
+<tr class="even">
+<td>SUB</td>
+<td>-</td>
+<td>Subtraction</td>
+</tr>
+<tr class="odd">
+<td>MUL</td>
+<td>*</td>
+<td>Multiplication</td>
+</tr>
+<tr class="even">
+<td>DIV</td>
+<td>/</td>
+<td>Division</td>
+</tr>
+<tr class="odd">
+<td>POW</td>
+<td>**</td>
+<td>Exponentiation</td>
+</tr>
+<tr class="even">
+<td>MOD</td>
+<td>%</td>
+<td>Modulus</td>
+</tr>
+<tr class="odd">
+<td>Max</td>
+<td>&lt;&gt;</td>
+<td>Maximum</td>
+</tr>
+<tr class="even">
+<td>Min</td>
+<td>&gt;&lt;</td>
+<td>Minimum</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="operator-of-concatenation" class="level3">
+<h3 class="anchored" data-anchor-id="operator-of-concatenation">Operator of concatenation</h3>
+<p>The concatenation operator is used to concatenate two or more character strings. The concatenation operator is represented by two vertical bars (||).</p>
+</section>
+</section>
+<section id="variables-selection" class="level2">
+<h2 class="anchored" data-anchor-id="variables-selection">Variables Selection</h2>
+<p>In order to select only some variables from the data source, the <code>keep</code> statement is used.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    SET Inputs.mydata;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    KEEP var1 var2 var3;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="observation-filtration" class="level2">
+<h2 class="anchored" data-anchor-id="observation-filtration">Observation filtration</h2>
+<ul>
+<li>If it is important to extract only observations m and n from the data source, the <code>obs</code> statement is used.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    SET Inputs.mydata (firstobs=m obs=n);</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>In order to select observations that meet certain conditions, the <code>WHERE</code> statement is used.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    SET Inputs.mydata;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    WHERE CONDITION;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="compute-the-cumulative-sum-by-group-of-a-variable." class="level2">
+<h2 class="anchored" data-anchor-id="compute-the-cumulative-sum-by-group-of-a-variable.">Compute the cumulative sum by group of a variable.</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>proc sort data=INPUTS.class_update out=class_sorted;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   by Sex;</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>run;</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data output;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>   set class_sorted(keep=Sex Age);</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>   by Sex;</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>   retain s_age;</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>   if first.Sex then s_age = Age; /* Réinitialiser pour chaque groupe */</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>   else s_age + Age; /* Cumul des âges */</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>   if last.Sex then output;</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>run;</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>RUN;</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>This code compute the cumulative sum of the variable Age by group of the variable and then take the end last element of each group which corresponds to the cumulative sum of the variable Age by group.</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>## Conactenation and control concatenation</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>```default</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata; </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    SET table1 table2;</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DATA Outputs.mydata; </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    SET table1 table2;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    BY ID;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>RUN;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>## Compute the frequency of a variable in a dataset and the frequency of missing values of the variable.</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>```default</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>PROC FREQ data = Outputs.mydata ;</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    table variable/missing;</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." class="level2">
+<h2 class="anchored" data-anchor-id="compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.">Compute the frequency of a variable in a dataset and export results to a excel sheet.</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>/* Module : Macro </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Input : </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    - data : dataset</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    - list_var : macro variable containing the list of variables to compute the frequency</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    - path : path to save the excel file</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>Output :</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    - Excel file containing the frequency of the variables</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>*/</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>%macro export_freq(data, list_var, path);</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    %let nbvar = %sysfunc(countw(&amp;list_var));</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    %do i = 1 %to &amp;nbvar;</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        %let var = %scan(&amp;list_var, &amp;i);</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        PROC FREQ data = &amp;data ;</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>            tables &amp;var /out = freq&amp;var missing;</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        RUN;</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        PROC EXPORT data = freq&amp;var</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            outfile = "&amp;path"</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            dbms = xlsx replace;</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            sheet = "&amp;var";</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        RUN;</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    %end;</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>%mend export_freq;</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>%export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
