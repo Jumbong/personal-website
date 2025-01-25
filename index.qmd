@@ -29,9 +29,12 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
             - Analysis of the statistical significance of the model
             - The overall fit of the model : Likelihhod ratio test
             - Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic
+            - <a href = "Meduim/RegressionLogistique/HosmerL.qmd" target="_self">Hosmer-Lemeshow test</a>
         - Contribution of variables
     - Model performances
-- [Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd){target=_self}
+        - Accuracy Ratio or Gini
+        - stability test 
+
 - <a href="Meduim/RegressionLogistique/bias_sample.qmd" target="_self">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a>
 
 
@@ -58,4 +61,5 @@ in Maximum-likelihood Logistic Regression
 
 - Applications des arbres & forêts aléatoires sur un jeu de données ([arbres_&_forets_aleatoires.html](2A/App_sup/arbres_&_forets_aleatoires.html)) </li>
 
-# Learning SAS
+# <a href="LearningSas/learningsas.qmd" target="_self">Learning Sas</a>
+

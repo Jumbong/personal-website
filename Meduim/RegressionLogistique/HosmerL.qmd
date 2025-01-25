@@ -16,6 +16,15 @@ jupyter: python3
 # Hosmer-Lemeshow Test
 
 The Hosmer-Lemeshow test assesses whether the observed proportions of events (e.g., success or default) match the expected event rates in the subgroups of the model population.
+The value of the test statistic is :
+$$
+HL  = \sum_{g=1}^{G} \frac{(O_{D,k} - E_{D,k})^2}{E_{D,k}} + \frac{(O_{ND,k} - E_{ND,k})^2}{E_{ND,k}}
+$$
+
+Where :
+- $O_{D,k}$ and E_{D,k}$ are respectively the number of observed events (default for example) and the number of expected events in the group k.
+- $O_{ND,k}$ and E_{ND,k}$ are respectively the number of observed non-events (non-default for example) and the number of expected non-events in the group k.
+- G is the number of groups (typically 10).
 
 ## Key Concepts
 
@@ -261,3 +270,7 @@ p_value
 ```
 
 In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit.
+
+# Conclusion
+
+The Hosmer-Lemeshow test is a valuable tool for evaluating the goodness-of-fit of a logistic regression model. By comparing the observed and expected event rates in decile groups, the test provides insights into the model's predictive performance. A high p-value suggests a good model fit, while a low p-value indicates a significant discrepancy between observed and expected values. However, caution should be exercised when using the test with small sample sizes, as it may yield unreliable results.
