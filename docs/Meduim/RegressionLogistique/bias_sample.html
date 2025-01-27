@@ -286,7 +286,7 @@ y(x, \alpha, \beta) =
 \]</span></p>
 <p>where <span class="math inline">\(\text{prop}\)</span> is the proportion of y=1 in the dataset, <span class="math inline">\(x_i\)</span> is the predictor variable, and <span class="math inline">\(n\)</span> is the number of observations.</p>
 <p>The optimization problem can be solved using the <code>scipy.optimize.minimize</code> function with the Nelder-Mead method.</p>
-<div id="12b3dcd9" class="cell" data-execution_count="1">
+<div id="602a849e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -323,8 +323,8 @@ y(x, \alpha, \beta) =
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> np.mean(y)</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of y=1: </span><span class="sc">{</span>y_mean<span class="sc">:.2f}</span><span class="ss">, y=0: </span><span class="sc">{</span><span class="dv">1</span><span class="op">-</span>y_mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Optimized alpha: -10, beta: [1.23475]
-Proportion of y=1: 0.19, y=0: 0.81</code></pre>
+<pre><code>Optimized alpha: -10, beta: [1.239375]
+Proportion of y=1: 0.22, y=0: 0.78</code></pre>
 </div>
 </div>
 </section>
@@ -543,7 +543,7 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <section id="eight-sub-samples-generated-from-case-a." class="level3">
 <h3 class="anchored" data-anchor-id="eight-sub-samples-generated-from-case-a.">Eight sub-samples generated from Case A.</h3>
 <p>The code below generates the eight sub-samples from the Case A dataset with varying class distributions.</p>
-<div id="13d4f8c0" class="cell" data-execution_count="4">
+<div id="367b020a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_subsample_fixed_majority(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    X, y, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    fraction_class0<span class="op">=</span><span class="fl">0.6</span>,  <span class="co"># e.g., 0.6 =&gt; 60:40</span></span>
@@ -727,7 +727,7 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <h3 class="anchored" data-anchor-id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.</h3>
 <p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
 <p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case A with monte-carlo simulations.</p>
-<div id="357782d4" class="cell" data-execution_count="7">
+<div id="08b9f8bd" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    roc_auc_score,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    precision_score,</span>
@@ -844,67 +844,67 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.50</td>
-<td>0.984018</td>
-<td>0.984603</td>
-<td>0.930250</td>
-<td>0.931306</td>
-<td>0.930751</td>
+<td>0.984025</td>
+<td>0.984611</td>
+<td>0.930153</td>
+<td>0.931447</td>
+<td>0.930775</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.60</td>
-<td>0.984040</td>
-<td>0.978037</td>
-<td>0.923243</td>
-<td>0.908628</td>
-<td>0.915834</td>
+<td>0.984061</td>
+<td>0.978078</td>
+<td>0.923416</td>
+<td>0.908325</td>
+<td>0.915762</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.70</td>
-<td>0.984067</td>
-<td>0.968308</td>
-<td>0.915068</td>
-<td>0.881841</td>
-<td>0.898060</td>
+<td>0.984066</td>
+<td>0.968307</td>
+<td>0.916037</td>
+<td>0.881543</td>
+<td>0.898377</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.80</td>
-<td>0.984061</td>
-<td>0.951947</td>
-<td>0.903233</td>
-<td>0.843421</td>
-<td>0.872134</td>
+<td>0.984173</td>
+<td>0.952012</td>
+<td>0.902634</td>
+<td>0.842800</td>
+<td>0.871512</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.90</td>
-<td>0.984087</td>
-<td>0.916366</td>
-<td>0.896609</td>
-<td>0.777192</td>
-<td>0.832121</td>
+<td>0.984159</td>
+<td>0.916192</td>
+<td>0.896984</td>
+<td>0.775808</td>
+<td>0.831498</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.95</td>
-<td>0.984086</td>
-<td>0.870722</td>
-<td>0.883952</td>
-<td>0.710051</td>
-<td>0.786179</td>
+<td>0.983619</td>
+<td>0.869324</td>
+<td>0.886640</td>
+<td>0.707051</td>
+<td>0.785371</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.98</td>
-<td>0.983959</td>
-<td>0.799434</td>
-<td>0.875058</td>
-<td>0.615387</td>
-<td>0.718173</td>
+<td>0.984096</td>
+<td>0.802383</td>
+<td>0.872105</td>
+<td>0.623645</td>
+<td>0.722949</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.99</td>
-<td>0.984334</td>
-<td>0.737704</td>
-<td>0.850245</td>
-<td>0.556733</td>
-<td>0.662164</td>
+<td>0.983455</td>
+<td>0.734374</td>
+<td>0.856676</td>
+<td>0.551267</td>
+<td>0.661010</td>
 </tr>
 </tbody>
 </table>
@@ -1098,7 +1098,7 @@ Figure&nbsp;6: Distribution of y for Case B sub-samples
 <span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1.23475]</code></pre>
+<pre><code>[1.239375]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-plot_true_vs_estimated_p_b" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1119,8 +1119,9 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 </section>
 <section id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-b-with-monte-carlo-simulations." class="level3">
 <h3 class="anchored" data-anchor-id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-b-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case B with monte-carlo simulations.</h3>
-<p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.</p>
-<div id="fb8a97c5" class="cell" data-execution_count="11">
+<p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
+<p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case B with monte-carlo simulations.</p>
+<div id="3611d69d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>C_RUNS <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>SAMPLE_SIZE <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># e.g., majority class size if using a fixed majority approach</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> [<span class="fl">0.50</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.98</span>, <span class="fl">0.99</span>]</span>
@@ -1206,67 +1207,67 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.50</td>
-<td>0.945889</td>
-<td>0.932827</td>
-<td>0.857301</td>
-<td>0.910555</td>
-<td>0.883093</td>
+<td>0.946036</td>
+<td>0.932858</td>
+<td>0.857890</td>
+<td>0.910627</td>
+<td>0.883437</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.60</td>
-<td>0.946088</td>
-<td>0.904965</td>
-<td>0.826962</td>
-<td>0.870054</td>
-<td>0.847897</td>
+<td>0.946211</td>
+<td>0.904676</td>
+<td>0.827772</td>
+<td>0.869504</td>
+<td>0.848053</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.70</td>
-<td>0.945624</td>
-<td>0.861855</td>
-<td>0.790370</td>
-<td>0.811467</td>
-<td>0.800656</td>
+<td>0.946178</td>
+<td>0.863766</td>
+<td>0.792278</td>
+<td>0.812423</td>
+<td>0.802097</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.80</td>
-<td>0.946072</td>
-<td>0.793144</td>
-<td>0.750537</td>
-<td>0.724352</td>
-<td>0.736931</td>
+<td>0.946243</td>
+<td>0.793741</td>
+<td>0.751781</td>
+<td>0.725371</td>
+<td>0.738056</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.90</td>
-<td>0.945736</td>
-<td>0.653103</td>
-<td>0.671797</td>
-<td>0.526814</td>
-<td>0.589610</td>
+<td>0.946103</td>
+<td>0.654221</td>
+<td>0.673602</td>
+<td>0.530509</td>
+<td>0.592607</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.95</td>
-<td>0.945653</td>
-<td>0.497525</td>
-<td>0.611075</td>
-<td>0.298278</td>
-<td>0.397209</td>
+<td>0.945817</td>
+<td>0.498320</td>
+<td>0.611865</td>
+<td>0.304114</td>
+<td>0.402630</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.98</td>
-<td>0.945335</td>
-<td>0.314727</td>
-<td>0.109241</td>
-<td>0.012290</td>
-<td>0.021140</td>
+<td>0.945382</td>
+<td>0.315238</td>
+<td>0.120428</td>
+<td>0.014032</td>
+<td>0.024050</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.99</td>
-<td>0.946228</td>
-<td>0.214350</td>
-<td>0.000000</td>
-<td>0.000000</td>
-<td>0.000000</td>
+<td>0.946763</td>
+<td>0.219327</td>
+<td>0.001000</td>
+<td>0.000067</td>
+<td>0.000125</td>
 </tr>
 </tbody>
 </table>

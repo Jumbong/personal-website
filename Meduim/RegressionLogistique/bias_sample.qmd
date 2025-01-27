@@ -26,6 +26,7 @@ The performance of the logistic regression model will be evaluated using the Are
 Monte-Carlo simulations will be carried out to evaluate the distribution of the performance metrics for each of the samples and insure the robustness of the results.
 
 This study gives some main results : 
+
 - When the distribution of the minority in the sample is less than the distribution of the minority in the population, the performance metrics deteriorate considerably except the AUC metric.; 
 - when the distribution of the minority in the sample is greater than the distribution of the minority in the population, the performance metrics improve except the AUC metric; 
 - The performance metrics are excellent to evaluate the sample bias in the logistic regression model when the true distribution of the population is balanced.
