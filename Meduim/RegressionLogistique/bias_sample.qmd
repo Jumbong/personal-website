@@ -1,5 +1,5 @@
 ---
-title: " Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression"
+title: " Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression"
 sidebar: auto
 author:
   - Jumbong Junior 
@@ -18,7 +18,8 @@ jupyter: python3
 
 # Introduction 
 
-In this article, the impact of sampling bias and class imbalance on logistic regression models is explored. We hypothesize that the predictive performance of a logistic regression model is related to the sampling bias associated with the data and it has a performance advantage when the data is balanced. The hypothesis is testing with two simulated datasets : a balanced dataset (50:50) and an imbalanced dataset (80:20).  Each dataset will be sampled to produce samples with the following distribution : 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, 99:1. 
+In this article, the impact of sampling bias (sample dataset distribution different from the population distribution) 
+and class imbalance on logistic regression models is explored. We hypothesize that the predictive performance of a logistic regression model is related to the sampling bias associated with the data and it has a performance advantage when the data is balanced. The hypothesis is testing with two simulated datasets : a balanced dataset (50:50) and an imbalanced dataset (80:20).  Each dataset will be sampled to produce samples with the following distribution : 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, 99:1. 
 
 The performance of the logistic regression model will be evaluated using the Area Under the Curve (AUC), Area Under the Precision-Recall Curve (AU-PCR), Precision, Recall, and F1-score. 
 
@@ -34,7 +35,8 @@ This study gives some main results :
 
 # 1. Simulated Data Generation
 
-Many authors document that, for logistic regressionthe , the probability distribution of the dependent variable is assumed to be Bernoulli and the mass function f is given by :
+
+Many authors document that, for logistic regression , the probability distribution of the dependent variable is assumed to be Bernoulli and the mass function f is given by :
 
 $$
 f(y, x, \alpha, \beta) = p(x, \alpha, \beta)^y(1-p(x, \alpha, \beta))^{1-y}
@@ -77,7 +79,7 @@ In order to generate the data, the following steps will be respected :
 - Generate the dependent variable y using the logistic function $p(x, \alpha, \beta)$.
 
 
-## 1.1 Numerical Approach to determine the value of $\beta$
+## 1.1 Numerical Approach to determine parameters $\alpha$ and $\beta$ knowing the proportion of y=1.
 
 The numerical approach consists to determine, for a given value of $\alpha =-10$, the value of $\beta$ that will allow to have a proportion of y=1 equal to 0.5 in the case of a balanced dataset and 0.2 in the case of an imbalanced dataset.
 
@@ -98,23 +100,27 @@ The optimization problem can be solved using the `scipy.optimize.minimize` funct
 import numpy as np
 from scipy.optimize import minimize
 
+
 # Define the logistic function
 def logistic_function(x, alpha, beta):
     return 1 / (1 + np.exp(-(alpha + beta * x)))
 
 # Objective function: minimize the squared difference between mean(pi) and 0.2
+
 def objective(alpha, prop, beta, n):
     x = np.random.uniform(0, 10, n)  # Simulate x values
     pi = logistic_function(x, alpha, beta)
     return (np.mean(pi) - 0.2)**2  # Target mean(pi) = 0.2
 
 # Initial guesses for alpha and beta
+
 initial_params = [0]
 
 # Optimize alpha and beta
 result = minimize(lambda params: objective(-10, 0.2, params, 50000), initial_params, method='Nelder-Mead')
 
 # Get optimized alpha and beta
+
 beta_opt = result.x
 print(f"Optimized alpha: {-10}, beta: {beta_opt}")
 
@@ -126,13 +132,13 @@ y = (np.random.uniform(0, 1, 1000) < pi).astype(int)
 # Verify proportions
 y_mean = np.mean(y)
 print(f"Proportion of y=1: {y_mean:.2f}, y=0: {1-y_mean:.2f}")
-```
 
+```
 
 
 ## Simulated Data Generation with $\alpha = -10$ 
 
-The graphical approach consists to fix the value of $\alpha$ for example $\alpha = -10$ and to vary the value of $\beta$ in order to see the suitable distribution of the dependent variable y.
+
 
 Let's consider two cases :
 
@@ -226,28 +232,30 @@ xB, yB, p0_B, p1_B = simulate_case_data(
 # Suppose p0_A, p1_A, p0_B, p1_B are already defined
 # e.g., p0_A = 0.50; p1_A = 0.50; p0_B = 0.80; p1_B = 0.20
 
-fig, axes = plt.subplots(1, 2, figsize=(5, 3))  # 1 row, 2 columns
+fig, axes = plt.subplots(1, 2, figsize=(5, 3))  # 1 ligne, 2 colonnes
+
+colors = ['royalblue', 'darkorange']  # Couleurs distinctes pour y=0 et y=1
 
 # -------- LEFT SUBPLOT: Case A -----------
 ax1 = axes[0]
-bar_container_A = ax1.bar(['y=0', 'y=1'], [p0_A, p1_A], color=['steelblue', 'steelblue'])
+bar_container_A = ax1.bar(['y=0', 'y=1'], [p0_A, p1_A], color=colors)
 ax1.set_title('Case A')
-ax1.set_xlabel('y')
+ax1.set_xlabel('Classe')
 ax1.set_ylabel('Proportion')
+ax1.set_ylim([0, 1])  # Echelle de 0 à 1
 ax1.bar_label(bar_container_A, fmt='%.2f')
 
 # -------- RIGHT SUBPLOT: Case B -----------
 ax2 = axes[1]
-bar_container_B = ax2.bar(['y=0', 'y=1'], [p0_B, p1_B], color=['steelblue', 'steelblue'])
+bar_container_B = ax2.bar(['y=0', 'y=1'], [p0_B, p1_B], color=colors)
 ax2.set_title('Case B')
-ax2.set_xlabel('y')
+ax2.set_xlabel('Classe')
 ax2.set_ylabel('Proportion')
+ax2.set_ylim([0, 1])
 ax2.bar_label(bar_container_B, fmt='%.2f')
 
-plt.tight_layout()  # improves spacing
+plt.tight_layout()
 plt.show()
-
-
 
 ```
 
@@ -276,36 +284,41 @@ alpha_B, beta_B = -10, beta_opt
 pi_B = logistic(x_values, alpha_B, beta_B)
 logit_B = alpha_B + beta_B * x_values
 
-fig, axes = plt.subplots(2, 2, figsize=(5, 5))
+fig, axes = plt.subplots(2, 2, figsize=(5, 5))  # Taille un peu plus grande
 
 # (a) Probability vs. x for Case A
-axes[0, 0].plot(x_values, pi_A, 'r')
+axes[0, 0].plot(x_values, pi_A, color='b', label='Probability')
 axes[0, 0].set_title('Case A: Probability vs. x')
 axes[0, 0].set_xlabel('x')
-axes[0, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')  # <-- raw string
-# Add horizontal line at y=0.5 and vertical line at x= 5
-axes[0, 0].axhline(y=0.5, color='k', linestyle='--')
-axes[0, 0].axvline(x=5, color='k', linestyle='--')
+axes[0, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')
+axes[0, 0].axhline(y=0.5, color='k', linestyle='--', label='y=0.5')
+axes[0, 0].axvline(x=5, color='gray', linestyle='--', label='x=5')
+axes[0, 0].set_ylim([0,1])  # Probabilité entre 0 et 1
+axes[0, 0].legend(loc='best')
+
 # (b) Logit vs. x for Case A
-axes[0, 1].plot(x_values, logit_A, 'r')
+axes[0, 1].plot(x_values, logit_A, color='b', label='Logit')
 axes[0, 1].set_title('Case A: Logit vs. x')
 axes[0, 1].set_xlabel('x')
-axes[0, 1].set_ylabel(r'$\alpha + \beta x$')      # <-- raw string
+axes[0, 1].set_ylabel(r'$\alpha + \beta x$')
+axes[0, 1].legend(loc='best')
 
 # (c) Probability vs. x for Case B
-axes[1, 0].plot(x_values, pi_B, 'r')
+axes[1, 0].plot(x_values, pi_B, color='r', label='Probability')
 axes[1, 0].set_title('Case B: Probability vs. x')
 axes[1, 0].set_xlabel('x')
-axes[1, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')  # <-- raw string
-# Add horizontal line at y=0.5 and vertical line at x= 5
-axes[1, 0].axhline(y=0.2, color='k', linestyle='--')
-axes[1, 0].axvline(x=5, color='k', linestyle='--')
+axes[1, 0].set_ylabel(r'$\pi(x,\alpha,\beta)$')
+axes[1, 0].axhline(y=0.2, color='k', linestyle='--', label='y=0.2')
+axes[1, 0].axvline(x=5, color='gray', linestyle='--', label='x=5')
+axes[1, 0].set_ylim([0,1])
+axes[1, 0].legend(loc='best')
 
 # (d) Logit vs. x for Case B
-axes[1, 1].plot(x_values, logit_B, 'r')
+axes[1, 1].plot(x_values, logit_B, color='r', label='Logit')
 axes[1, 1].set_title('Case B: Logit vs. x')
 axes[1, 1].set_xlabel('x')
-axes[1, 1].set_ylabel(r'$\alpha + \beta x$')      # <-- raw string
+axes[1, 1].set_ylabel(r'$\alpha + \beta x$')
+axes[1, 1].legend(loc='best')
 
 plt.tight_layout()
 plt.show()
@@ -323,7 +336,7 @@ For each each class sample distribution, 1000 monte-carlo simulations will be ca
 
 The Case A dataset has a balanced class distribution of 50:50. This will be the true distribution of the dataset. Eight random samples will be extracted from the Case A population with varying class distributions of 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, and 99:1. 
 A sample with a class distributiion of 60:40 from the Case A is referred as $A_{60:40}$.
-The sample size for each of the eight samples is determinded by fixing the lenght of the majority class (class 0) at 5000. In order word, for the $A_{60:40}$ sample, the number of observations in class 0 is 5000 and the number of observations in class 1 is :
+The sample size for each of the eight samples is determined by fixing the lenght of the majority class (class 0) at 5000. In order word, for the $A_{60:40}$ sample, the number of observations in class 0 is 5000 and the number of observations in class 1 is :
 
 $$
 \text{Number of observations in class 1} = \frac{40}{60} \times 5000 = 3333
@@ -334,9 +347,7 @@ $$
 The code below generates the eight sub-samples from the Case A dataset with varying class distributions. 
 
 ```{python}
-# Case A: Balanced dataset
-# Inputs : dependent variable y_A, independent variable x_A, majority_class_size0 = 5000, fraction_class0 = 0.5, random_state = 42
-# Outputs : X_sub, y_sub
+
 
 def create_subsample_fixed_majority(
     X, y, 
@@ -372,9 +383,13 @@ def create_subsample_fixed_majority(
     return X[chosen_indices], y[chosen_indices]
 ```
 
-The code below generates the eight sub-samples from the Case A dataset with varying class distributions.
+The code below gives examples of generating the eight sub-samples from the Case A dataset with varying class distributions. @fig-plotsamplecasea shows the distribution of the dependent variable y for each of the eight sub-samples.
 
 ```{python}
+#| label: fig-plotsamplecasea
+#| fig-cap: Distribution of y for Case A sub-samples
+#| fig: true
+
 # Module : Generation
 # Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.
 # Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).
@@ -393,27 +408,56 @@ for frac0 in fractions_class0:
     samples_A[frac0] = (X_sub, y_sub)
 
 
-fig, axes = plt.subplots(4, 2, figsize=(6, 8))
-axes = axes.ravel()  # flatten into 1D array [ax0, ax1, ..., ax7]
+ffig, axes = plt.subplots(4, 2, figsize=(6, 8))
+axes = axes.ravel()  # on a maintenant 8 sous-graphiques
+
+# 1) Déterminer la fréquence max pour fixer une échelle cohérente
+all_counts = [np.bincount(y_sub) for _, (_, y_sub) in samples_A.items()]
+global_max_count = max(counts.max() for counts in all_counts)
 
 for i, (label, (X_sub, y_sub)) in enumerate(samples_A.items()):
     ax = axes[i]
-    ax.hist(y_sub, bins=2, color='steelblue', edgecolor='black', alpha=0.7)
-    ax.set_title(f"{label}: {np.mean(y_sub):.2f}")
+    
+    # 2) Histogramme sur 2 bins => classes 0 et 1
+    ax.hist(y_sub, bins=[-0.5, 0.5, 1.5],  # histogramme "catégoriel"
+            color='steelblue', edgecolor='black', alpha=0.7)
+    
+    # 3) Titre + proportion de y=1
+    mean_y = np.mean(y_sub)
+    ax.set_title(f"{label}:{mean_y:.2f}", fontsize=9)
+    
+    # 4) Ajuster l’axe X pour forcer l’affichage (0,1)
     ax.set_xticks([0, 1])
-    ax.set_xticklabels(['0', '1'])
-    ax.set_xlabel('y')
-    ax.set_ylabel('Frequency')
+    ax.set_xticklabels(['0', '1'], fontsize=8)
+    
+    # 5) Limiter l’axe Y pour comparer visuellement entre les sous-figures
+    ax.set_ylim(0, global_max_count)
+    
+    # 6) N’afficher “Frequency” que sur la première colonne
+    #    pour éviter la répétition
+    if i % 2 == 0:
+        ax.set_ylabel('Frequency', fontsize=9)
+    else:
+        ax.set_ylabel('')
+    
+    # 7) Ajouter un label X plus discret
+    ax.set_xlabel('y', fontsize=9)
+    
+    # 8) Afficher le count exact sur chacune des barres
+    counts = np.bincount(y_sub)
+    for j, c in enumerate(counts):
+        ax.text(j, c + 0.5, str(c), ha='center', va='bottom', fontsize=8)
 
+plt.tight_layout()
+plt.show()
     
     
 
 ```
 
-A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true $p(x)$ versus the estimated $p(x)$ is presented in @fig-plot_true_vs_estimated_p_A.
-
+A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true $p(x)$ versus the estimated $p(x)$ is presented in @fig-testpa.
 ```{python}
-#| label: fig-plot_true_vs_estimated_p_A
+#| label: fig-testpa
 #| fig-cap: True vs. estimated p(x) for Case A sub-samples
 
 import numpy as np
@@ -466,17 +510,19 @@ for i, (label, (X_sub, y_sub)) in enumerate(samples_A.items()):
     # 7) Decorate the subplot
     ax.set_xlabel("True pi(x)")
     ax.set_ylabel("Predicted pi_hat(x)")
-    ax.set_title(f"{label}")  # e.g., "Case A60:40"
+    ax.set_title(f"{label}:{1-label:.2f}")  # e.g., "Case A60:40"
 
 plt.tight_layout()
 plt.show()
 ```
 
-@fig-plot_true_vs_estimated_p_A shows that the sample (Case $A_{50:50}$) with no class imbalance and sampling bias has the best fit between the true and estimated probabilities. As the class imbalance increases from 60:40 to 99:1, the fit between the true and estimated probabilities deteriorates. To have more confidence in the results, the distribution of the performance metrics for each of the eight sub-samples using monte-carlo simulations will be carried out.  
+@fig-testpa shows that the sample (Case $A_{50:50}$) with no class imbalance and sampling bias has the best fit between the true and estimated probabilities. As the class imbalance increases from 60:40 to 99:1, the fit between the true and estimated probabilities deteriorates. To have more confidence in the results, the distribution of the performance metrics for each of the eight sub-samples using monte-carlo simulations will be carried out.  
 
 ### Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.
 
-We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.
+We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. 
+
+The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case A with monte-carlo simulations.
 
 ```{python} 
 
@@ -574,10 +620,10 @@ df_results_A.groupby('ratio_0').mean()
 
 ```
 
-The boxplot of the performance metrics for each of the eight sub-samples from Case A is presented in @fig-plot_metrics_A.
+The mean of the performance metrics for each of the eight sub-samples from Case A is presented in @fig-plot_metrics_a.
 
 ```{python}
-#| label: fig-plot_metrics_A
+#| label: fig-plot_metrics_a
 #| fig-cap: Performance metrics Vs. Ratios for Case A
 
 # Module : Plotting
@@ -588,22 +634,23 @@ The boxplot of the performance metrics for each of the eight sub-samples from Ca
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 df_grouped_A = df_results_A.groupby('ratio_0').mean().reset_index()
 metrics = ['auc', 'auprc', 'precision', 'recall', 'f1']
 colours = ['blue', 'orange', 'green', 'red', 'purple']
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 5))
 
 for metric, colour in zip(metrics, colours):
     plt.plot(df_grouped_A['ratio_0'], df_grouped_A[metric], label=metric, color=colour, marker='o')
 
 # Improve readability with grid and styling
-plt.xlabel("Ratios", fontsize=12, weight='bold')
-plt.ylabel("Performance Metrics", fontsize=12, weight='bold')
-plt.title("Performance Metrics vs Ratios", fontsize=14, weight='bold')
+plt.xlabel("Rate of Y = 0", fontsize=12, weight='bold')
+plt.ylabel("Mean of Performance Metrics", fontsize=12, weight='bold')
+plt.title("Mean of Performance Metrics vs Ratios", fontsize=14, weight='bold')
 plt.xticks(fontsize=10)
 plt.yticks(fontsize=10)
-plt.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
+plt.grid(False)
 plt.legend(title="Metrics", fontsize=10, title_fontsize=12, loc="best")
 plt.tight_layout()
 
@@ -619,9 +666,13 @@ The Case B dataset has an imbalanced class distribution of 80:20. This will be t
 
 ### Eight sub-samples generated from Case B.
 
-The code below generates the eight sub-samples from the Case B dataset with varying class distributions.
+The code below generates the eight sub-samples from the Case B dataset with varying class distributions. @fig-plotsamplecaseb shows the distribution of the dependent variable y for each of the eight sub-samples.
 
 ```{python}
+#| label: fig-plotsamplecaseb
+#| fig-cap: Distribution of y for Case B sub-samples
+
+
 # Module : Generation
 # Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.
 # Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).
@@ -641,24 +692,53 @@ for frac0 in fractions_class0:
 
 
 fig, axes = plt.subplots(4, 2, figsize=(6, 8))
-axes = axes.ravel()  # flatten into 1D array [ax0, ax1, ..., ax7]
+axes = axes.ravel()  # on a maintenant 8 sous-graphiques
+
+# 1) Déterminer la fréquence max pour fixer une échelle cohérente
+all_counts = [np.bincount(y_sub) for _, (_, y_sub) in samples_B.items()]
+global_max_count = max(counts.max() for counts in all_counts)
 
 for i, (label, (X_sub, y_sub)) in enumerate(samples_B.items()):
     ax = axes[i]
-    ax.hist(y_sub, bins=2, color='steelblue', edgecolor='black', alpha=0.7)
-    ax.set_title(f"{label}: {np.mean(y_sub):.2f}")
+    
+    # 2) Histogramme sur 2 bins => classes 0 et 1
+    ax.hist(y_sub, bins=[-0.5, 0.5, 1.5],  # histogramme "catégoriel"
+            color='steelblue', edgecolor='black', alpha=0.7)
+    
+    # 3) Titre + proportion de y=1
+    mean_y = np.mean(y_sub)
+    ax.set_title(f"{label}:{mean_y:.2f}", fontsize=9)
+    
+    # 4) Ajuster l’axe X pour forcer l’affichage (0,1)
     ax.set_xticks([0, 1])
-    ax.set_xticklabels(['0', '1'])
-    ax.set_xlabel('y')
-    ax.set_ylabel('Frequency')
+    ax.set_xticklabels(['0', '1'], fontsize=8)
+    
+    # 5) Limiter l’axe Y pour comparer visuellement entre les sous-figures
+    ax.set_ylim(0, global_max_count)
+    
+    # 6) N’afficher “Frequency” que sur la première colonne
+    #    pour éviter la répétition
+    if i % 2 == 0:
+        ax.set_ylabel('Frequency', fontsize=9)
+    else:
+        ax.set_ylabel('')
+    
+    # 7) Ajouter un label X plus discret
+    ax.set_xlabel('y', fontsize=9)
+    
+    # 8) Afficher le count exact sur chacune des barres
+    counts = np.bincount(y_sub)
+    for j, c in enumerate(counts):
+        ax.text(j, c + 0.5, str(c), ha='center', va='bottom', fontsize=8)
+
 plt.tight_layout()
 plt.show()
 ```
 
-A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true $p(x)$ versus the estimated $p(x)$ is presented in @fig-plot_true_vs_estimated_p_B.
+A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true $p(x)$ versus the estimated $p(x)$ is presented in @fig-plot_true_vs_estimated_p_b.
 
 ```{python}
-#| label: fig-plot_true_vs_estimated_p_B
+#| label: fig-plot_true_vs_estimated_p_b
 #| fig-cap: True vs. estimated p(x) for Case B sub-samples
 
 import numpy as np
@@ -713,13 +793,13 @@ for i, (label, (X_sub, y_sub)) in enumerate(samples_B.items()):
     # 7) Decorate the subplot
     ax.set_xlabel("True pi(x)")
     ax.set_ylabel("Predicted pi_hat(x)")
-    ax.set_title(f"{label}")  # e.g., "Case A60:40"
+    ax.set_title(f"{label}:{1-label:.2f}")  # e.g., "Case A60:40"
 
 plt.tight_layout()
 plt.show()
 ```
 
-Here, it is evident from @fig-plot_true_vs_estimated_p_B that the sample (Case $B_{50:50}$) with balance class no longer perform the best.
+Here, it is evident from @fig-plot_true_vs_estimated_p_b that the sample (Case $B_{50:50}$) with balance class no longer has the best fit between the true and estimated probabilities.
 
 The sample (Case $B_{80:20}$) that performs the best does not have the sampling bias because it that case, the class distribution of the sample (80:20) is equal to the class distribution of the population (80:20). Furthermore, as the sample bias increases, the maximum-likelihood logistic regression model's highly under- or overpredicts the probability.
 
@@ -727,7 +807,9 @@ When the distribution of the minority in the sample is less than the distributio
 
 ### Distribution of the performance metrics for the eight sub-samples from Case B with monte-carlo simulations.
 
-We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples. It can be necessary to plot the boxplot of the performance metrics for each of the eight sub-samples in order to see the distribution of the performance metrics.
+We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.
+
+The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case B with monte-carlo simulations.
 
 ```{python}
 
@@ -795,10 +877,10 @@ df_results_B.groupby('ratio_0').mean()
 
 ```
 
-The boxplot of the performance metrics for each of the eight sub-samples from Case B is presented in @fig-plot_metrics_B.
+The mean of the performance metrics for each of the eight sub-samples from Case B is presented in @fig-plot_metrics_b.
 
 ```{python}
-#| label: fig-plot_metrics_B
+#| label: fig-plot_metrics_b
 #| fig-cap: Performance metrics Vs. Ratios for Case B
 # Module : Plotting
 # Inputs : df_results_B
@@ -808,7 +890,7 @@ import matplotlib.pyplot as plt
 
 df_grouped_B = df_results_B.groupby('ratio_0').mean().reset_index()
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 6))
 
 for metric, colour in zip(metrics, colours):
     plt.plot(df_grouped_B['ratio_0'], df_grouped_B[metric], label=metric, color=colour, marker='o')
@@ -817,9 +899,9 @@ for metric, colour in zip(metrics, colours):
 
 # Add vertical lines at 0.8.
 plt.axvline(x=0.8, color='black', linestyle='--', linewidth=1.0)
-plt.xlabel("Ratios", fontsize=12, weight='bold')
-plt.ylabel("Performance Metrics", fontsize=12, weight='bold')
-plt.title("Performance Metrics vs Ratios", fontsize=14, weight='bold')
+plt.xlabel("Ratio of Y=0", fontsize=12, weight='bold')
+plt.ylabel("Mean of Performance Metrics", fontsize=12, weight='bold')
+plt.title("Mean of Performance Metrics vs Ratios", fontsize=14, weight='bold')
 plt.xticks(fontsize=10)
 plt.yticks(fontsize=10)
 #plt.grid(False, which='both', linestyle='--', linewidth=0.5, alpha=0.7)

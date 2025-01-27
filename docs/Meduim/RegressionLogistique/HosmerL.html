@@ -198,6 +198,7 @@ window.Quarto = {
   </ul></li>
   </ul></li>
   <li><a href="#application-in-python" id="toc-application-in-python" class="nav-link" data-scroll-target="#application-in-python">Application in python</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
 </nav>
@@ -235,7 +236,10 @@ window.Quarto = {
 
 <section id="hosmer-lemeshow-test" class="level1">
 <h1>Hosmer-Lemeshow Test</h1>
-<p>The Hosmer-Lemeshow test assesses whether the observed proportions of events (e.g., success or default) match the expected event rates in the subgroups of the model population.</p>
+<p>The Hosmer-Lemeshow test assesses whether the observed proportions of events (e.g., success or default) match the expected event rates in the subgroups of the model population. The value of the test statistic is : <span class="math display">\[
+HL  = \sum_{g=1}^{G} \frac{(O_{D,k} - E_{D,k})^2}{E_{D,k}} + \frac{(O_{ND,k} - E_{ND,k})^2}{E_{ND,k}}
+\]</span></p>
+<p>Where : - <span class="math inline">\(O_{D,k}\)</span> and E_{D,k}$ are respectively the number of observed events (default for example) and the number of expected events in the group k. - <span class="math inline">\(O_{ND,k}\)</span> and E_{ND,k}$ are respectively the number of observed non-events (non-default for example) and the number of expected non-events in the group k. - G is the number of groups (typically 10).</p>
 <section id="key-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="key-concepts">Key Concepts</h2>
 <p>To understand the Hosmer-Lemeshow test, it is important to identify key concepts and definitions:</p>
@@ -379,7 +383,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 <section id="application-in-python" class="level1">
 <h1>Application in python</h1>
 <p>To implement the Hosmer-Lemeshow test in python, a dataset is essential. The dependent variable or the event Y is generated using the bernouilli distribution. To simplify, only two independent continuous variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are drawn from the normal distribution. In this example, the dataset have 1000 individuals.</p>
-<div id="c44f3084" class="cell" data-execution_count="1">
+<div id="89cc3732" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Entry : Python package, the number of indivuals and the parameter of the normal law : 0.5</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Output : A dataset of 1000 individuals.</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Generate a dataset of 1000 individuals. Generate the Y variable using the bernouill law and X1 and X2 using the normal law.</span></span>
@@ -455,7 +459,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>The parameters of logistic regression is estimated and the probability of the event <span class="math inline">\(P_(Y =1 | X_1, X_2)\)</span>.</p>
-<div id="fd7cf886" class="cell" data-execution_count="2">
+<div id="6235ffe5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the data dataset data_2.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : A dataset with the event variable Y and the Pi expected probability computed for each individuals.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Estimating of parameters and compute pi using sm.Logit.</span></span>
@@ -536,7 +540,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>To compute the Hosmer-test, individuals are divided into deciles (10 g groups) based on their predicted probabilities <span class="math inline">\(P_i\)</span>. For each group g, compute the Observed number of the event in each group g (<span class="math inline">\(O_g\)</span>) and the expected number of event in each group g (<span class="math inline">\(E_g\)</span>).</p>
-<div id="86a95021" class="cell" data-execution_count="3">
+<div id="8277802d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the dataset data_2.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the group of deciles with the O_g observed number of event by group and the E_g expected number of event by group.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -609,7 +613,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>Finally, it is easier to compute the value of the Hosmer-Lemeshow statistic.</p>
-<div id="59d76289" class="cell" data-execution_count="4">
+<div id="e7ae96e1" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the grouped dataset.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the Hosmer-Lemeshow test.</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Using the grouped data in order to calculate the Hosmer-Lemeshow statistic HL.</span></span>
@@ -633,7 +637,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>Under the null hypothesis (the observed default numbers correspond to the expected default numbers) the test statistic asymptotically follows a <span class="math inline">\(\chi_2\)</span> distribution with 8 degrees of freedom. The p value is given by the code below.</p>
-<div id="da34ff46" class="cell" data-execution_count="5">
+<div id="aac6b7ae" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the HL_statistic and the degrees_of_freedom.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the P value of the test.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Knowing that the HL follows the chi2 distribution with 8 degrees of freedom, we compute the p value.</span></span>
@@ -650,6 +654,10 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The Hosmer-Lemeshow test is a valuable tool for evaluating the goodness-of-fit of a logistic regression model. By comparing the observed and expected event rates in decile groups, the test provides insights into the model’s predictive performance. A high p-value suggests a good model fit, while a low p-value indicates a significant discrepancy between observed and expected values. However, caution should be exercised when using the test with small sample sizes, as it may yield unreliable results.</p>
 
 
 </section>
@@ -891,7 +899,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

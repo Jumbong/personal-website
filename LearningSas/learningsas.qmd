@@ -144,6 +144,7 @@ DATA Outputs.mydata;
     SET table1 table2;
     BY ID;
 RUN;
+````
 
 ## Compute the frequency of a variable in a dataset and the frequency of missing values of the variable.
 
