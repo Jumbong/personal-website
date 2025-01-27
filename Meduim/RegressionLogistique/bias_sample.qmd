@@ -25,13 +25,15 @@ The performance of the logistic regression model will be evaluated using the Are
 
 Monte-Carlo simulations will be carried out to evaluate the distribution of the performance metrics for each of the samples and insure the robustness of the results.
 
-This study gives some main results : 
+This study gives three main results :
 
-- When the distribution of the minority in the sample is less than the distribution of the minority in the population, the performance metrics deteriorate considerably except the AUC metric.; 
-- when the distribution of the minority in the sample is greater than the distribution of the minority in the population, the performance metrics improve except the AUC metric; 
-- The performance metrics are excellent to evaluate the sample bias in the logistic regression model when the true distribution of the population is balanced.
-- The performance metrics except the AUC metric are sensitive to the class imbalance. So the AUC metric must be avoided to evaluate the performance of the logistic regression model when the class imbalance is present in the sample.
-- In case of imbalance dataset, AUC is not sensitive to class imbalance and sampling bias. However, other metrics such as AU-PCR, Precision, Recall, and F1-score are sensitive to class imbalance and sampling bias. When using these metrics, the performance of the model in the sample deteriorates considerably when the distribution of the minority in the sample is less than the distribution of the minority in the population, and improves when the distribution of the minority in the sample is greater than the distribution of the minority in the population.
+A. The predicted probability using a maximum logistic regression (MLLR) model is closest to the true probability when the sample has the same class distribution as the original population. Therefore, in probabilistic modeling with MLLR, it is important to create a sample that matches the class distribution of the original population rather than ensuring equal class sampling, see @fig-plotsamplecasea and @fig-plotsamplecaseb.
+
+B. AUC measures how well probabilistic classifiers predict. It ranges from 0.5 (random) to 1 (perfect). AUC shows class separability regardless of class imbalance or sampling bias, see @fig-plot_metrics_a and @fig-plot_metrics_b.
+
+C. We recommend AUC to evaluate class separability in probabilistic models. To analyse sampling biais as well as the difference in the true and predicted probabilities, AUC-PR, Recall, precision and f1-score can be used as indicator.
+
+The protocol of this paper is as follows. First, we describe how to simulate data. Next, we present the methodology. Finally, we present the results.
 
 
 # 1. Simulated Data Generation
