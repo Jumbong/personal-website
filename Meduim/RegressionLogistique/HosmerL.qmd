@@ -15,18 +15,27 @@ jupyter: python3
 
 # Hosmer-Lemeshow Test
 
-The Hosmer-Lemeshow test assesses whether the observed proportions of events (e.g., success or default) match the expected event rates in the subgroups of the model population.
+Model performance is commonly evaluated based on two main criteria. Discrimination and calibration. The discrimination describes the ability of the model to assign higher probabilities of the outcomes to those observations that actually experience the outcome. A recognized metric for assessing a model’s discrimination is the area under the receiver operating characteristic (ROC) curve. Calibration or fit, on the other hand, captures how accurately the predicted probabilities is close to the actual occurence of the outcome. Several tests and graphical methods have been proposed to assess the calibration of a model, which is often referred to as “goodness of fit.” Among the goodness of fit tests, the Hosmer-Lemeshow (HL) test is the most widely applied approach (Nattino, 2020).
+
+
+**Central idea of the test** : The main idea of the test is to divide the observations into groups and compute a chi2 statistic that reflects the overall mismatch between the observed number of events and the expected number of events in each group-outcome category.
+
+As with most goodness of fit tests, the HL test is designed to decide between a null hypothesis of perfect fit, where the probabilities assumed by the model are hypothesized to coincide with the real probabilities, and a general alternative hypothesis of nonperfect fit. Let’s present the framework of the test.
+
+
 The value of the test statistic is :
 $$
 HL  = \sum_{g=1}^{G} \frac{(O_{D,k} - E_{D,k})^2}{E_{D,k}} + \frac{(O_{ND,k} - E_{ND,k})^2}{E_{ND,k}}
 $$
 
 Where :
-- $O_{D,k}$ and E_{D,k}$ are respectively the number of observed events (default for example) and the number of expected events in the group k.
-- $O_{ND,k}$ and E_{ND,k}$ are respectively the number of observed non-events (non-default for example) and the number of expected non-events in the group k.
+
+- $O_{D,k}$ and $E_{D,k}$ are respectively the number of observed events (default for example) and the number of expected events in the group k.
+- $O_{ND,k}$ and $E_{ND,k}$ are respectively the number of observed non-events (non-default for example) and the number of expected non-events in the group k.
 - G is the number of groups (typically 10).
 
-## Key Concepts
+
+# Background : The Hosmer-Lemeshow goodness of fit test.
 
 To understand the Hosmer-Lemeshow test, it is important to identify key concepts and definitions:
 
@@ -39,7 +48,7 @@ To understand the Hosmer-Lemeshow test, it is important to identify key concepts
 5. **Goal of Logistic Regression**:
    - Predict the probability of an event ("success" or "default") for any given value of the predictor(s).
 
-### Logistic Regression Model
+## Logistic Regression Model
 
 - Let  Y be the dependent variable:
   $Y = \begin{cases} 
@@ -61,7 +70,7 @@ To understand the Hosmer-Lemeshow test, it is important to identify key concepts
 
 - Here,  $\beta_0, \beta_1, \ldots, \beta_p $ are parameters to be estimated.
 
-### Computing Probabilities
+## Computing Probabilities
 
 For a dataset with  N individuals:
 
@@ -73,6 +82,8 @@ For a dataset with  N individuals:
 2. $P_i$ represents the expected probability for individual i .
 
 3. Create a table of individuals with their observed outcomes  Y and predicted probabilities $P_i$.
+
+
 
 #### Example Table
 After computing $P_i$ for all individuals, the results can be summarized in a table:
@@ -95,7 +106,7 @@ $P_i$ should be close to 1, reflecting high confidence in predicting the event.
 
 ### Performing the Hosmer-Lemeshow Test
 
-After this stage, it is not difficult to carry out the Hosmer-Lemeshow test. What is necessary is grouping individuals. The Hosmer-Lemeshow test can be performed by dividing the predicted probabilities (Pi) into deciles (10 groups based on percentile ranks) and then computing the Chi-square statistic that compares the predicted to the observed frequencies (Hyeoun-AE, 2013).
+After this stage, it is not difficult to carry out the Hosmer-Lemeshow test. What is necessary is ordering and grouping individuals. The Hosmer-Lemeshow test can be performed by dividing the predicted probabilities (Pi) into deciles (10 groups based on percentile ranks) and then computing the Chi-square statistic that compares the predicted to the observed frequencies (Hyeoun-AE, 2013).
 
 The value of the Hosmer-Lemeshow statistic is given by:
 
@@ -269,8 +280,110 @@ p_value = 1 - chi2.cdf(HL_statistic, degrees_of_freedom)
 p_value
 ```
 
-In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit.
+In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit. Put in nutshell, two funcions can be used to compute the Hosmer-Lemeshow test. The first one is the homser_lemeshow_test and the second one is the hosmer_lemeshow_test2.
+```{python}
+# Entry : A dataset which contains The dependent variable Y, the predicted probabilities P, or the discretized probabilities P or rating classes if possible and the number of groups if we don't have the rating classes.
+# Output : The Hosmer-Lemeshow test.
+# Objective : Compute the Hosmer-Lemeshow test.
+
+def homser_lemeshow_test(data, depend_variable, pred_prb, rating_class = None, n_groups = 10):
+    """
+    Compute the Hosmer-Lemeshow test.
+    
+    Parameters:
+    data (DataFrame): The dataset containing the dependent variable Y and the predicted probabilities P.
+    depend_variable (str): The name of the dependent variable Y.
+    pred_prb (str): The name of the predicted probabilities P.
+    rating_class (str): The name of the rating classes if available.
+    n_groups (int): The number of groups for the test.
+    
+    Returns:
+    HL_statistic (float): The Hosmer-Lemeshow test statistic.
+    degrees_of_freedom (int): The degrees of freedom for the test.
+    p_value (float): The p-value for the test.
+    """
+    # Create decile groups based on the predicted probabilities
+    if rating_class is None:
+        data['Decile'] = pd.qcut(data[pred_prb], q=n_groups, labels=False) + 1
+    else:
+        data['Decile'] = data[rating_class]
+    
+    # Calculate Observed (Og) and Expected (Eg) numbers for each decile group
+    grouped = data.groupby('Decile').agg(
+        n_g=(depend_variable, 'size'),  # Number of individuals per group
+        O_g=(depend_variable, 'sum'),  # Observed number of events
+        E_g=(pred_prb, 'sum')  # Expected number of events
+    ).reset_index()
+    
+    # Compute the HL term for each group
+    grouped['HL_term'] = ((grouped['O_g'] - grouped['E_g']) ** 2) / grouped['E_g'] + \
+                         ((grouped['n_g'] - grouped['O_g'] - (grouped['n_g'] - grouped['E_g'])) ** 2) / (grouped['n_g'] - grouped['E_g'])
+    
+    # Calculate the total HL statistic
+    HL_statistic = grouped['HL_term'].sum()
+    
+    # Degrees of freedom: Number of groups - 2
+    degrees_of_freedom = len(grouped) - 2
+    
+    # Calculate the p-value for the HL test
+    p_value = 1 - chi2.cdf(HL_statistic, degrees_of_freedom)
+    
+    return HL_statistic, degrees_of_freedom, p_value
+
+# Test the function with the example data
+HL_statistic, degrees_of_freedom, p_value = homser_lemeshow_test(data_2, 'Y', 'P(Y=1 | X1, X2)')
+HL_statistic, degrees_of_freedom, p_value
+```
+
+
+
+```{python}
+
+def hosmer_lemeshow_test2(data, depend_variable, pred_prb, rating_class = None, n_groups = 10):
+    """
+    Compute the Hosmer-Lemeshow test.
+    
+    Parameters:
+    data (DataFrame): The dataset containing the dependent variable Y and the predicted probabilities P.
+    depend_variable (str): The name of the dependent variable Y.
+    pred_prb (str): The name of the predicted probabilities P.
+    rating_class (str): The name of the rating classes if available.
+    n_groups (int): The number of groups for the test.
+    
+    Returns:
+    HL_statistic (float): The Hosmer-Lemeshow test statistic.
+    degrees_of_freedom (int): The degrees of freedom for the test.
+    p_value (float): The p-value for the test.
+    """
+    # Create decile groups based on the predicted probabilities
+    if rating_class is None:
+        data['Decile'] = pd.qcut(data[pred_prb], q=n_groups, labels=False) + 1
+    else:
+        data['Decile'] = data[rating_class]
+    
+    # Compute the observed and expected number of events for each decile group
+    obsevents_1 = data[depend_variable].groupby(data['Decile']).sum()
+    obsevents_0 = data[depend_variable].groupby(data['Decile']).count() - obsevents_1
+    expevents_1 = data[pred_prb].groupby(data['Decile']).sum()
+    expevents_0 = data[pred_prb].groupby(data['Decile']).count() - expevents_1
+    hosmer = ((obsevents_1 - expevents_1) ** 2 / expevents_1).sum() + ((obsevents_0 - expevents_0) ** 2 / expevents_0).sum()
+
+    # Degrees of freedom: Number of groups - 2
+    degrees_of_freedom = len(obsevents_1) - 2
+
+    # Calculate the p-value for the HL test
+    p_value = 1 - chi2.cdf(hosmer, degrees_of_freedom)
+
+    return hosmer, degrees_of_freedom, p_value
+
+# Test the function with the example data
+hosmer, degrees_of_freedom, p_value = hosmer_lemeshow_test2(data_2, 'Y', 'P(Y=1 | X1, X2)')
+hosmer, degrees_of_freedom, p_value
+
+```
 
 # Conclusion
 
 The Hosmer-Lemeshow test is a valuable tool for evaluating the goodness-of-fit of a logistic regression model. By comparing the observed and expected event rates in decile groups, the test provides insights into the model's predictive performance. A high p-value suggests a good model fit, while a low p-value indicates a significant discrepancy between observed and expected values. However, caution should be exercised when using the test with small sample sizes, as it may yield unreliable results.
+
+

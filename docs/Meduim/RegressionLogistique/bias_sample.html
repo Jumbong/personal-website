@@ -246,14 +246,11 @@ window.Quarto = {
 <p>In this article, the impact of sampling bias (sample dataset distribution different from the population distribution) and class imbalance on logistic regression models is explored. We hypothesize that the predictive performance of a logistic regression model is related to the sampling bias associated with the data and it has a performance advantage when the data is balanced. The hypothesis is testing with two simulated datasets : a balanced dataset (50:50) and an imbalanced dataset (80:20). Each dataset will be sampled to produce samples with the following distribution : 50:50, 60:40, 70:30, 80:20, 90:10, 95:5, 99:1.</p>
 <p>The performance of the logistic regression model will be evaluated using the Area Under the Curve (AUC), Area Under the Precision-Recall Curve (AU-PCR), Precision, Recall, and F1-score.</p>
 <p>Monte-Carlo simulations will be carried out to evaluate the distribution of the performance metrics for each of the samples and insure the robustness of the results.</p>
-<p>This study gives some main results :</p>
-<ul>
-<li>When the distribution of the minority in the sample is less than the distribution of the minority in the population, the performance metrics deteriorate considerably except the AUC metric.;</li>
-<li>when the distribution of the minority in the sample is greater than the distribution of the minority in the population, the performance metrics improve except the AUC metric;</li>
-<li>The performance metrics are excellent to evaluate the sample bias in the logistic regression model when the true distribution of the population is balanced.</li>
-<li>The performance metrics except the AUC metric are sensitive to the class imbalance. So the AUC metric must be avoided to evaluate the performance of the logistic regression model when the class imbalance is present in the sample.</li>
-<li>In case of imbalance dataset, AUC is not sensitive to class imbalance and sampling bias. However, other metrics such as AU-PCR, Precision, Recall, and F1-score are sensitive to class imbalance and sampling bias. When using these metrics, the performance of the model in the sample deteriorates considerably when the distribution of the minority in the sample is less than the distribution of the minority in the population, and improves when the distribution of the minority in the sample is greater than the distribution of the minority in the population.</li>
-</ul>
+<p>This study gives three main results&nbsp;:</p>
+<p>A. The predicted probability using a maximum logistic regression (MLLR) model is closest to the true probability when the sample has the same class distribution as the original population. Therefore, in probabilistic modeling with MLLR, it is important to create a sample that matches the class distribution of the original population rather than ensuring equal class sampling, see <a href="#fig-plotsamplecasea" class="quarto-xref">Figure&nbsp;3</a> and <a href="#fig-plotsamplecaseb" class="quarto-xref">Figure&nbsp;6</a>.</p>
+<p>B. AUC measures how well probabilistic classifiers predict. It ranges from 0.5 (random) to 1 (perfect). AUC shows class separability regardless of class imbalance or sampling bias, see <a href="#fig-plot_metrics_a" class="quarto-xref">Figure&nbsp;5</a> and <a href="#fig-plot_metrics_b" class="quarto-xref">Figure&nbsp;8</a>.</p>
+<p>C. We recommend AUC to evaluate class separability in probabilistic models. To analyse sampling biais as well as the difference in the true and predicted probabilities, AUC-PR, Recall, precision and f1-score can be used as indicator.</p>
+<p>The protocol of this paper is as follows. First, we describe how to simulate data. Next, we present the methodology. Finally, we present the results.</p>
 </section>
 <section id="simulated-data-generation" class="level1">
 <h1>1. Simulated Data Generation</h1>
@@ -293,7 +290,7 @@ y(x, \alpha, \beta) =
 \]</span></p>
 <p>where <span class="math inline">\(\text{prop}\)</span> is the proportion of y=1 in the dataset, <span class="math inline">\(x_i\)</span> is the predictor variable, and <span class="math inline">\(n\)</span> is the number of observations.</p>
 <p>The optimization problem can be solved using the <code>scipy.optimize.minimize</code> function with the Nelder-Mead method.</p>
-<div id="c9a08f0e" class="cell" data-execution_count="1">
+<div id="aab4f636" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -330,8 +327,8 @@ y(x, \alpha, \beta) =
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> np.mean(y)</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of y=1: </span><span class="sc">{</span>y_mean<span class="sc">:.2f}</span><span class="ss">, y=0: </span><span class="sc">{</span><span class="dv">1</span><span class="op">-</span>y_mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Optimized alpha: -10, beta: [1.23675]
-Proportion of y=1: 0.19, y=0: 0.81</code></pre>
+<pre><code>Optimized alpha: -10, beta: [1.237625]
+Proportion of y=1: 0.23, y=0: 0.78</code></pre>
 </div>
 </div>
 </section>
@@ -550,7 +547,7 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <section id="eight-sub-samples-generated-from-case-a." class="level3">
 <h3 class="anchored" data-anchor-id="eight-sub-samples-generated-from-case-a.">Eight sub-samples generated from Case A.</h3>
 <p>The code below generates the eight sub-samples from the Case A dataset with varying class distributions.</p>
-<div id="2893f490" class="cell" data-execution_count="4">
+<div id="5f03101e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_subsample_fixed_majority(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    X, y, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    fraction_class0<span class="op">=</span><span class="fl">0.6</span>,  <span class="co"># e.g., 0.6 =&gt; 60:40</span></span>
@@ -734,7 +731,7 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <h3 class="anchored" data-anchor-id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-a-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case A with monte-carlo simulations.</h3>
 <p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
 <p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case A with monte-carlo simulations.</p>
-<div id="4f4ffd74" class="cell" data-execution_count="7">
+<div id="eef290a3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    roc_auc_score,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    precision_score,</span>
@@ -851,67 +848,67 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.50</td>
-<td>0.984041</td>
-<td>0.984637</td>
-<td>0.930456</td>
-<td>0.931237</td>
-<td>0.930823</td>
+<td>0.984074</td>
+<td>0.984656</td>
+<td>0.930479</td>
+<td>0.931309</td>
+<td>0.930865</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.60</td>
-<td>0.984052</td>
-<td>0.978045</td>
-<td>0.923665</td>
-<td>0.907862</td>
-<td>0.915645</td>
+<td>0.984102</td>
+<td>0.978108</td>
+<td>0.923818</td>
+<td>0.907941</td>
+<td>0.915764</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.70</td>
-<td>0.984007</td>
-<td>0.968139</td>
-<td>0.914832</td>
-<td>0.881908</td>
-<td>0.897990</td>
+<td>0.984130</td>
+<td>0.968422</td>
+<td>0.915704</td>
+<td>0.881950</td>
+<td>0.898422</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.80</td>
-<td>0.984091</td>
-<td>0.951889</td>
-<td>0.903616</td>
-<td>0.842173</td>
-<td>0.871638</td>
+<td>0.984061</td>
+<td>0.951863</td>
+<td>0.902320</td>
+<td>0.843581</td>
+<td>0.871767</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.90</td>
-<td>0.983972</td>
-<td>0.916215</td>
-<td>0.897484</td>
-<td>0.777228</td>
-<td>0.832553</td>
+<td>0.984109</td>
+<td>0.916058</td>
+<td>0.896405</td>
+<td>0.776754</td>
+<td>0.831777</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.95</td>
-<td>0.983980</td>
-<td>0.871214</td>
-<td>0.889258</td>
-<td>0.708241</td>
-<td>0.787079</td>
+<td>0.984278</td>
+<td>0.871084</td>
+<td>0.886155</td>
+<td>0.709544</td>
+<td>0.786594</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.98</td>
-<td>0.984299</td>
-<td>0.800914</td>
-<td>0.868694</td>
-<td>0.620774</td>
-<td>0.719914</td>
+<td>0.983984</td>
+<td>0.801876</td>
+<td>0.868928</td>
+<td>0.623581</td>
+<td>0.721941</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.99</td>
-<td>0.983781</td>
-<td>0.737049</td>
-<td>0.853363</td>
-<td>0.555400</td>
-<td>0.662263</td>
+<td>0.983599</td>
+<td>0.737257</td>
+<td>0.861190</td>
+<td>0.553867</td>
+<td>0.664944</td>
 </tr>
 </tbody>
 </table>
@@ -1105,7 +1102,7 @@ Figure&nbsp;6: Distribution of y for Case B sub-samples
 <span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1.23675]</code></pre>
+<pre><code>[1.237625]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-plot_true_vs_estimated_p_b" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1128,7 +1125,7 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <h3 class="anchored" data-anchor-id="distribution-of-the-performance-metrics-for-the-eight-sub-samples-from-case-b-with-monte-carlo-simulations.">Distribution of the performance metrics for the eight sub-samples from Case B with monte-carlo simulations.</h3>
 <p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
 <p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case B with monte-carlo simulations.</p>
-<div id="af34a154" class="cell" data-execution_count="11">
+<div id="ae76d104" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>C_RUNS <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>SAMPLE_SIZE <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># e.g., majority class size if using a fixed majority approach</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> [<span class="fl">0.50</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.98</span>, <span class="fl">0.99</span>]</span>
@@ -1214,67 +1211,67 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.50</td>
-<td>0.946229</td>
-<td>0.933361</td>
-<td>0.857975</td>
-<td>0.911137</td>
-<td>0.883724</td>
+<td>0.946016</td>
+<td>0.932919</td>
+<td>0.857759</td>
+<td>0.910720</td>
+<td>0.883412</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.60</td>
-<td>0.946127</td>
-<td>0.904852</td>
-<td>0.826969</td>
-<td>0.869580</td>
-<td>0.847675</td>
+<td>0.946232</td>
+<td>0.904992</td>
+<td>0.827835</td>
+<td>0.869441</td>
+<td>0.848069</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.70</td>
-<td>0.946118</td>
-<td>0.863259</td>
-<td>0.791610</td>
-<td>0.812095</td>
-<td>0.801587</td>
+<td>0.945913</td>
+<td>0.862643</td>
+<td>0.791059</td>
+<td>0.812680</td>
+<td>0.801598</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.80</td>
-<td>0.946352</td>
-<td>0.794941</td>
-<td>0.750849</td>
-<td>0.725123</td>
-<td>0.737488</td>
+<td>0.946019</td>
+<td>0.793441</td>
+<td>0.750784</td>
+<td>0.724939</td>
+<td>0.737344</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.90</td>
-<td>0.945954</td>
-<td>0.651873</td>
-<td>0.672217</td>
-<td>0.527695</td>
-<td>0.590271</td>
+<td>0.945781</td>
+<td>0.650551</td>
+<td>0.670773</td>
+<td>0.527802</td>
+<td>0.589822</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.95</td>
-<td>0.946132</td>
-<td>0.500229</td>
-<td>0.612901</td>
-<td>0.300734</td>
-<td>0.400106</td>
+<td>0.946624</td>
+<td>0.502390</td>
+<td>0.614871</td>
+<td>0.303671</td>
+<td>0.402890</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.98</td>
-<td>0.945656</td>
-<td>0.313495</td>
-<td>0.120806</td>
-<td>0.013806</td>
-<td>0.023706</td>
+<td>0.945506</td>
+<td>0.314902</td>
+<td>0.119871</td>
+<td>0.014290</td>
+<td>0.024497</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.99</td>
-<td>0.945321</td>
-<td>0.216458</td>
-<td>0.000950</td>
-<td>0.000200</td>
-<td>0.000323</td>
+<td>0.946350</td>
+<td>0.221421</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
 </tr>
 </tbody>
 </table>
@@ -1569,7 +1566,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
