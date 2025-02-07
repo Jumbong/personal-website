@@ -3,8 +3,8 @@ title: " Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regres
 sidebar: auto
 author:
   - Jumbong Junior 
-categories: []
-tags: []
+categories: [article]
+tags: [Bias, Sampling, Class Imbalance, Logistic Regression, AUC, Precision, Recall, F1-score, Monte-Carlo Simulation, Maximum-likelihood Logistic Regression,python]
 
 title-block-banner: false
 format: 

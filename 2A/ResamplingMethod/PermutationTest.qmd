@@ -1,0 +1,59 @@
+---
+title: " Resampling methods : Permutation Test"
+sidebar: auto
+author:
+  - Jumbong Junior 
+categories: []
+tags: []
+
+title-block-banner: false
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 16pt
+
+jupyter: python3
+        
+---
+
+# Introduction
+
+Resampling methods are a key part of statistical inference. It is important to understand them in order to have accurate estimates, validate models, and dealt with the uncertainty of the data. Indeed, **the resampling methods mesure the variability of statistics by using subsamples from the original data**. There are least four resampling methods: **bootstrap, jackknife, permutation test, and cross-validation** :
+
+| Resampling method | Applications | Type of resampling |
+|-------------------|--------------|--------------------|
+| Efron's bootstrap | Bias, variance, confidence intervals, hypothesis testing | With replacement |
+| Permutation test | Hypothesis testing | Without replacement |
+| Jackknife | Bias, variance, confidence intervals | Leave-one-out |
+| Cross-validation | Model selection, validation | Leave-p-out |
+
+This document will focus on the permutation test. 
+
+# General framework of the hypothesis test
+
+The goal of statistics is to learn about a population by studying a sample. Often, we don't know the process that produced the sample. Mathematically, the sample is a random variable. 
+
+Let $X = (X_1, X_2, \ldots, X_n)$ be a sample of size $n$ drawn from a population or a probability distribution $P$. 
+
+A hypothesis is a declarative statement about the population or the probability distribution. A hypothesis test involves two complementary hypotheses :
+
+- The null hypothesis $H_0$ : "$P \in \mathcal{P}_0$" where $\mathcal{P}_0$ is a set of probability distributions.
+- The alternative hypothesis $H_1$ : "$P \notin \mathcal{P}_0$". 
+
+A test $\phi$ is a decision procedure between $H_0$ and $H_1$, given the sample $X$. 
+$$
+\phi(x) =
+\begin{cases}
+    1 & \text{reject} H_0 \\
+    0 & \text{It is not reject} H_0
+\end{cases}
+$$
+
+
+A test $\phi$ is defined using a real-valued test statistic $T(X)$ :
+
+- $\phi(x) = \mathbb{1}_{\{T(x) > t_{\alpha}\}}$ where $t_{\alpha}$ is the critical value of the test at level $\alpha$. $H_0$ is rejected when $T(x) > t_{\alpha}$.
+- $\sup_{P \in \mathcal{P}_0} \mathbb{E}_P \{\phi\} \leq \alpha : \text{ The law of } T \text{ under } H_0 \text{ is known}$.
+
+
+

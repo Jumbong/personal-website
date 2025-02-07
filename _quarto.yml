@@ -24,7 +24,7 @@ website:
 
 format:
   html:
-    link-external-newwindow: false
+    #link-external-newwindow: false
     theme:
       light: cosmo
       dark: superhero

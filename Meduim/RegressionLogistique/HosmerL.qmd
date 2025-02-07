@@ -4,7 +4,7 @@ sidebar: auto
 author:
   - Jumbong Junior 
 categories: []
-tags: []
+tags: [Hosmer-Lemeshow, Logistic Regression, Goodness of fit, Python]
 title-block-banner: false
 html:
     code-fold : true
