@@ -10,7 +10,7 @@ execute:
   freeze: auto  
   
 website:
-  title: "Jumbong Junior"
+  title: ""
   favicon: "flavicon.jpeg"
   back-to-top-navigation: true
   navbar:
