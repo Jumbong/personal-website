@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jumbong Junior">
 
-<title>Evaluation of the Logistic Regression : The Hosmer-Lemeshow test – Jumbong Junior</title>
+<title>Evaluation of the Logistic Regression : The Hosmer-Lemeshow test</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -147,11 +147,6 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Jumbong Junior</span>
-    </a>
-  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -391,7 +386,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 <section id="application-in-python" class="level1">
 <h1>Application in python</h1>
 <p>To implement the Hosmer-Lemeshow test in python, a dataset is essential. The dependent variable or the event Y is generated using the bernouilli distribution. To simplify, only two independent continuous variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are drawn from the normal distribution. In this example, the dataset have 1000 individuals.</p>
-<div id="7c81dcd3" class="cell" data-execution_count="1">
+<div id="7149ad58" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Entry : Python package, the number of indivuals and the parameter of the normal law : 0.5</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Output : A dataset of 1000 individuals.</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Generate a dataset of 1000 individuals. Generate the Y variable using the bernouill law and X1 and X2 using the normal law.</span></span>
@@ -467,7 +462,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>The parameters of logistic regression is estimated and the probability of the event <span class="math inline">\(P_(Y =1 | X_1, X_2)\)</span>.</p>
-<div id="bc34e1cc" class="cell" data-execution_count="2">
+<div id="3fd71821" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the data dataset data_2.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : A dataset with the event variable Y and the Pi expected probability computed for each individuals.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Estimating of parameters and compute pi using sm.Logit.</span></span>
@@ -548,7 +543,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>To compute the Hosmer-test, individuals are divided into deciles (10 g groups) based on their predicted probabilities <span class="math inline">\(P_i\)</span>. For each group g, compute the Observed number of the event in each group g (<span class="math inline">\(O_g\)</span>) and the expected number of event in each group g (<span class="math inline">\(E_g\)</span>).</p>
-<div id="aa72e33f" class="cell" data-execution_count="3">
+<div id="02b0d86f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the dataset data_2.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the group of deciles with the O_g observed number of event by group and the E_g expected number of event by group.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -621,7 +616,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>Finally, it is easier to compute the value of the Hosmer-Lemeshow statistic.</p>
-<div id="220ff578" class="cell" data-execution_count="4">
+<div id="0c8dbc55" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the grouped dataset.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the Hosmer-Lemeshow test.</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Using the grouped data in order to calculate the Hosmer-Lemeshow statistic HL.</span></span>
@@ -645,7 +640,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>Under the null hypothesis (the observed default numbers correspond to the expected default numbers) the test statistic asymptotically follows a <span class="math inline">\(\chi_2\)</span> distribution with 8 degrees of freedom. The p value is given by the code below.</p>
-<div id="4e9bad52" class="cell" data-execution_count="5">
+<div id="7a550bd7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : the HL_statistic and the degrees_of_freedom.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : the P value of the test.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Knowing that the HL follows the chi2 distribution with 8 degrees of freedom, we compute the p value.</span></span>
@@ -662,7 +657,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 </div>
 </div>
 <p>In this example, the p value is 0.7 higher than 5%, it indicates as small statistic and so a limited gap between observed default and expected ones and so a good model fit. Put in nutshell, two funcions can be used to compute the Hosmer-Lemeshow test. The first one is the homser_lemeshow_test and the second one is the hosmer_lemeshow_test2.</p>
-<div id="c220a99a" class="cell" data-execution_count="6">
+<div id="a1448668" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry : A dataset which contains The dependent variable Y, the predicted probabilities P, or the discretized probabilities P or rating classes if possible and the number of groups if we don't have the rating classes.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output : The Hosmer-Lemeshow test.</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Compute the Hosmer-Lemeshow test.</span></span>
@@ -718,7 +713,7 @@ H_g = \frac{(O_g - E_g)^2}{E_g} + \frac{(n_g - O_g - (n_g - E_g))^2}{n_g - E_g}
 <pre><code>(np.float64(5.49669887032658), 8, np.float64(0.7034057045508038))</code></pre>
 </div>
 </div>
-<div id="12ac7a26" class="cell" data-execution_count="7">
+<div id="48bf7b63" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hosmer_lemeshow_test2(data, depend_variable, pred_prb, rating_class <span class="op">=</span> <span class="va">None</span>, n_groups <span class="op">=</span> <span class="dv">10</span>):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute the Hosmer-Lemeshow test.</span></span>
