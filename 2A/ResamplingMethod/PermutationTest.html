@@ -188,7 +188,6 @@ window.Quarto = {
   <li><a href="#application-of-the-permutation-test" id="toc-application-of-the-permutation-test" class="nav-link" data-scroll-target="#application-of-the-permutation-test">Application of the permutation test</a>
   <ul class="collapse">
   <li><a href="#symmetry-test" id="toc-symmetry-test" class="nav-link" data-scroll-target="#symmetry-test">Symmetry test</a></li>
-  <li><a href="#symmetry-test-wilcoxon-sign-rank-test" id="toc-symmetry-test-wilcoxon-sign-rank-test" class="nav-link" data-scroll-target="#symmetry-test-wilcoxon-sign-rank-test">Symmetry test : Wilcoxon sign-rank test</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -359,9 +358,7 @@ p(X) = \frac{1}{M} \sum_{g \in G} \mathbb{1}_{\{T(g \cdot X) &gt; T(X)\}}
 </ul>
 <section id="symmetry-test" class="level2">
 <h2 class="anchored" data-anchor-id="symmetry-test">Symmetry test</h2>
-<p><strong>Statistical Model</strong> : <span class="math inline">\(X = (X_1, X_2, \ldots, X_n)\overset{i.i.d}{\sim} F\)</span> where <span class="math inline">\(F\)</span> is a Cumulative Distribution Function (CDF) defined on <span class="math inline">\(\mathbb{R}\)</span>. <span class="math inline">\(X = (X_1, \dots, X_n) \in \mathbb{R}^n\)</span></p>
-<p><strong>The hypothesis test</strong> : <span class="math inline">\(H_0 : F \text{ is symmetric around } 0\)</span> vs <span class="math inline">\(H_1 : F \text{ is not symmetric around } 0\)</span>.</p>
-<p><strong>The transformation group</strong> : <span class="math inline">\(G = \{-1, 1\}^n\)</span>. with cardinality <span class="math inline">\(|G| = 2^n\)</span>.</p>
+<p><strong>Statistical Model</strong> : <span class="math inline">\(X = (X_1, X_2, \ldots, X_n)\overset{i.i.d}{\sim} F\)</span> where <span class="math inline">\(F\)</span> is a Cumulative Distribution Function (CDF) defined on <span class="math inline">\(\mathbb{R}\)</span>. <span class="math inline">\(X = (X_1, \dots, X_n) \in \mathbb{R}^n\)</span> <strong>The hypothesis test</strong> : <span class="math inline">\(H_0 : F \text{ is symmetric around } 0\)</span> vs <span class="math inline">\(H_1 : F \text{ is not symmetric around } 0\)</span>. <strong>The transformation group</strong> : <span class="math inline">\(G = \{-1, 1\}^n\)</span>. with cardinality <span class="math inline">\(|G| = 2^n\)</span>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -377,7 +374,7 @@ Exchangeability Assumption
 </div>
 <p><strong>Test statistic</strong> : The test statistic can be defined by :</p>
 <ul>
-<li><p>T(X) = |<span class="math inline">\(\overline{X}\)</span>| where <span class="math inline">\(\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>.</p></li>
+<li><p>T(X) = |<span class="math inline">\(\bar{X}\)</span>| where <span class="math inline">\(\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>.</p></li>
 <li><p><span class="math inline">\(T(X) = \sum_{i=1}^n R_i sign(X_i)\)</span> where <span class="math inline">\(R_i\)</span> is the rank of <span class="math inline">\(|X_i|\)</span> in <span class="math inline">\(|X_1|, |X_2|, \ldots, |X_n|\)</span>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -401,12 +398,11 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <li><p>Compute <span class="math inline">\(T^b = T(g^b \cdot X)\)</span>.</p></li>
 </ul>
 <p><strong>end for.</strong></p>
-<p>Return the p-value <span class="math inline">\(p(X) = \frac{1}{B} \sum_{b=1}^B \mathbb{1}_{\{T^b &gt; T(X)\}}\)</span></p>
-<p>end</p>
+<p>Return the p-value <span class="math inline">\(p(X) = \frac{1}{B} \sum_{b=1}^B \mathbb{1}_{\{T^b &gt; T(X)\}}\)</span> end</p>
 </div>
 </div>
 <p>The code below is an implementation of the permutation test for the symmetry test.</p>
-<div id="26622618" class="cell" data-execution_count="1">
+<div id="535197a2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -416,27 +412,19 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs : dictionnary : statistic, sample_perm, p-value.</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> symmetry_perm(x, func<span class="op">=</span>np.mean, nsamp <span class="op">=</span><span class="dv">9999</span>):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.asarray(x)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> x.shape[<span class="dv">0</span>]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    tobs <span class="op">=</span> func(x)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate nsamp samples sign permutation</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span>(nsamp, n), replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the test statistic for each sample</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    permuted <span class="op">=</span> eps <span class="op">*</span> x</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        tperm <span class="op">=</span> func(permuted, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">TypeError</span>:</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        tperm <span class="op">=</span> np.apply_along_axis(func, <span class="dv">1</span>, permuted)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the p-value</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(tperm) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(tobs))</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> (count <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (nsamp <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"statistic"</span>: tobs, <span class="st">"sample_perm"</span>: tperm, <span class="st">"p-value"</span>: p}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> func(x)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate nsamp samples sign permutation</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span>(nsamp, n), replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the test statistic for each sample</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    t_perm <span class="op">=</span> np.apply_along_axis(func, <span class="dv">1</span>, eps<span class="op">*</span>x)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the p-value</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> (np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(t_perm) <span class="op">&gt;</span> np.<span class="bu">abs</span>(t)) <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (nsamp <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"statistic"</span>: t, <span class="st">"sample_perm"</span>: t_perm, <span class="st">"p-value"</span>: p}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s apply the symmetry test to a central normal distribution.</p>
-<div id="b10e54a9" class="cell" data-execution_count="2">
+<div id="fb713de1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.random.seed(42)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
@@ -447,11 +435,11 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : -0.06308259014379482, p-value : 0.5059</code></pre>
+<pre><code>Statistic : 0.07278105767662539, p-value : 0.4622</code></pre>
 </div>
 </div>
 <p><strong>Distribution of the mean and the ergodic mean p-values.</strong></p>
-<div id="e8de244d" class="cell" data-execution_count="3">
+<div id="e17cd7fc" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="dv">6000</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># P value for a range of nsamp from 1 to B</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p_values <span class="op">=</span> [symmetry_perm(x, func<span class="op">=</span>np.mean, nsamp<span class="op">=</span>i)[<span class="st">"p-value"</span>] <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1</span>, B)]</span>
@@ -492,43 +480,11 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="PermutationTest_files/figure-html/cell-4-output-1.png" width="762" height="278" class="figure-img"></p>
+<p><img src="PermutationTest_files/figure-html/cell-4-output-1.png" width="760" height="278" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="symmetry-test-wilcoxon-sign-rank-test" class="level2">
-<h2 class="anchored" data-anchor-id="symmetry-test-wilcoxon-sign-rank-test">Symmetry test : Wilcoxon sign-rank test</h2>
-<p>One of the most popular permutation tests is the Wilcoxon sign-rank test. It allows to test for example if two paired samples come from the same distribution. To accomplish this, the Wilcoxon sign-rank test assess if the difference between the two samples is symmetric around 0.</p>
-<p>The test statistic is defined by :</p>
-<p><span class="math display">\[
-T(X) = \sum_{i=1}^n R_i sign(X_i)
-\]</span></p>
-<p>where <span class="math inline">\(R_i\)</span> is the rank of <span class="math inline">\(|X_i|\)</span> in <span class="math inline">\(|X_1|, |X_2|, \ldots, |X_n|\)</span>.</p>
-<p>For the application of the Wilcoxon sign-rank test, for 10 patients, we have data on the number of hours of sleep after taking a drug and after taking a placebo. The goal is to test if the number of hours of sleep is the same after taking the drug and the placebo.</p>
-<div id="fb429a6d" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon, PermutationMethod</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>treatment <span class="op">=</span> np.array([<span class="fl">6.1</span>,<span class="fl">7.0</span>,<span class="fl">8.2</span>,<span class="fl">7.6</span>,<span class="fl">6.5</span>,<span class="fl">8.4</span>,<span class="fl">6.9</span>,<span class="fl">6.7</span>,<span class="fl">7.4</span>,<span class="fl">5.8</span>])</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>placebo  <span class="op">=</span> np.array([<span class="fl">5.2</span>,<span class="fl">7.9</span>,<span class="fl">3.9</span>,<span class="fl">4.7</span>,<span class="fl">5.3</span>,<span class="fl">5.4</span>,<span class="fl">4.2</span>,<span class="fl">6.1</span>,<span class="fl">3.8</span>,<span class="fl">6.3</span>])</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> treatment <span class="op">-</span> placebo</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stat test </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>statW <span class="op">=</span> <span class="kw">lambda</span> z: (pd.Series(np.<span class="bu">abs</span>(z)).rank() <span class="op">*</span> np.sign(z)).<span class="bu">sum</span>()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Test per permutation</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> symmetry_perm(z, func<span class="op">=</span>statW, nsamp<span class="op">=</span><span class="dv">59999</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Statistic : 45.0, p-value : 0.01965</code></pre>
-</div>
-</div>
-<p>The p-value is 0.01985 less than 0.05, we reject the null hypothesis. The number of hours of sleep is not the same after taking the drug and the placebo.</p>
-<p>Conclusion</p>
-<p>The permutation test is a powerful tool for hypothesis testing and up-to-date. In this article, we have seen how to apply the permutation test to test the symmetry of a distribution and the Wilcoxon sign-rank test.</p>
 
 
 </section>
