@@ -11,7 +11,7 @@ title: "A propos de moi"
     <li> École Nationale de la Statistique et de l'analyse de l'information </li>
     <br>
     <li> Email : jumbong.jr@gmail.com </li>
-    <li> CV (Français/English) : [cv_cheryl_kouadio_fr.pdf](CV/CV_Cheryl_KOUADIO___3A-fr.pdf)/[cv_cheryl_kouadio_en.pdf](CV/CV_Cheryl_KOUADIO___3A-en.pdf)
+    <li> CV (Français/English) : [CV](CV/CV_Jumbong.pdf) </li>
 </ul> 
 
 <img src="illust_graphics.jpg"  style="width: 250px; height: 250px;">

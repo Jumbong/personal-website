@@ -4,7 +4,7 @@ sidebar: auto
 author:
   - Jumbong Junior 
 categories: []
-tags: [Bootstrap, Monte Carlo, Resampling,distribution, empirical distribution, statistical functional, bootstrap sample, bootstrap distribution]
+tags: [Bootstrap, Monte Carlo, Resampling,distribution, empirical distribution, statistical functional, bootstrap sample, bootstrap distribution, simulation]
 
 title-block-banner: false
 format: 
@@ -337,7 +337,7 @@ plt.plot(x_vals, ecdf_boot(x_vals), 'k-', label='boot')
 
 plt.title(r"Distribution de $R_n = \sqrt{n}(\bar{X} - \mu)$")
 plt.xlim(-10, 10)
-plt.xlabel("R_n")
+plt.xlabel(r"$R_n$")
 plt.ylabel(r"F($R_n$)")
 plt.legend()
 plt.grid(False)
