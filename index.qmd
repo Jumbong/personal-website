@@ -36,6 +36,7 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
         - stability test 
     - Resampling Methods
         - [Permutation Test](2A/ResamplingMethod/PermutationTest.qmd)
+        - [Bootstrap Efron](2A/ResamplingMethod/boostrappEfron.qmd)
 
 - <a href="Meduim/RegressionLogistique/bias_sample.qmd" target="_self">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a>
 

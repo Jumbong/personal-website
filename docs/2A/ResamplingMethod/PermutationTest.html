@@ -185,9 +185,9 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#general-principle" id="toc-general-principle" class="nav-link" data-scroll-target="#general-principle">General Principle</a></li>
   </ul></li>
-  <li><a href="#application-of-the-permutation-test" id="toc-application-of-the-permutation-test" class="nav-link" data-scroll-target="#application-of-the-permutation-test">Application of the permutation test</a>
+  <li><a href="#application-of-the-permutation-test" id="toc-application-of-the-permutation-test" class="nav-link" data-scroll-target="#application-of-the-permutation-test">Application of the permutation test</a></li>
+  <li><a href="#symmetry-test" id="toc-symmetry-test" class="nav-link" data-scroll-target="#symmetry-test">Symmetry test</a>
   <ul class="collapse">
-  <li><a href="#symmetry-test" id="toc-symmetry-test" class="nav-link" data-scroll-target="#symmetry-test">Symmetry test</a></li>
   <li><a href="#symmetry-test-wilcoxon-sign-rank-test" id="toc-symmetry-test-wilcoxon-sign-rank-test" class="nav-link" data-scroll-target="#symmetry-test-wilcoxon-sign-rank-test">Symmetry test : Wilcoxon sign-rank test</a></li>
   </ul></li>
   <li><a href="#independence-test" id="toc-independence-test" class="nav-link" data-scroll-target="#independence-test">Independence test</a></li>
@@ -359,8 +359,9 @@ p(X) = \frac{1}{M} \sum_{g \in G} \mathbb{1}_{\{T(g \cdot X) &gt; T(X)\}}
 <li><p><strong>Independence test</strong> : which help assess the effect of one variable on another. An example is the Spearman test.</p></li>
 <li><p><strong>Comparison of two samples</strong> : The permutation test can be used to compare the distribution of two samples. For example to assess if two samples have the same law.</p></li>
 </ul>
-<section id="symmetry-test" class="level2">
-<h2 class="anchored" data-anchor-id="symmetry-test">Symmetry test</h2>
+</section>
+<section id="symmetry-test" class="level1">
+<h1>Symmetry test</h1>
 <p><strong>Statistical Model</strong> : <span class="math inline">\(X = (X_1, X_2, \ldots, X_n)\overset{i.i.d}{\sim} F\)</span> where <span class="math inline">\(F\)</span> is a Cumulative Distribution Function (CDF) defined on <span class="math inline">\(\mathbb{R}\)</span>. <span class="math inline">\(X = (X_1, \dots, X_n) \in \mathbb{R}^n\)</span></p>
 <p><strong>The hypothesis test</strong> : <span class="math inline">\(H_0 : F \text{ is symmetric around } 0\)</span> vs <span class="math inline">\(H_1 : F \text{ is not symmetric around } 0\)</span>.</p>
 <p><strong>The transformation group</strong> : <span class="math inline">\(G = \{-1, 1\}^n\)</span>. with cardinality <span class="math inline">\(|G| = 2^n\)</span>.</p>
@@ -408,7 +409,7 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 </div>
 </div>
 <p>The code below is an implementation of the permutation test for the symmetry test.</p>
-<div id="f7300edf" class="cell" data-execution_count="1">
+<div id="77a441f9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -438,7 +439,7 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"statistic"</span>: tobs, <span class="st">"sample_perm"</span>: tperm, <span class="st">"p-value"</span>: p}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s apply the symmetry test to a central normal distribution.</p>
-<div id="49092003" class="cell" data-execution_count="2">
+<div id="135eebc1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.random.seed(42)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
@@ -449,11 +450,11 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : 0.023564866085366575, p-value : 0.8183</code></pre>
+<pre><code>Statistic : 0.016915530800782546, p-value : 0.8739</code></pre>
 </div>
 </div>
 <p><strong>Distribution of the mean and the ergodic mean p-values.</strong></p>
-<div id="ada1e78f" class="cell" data-execution_count="3">
+<div id="5d62a728" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="dv">6000</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># P value for a range of nsamp from 1 to B</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p_values <span class="op">=</span> [symmetry_perm(x, func<span class="op">=</span>np.mean, nsamp<span class="op">=</span>i)[<span class="st">"p-value"</span>] <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1</span>, B)]</span>
@@ -494,12 +495,11 @@ Algo : Symmetry test by permutation test (Monte Carlo)
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="PermutationTest_files/figure-html/cell-4-output-1.png" width="762" height="278" class="figure-img"></p>
+<p><img src="PermutationTest_files/figure-html/cell-4-output-1.png" width="760" height="278" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
 <section id="symmetry-test-wilcoxon-sign-rank-test" class="level2">
 <h2 class="anchored" data-anchor-id="symmetry-test-wilcoxon-sign-rank-test">Symmetry test : Wilcoxon sign-rank test</h2>
 <p>One of the most popular permutation tests is the Wilcoxon sign-rank test. It allows to test for example if two paired samples come from the same distribution. To accomplish this, the Wilcoxon sign-rank test assess if the difference between the two samples is symmetric around 0.</p>
@@ -509,7 +509,7 @@ T(X) = \sum_{i=1}^n R_i sign(X_i)
 \]</span></p>
 <p>where <span class="math inline">\(R_i\)</span> is the rank of <span class="math inline">\(|X_i|\)</span> in <span class="math inline">\(|X_1|, |X_2|, \ldots, |X_n|\)</span>.</p>
 <p>For the application of the Wilcoxon sign-rank test, for 10 patients, we have data on the number of hours of sleep after taking a drug and after taking a placebo. The goal is to test if the number of hours of sleep is the same after taking the drug and the placebo.</p>
-<div id="160b7110" class="cell" data-execution_count="4">
+<div id="1e066e3f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon, PermutationMethod</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -525,7 +525,7 @@ T(X) = \sum_{i=1}^n R_i sign(X_i)
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : 45.0, p-value : 0.018733333333333334</code></pre>
+<pre><code>Statistic : 45.0, p-value : 0.0199</code></pre>
 </div>
 </div>
 <p>The p-value is 0.01985 less than 0.05, we reject the null hypothesis. The number of hours of sleep is not the same after taking the drug and the placebo.</p>
@@ -536,13 +536,13 @@ T(X) = \sum_{i=1}^n R_i sign(X_i)
 <p>Let’s define the framework of the independence test :</p>
 <p><strong>Statistical Model</strong> : <span class="math inline">\((Y_1,Z_1), (Y_2,Z_2), \ldots, (Y_n,Z_n) \overset{i.i.d}{\sim} F\)</span> where <span class="math inline">\(F\)</span> is a joint distribution defined on <span class="math inline">\(\mathbb{R}^2\)</span>. X = <span class="math inline">\((Y, Z) = (Y_1, Z_1), (Y_2, Z_2), \ldots, (Y_n, Z_n)\)</span>, matrix of size <span class="math inline">\(n \times 2\)</span>.</p>
 <p><strong>The hypothesis test</strong> : <span class="math inline">\(H_0 : F(y,z) = F_Y(y)F_Z(z)\)</span> vs <span class="math inline">\(H_1 : F(y,z) \neq F_Y(y)F_Z(z)\)</span>. where <span class="math inline">\(F_Y\)</span> and <span class="math inline">\(F_Z\)</span> are the marginal distributions of <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span>.</p>
-<p><strong>The transformation group</strong> : G is the permutation group of size <span class="math inline">\(|G| = n!\)</span>. G acts on <span class="math inline">\(\mathbb{textbf{M}}^{2 \times n}\)</span> by : <span class="math display">\[
+<p><strong>The transformation group</strong> : G is the permutation group of size <span class="math inline">\(|G| = n!\)</span>. G acts on <span class="math inline">\(\mathbb{\textbf{M}}^{2 \times n}\)</span> by : <span class="math display">\[
 \sigma \cdot X = \bigl((y_1, z_{\sigma(1)}), (y_2, z_{\sigma(2)}), \ldots, (y_n, z_{\sigma(n)})\bigr)
 \]</span> For <span class="math inline">\(\sigma \in G\)</span> and <span class="math inline">\(X = (Y, Z)\)</span>.</p>
 <p>The test statistic (association measure or correlation) is defined by :</p>
 <ul>
 <li><p>T(X) = <span class="math inline">\(\sum_{i=1}^n (Y_i - \overline{Y})(Z_i - \overline{Z})\)</span>, pearson correlation.</p></li>
-<li><p>T(X) = <span class="math inline">\(\sum_{i=1}^n R_i(Y) R_i(Z)\)</span>, Spearman correlation.</p></li>
+<li><p>T(X) = <span class="math inline">\(\sum_{i=1}^n R_i(Y) R_i(Z) - \frac{4(n+1)^2}{n}\)</span>, Spearman correlation.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -570,7 +570,7 @@ Algo : Independence test by permutation test (Monte Carlo)
 </div>
 </div>
 <p>For example, We want to study the effect of the molar ratio of sebacic acid to the intrinsic viscosity of copolyster. The data is given by :</p>
-<div id="c2bfc1ba" class="cell" data-execution_count="5">
+<div id="41b4ded2" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>molar_ratio <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">0.7</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>viscosity <span class="op">=</span> np.array([<span class="fl">0.45</span>, <span class="fl">0.2</span>, <span class="fl">0.34</span>, <span class="fl">0.58</span>, <span class="fl">0.7</span>, <span class="fl">0.57</span>, <span class="fl">0.55</span>, <span class="fl">0.44</span> ])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -600,11 +600,11 @@ Algo : Independence test by permutation test (Monte Carlo)
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : -0.4633642874743305, p-value : 0.2378</code></pre>
+<pre><code>Statistic : -0.4633642874743305, p-value : 0.2446</code></pre>
 </div>
 </div>
 <p>It can be compared to the Pearson correlation test.</p>
-<div id="0f651415" class="cell" data-execution_count="6">
+<div id="de57d6a2" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>stat, p <span class="op">=</span> pearsonr(molar_ratio, viscosity)</span>
@@ -653,7 +653,7 @@ Algo : Comparison of two samples by permutation test (Monte Carlo)
 </div>
 </div>
 <p>The code below is an implementation of the comparison of two samples by permutation test.</p>
-<div id="a71cad0b" class="cell" data-execution_count="7">
+<div id="3145fab2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> rankdata</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> twosamp_perm(y,z, func, nsamp <span class="op">=</span><span class="dv">9999</span>, alternative<span class="op">=</span><span class="st">"two-sided"</span>):</span>
@@ -712,7 +712,7 @@ Algo : Comparison of two samples by permutation test (Monte Carlo)
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : 1.1646689091705456, p-value : 0.0036</code></pre>
+<pre><code>Statistic : 0.9476770542185005, p-value : 0.0239</code></pre>
 </div>
 </div>
 <p>Example :</p>
@@ -725,7 +725,7 @@ Algo : Comparison of two samples by permutation test (Monte Carlo)
 T(X) = \sum_{i=1}^n R_i(Y)  -n(N+1)/2
 \]</span></p>
 <p>The alternative of interest is that the placental membrane is more permeable during full-term pregnancy.</p>
-<div id="a1aecb88" class="cell" data-execution_count="8">
+<div id="3e0a1985" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="fl">0.80</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span>])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.array([<span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>])</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -740,10 +740,10 @@ T(X) = \sum_{i=1}^n R_i(Y)  -n(N+1)/2
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic : </span><span class="sc">{</span>res[<span class="st">'statistic'</span>]<span class="sc">}</span><span class="ss">,"</span> </span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f" p-value : </span><span class="sc">{</span>res[<span class="st">'p-value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Statistic : 10.0, p-value : 0.1275</code></pre>
+<pre><code>Statistic : 10.0, p-value : 0.1265</code></pre>
 </div>
 </div>
-<div id="9dc6edea" class="cell" data-execution_count="9">
+<div id="89aa6ed6" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#--- Create Figure ---</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -768,7 +768,7 @@ T(X) = \sum_{i=1}^n R_i(Y)  -n(N+1)/2
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="PermutationTest_files/figure-html/cell-10-output-1.png" width="699" height="277" class="figure-img"></p>
+<p><img src="PermutationTest_files/figure-html/cell-10-output-1.png" width="697" height="277" class="figure-img"></p>
 </figure>
 </div>
 </div>
