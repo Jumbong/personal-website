@@ -109,7 +109,7 @@ DATA Outputs.mydata;
 RUN;
 ```
 
-## Compute the cumulative sum by group of a variable.
+## Cumulative sum by group of a variable.
 
 ```default
 
@@ -154,7 +154,7 @@ PROC FREQ data = Outputs.mydata ;
 RUN;
 ```
 
-## Compute the frequency of a variable in a dataset and export results to a excel sheet.
+## Frequency on each sheet of an Excel file
 
 ```default
 
@@ -187,6 +187,30 @@ Output :
 %export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);
 
 ```
-            
+## if and else if statement
+
+```default
+data Outputs.mydata;
+    set;
+    format methode_agregee $20.;
+    if methode_eng_agregee_1 in("IRB") or methode_eng_agregee_2 in("IRB") then methode_agregee = "IRB";
+    else if methode_eng_agregee_1 in("PD") or methode_eng_agregee_2 in("PD") then methode_agregee = "PD";
+    else if methode_eng_agregee_1 in("LGD") or methode_eng_agregee_2 in("LGD") then methode_agregee = "LGD";
+    else methode_agregee = "Non renseigné";
+run;
+```
+
+## **"Organizing Your Workspace Effectively"**  
+
+To work efficiently, it is essential to structure your workspace properly. For a well-organized project, create a main directory named after the project. This directory should include at least three subfolders .
+
+- **Input** (00_Inputs): Stores all raw data and input files.  
+- **Output** (01_Codes): Contains all generated data and results.  
+- **Codes** (03_Outputs): Holds all scripts and working files, possibly with additional subfolders.  
+
+
+Each file of each subfolder should resolve a specific task. Example : 
+- The initialisation for all libraries should be in the file : `00_Libname_Init.sas`
+- The file which contains all macros should be named : `00_Macros.sas`
             
 

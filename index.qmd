@@ -34,11 +34,14 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
     - Model performances
         - Accuracy Ratio or Gini
         - stability test 
-    - Resampling Methods
-        - [Permutation Test](2A/ResamplingMethod/PermutationTest.qmd)
-        - [Bootstrap Efron](2A/ResamplingMethod/boostrappEfron.qmd)
+- **Resampling Methods :**
+    - [Permutation Test](2A/ResamplingMethod/PermutationTest.qmd)
+    - [Bootstrap Efron](2A/ResamplingMethod/boostrappEfron.qmd)
+    - [Bias-Variance-Mean Squared Error](2A/ResamplingMethod/BiasVarianceQuadraticError.qmd)
+    - [Bootstrap Confidence Interval](2A/ResamplingMethod/ConfidenceInterval.qmd)
 
-- <a href="Meduim/RegressionLogistique/bias_sample.qmd" target="_self">Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression</a>
+- **Others :**
+    - [Sampling Bias and Class Imbalance (Oversampling and Undersampling) in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
 
 
 - Résumé de la théorie des valeurs extrêmes ([EVT_resume.pdf](3A/EVT/EVT_resume.pdf))
@@ -63,5 +66,8 @@ in Maximum-likelihood Logistic Regression
 
 - Applications des arbres & forêts aléatoires sur un jeu de données ([arbres_&_forets_aleatoires.html](2A/App_sup/arbres_&_forets_aleatoires.html)) </li>
 
-# <a href="LearningSas/learningsas.qmd" target="_self">Learning Sas</a>
+# Learning SAS
+
+- **Background :**
+    - [Prerequisites](LearningSas/prerequisites.qmd)
 

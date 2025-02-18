@@ -1,0 +1,12 @@
+{
+  "hash": "53378a54a711219f6747392ac200e85a",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \" Bootstrap Confidence Interval\"\nsidebar: auto\nnumber-sections: false\ntoc: true\nauthor:\n  - Jumbong Junior \ncategories: []\ntags: [Bootstrap, Confidence Interval]\ntitle-block-banner: false\nbibliography: references.bib\nformat: \n  html: \n    mainfont: Times New Roman\n    fontsize: 16pt\n\njupyter: python3\nnotice: |\n    @wasserman2013all\n---\n\n\n# Definition and Introduction\n\nGiven a sample $\\mathcal{X} = \\{X_1, X_2, \\ldots, X_n\\}$ of size $n$ from a distribution $P$.\n\nGiven $\\theta = \\theta(P)$ $\\in \\Theta$ a real-valued parameter.\n\nLet $\\alpha \\in (0, 1)$ be a confidence level.\n\nA **confidence interval** for $\\theta$ at level $1-\\alpha$, denoted as $IC_{1-\\alpha}(\\theta)$, is a random subset :\n\n$$\n\\mathcal{I}_n(X) = [T_{\\inf}(X), T_{\\sup}(X)]\n$$\n\nof **Θ** such that:\n\n$$\n1 - \\alpha = \\mathbb{P}(\\theta \\in \\mathcal{I}_n(X)).\n$$\n\nThere are serveral methods to estimate the bootstrap confidence interval. In this document, three methods will be presented :\n\n- The normal method\n- The pivotal method\n- The percentile method\n\n\n### References\n\n::: {#refs}\n\n:::\n\n",
+    "supporting": [
+      "ConfidenceInterval_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jumbong Junior">
 
-<title>A propos de moi</title>
+<title>Bias, Variance and Mean Squared Error (MSE) of an Estimator using Bootstrap Method in python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +21,48 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./flavicon.jpeg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,8 +91,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -87,15 +137,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index_gdr.html"> 
+    <a class="nav-link" href="../../index_gdr.html"> 
 <span class="menu-text">Gestion des risques</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">A propos de moi</span></a>
   </li>  
 </ul>
@@ -110,7 +160,29 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Summary</h2>
+   
+  <ul>
+  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition">Definition</a></li>
+  <li><a href="#bootstrap-estimation-of-the-bias." id="toc-bootstrap-estimation-of-the-bias." class="nav-link" data-scroll-target="#bootstrap-estimation-of-the-bias.">Bootstrap Estimation of the bias.</a>
+  <ul class="collapse">
+  <li><a href="#estimation-using-plug-in-estimator" id="toc-estimation-using-plug-in-estimator" class="nav-link" data-scroll-target="#estimation-using-plug-in-estimator">Estimation using plug-in estimator</a></li>
+  <li><a href="#approximation-using-monte-carlo-simulation" id="toc-approximation-using-monte-carlo-simulation" class="nav-link" data-scroll-target="#approximation-using-monte-carlo-simulation">Approximation using Monte Carlo simulation</a></li>
+  </ul></li>
+  <li><a href="#bootstrap-estimation-of-the-variance." id="toc-bootstrap-estimation-of-the-variance." class="nav-link" data-scroll-target="#bootstrap-estimation-of-the-variance.">Bootstrap Estimation of the Variance.</a>
+  <ul class="collapse">
+  <li><a href="#approximation-using-monte-carlo-simulation-1" id="toc-approximation-using-monte-carlo-simulation-1" class="nav-link" data-scroll-target="#approximation-using-monte-carlo-simulation-1">Approximation using Monte Carlo simulation</a></li>
+  </ul></li>
+  <li><a href="#bootstrap-estimation-of-the-mean-squared-error-mse." id="toc-bootstrap-estimation-of-the-mean-squared-error-mse." class="nav-link" data-scroll-target="#bootstrap-estimation-of-the-mean-squared-error-mse.">Bootstrap Estimation of the Mean Squared Error (MSE).</a>
+  <ul class="collapse">
+  <li><a href="#approximation-using-monte-carlo-simulation-2" id="toc-approximation-using-monte-carlo-simulation-2" class="nav-link" data-scroll-target="#approximation-using-monte-carlo-simulation-2">Approximation using Monte Carlo simulation</a>
+  <ul class="collapse">
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -121,13 +193,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A propos de moi</h1>
+<h1 class="title">Bias, Variance and Mean Squared Error (MSE) of an Estimator using Bootstrap Method in python</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
     
   
     
@@ -138,35 +216,180 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="box">
-<h1 style="display: block;">
-Jumbong Junior
-</h1>
-<div class="container">
+<section id="definition" class="level1">
+<h1>Definition</h1>
+<p>Given a sample <span class="math inline">\(\mathcal{X} = \{X_1, X_2, \ldots, X_n\}\)</span> of size <span class="math inline">\(n\)</span> from a distribution <span class="math inline">\(P\)</span>.</p>
+<p>Let <span class="math inline">\(\theta = \theta(P)\)</span> <span class="math inline">\(\in \Theta\)</span> a parameter of interest.</p>
+<p>Let <span class="math inline">\(T(\mathcal{X})\)</span> be a statistic that estimates <span class="math inline">\(\theta\)</span>.</p>
+<p>Let <span class="math inline">\(\theta(P_n)\)</span> be a plug-in estimator of <span class="math inline">\(\theta\)</span>.</p>
+<p>In this post, the <strong>bootstrap method</strong> will be used to estimate the <strong>bias</strong>, <strong>variance</strong>, and <strong>mean squared error (MSE)</strong> of the estimator <span class="math inline">\(T(\mathcal{X})\)</span> based on the sample <span class="math inline">\(\mathcal{X}\)</span> :</p>
 <ul>
-<li>
-Etudiante gestion des risques financiers
-</li>
-<li>
-École Nationale de la Statistique et de l’analyse de l’information
-</li>
-<br>
-<li>
-Email : jumbong.jr@gmail.com
-</li>
-<li>
-CV (Français/English) : <a href="CV/CV_Jumbong.pdf">CV</a>
-</li>
+<li><p>The <strong>bias</strong> of <span class="math inline">\(T(\mathcal{X})\)</span> := <span class="math inline">\(\mathbb{E_P}[T(\mathcal{X})] - \theta\)</span>.</p></li>
+<li><p>The <strong>variance</strong> of <span class="math inline">\(T(\mathcal{X})\)</span> := <span class="math inline">\(\mathbb{E_P}[(T(\mathcal{X}) - \mathbb{E_P}[T(\mathcal{X})])^2]\)</span>.</p></li>
+<li><p>The <strong>mean squared error (MSE)</strong> of <span class="math inline">\(T(\mathcal{X})\)</span> := <span class="math inline">\(\mathbb{E_P}[(T(\mathcal{X}) - \theta)^2]\)</span>.</p></li>
 </ul>
-<p><img src="illust_graphics.jpg" style="width: 250px; height: 250px;"></p>
+<p>The <strong>bootstrap method</strong> has two steps:</p>
+<ul>
+<li><p>Estimation using plug-in estimator <span class="math inline">\(\theta(P_n)\)</span>.</p></li>
+<li><p>Approximation using Monte Carlo simulation.</p></li>
+</ul>
+</section>
+<section id="bootstrap-estimation-of-the-bias." class="level1">
+<h1>Bootstrap Estimation of the bias.</h1>
+<section id="estimation-using-plug-in-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-using-plug-in-estimator">Estimation using plug-in estimator</h2>
+<ul>
+<li><p>Real world : <span class="math inline">\(\mathbb{E_P[R_n(\mathcal{X},P)]}\)</span> with <span class="math inline">\(R_n(\mathcal{X},P) = T(\mathcal{X}) - \theta(P_n)\)</span>.</p></li>
+<li><p>Bootstrap world : <span class="math inline">\(R_n^*\)</span> = <span class="math inline">\(R_n(\mathcal{X}^*,P_n) = T(\mathcal{X}^*) - \theta(P_n)\)</span>.</p></li>
+</ul>
+</section>
+<section id="approximation-using-monte-carlo-simulation" class="level2">
+<h2 class="anchored" data-anchor-id="approximation-using-monte-carlo-simulation">Approximation using Monte Carlo simulation</h2>
+<p>For a large positive integer <span class="math inline">\(B\)</span> and by the law of large numbers, <span class="math display">\[
+\frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b, P_n) - \theta(P_n)\overset{\mathbb{P}}{\longrightarrow} \mathbb{E_P}[R_n(\mathcal{X},P)] - \theta(P).
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<h2 class="anchored">
-Intérêts
-</h2>
-<p>Je m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.</p>
+<div class="callout-title-container flex-fill">
+Bootstrap Estimation of the Bias
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Variable</strong>:</p>
+<ul>
+<li><span class="math inline">\(B\)</span> : A large number of bootstrap samples.</li>
+</ul>
+<p><strong>Begin</strong>:</p>
+<p>For <span class="math inline">\(b = 1, 2, \ldots, B\)</span>:</p>
+<ul>
+<li>Generate a bootstrap sample <span class="math inline">\(\mathcal{X}^*_b\)</span> from <span class="math inline">\(\mathcal{X}\)</span>.</li>
+<li>Compute <span class="math inline">\(T(\mathcal{X}^*_b)\)</span>, the bootstrap replication of <span class="math inline">\(T(\mathcal{X})\)</span>.</li>
+</ul>
+<p>End.</p>
+<p><strong>Return</strong>:</p>
+<p><span class="math display">\[
+\frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b) - \theta(P_n)
+\]</span></p>
+</div>
+</div>
+</section>
+</section>
+<section id="bootstrap-estimation-of-the-variance." class="level1">
+<h1>Bootstrap Estimation of the Variance.</h1>
+<p>Given <span class="math inline">\(T(\mathcal{X})\)</span> an estimator of <span class="math inline">\(\theta = \theta(P)\)</span>.</p>
+<ul>
+<li><p>Real world : <span class="math inline">\(\mathbb{E_P}[R_n(\mathcal{X},P)^2]\)</span> with <span class="math inline">\(R_n(\mathcal{X},P) = T(\mathcal{X}) - E_P[T(\mathcal{X})]\)</span>.</p></li>
+<li><p>Bootstrap world : <span class="math inline">\(R_n^*\)</span> = <span class="math inline">\(R_n(\mathcal{X}^*,P_n) = T(\mathcal{X}^*) - E(T(\mathcal{X}^*)|\mathcal{X})\)</span>.</p></li>
+</ul>
+<section id="approximation-using-monte-carlo-simulation-1" class="level2">
+<h2 class="anchored" data-anchor-id="approximation-using-monte-carlo-simulation-1">Approximation using Monte Carlo simulation</h2>
+<p>For a large positive integer <span class="math inline">\(B\)</span> and by the law of large numbers, <span class="math display">\[
+\begin{align}
+    \frac{1}{B} \sum_{b=1}^{B}
+    &amp;\left(T(\mathcal{X}^*_b) - \frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b) \right)^2  \notag \\
+    &amp;= \frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)^2
+    - \left(\frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)\right)^2  \notag \\
+    &amp;\overset{\mathbb{P}}{\longrightarrow}
+    \mathbb{E_P}[R_n(\mathcal{X},P)^2]
+    - \left(\mathbb{E_P}[R_n(\mathcal{X},P)]\right)^2.
+\end{align}
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bootstrap Estimation of the Variance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Variable</strong>:</p>
+<ul>
+<li><span class="math inline">\(B\)</span> : A large number of bootstrap samples.</li>
+</ul>
+<p><strong>Begin</strong>:</p>
+<p>For <span class="math inline">\(b = 1, 2, \ldots, B\)</span>:</p>
+<ul>
+<li>Generate a bootstrap sample <span class="math inline">\(\mathcal{X}^*_b\)</span> from <span class="math inline">\(\mathcal{X}\)</span>.</li>
+<li>Compute <span class="math inline">\(T(\mathcal{X}^*_b)\)</span>, the bootstrap replication of <span class="math inline">\(T(\mathcal{X})\)</span>.</li>
+</ul>
+<p>End.</p>
+<p><strong>Return</strong>:</p>
+<p><span class="math display">\[
+\frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)^2 - \left(\frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)\right)^2
+\]</span></p>
+</div>
+</div>
+</section>
+</section>
+<section id="bootstrap-estimation-of-the-mean-squared-error-mse." class="level1">
+<h1>Bootstrap Estimation of the Mean Squared Error (MSE).</h1>
+<p>Let <span class="math inline">\(T(\mathcal{X})\)</span> be an estimator of <span class="math inline">\(\theta = \theta(P)\)</span>.</p>
+<p>Let <span class="math inline">\(\theta(P_n)\)</span> be a plug-in estimator of <span class="math inline">\(\theta\)</span>.</p>
+<ul>
+<li><p>Real world : <span class="math inline">\(\mathbb{E_P}[R_n(\mathcal{X},P)^2]\)</span> with <span class="math inline">\(R_n(\mathcal{X},P) = T(\mathcal{X}) - \theta(P)\)</span>.</p></li>
+<li><p>Bootstrap world : <span class="math inline">\(R_n^*\)</span> = <span class="math inline">\(R_n(\mathcal{X}^*,P_n) = T(\mathcal{X}^*) - \theta(P_n)\)</span>.</p></li>
+</ul>
+<section id="approximation-using-monte-carlo-simulation-2" class="level2">
+<h2 class="anchored" data-anchor-id="approximation-using-monte-carlo-simulation-2">Approximation using Monte Carlo simulation</h2>
+<p>For a large positive integer <span class="math inline">\(B\)</span> and by the law of large numbers,</p>
+<p><span class="math display">\[
+\begin{align}
+    \frac{1}{B} \sum_{b=1}^{B}
+    &amp;\left(T(\mathcal{X}^*_b) - \theta(P_n) \right)^2  \notag \\
+    &amp;= \frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)^2
+    - 2 \theta(P_n) \frac{1}{B} \sum_{b=1}^{B} T(\mathcal{X}^*_b)
+    + \theta(P_n)^2  \notag \\
+    &amp;\overset{\mathbb{P}}{\longrightarrow}
+    \mathbb{E_P}[T(\mathcal{X})^2]
+    - 2 \theta(P) \mathbb{E_P}[T(\mathcal{X})]
+    + \theta(P)^2\\
+    &amp;= \mathbb{E_P}[R_n(\mathcal{X},P)^2]
+\end{align}   
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bootstrap Estimation of the Mean Squared Error (MSE)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Variable</strong>:</p>
+<ul>
+<li><span class="math inline">\(B\)</span> : A large number of bootstrap samples.</li>
+</ul>
+<p><strong>Begin</strong>:</p>
+<p>For <span class="math inline">\(b = 1, 2, \ldots, B\)</span>:</p>
+<ul>
+<li>Generate a bootstrap sample <span class="math inline">\(\mathcal{X}^*_b\)</span> from <span class="math inline">\(\mathcal{X}\)</span>.</li>
+<li>Compute <span class="math inline">\(T(\mathcal{X}^*_b)\)</span>, the bootstrap replication of <span class="math inline">\(T(\mathcal{X})\)</span>.</li>
+</ul>
+<p>End.</p>
+<p><strong>Return</strong>:</p>
+<p><span class="math display">\[
+\frac{1}{B} \sum_{b=1}^{B} (T(\mathcal{X}^*_b) - \theta(P_n))^2
+\]</span></p>
+</div>
+</div>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wasserman2013all" class="csl-entry" role="listitem">
+Wasserman, Larry. 2013. <em>All of Statistics: A Concise Course in Statistical Inference</em>. Springer Science &amp; Business Media.
+</div>
 </div>
 
 
+</section>
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

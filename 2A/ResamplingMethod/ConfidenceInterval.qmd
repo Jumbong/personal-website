@@ -1,0 +1,53 @@
+---
+title: " Bootstrap Confidence Interval"
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+categories: []
+tags: [Bootstrap, Confidence Interval]
+title-block-banner: false
+bibliography: references.bib
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 16pt
+
+jupyter: python3
+notice: |
+    @wasserman2013all
+---
+
+# Definition and Introduction
+
+Given a sample $\mathcal{X} = \{X_1, X_2, \ldots, X_n\}$ of size $n$ from a distribution $P$.
+
+Given $\theta = \theta(P)$ $\in \Theta$ a real-valued parameter.
+
+Let $\alpha \in (0, 1)$ be a confidence level.
+
+A **confidence interval** for $\theta$ at level $1-\alpha$, denoted as $IC_{1-\alpha}(\theta)$, is a random subset :
+
+$$
+\mathcal{I}_n(X) = [T_{\inf}(X), T_{\sup}(X)]
+$$
+
+of **Θ** such that:
+
+$$
+1 - \alpha = \mathbb{P}(\theta \in \mathcal{I}_n(X)).
+$$
+
+There are serveral methods to estimate the bootstrap confidence interval. In this document, three methods will be presented :
+
+- The normal method
+- The pivotal method
+- The percentile method
+
+
+### References
+
+::: {#refs}
+
+:::
