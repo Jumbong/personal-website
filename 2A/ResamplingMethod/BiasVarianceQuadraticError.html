@@ -435,7 +435,7 @@ Bootstrap Estimation of the Mean Squared Error (MSE)
 T(\mathcal{X}) = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
 \]</span></p>
 <p>where <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i\)</span>.</p>
-<div id="5a471909" class="cell" data-execution_count="1">
+<div id="8c51fb90" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -473,7 +473,7 @@ T(\mathcal{X}) = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'statistic'</span>: tobs, <span class="st">'sample_boot'</span>: tboot, <span class="st">'bias'</span>: bias}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let represent the distribution of <span class="math inline">\(\hat{\sigma}^2\)</span> and the ergotic mean of the bias.</p>
-<div id="9ad1d12f" class="cell" data-execution_count="2">
+<div id="be24d4bc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="dv">10_000</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -481,7 +481,7 @@ T(\mathcal{X}) = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the bootstrap bias of nsamp from 1 to B</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------------</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>boot_bias <span class="op">=</span>  [bias_boot(x, sample_variance, nsamp<span class="op">=</span>i)<span class="cf">for</span> i <span class="kw">in</span> np.linspace(<span class="dv">1</span>, B,<span class="dv">300</span>, dtype<span class="op">=</span><span class="bu">int</span>)]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>boot_bias <span class="op">=</span>  [bias_boot(x, sample_variance, nsamp<span class="op">=</span>i)<span class="cf">for</span> i <span class="kw">in</span> np.linspace(<span class="dv">1</span>, B,<span class="dv">350</span>, dtype<span class="op">=</span><span class="bu">int</span>)]</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------------</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the sample variance and the ergotic mean of the bias</span></span>
@@ -511,7 +511,7 @@ T(\mathcal{X}) = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the ergotic mean of the bias</span></span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------------</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(np.linspace(<span class="dv">1</span>, B,<span class="dv">300</span>, dtype<span class="op">=</span><span class="bu">int</span>),[b[<span class="st">'bias'</span>] <span class="cf">for</span> b <span class="kw">in</span> boot_bias])</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(np.linspace(<span class="dv">1</span>, B,<span class="dv">350</span>, dtype<span class="op">=</span><span class="bu">int</span>),[b[<span class="st">'bias'</span>] <span class="cf">for</span> b <span class="kw">in</span> boot_bias])</span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].axhline(np.mean([b[<span class="st">'bias'</span>] <span class="cf">for</span> b <span class="kw">in</span> boot_bias]), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Ergotic mean of the bias'</span>)</span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>

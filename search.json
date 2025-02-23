@@ -266,39 +266,32 @@
     "text": "Choosing B\nFactors to consider when choosing the number of bootstrap samples \\(B\\):\n\nThe computational cost of the bootstrap method.\nThe size of the sample \\(\\mathcal{X}\\).\nModel complexity.\n\nThe most important aspect is to ensure that the algorithm converges.So, continue to increase the number of bootstrap samples until the algorithm stabilizes."
   },
   {
-    "objectID": "index_gdr.html",
-    "href": "index_gdr.html",
-    "title": "Jumbong Junior",
+    "objectID": "2A/ResamplingMethod/ConfidenceInterval.html",
+    "href": "2A/ResamplingMethod/ConfidenceInterval.html",
+    "title": "Bootstrap Confidence Interval",
     "section": "",
-    "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.\n\n\n\n\nConstruction du bilan d’entreprise (bilan_entreprise.qmd)\n\n\n\n\n\nReglementation prudentielle (reglementation_prudentielle.qmd)\n\n\n\n\n\nDéfinition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
+    "text": "When working with data, it very important to assess the uncertainty associated with interest parameter. Confidence interval is one of the most popular method to estimate the uncertainty of the parameter. Let’s define it :\nGiven a sample \\(\\mathcal{X} = \\{X_1, X_2, \\ldots, X_n\\}\\) of size \\(n\\) from a distribution \\(P\\).\nGiven \\(\\theta = \\theta(P)\\) \\(\\in \\Theta\\) a real-valued parameter.\nLet \\(\\alpha \\in (0, 1)\\) be a confidence level (commonly \\(\\alpha = 0.05\\) for a 95% confidence interval).\nA confidence interval for \\(\\theta\\) at level \\(1-\\alpha\\), denoted as \\(IC_{1-\\alpha}(\\theta)\\), is a random subset :\n\\[\n\\mathcal{I}_n(X) = [T_{\\inf}(X), T_{\\sup}(X)]\n\\]\nof Θ such that:\n\\[\n1 - \\alpha = \\mathbb{P}(\\theta \\in \\mathcal{I}_n(X)).\n\\]\nThere are serveral methods to estimate the bootstrap confidence interval. In this document, three methods will be presented :\n\nThe normal method\nThe pivotal method\nThe percentile method"
   },
   {
-    "objectID": "index_gdr.html#analyse-financière",
-    "href": "index_gdr.html#analyse-financière",
-    "title": "Jumbong Junior",
-    "section": "",
-    "text": "Construction du bilan d’entreprise (bilan_entreprise.qmd)"
+    "objectID": "2A/ResamplingMethod/ConfidenceInterval.html#references",
+    "href": "2A/ResamplingMethod/ConfidenceInterval.html#references",
+    "title": "Bootstrap Confidence Interval",
+    "section": "References",
+    "text": "References\n\n\nWasserman, Larry. 2013. All of Statistics: A Concise Course in Statistical Inference. Springer Science & Business Media."
   },
   {
-    "objectID": "index_gdr.html#reglementation-prudentielle",
-    "href": "index_gdr.html#reglementation-prudentielle",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Jumbong Junior",
     "section": "",
-    "text": "Reglementation prudentielle (reglementation_prudentielle.qmd)"
+    "text": "This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.\n\n\nMeduim Publications\nMedium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.\n\nCredit Scoring modellling approach.\n\nDefinition of default and construction of the database.\nOutliers Identification and Treatment\nMissing data analysis\nDatabase splitting\nPre-selection of explanatory variables\nMethodological Approach To Merge Modalities of qualitative variables\nMethodological Approach To Discretize Quantitative variables\nMonotony and Stability\nOversampling\nLogistic Regression\n\nDefinition\nFitting The logistic Regression\nEvaluation of the logistic Regression\n\nAnalysis of the statistical significance of the model\nThe overall fit of the model : Likelihhod ratio test\nStatistical significance of individual regression coefficients: Likelihood ratio test and Z statistic\nHosmer-Lemeshow test\n\nContribution of variables\n\nModel performances\n\nAccuracy Ratio or Gini\nstability test\n\n\nResampling Methods :\n\nPermutation Test\nBootstrap Efron\nBias-Variance-Mean Squared Error\nBootstrap Confidence Interval\n\nTimes Series\nOthers :\n\nSampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression\nSpurious Regression in Time Series\n\n\n\n\nLearning SAS\n\nBackground :\n\nPrerequisites\n\n\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "index_gdr.html#risques-financiers",
-    "href": "index_gdr.html#risques-financiers",
-    "title": "Jumbong Junior",
+    "objectID": "Others/spurious_reg.html",
+    "href": "Others/spurious_reg.html",
+    "title": "Spurious Regression in Time Series",
     "section": "",
-    "text": "Définition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "A propos de moi",
-    "section": "",
-    "text": "Jumbong Junior\n\n\n\n\nEtudiante gestion des risques financiers\n\n\nÉcole Nationale de la Statistique et de l’analyse de l’information\n\n\n\nEmail : jumbong.jr@gmail.com\n\n\nCV (Français/English) : CV\n\n\n\n\n\nIntérêts\n\nJe m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.\n\n\n\n\n Back to top"
+    "text": "Back to topReferences\n\nGranger, Clive WJ, and Paul Newbold. 1974. “Spurious Regressions in Econometrics.” Journal of Econometrics 2 (2): 111–20."
   },
   {
     "objectID": "3A/risque_def.html",
@@ -320,13 +313,6 @@
     "title": "Le risque, qu’est ce que c’est ?",
     "section": "Footnotes",
     "text": "Footnotes\n\n\npériode de retour doit être interprétée comme la probabilité statistique qu’un évènement se produise↩︎"
-  },
-  {
-    "objectID": "2A/ResamplingMethod/ConfidenceInterval.html",
-    "href": "2A/ResamplingMethod/ConfidenceInterval.html",
-    "title": "Bootstrap Confidence Interval",
-    "section": "",
-    "text": "Definition and Introduction\nGiven a sample \\(\\mathcal{X} = \\{X_1, X_2, \\ldots, X_n\\}\\) of size \\(n\\) from a distribution \\(P\\).\nGiven \\(\\theta = \\theta(P)\\) \\(\\in \\Theta\\) a real-valued parameter.\nLet \\(\\alpha \\in (0, 1)\\) be a confidence level.\nA confidence interval for \\(\\theta\\) at level \\(1-\\alpha\\), denoted as \\(IC_{1-\\alpha}(\\theta)\\), is a random subset :\n\\[\n\\mathcal{I}_n(X) = [T_{\\inf}(X), T_{\\sup}(X)]\n\\]\nof Θ such that:\n\\[\n1 - \\alpha = \\mathbb{P}(\\theta \\in \\mathcal{I}_n(X)).\n\\]\nThere are serveral methods to estimate the bootstrap confidence interval. In this document, three methods will be presented :\n\nThe normal method\nThe pivotal method\nThe percentile method\n\n\nReferences\n\n\nWasserman, Larry. 2013. All of Statistics: A Concise Course in Statistical Inference. Springer Science & Business Media.\n\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "LearningSas/prerequisites.html",
@@ -378,25 +364,39 @@
     "text": "Compute the frequency of a variable in a dataset and export results to a excel sheet.\n\n/* Module : Macro \nInput : \n    - data : dataset\n    - list_var : macro variable containing the list of variables to compute the frequency\n    - path : path to save the excel file\nOutput :\n    - Excel file containing the frequency of the variables\n*/\n\n%macro export_freq(data, list_var, path);\n    %let nbvar = %sysfunc(countw(&list_var));\n\n    %do i = 1 %to &nbvar;\n        %let var = %scan(&list_var, &i);\n        PROC FREQ data = &data ;\n            tables &var /out = freq&var missing;\n        RUN;\n\n        PROC EXPORT data = freq&var\n            outfile = \"&path\"\n            dbms = xlsx replace;\n            sheet = \"&var\";\n        RUN;\n    %end;\n%mend export_freq;\n\n%export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "A propos de moi",
+    "section": "",
+    "text": "Jumbong Junior\n\n\n\n\nEtudiante gestion des risques financiers\n\n\nÉcole Nationale de la Statistique et de l’analyse de l’information\n\n\n\nEmail : jumbong.jr@gmail.com\n\n\nCV (Français/English) : CV\n\n\n\n\n\nIntérêts\n\nJe m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "index_gdr.html",
+    "href": "index_gdr.html",
     "title": "Jumbong Junior",
     "section": "",
-    "text": "This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes."
+    "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.\n\n\n\n\nConstruction du bilan d’entreprise (bilan_entreprise.qmd)\n\n\n\n\n\nReglementation prudentielle (reglementation_prudentielle.qmd)\n\n\n\n\n\nDéfinition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
   },
   {
-    "objectID": "index.html#régressions",
-    "href": "index.html#régressions",
+    "objectID": "index_gdr.html#analyse-financière",
+    "href": "index_gdr.html#analyse-financière",
     "title": "Jumbong Junior",
-    "section": "Régressions",
-    "text": "Régressions\n\nRegression linéaire (regression_lin.qmd)\nRegression ridge et lasso (lasso_ridge.qmd)"
+    "section": "",
+    "text": "Construction du bilan d’entreprise (bilan_entreprise.qmd)"
   },
   {
-    "objectID": "index.html#classifications",
-    "href": "index.html#classifications",
+    "objectID": "index_gdr.html#reglementation-prudentielle",
+    "href": "index_gdr.html#reglementation-prudentielle",
     "title": "Jumbong Junior",
-    "section": "Classifications",
-    "text": "Classifications\n\nApplications des arbres & forêts aléatoires sur un jeu de données (arbres_&_forets_aleatoires.html)"
+    "section": "",
+    "text": "Reglementation prudentielle (reglementation_prudentielle.qmd)"
+  },
+  {
+    "objectID": "index_gdr.html#risques-financiers",
+    "href": "index_gdr.html#risques-financiers",
+    "title": "Jumbong Junior",
+    "section": "",
+    "text": "Définition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
   },
   {
     "objectID": "3A/reglementation_prudentielle.html",

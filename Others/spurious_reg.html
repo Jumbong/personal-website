@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jumbong Junior">
 
-<title>Jumbong Junior</title>
+<title>Spurious Regression in Time Series</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +21,48 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./flavicon.jpeg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -87,15 +108,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index_gdr.html"> 
+    <a class="nav-link" href="../index_gdr.html"> 
 <span class="menu-text">Gestion des risques</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">A propos de moi</span></a>
   </li>  
 </ul>
@@ -110,14 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Summary</h2>
-   
-  <ul>
-  <li><a href="#meduim-publications" id="toc-meduim-publications" class="nav-link active" data-scroll-target="#meduim-publications">Meduim Publications</a></li>
-  <li><a href="#learning-sas" id="toc-learning-sas" class="nav-link" data-scroll-target="#learning-sas">Learning SAS</a></li>
-  </ul>
-</nav>
+    
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -128,13 +142,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Jumbong Junior</h1>
+<h1 class="title">Spurious Regression in Time Series</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
     
   
     
@@ -145,71 +165,15 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="box">
-<p>This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.</p>
+
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-granger1974spurious" class="csl-entry" role="listitem">
+Granger, Clive WJ, and Paul Newbold. 1974. <span>“Spurious Regressions in Econometrics.”</span> <em>Journal of Econometrics</em> 2 (2): 111–20.
 </div>
-<section id="meduim-publications" class="level1">
-<h1>Meduim Publications</h1>
-<p><em>Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.</em></p>
-<ul>
-<li><p><strong>Credit Scoring modellling approach.</strong></p>
-<ul>
-<li>Definition of default and construction of the database.</li>
-<li>Outliers Identification and Treatment</li>
-<li>Missing data analysis</li>
-<li>Database splitting</li>
-<li>Pre-selection of explanatory variables</li>
-<li>Methodological Approach To Merge Modalities of qualitative variables</li>
-<li>Methodological Approach To Discretize Quantitative variables</li>
-<li>Monotony and Stability</li>
-<li>Oversampling</li>
-<li>Logistic Regression
-<ul>
-<li>Definition</li>
-<li>Fitting The logistic Regression</li>
-<li>Evaluation of the logistic Regression
-<ul>
-<li>Analysis of the statistical significance of the model</li>
-<li>The overall fit of the model : Likelihhod ratio test</li>
-<li>Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic</li>
-<li><a href="./Meduim/RegressionLogistique/HosmerL.html" target="_self">Hosmer-Lemeshow test</a></li>
-</ul></li>
-<li>Contribution of variables</li>
-</ul></li>
-<li>Model performances
-<ul>
-<li>Accuracy Ratio or Gini</li>
-<li>stability test</li>
-</ul></li>
-</ul></li>
-<li><p><strong>Resampling Methods :</strong></p>
-<ul>
-<li><a href="./2A/ResamplingMethod/PermutationTest.html">Permutation Test</a></li>
-<li><a href="./2A/ResamplingMethod/boostrappEfron.html">Bootstrap Efron</a></li>
-<li><a href="./2A/ResamplingMethod/BiasVarianceQuadraticError.html">Bias-Variance-Mean Squared Error</a></li>
-<li><a href="./2A/ResamplingMethod/ConfidenceInterval.html">Bootstrap Confidence Interval</a></li>
-</ul></li>
-<li><p><strong>Times Series</strong></p></li>
-<li><p><strong>Others :</strong></p>
-<ul>
-<li><a href="./Meduim/RegressionLogistique/bias_sample.html">Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression</a></li>
-<li><a href="./Others/spurious_reg.html">Spurious Regression in Time Series</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="learning-sas" class="level1">
-<h1>Learning SAS</h1>
-<ul>
-<li><strong>Background :</strong>
-<ul>
-<li><a href="./LearningSas/prerequisites.html">Prerequisites</a></li>
-</ul></li>
-</ul>
-
-
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
