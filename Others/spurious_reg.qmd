@@ -1,0 +1,20 @@
+---
+title: " Spurious Regression in Time Series"
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+categories: []
+tags: [Time Series, Spurious Regression]
+title-block-banner: false
+bibliography: references.bib
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 16pt
+
+jupyter: python3
+notice: |
+    @granger1974spurious
+---

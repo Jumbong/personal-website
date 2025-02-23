@@ -261,7 +261,7 @@ B = 10_000
 # Compute the bootstrap bias of nsamp from 1 to B
 # -----------------------------------------------------
 
-boot_bias =  [bias_boot(x, sample_variance, nsamp=i)for i in np.linspace(1, B,300, dtype=int)]
+boot_bias =  [bias_boot(x, sample_variance, nsamp=i)for i in np.linspace(1, B,350, dtype=int)]
 
 # -----------------------------------------------------
 # Extract the sample variance and the ergotic mean of the bias
@@ -291,7 +291,7 @@ axes[0].axvline(boot_bias[-1]['statistic'], color='red', linestyle='--')
 # Plot the ergotic mean of the bias
 # -----------------------------------------------------
 
-axes[1].plot(np.linspace(1, B,300, dtype=int),[b['bias'] for b in boot_bias])
+axes[1].plot(np.linspace(1, B,350, dtype=int),[b['bias'] for b in boot_bias])
 axes[1].axhline(np.mean([b['bias'] for b in boot_bias]), color='red', linestyle='--')
 axes[1].set_title('Ergotic mean of the bias')
 
