@@ -31,21 +31,24 @@ This determination must satisfy both statistical and regulatory constraints. Fro
 
 Failing to meet these conditions can lead to regulatory sanctions, delays due to corrective actions, and financial costs for the institution.
 
-This brings us to the core question:
-What is the optimal number of defaults required to build a seven-grade rating model for a low-default portfolio that satisfies both statistical rigor and regulatory expectations, while ensuring heterogeneity between rating grades?
+This brings us to the  question, What is the optimal number of defaults required to build a seven-grade rating model for a low-default portfolio that satisfies both statistical rigor and regulatory expectations, while ensuring heterogeneity between rating grades?
 
 
 
-## Why choosing the normal distribution to compute the distribution of grades?
-Generally, we can assume that the rating scale follows a normal distribution — with only a few observations receiving the highest and lowest grades, and most falling somewhere in the middle.
+## 1. Which data should be used ?
 
-If we take a seven-grade scale like S&P’s (AAAA, AA, A, BBB, BB, B, C), only a small number of observations would receive AAAA or C. The majority would be concentrated in the middle grades — such as A, BBB, or BB — with the distribution centered around BBB.
+It is important to define the perimeter over which data will be collected. This is done by considering several criteria. If we consider a portfolio made up of large corporations, we can define the perimeter based on company size—for example, a turnover above a certain threshold (100 million euros), the region (Europe, North America, etc.), or the sector (agriculture, industry, services, etc.).
 
-That said, you can choose different types of distributions depending on how you want to calculate the number of observations in each grade.
+What characterizes large companies is that they rarely default—that is, they generally meet their financial obligations to creditors. As a result, if we assign them ratings on a seven-grade scale (AAA, AA, A, BBB, BB, B, C), very few companies would receive a C rating. Most companies would fall within the intermediate grades (A, BBB, BB), and only a few would receive the highest rating (AAA). Therefore, the distribution of ratings tends to resemble a normal distribution.
 
-For the rest of this work, we will assume that the rating scale is normally distributed.
+Going forward, we will assume that our portfolio consists of large corporations and that the rating scale follows a normal distribution.
 
-## Rating scale must be homogeneous and heterogeneous between themselves.
+If you’re interested in reproducing this work, you can use a portfolio of your choice and define your own distribution of ratings across the grades.
+
+
+
+## 2. Statistical contraints : heterogeneity between grades.
+
 
 To effectively assess the credit risk of counterparties, it's important that the rating scale is both homogeneous within each category and heterogeneous across categories. In other words, observations within the same rating grade should share similar characteristics — meaning they represent the same level of risk — while observations in different rating grades should reflect distinct risk profiles.
 
@@ -59,9 +62,6 @@ Z = \frac{p_1 - p_2}{\sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}}
 $$
 Where $p_1$ and $p_2$ are the proportions of observations in the two rating categories being compared, and $n_1$ and $n_2$ are the number of observations in each category. 
 
-
-
-Perfect, Junior. Here's your refined methodology section with **your tone**, enhanced **clarity and fluency**, and **proper LaTeX formatting** using `$` and `$$` for inline and block math.
 
 ---
 
@@ -186,6 +186,7 @@ To implement the method, we use Python. The number of defaults for the highest g
 
 
 ### Simulating the Distribution of Observations per Grade
+
 The code below simulates how observations are distributed across rating grades based on the normal distribution. We assume a mean of 4 (corresponding to grade BBB) and a standard deviation of 1. The number of observations in each grade is determined by multiplying the total number of observations by the probability density function (PDF) of the normal distribution centered at each grade.
 
 ```{python}
@@ -235,6 +236,7 @@ plt.show()
 ```
 
 ### Estimating the Number of Defaults per Grade
+
 The following code estimates the number of defaults for each grade, given the total number of observations, while ensuring heterogeneity between consecutive grades. This is done using the binomial test at a significance level $\alpha = 0.05$.
 
 
