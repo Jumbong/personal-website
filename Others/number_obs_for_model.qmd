@@ -58,7 +58,7 @@ To ensure heterogeneity across rating categories, we’ll use the binomial test 
 
 By dividing the difference by its standard deviation, we obtain a standardized value that follows the standard normal distribution.
 $$
-Z = \frac{p_1 - p_2}{\sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}}
+Z = \frac{p_1 - p_2}{\sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}}.
 $$
 Where $p_1$ and $p_2$ are the proportions of observations in the two rating categories being compared, and $n_1$ and $n_2$ are the number of observations in each category. 
 
@@ -79,7 +79,7 @@ There are many ways to assign probabilities across grades, but we choose this me
     - For the first grade (AAAA), the probability is:
 
   $$
-  P(\text{AAAA}) = \frac{F(\text{AAAA} + \epsilon)}{2\epsilon}
+  P(\text{AAAA}) = \frac{F(\text{AAAA} + \epsilon)}{2\epsilon},
   $$
 
   where $F$ is the cumulative distribution function (CDF) of the normal distribution and $\epsilon \to 0$. We assume $F(\text{AAAA} - \epsilon) = 0$.
@@ -87,19 +87,19 @@ There are many ways to assign probabilities across grades, but we choose this me
     - For middle grades (AA, A, BBB, BB, B), the probability is calculated as:
 
   $$
-  P(\text{Grade}) = \frac{F(\text{Grade} + \epsilon) - F(\text{Grade} - \epsilon)}{2\epsilon}
+  P(\text{Grade}) = \frac{F(\text{Grade} + \epsilon) - F(\text{Grade} - \epsilon)}{2\epsilon},
   $$
 
     - For the last grade (C), since $F(\text{C} + \epsilon) = 1$, the probability becomes:
 
   $$
-  P(\text{C}) = \frac{1 - F(\text{C} - \epsilon)}{2\epsilon}
+  P(\text{C}) = \frac{1 - F(\text{C} - \epsilon)}{2\epsilon}.
   $$
 
 - The number of observations in each grade is then computed as:
 
 $$
-N_{\text{grade}} = N \cdot P(\text{grade})
+N_{\text{grade}} = N \cdot P(\text{grade}).
 $$
 
 ### Step 2: Estimating the Number of Defaults per Grade
@@ -113,27 +113,29 @@ To compute the number of defaults for grade $i+1$ based on grade $i$, we follow 
 The two grades must be heterogeneous, meaning the null hypothesis of the binomial test (that the default rates are equal) must be rejected at a significance level $\alpha$. This leads to the following statistical condition:
 
 $$
-Z = \frac{p_i - p_{i+1}}{\sqrt{\frac{p_i(1 - p_i)}{N_i} + \frac{p_{i+1}(1 - p_{i+1})}{N_{i+1}}}} = Z_\alpha
+P(Z = \frac{|p_i - p_{i+1}|}{\sqrt{\frac{p_i(1 - p_i)}{N_i} + \frac{p_{i+1}(1 - p_{i+1})}{N_{i+1}}}} \geq Z_\alpha) = \alpha,
 $$
 
-where $p_i$ and $p_{i+1}$ are the default rates for grades $i$ and $i+1$, and $N_i$, $N_{i+1}$ are the respective numbers of observations. $Z_\alpha$ is the critical value of the standard normal distribution for the chosen confidence level.
+where $p_i$ and $p_{i+1}$ are the default rates for grades $i$ and $i+1$, and $N_i$, $N_{i+1}$ are the respective numbers of observations. $Z_\alpha = \Phi^{-1}(1 - \alpha/2)$, where $\Phi^{-1}$ is the inverse of the cumulative distribution function of the standard normal distribution. 
+
+is the critical value of the standard normal distribution for the chosen confidence level.
 
 We can rewrite this condition using the pooled default rate:
 
 $$
-p = \frac{N_i p_i + N_{i+1} p_{i+1}}{N_i + N_{i+1}}
+p = \frac{N_i p_i + N_{i+1} p_{i+1}}{N_i + N_{i+1}}.
 $$
 
 Then the $Z$-statistic becomes:
 
 $$
-Z = \frac{p_i - p_{i+1}}{\sqrt{p(1 - p)\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}} = Z_\alpha
+P(Z = \frac{|p_i - p_{i+1}|}{\sqrt{p(1 - p)\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}} \geq Z_\alpha ) = \alpha,
 $$
 
 Now, let $e = p_{i+1} - p_i$. Then:
 
 $$
-p_{i+1} = p_i + e
+p_{i+1} = p_i + e.
 $$
 
 #### 2. Computing the Number of Defaults for Grade $i+1$
@@ -141,44 +143,54 @@ $$
 Once $p_{i+1}$ is known, the number of defaults for grade $i+1$ is:
 
 $$
-n_{i+1} = p_{i+1} \cdot N_{i+1}
+n_{i+1} = p_{i+1} \cdot N_{i+1}.
 $$
 
-To find the value of $e$ that satisfies the heterogeneity condition, we solve the equation:
+To find the value of the optimal $e$ that satisfies the heterogeneity condition, we solve the equation:
 
 $$
-Z = \frac{e}{\sqrt{p(1 - p)\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}} = Z_\alpha
+Z = \frac{e}{\sqrt{p(1 - p)\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}} = Z_\alpha,
 $$
 
 This leads to a second-degree equation of the form:
 
 $$
-ae^2 + be + c = 0
+ae^2 + be + c = 0.
 $$
 
 with coefficients:
 
 $$
-a = -\left[\left(\frac{N_{i+1}}{N_i + N_{i+1}}\right)^2 + \frac{1}{Z_\alpha^2\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}\right]
+a = -\left[\left(\frac{N_{i+1}}{N_i + N_{i+1}}\right)^2 + \frac{1}{Z_\alpha^2\left(\frac{1}{N_i} + \frac{1}{N_{i+1}}\right)}\right],
 $$
 
 $$
-b = (1 - 2p_i)\left(\frac{N_{i+1}}{N_i + N_{i+1}}\right)
+b = (1 - 2p_i)\left(\frac{N_{i+1}}{N_i + N_{i+1}}\right),
 $$
 
 $$
-c = p_i(1 - p_i)
+c = p_i(1 - p_i),
 $$
 
 Since $a < 0$ and $c > 0$, the quadratic equation has two real roots — one negative and one positive. We select the positive solution:
 
 $$
-e = \frac{-b - \sqrt{b^2 - 4ac}}{2a}
+e = \frac{-b - \sqrt{b^2 - 4ac}}{2a}.
 $$
 
 ---
 
+```{python}
+import openpyxl
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+from IPython.display import Markdown
+from tabulate import tabulate
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+```
 
 ## Results
 
@@ -187,14 +199,11 @@ To implement the method, we use Python. The number of defaults for the highest g
 
 ### Simulating the Distribution of Observations per Grade
 
-The code below simulates how observations are distributed across rating grades based on the normal distribution. We assume a mean of 4 (corresponding to grade BBB) and a standard deviation of 1. The number of observations in each grade is determined by multiplying the total number of observations by the probability density function (PDF) of the normal distribution centered at each grade.
+The code below simulates how observations are distributed across rating grades based on the normal distribution. We assume a mean of 4 (corresponding to grade BBB) and a standard deviation of 1. The number of observations in each grade is determined by multiplying the total number of observations by the probability density function (PDF) of the normal distribution centered at each grade (see @fig-generate_obs_pdf).
 
 ```{python}
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from scipy.stats import norm
+#| label: fig-generate_obs_pdf
+#| fig-cap: Distribution of Observations per Grade
 
 def generate_obs_pdf(N, mu, sigma,espilon=0.5):
     grades = ['AAAA', 'AA', 'A', 'BBB', 'BB', 'B', 'C']
@@ -224,7 +233,7 @@ obs_count = generate_obs_pdf(N, mu, sigma)
 
 
 # Plot the results and add the number of observations in each grade
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(8, 5))
 sns.barplot(x=obs_count.index, y=obs_count.values)
 plt.title(f'Number of Observations per Grade (N={N}, mu={mu}, sigma={sigma})')
 for i, v in enumerate(obs_count.values):
@@ -237,13 +246,12 @@ plt.show()
 
 ### Estimating the Number of Defaults per Grade
 
-The following code estimates the number of defaults for each grade, given the total number of observations, while ensuring heterogeneity between consecutive grades. This is done using the binomial test at a significance level $\alpha = 0.05$.
+The following code estimates the number of defaults for each grade, given the total number of observations, while ensuring heterogeneity between consecutive grades. This is done using the binomial test at a significance level $\alpha = 0.05$ (see @tbl-generate_defaut_per_grade).
 
 
 ```{python}
-import numpy as np
-import pandas as pd
-from scipy.stats import norm
+#| label: tbl-generate_defaut_per_grade
+#| tbl-cap: Number of Defaults per Grade
 
 def generate_defaut_per_grade(N, mu, sigma, alpha):
     df_obs = generate_obs_pdf(N, mu, sigma)
@@ -251,7 +259,7 @@ def generate_defaut_per_grade(N, mu, sigma, alpha):
     n = df_obs.values
 
     # Initialisation des vecteurs
-    z_alpha = norm.ppf(1 - alpha / 2)
+    z_alpha = norm.ppf(alpha/2)
     k = len(n)
     d_rate = np.zeros(k)
     ecart = np.zeros(k)
@@ -304,16 +312,21 @@ mu = 4
 sigma = 1
 alpha = 0.05
 df_defaut = generate_defaut_per_grade(N, mu, sigma, alpha)
-print(df_defaut)
+# Display the results
+print(tabulate(df_defaut, headers='keys', tablefmt='psql', showindex=False))
+df_defaut.to_excel('df_defaut.xlsx', index=False)
+
 ```
 
-### Simulating the Optimal Number of Defaults
+## Simulating the Optimal Number of Defaults
 
-This final simulation estimates the optimal number of defaults by computing the average number of defaults over multiple runs. The number of observations varies from 5,000 to 1,000,000 in increments of 5,000.
+This final simulation estimates the optimal number of defaults by computing the average number of defaults over multiple runs. The number of observations varies from 5,000 to 1,000,000 in increments of 5,000(see @fig-optimal_number_defaults).
 
 ```{python}
 
-plt.figure(figsize=(10, 6))
+#| label: fig-optimal_number_defaults
+#| fig-cap: Optimal Number of Defaults vs. Number of Observations
+plt.figure(figsize=(8, 5))
 
 N_values = np.arange(5000, 1000000, 5000)
 optimal_defaults = [generate_defaut_per_grade(N, mu, sigma, alpha)['#defaut'].sum() for N in N_values]
@@ -334,3 +347,11 @@ plt.grid(False)
 plt.show()
 ```
 
+
+### Conclusion
+
+This study addressed a fundamental challenge in credit risk modeling: determining the optimal number of defaults required to develop a reliable and regulatory-compliant rating model, particularly for low-default portfolios (LDPs). Building such models without sufficient defaults not only compromises statistical robustness but also risks non-compliance with regulatory expectations, especially the requirement of a seven-grade rating scale.
+Through a structured and reproducible methodology based on the normal distribution of credit grades and binomial statistical tests, the research demonstrated how one can estimate the number of observations and defaults per grade necessary to ensure heterogeneity between rating categories. A key insight from the simulation was that, even with increasing total observations, the number of defaults required stabilizes - highlighting that data quantity alone does not compensate for data quality or risk signal strength.
+The implications of these findings are significant for risk managers and model validators. Institutions should not only focus on collecting more data but also ensure they meet a minimum threshold of defaults (estimated at 1,419) to build a statistically valid model. This threshold acts as a benchmark for initiating model development, validating its structure, and anticipating regulatory scrutiny.
+Nevertheless, the approach is not without limitations. The model assumes a normal distribution of credit grades and does not explore within-grade homogeneity or other sources of model uncertainty such as macroeconomic shocks, structural breaks, or portfolio shifts. Additionally, the focus on large corporate portfolios may limit generalizability to other segments like SMEs or retail.
+Future research could refine the simulation under alternative rating distributions.In conclusion, this research provides a quantitative foundation for institutions managing low-default portfolios to assess their readiness for model development. It encourages a shift from ad hoc modeling toward data-driven thresholds, reinforcing both statistical credibility and regulatory alignment in credit risk modeling.
