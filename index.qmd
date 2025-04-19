@@ -49,6 +49,7 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
 - **Others :**
     - [Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
     - [Spurious Regression in Time Series](Others/spurious_reg.qmd)
+    - [Number of optimal defaults in credit rating](Others/number_obs_for_model.qmd)
 
 
 # Learning SAS
