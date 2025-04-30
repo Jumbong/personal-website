@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-03-03">
+<meta name="dcterms.date" content="2025-04-29">
 
 <title>Linear Regression in Time Series: Sources of Spurious Regression</title>
 <style>
@@ -244,7 +244,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 3, 2025</p>
+      <p class="date">April 29, 2025</p>
     </div>
   </div>
   
@@ -379,7 +379,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 \]</span></p>
 <p>representing the statistic for testing the significance of <span class="math inline">\(\beta_1\)</span>, for 100 simulations will be reported in the table below.</p>
 <p>Let’s carry out the simulation using python.</p>
-<div id="7f9a40a8" class="cell" data-execution_count="1">
+<div id="8e4fcf95" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -408,7 +408,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#------------------------------------------------------</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    S[i] <span class="op">=</span> np.<span class="bu">abs</span>(model.params[<span class="dv">1</span>])<span class="op">/</span>model.bse[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="76dd94e1" class="cell" data-execution_count="2">
+<div id="37ce2782" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -475,7 +475,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 </ul>
 <p>Each series has a length of 50 observations, and they ran 100 simulations for each case.</p>
 <p>All errors terms are distributed as <span class="math inline">\(N(0,1)\)</span> and the ARIMA(0,1,1) series are derived as the sum of the random walk and independent white noise. The simulation results, based on 100 replications with series of length 50, are summarized in the next table.</p>
-<div id="088f7f03" class="cell" data-execution_count="3">
+<div id="d03e5b7e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -521,7 +521,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 <span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>n_sims <span class="op">=</span> <span class="dv">100</span>     <span class="co"># nombre de simulations Monte Carlo</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span>     <span class="co"># seuil de significativité</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="77c61d2d" class="cell" data-execution_count="4">
+<div id="5109d5eb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_simulation_case(case_name, m_values<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">    case_name : un identifiant pour le type de génération :</span></span>
@@ -619,7 +619,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 <span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ed21cc4b" class="cell" data-execution_count="5">
+<div id="3c068a3a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> [<span class="st">'rw-levels'</span>, <span class="st">'rw-diffs'</span>, <span class="st">'arima-levels'</span>, <span class="st">'arima-diffs'</span>]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>all_results <span class="op">=</span> {}</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -627,7 +627,7 @@ S = \frac{\lvert \hat{\beta}_1 \rvert}{\sqrt{\hat{SE}(\hat{\beta}_1)}},
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    df_res <span class="op">=</span> run_simulation_case(c, m_values<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>])</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    all_results[c] <span class="op">=</span> df_res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b4504483" class="cell" data-execution_count="6">
+<div id="346e7203" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> case, df_res <span class="kw">in</span> all_results.items():</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n\n</span><span class="sc">{</span>case<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(tabulate(df_res, headers<span class="op">=</span><span class="st">'keys'</span>, tablefmt<span class="op">=</span><span class="st">'fancy_grid'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -972,7 +972,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -1,7 +1,7 @@
 ---
 title: " Optimal Number of default for constructing a model"
 subtitle: "Normality and heterogeneity of grades scale"
-date: "2025-03-03"
+date: last-modified
 sidebar: auto
 number-sections: false
 toc: true
@@ -13,8 +13,7 @@ title-block-banner: false
 bibliography: references.bib
 format: 
   html: 
-    mainfont: Times New Roman
-    fontsize: 16pt
+    fontsize: 1.1em
 
 jupyter: python3
 

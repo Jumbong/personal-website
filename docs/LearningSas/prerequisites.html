@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
+<meta name="dcterms.date" content="2025-04-29">
 
 <title>Learning SAS</title>
 <style>
@@ -164,9 +165,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#variables-selection" id="toc-variables-selection" class="nav-link" data-scroll-target="#variables-selection">Variables Selection</a></li>
   <li><a href="#observation-filtration" id="toc-observation-filtration" class="nav-link" data-scroll-target="#observation-filtration">Observation filtration</a></li>
-  <li><a href="#compute-the-cumulative-sum-by-group-of-a-variable." id="toc-compute-the-cumulative-sum-by-group-of-a-variable." class="nav-link" data-scroll-target="#compute-the-cumulative-sum-by-group-of-a-variable.">Compute the cumulative sum by group of a variable.</a></li>
+  <li><a href="#cumulative-sum-by-group-of-a-variable." id="toc-cumulative-sum-by-group-of-a-variable." class="nav-link" data-scroll-target="#cumulative-sum-by-group-of-a-variable.">Cumulative sum by group of a variable.</a></li>
   <li><a href="#compute-the-frequency-of-a-variable-in-a-dataset-and-the-frequency-of-missing-values-of-the-variable." id="toc-compute-the-frequency-of-a-variable-in-a-dataset-and-the-frequency-of-missing-values-of-the-variable." class="nav-link" data-scroll-target="#compute-the-frequency-of-a-variable-in-a-dataset-and-the-frequency-of-missing-values-of-the-variable.">Compute the frequency of a variable in a dataset and the frequency of missing values of the variable.</a></li>
-  <li><a href="#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." id="toc-compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." class="nav-link" data-scroll-target="#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.">Compute the frequency of a variable in a dataset and export results to a excel sheet.</a></li>
+  <li><a href="#frequency-on-each-sheet-of-an-excel-file" id="toc-frequency-on-each-sheet-of-an-excel-file" class="nav-link" data-scroll-target="#frequency-on-each-sheet-of-an-excel-file">Frequency on each sheet of an Excel file</a></li>
+  <li><a href="#if-and-else-if-statement" id="toc-if-and-else-if-statement" class="nav-link" data-scroll-target="#if-and-else-if-statement">if and else if statement</a></li>
+  <li><a href="#organizing-your-workspace-effectively" id="toc-organizing-your-workspace-effectively" class="nav-link" data-scroll-target="#organizing-your-workspace-effectively"><strong>“Organizing Your Workspace Effectively”</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -194,6 +197,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 29, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -384,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    WHERE CONDITION;</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="compute-the-cumulative-sum-by-group-of-a-variable." class="level2">
-<h2 class="anchored" data-anchor-id="compute-the-cumulative-sum-by-group-of-a-variable.">Compute the cumulative sum by group of a variable.</h2>
+<section id="cumulative-sum-by-group-of-a-variable." class="level2">
+<h2 class="anchored" data-anchor-id="cumulative-sum-by-group-of-a-variable.">Cumulative sum by group of a variable.</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>proc sort data=INPUTS.class_update out=class_sorted;</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   by Sex;</span>
@@ -422,8 +431,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    table variable/missing;</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>RUN;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet." class="level2">
-<h2 class="anchored" data-anchor-id="compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.">Compute the frequency of a variable in a dataset and export results to a excel sheet.</h2>
+<section id="frequency-on-each-sheet-of-an-excel-file" class="level2">
+<h2 class="anchored" data-anchor-id="frequency-on-each-sheet-of-an-excel-file">Frequency on each sheet of an Excel file</h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>/* Module : Macro </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Input : </span>
@@ -452,6 +461,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>%mend export_freq;</span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>%export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="if-and-else-if-statement" class="level2">
+<h2 class="anchored" data-anchor-id="if-and-else-if-statement">if and else if statement</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data Outputs.mydata;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    set;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    format methode_agregee $20.;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    if methode_eng_agregee_1 in("IRB") or methode_eng_agregee_2 in("IRB") then methode_agregee = "IRB";</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    else if methode_eng_agregee_1 in("PD") or methode_eng_agregee_2 in("PD") then methode_agregee = "PD";</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    else if methode_eng_agregee_1 in("LGD") or methode_eng_agregee_2 in("LGD") then methode_agregee = "LGD";</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    else methode_agregee = "Non renseigné";</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>run;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="organizing-your-workspace-effectively" class="level2">
+<h2 class="anchored" data-anchor-id="organizing-your-workspace-effectively"><strong>“Organizing Your Workspace Effectively”</strong></h2>
+<p>To work efficiently, it is essential to structure your workspace properly. For a well-organized project, create a main directory named after the project. This directory should include at least three subfolders .</p>
+<ul>
+<li><strong>Input</strong> (00_Inputs): Stores all raw data and input files.<br>
+</li>
+<li><strong>Output</strong> (01_Codes): Contains all generated data and results.<br>
+</li>
+<li><strong>Codes</strong> (03_Outputs): Holds all scripts and working files, possibly with additional subfolders.</li>
+</ul>
+<p>Each file of each subfolder should resolve a specific task. Example : - The initialisation for all libraries should be in the file : <code>00_Libname_Init.sas</code> - The file which contains all macros should be named : <code>00_Macros.sas</code></p>
 
 
 </section>
@@ -694,7 +726,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

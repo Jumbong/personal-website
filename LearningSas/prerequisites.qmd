@@ -1,5 +1,6 @@
 ---
 title: "Learning SAS"
+date: last-modified
 sidebar: auto
 author:
   - Jumbong Junior 
@@ -9,8 +10,7 @@ tags: []
 title-block-banner: false
 format: 
   html: 
-    mainfont: Times New Roman
-    fontsize: 16pt
+    fontsize: 1.1em
 
 jupyter: python3
         
