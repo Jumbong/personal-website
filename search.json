@@ -331,7 +331,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Jumbong Junior",
+    "title": "Meduim Publications",
     "section": "",
     "text": "This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.\n\n\nMeduim Publications\nMedium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.\n\nCredit Scoring modellling approach.\n\nDefinition of default and construction of the database.\nOutliers Identification and Treatment\nMissing data analysis\nDatabase splitting\nPre-selection of explanatory variables\nMethodological Approach To Merge Modalities of qualitative variables\nMethodological Approach To Discretize Quantitative variables\nMonotony and Stability\nOversampling\nLogistic Regression\n\nDefinition\nFitting The logistic Regression\nEvaluation of the logistic Regression\n\nAnalysis of the statistical significance of the model\nThe overall fit of the model : Likelihhod ratio test\nStatistical significance of individual regression coefficients: Likelihood ratio test and Z statistic\nHosmer-Lemeshow test\n\nContribution of variables\n\nModel performances\n\nAccuracy Ratio or Gini\nstability test\n\n\nResampling Methods :\n\nPermutation Test\nBootstrap Efron\nBias-Variance-Mean Squared Error\nBootstrap Confidence Interval\n\nTimes Series\nOthers :\n\nSampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression\nSpurious Regression in Time Series\nNumber of optimal defaults in credit rating\n\n\n\n\nLearning SAS\n\nBackground :\n\nPrerequisites\n\n\n\n\n\n\n Back to top"
   },
@@ -364,11 +364,11 @@
     "text": "Observation filtration\n\nIf it is important to extract only observations m and n from the data source, the obs statement is used.\n\nDATA Outputs.mydata;\n    SET Inputs.mydata (firstobs=m obs=n);\nRUN;\n\nIn order to select observations that meet certain conditions, the WHERE statement is used.\n\nDATA Outputs.mydata;\n    SET Inputs.mydata;\n    WHERE CONDITION;\nRUN;"
   },
   {
-    "objectID": "LearningSas/prerequisites.html#compute-the-cumulative-sum-by-group-of-a-variable.",
-    "href": "LearningSas/prerequisites.html#compute-the-cumulative-sum-by-group-of-a-variable.",
+    "objectID": "LearningSas/prerequisites.html#cumulative-sum-by-group-of-a-variable.",
+    "href": "LearningSas/prerequisites.html#cumulative-sum-by-group-of-a-variable.",
     "title": "Learning SAS",
-    "section": "Compute the cumulative sum by group of a variable.",
-    "text": "Compute the cumulative sum by group of a variable.\n\nproc sort data=INPUTS.class_update out=class_sorted;\n   by Sex;\nrun;\n\ndata output;\n   set class_sorted(keep=Sex Age);\n   by Sex;\n   retain s_age;\n   if first.Sex then s_age = Age; /* Réinitialiser pour chaque groupe */\n   else s_age + Age; /* Cumul des âges */\n  \n   if last.Sex then output;\nrun;\n\nRUN;\n\nThis code compute the cumulative sum of the variable Age by group of the variable and then take the end last element of each group which corresponds to the cumulative sum of the variable Age by group.\n\n## Conactenation and control concatenation\n\n```default\nDATA Outputs.mydata; \n    SET table1 table2;\nRUN;\nDATA Outputs.mydata; \n    SET table1 table2;\n    BY ID;\nRUN;"
+    "section": "Cumulative sum by group of a variable.",
+    "text": "Cumulative sum by group of a variable.\n\nproc sort data=INPUTS.class_update out=class_sorted;\n   by Sex;\nrun;\n\ndata output;\n   set class_sorted(keep=Sex Age);\n   by Sex;\n   retain s_age;\n   if first.Sex then s_age = Age; /* Réinitialiser pour chaque groupe */\n   else s_age + Age; /* Cumul des âges */\n  \n   if last.Sex then output;\nrun;\n\nRUN;\n\nThis code compute the cumulative sum of the variable Age by group of the variable and then take the end last element of each group which corresponds to the cumulative sum of the variable Age by group.\n\n## Conactenation and control concatenation\n\n```default\nDATA Outputs.mydata; \n    SET table1 table2;\nRUN;\nDATA Outputs.mydata; \n    SET table1 table2;\n    BY ID;\nRUN;"
   },
   {
     "objectID": "LearningSas/prerequisites.html#compute-the-frequency-of-a-variable-in-a-dataset-and-the-frequency-of-missing-values-of-the-variable.",
@@ -378,11 +378,25 @@
     "text": "Compute the frequency of a variable in a dataset and the frequency of missing values of the variable.\nPROC FREQ data = Outputs.mydata ;\n    table variable/missing;\nRUN;"
   },
   {
-    "objectID": "LearningSas/prerequisites.html#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.",
-    "href": "LearningSas/prerequisites.html#compute-the-frequency-of-a-variable-in-a-dataset-and-export-results-to-a-excel-sheet.",
+    "objectID": "LearningSas/prerequisites.html#frequency-on-each-sheet-of-an-excel-file",
+    "href": "LearningSas/prerequisites.html#frequency-on-each-sheet-of-an-excel-file",
     "title": "Learning SAS",
-    "section": "Compute the frequency of a variable in a dataset and export results to a excel sheet.",
-    "text": "Compute the frequency of a variable in a dataset and export results to a excel sheet.\n\n/* Module : Macro \nInput : \n    - data : dataset\n    - list_var : macro variable containing the list of variables to compute the frequency\n    - path : path to save the excel file\nOutput :\n    - Excel file containing the frequency of the variables\n*/\n\n%macro export_freq(data, list_var, path);\n    %let nbvar = %sysfunc(countw(&list_var));\n\n    %do i = 1 %to &nbvar;\n        %let var = %scan(&list_var, &i);\n        PROC FREQ data = &data ;\n            tables &var /out = freq&var missing;\n        RUN;\n\n        PROC EXPORT data = freq&var\n            outfile = \"&path\"\n            dbms = xlsx replace;\n            sheet = \"&var\";\n        RUN;\n    %end;\n%mend export_freq;\n\n%export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);"
+    "section": "Frequency on each sheet of an Excel file",
+    "text": "Frequency on each sheet of an Excel file\n\n/* Module : Macro \nInput : \n    - data : dataset\n    - list_var : macro variable containing the list of variables to compute the frequency\n    - path : path to save the excel file\nOutput :\n    - Excel file containing the frequency of the variables\n*/\n\n%macro export_freq(data, list_var, path);\n    %let nbvar = %sysfunc(countw(&list_var));\n\n    %do i = 1 %to &nbvar;\n        %let var = %scan(&list_var, &i);\n        PROC FREQ data = &data ;\n            tables &var /out = freq&var missing;\n        RUN;\n\n        PROC EXPORT data = freq&var\n            outfile = \"&path\"\n            dbms = xlsx replace;\n            sheet = \"&var\";\n        RUN;\n    %end;\n%mend export_freq;\n\n%export_freq(Outputs.mydata, var1 var2 var3, /home/u63691422/EPG1V2/Jumbong_Training/Outputs/freq.xlsx);"
+  },
+  {
+    "objectID": "LearningSas/prerequisites.html#if-and-else-if-statement",
+    "href": "LearningSas/prerequisites.html#if-and-else-if-statement",
+    "title": "Learning SAS",
+    "section": "if and else if statement",
+    "text": "if and else if statement\ndata Outputs.mydata;\n    set;\n    format methode_agregee $20.;\n    if methode_eng_agregee_1 in(\"IRB\") or methode_eng_agregee_2 in(\"IRB\") then methode_agregee = \"IRB\";\n    else if methode_eng_agregee_1 in(\"PD\") or methode_eng_agregee_2 in(\"PD\") then methode_agregee = \"PD\";\n    else if methode_eng_agregee_1 in(\"LGD\") or methode_eng_agregee_2 in(\"LGD\") then methode_agregee = \"LGD\";\n    else methode_agregee = \"Non renseigné\";\nrun;"
+  },
+  {
+    "objectID": "LearningSas/prerequisites.html#organizing-your-workspace-effectively",
+    "href": "LearningSas/prerequisites.html#organizing-your-workspace-effectively",
+    "title": "Learning SAS",
+    "section": "“Organizing Your Workspace Effectively”",
+    "text": "“Organizing Your Workspace Effectively”\nTo work efficiently, it is essential to structure your workspace properly. For a well-organized project, create a main directory named after the project. This directory should include at least three subfolders .\n\nInput (00_Inputs): Stores all raw data and input files.\n\nOutput (01_Codes): Contains all generated data and results.\n\nCodes (03_Outputs): Holds all scripts and working files, possibly with additional subfolders.\n\nEach file of each subfolder should resolve a specific task. Example : - The initialisation for all libraries should be in the file : 00_Libname_Init.sas - The file which contains all macros should be named : 00_Macros.sas"
   },
   {
     "objectID": "3A/risque_def.html",
@@ -415,30 +429,16 @@
   {
     "objectID": "index_gdr.html",
     "href": "index_gdr.html",
-    "title": "Jumbong Junior",
+    "title": "",
     "section": "",
-    "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.\n\n\n\n\nConstruction du bilan d’entreprise (bilan_entreprise.qmd)\n\n\n\n\n\nReglementation prudentielle (reglementation_prudentielle.qmd)\n\n\n\n\n\nDéfinition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
+    "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire."
   },
   {
-    "objectID": "index_gdr.html#analyse-financière",
-    "href": "index_gdr.html#analyse-financière",
-    "title": "Jumbong Junior",
-    "section": "",
-    "text": "Construction du bilan d’entreprise (bilan_entreprise.qmd)"
-  },
-  {
-    "objectID": "index_gdr.html#reglementation-prudentielle",
-    "href": "index_gdr.html#reglementation-prudentielle",
-    "title": "Jumbong Junior",
-    "section": "",
-    "text": "Reglementation prudentielle (reglementation_prudentielle.qmd)"
-  },
-  {
-    "objectID": "index_gdr.html#risques-financiers",
-    "href": "index_gdr.html#risques-financiers",
-    "title": "Jumbong Junior",
-    "section": "",
-    "text": "Définition du risque financier (risque_def.qmd)\nValue-at-risk (VaR) :\n\nDéfinition de la VaR (var_def.qmd)\nImplémentation de la VaR sur python (var_application.qmd)"
+    "objectID": "index_gdr.html#la-puissance-de-la-parole.",
+    "href": "index_gdr.html#la-puissance-de-la-parole.",
+    "title": "",
+    "section": "La puissance de la parole.",
+    "text": "La puissance de la parole.\nLa bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu’ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler.\nDans la bible, notamment dans prophète, l’auteur préconise l’usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d’avoir écouté fait preuve de folie et se couvre de honte.\nPlusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que “Les mots sont des pistolets chargés.”"
   },
   {
     "objectID": "3A/reglementation_prudentielle.html",
