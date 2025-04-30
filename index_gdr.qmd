@@ -1,23 +1,17 @@
 ---
-title: "Jumbong Junior"
+format: 
+  html: 
+    fontsize: 1.1em
 ---
 
-# Gestion des risques
 <div class="box">
 Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m'efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu'ils serviront de guide précieux pour ceux qui suivront une voie similaire.
 </div>
 
-## Analyse financière
-- Construction du bilan d'entreprise ([bilan_entreprise.qmd](3A/bilan_entreprise.qmd))
+## La puissance de la parole.
 
+La bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu'ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler. 
 
-## Reglementation prudentielle
--   Reglementation prudentielle ([reglementation_prudentielle.qmd](3A/reglementation_prudentielle.qmd))
+Dans la bible, notamment dans prophète, l'auteur préconise l'usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d'avoir écouté fait preuve de folie et se couvre de honte.
 
-## Risques financiers
--   Définition du risque financier ([risque_def.qmd](3A/risque_def.qmd))
--   Value-at-risk (VaR) :
-    -   Définition de la VaR ([var_def.qmd](3A/var_def.qmd))
-    -   Implémentation de la VaR sur python ([var_application.qmd](3A/var_application.qmd))
-
-
+Plusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que "Les mots sont des pistolets chargés." 

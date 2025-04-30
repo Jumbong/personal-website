@@ -1,9 +1,7 @@
 ---
-title: "Jumbong Junior"
 format: 
   html: 
-    mainfont: Times New Roman
-    fontsize: 11pt
+    fontsize: 1.1em
 ---
 
 <div class="box">
