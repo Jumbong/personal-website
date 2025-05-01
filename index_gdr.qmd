@@ -1,7 +1,7 @@
 ---
 format: 
   html: 
-    fontsize: 1.1em
+    fontsize: 1.3em
 ---
 
 <div class="box">
@@ -15,3 +15,46 @@ La bible met en évidence la puissance de la parole. Par la parole, Dieu à cré
 Dans la bible, notamment dans prophète, l'auteur préconise l'usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d'avoir écouté fait preuve de folie et se couvre de honte.
 
 Plusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que "Les mots sont des pistolets chargés." 
+
+
+::: {.byline}
+<span class="date">April 30, 2025</span>
+:::
+
+## La clé Lamine Yamal
+
+Hier soir, le barça affrontait l'Inter Milan dans le cadre du match aller de la demi-finale de la Ligue des champions.  Ce match opposait la meilleure attaque de la compétition, le barça, à la meilleure défense, l'Inter Milan. On s'attendait donc à un match difficile et fermé avec peu de buts. Cependant, on a assisté à spectable incroyable, magnifique et inoubliable. 
+
+L'Inter Milan a ouvert le score grâce à un but superbe de Marcus Thuram au tout début du match. L'inter de Milan a même doublé la mise grâce à un but de Dunfries. On s'est dit en ce moment que c'est fini pour le barça. L'Inter Milan a commencé à défendre, à mettre le bus. Mais il a fallu que Yamal trouve la clé pour ouvrir le cadenas mis en place par l'Inter. 
+
+Après avoir effacé Henrikh Mkhitaryan avec une facilité déconcertante, le joyau de la Masia a fixé Alessandro Bastoni puis décoché un remarquable tir du pied gauche qui est aller fracasser le poteau droit de Yann Sommer avant de franchir la ligne.
+On a vu en lui du Ronaldinho, du Neymar et même du Messi. On se pose même la question de savoir si c'est le nouveau Messi du Barça. Ce qui est sûr, c'est que Lamine Yamal est un génie, comme l'a dit son entraîneur, ancien entraîneur du Bayern Munich, Hans-Dieter Flick.
+
+Il est difficile de croire mais cet enfant sort de l'adolescence, mais il a une grande maturité. Il n'a que 17 ans et ce match est son 100e match avec le Barça. Il est le plus jeune joueur de l'histoire a avoir marqué en demi-finale de la Ligue des champions, dépassant ainsi le record d'un certain Kylian Mbappé.
+ 
+Grâce à lui, le Barça a pu arracher un match nul 3-3. Nous sommes impatients de voir Yamal briller lors du match retour à Milan.
+
+## Le livre des réponses
+
+J'adore la bible parce que tu peux y trouver des réponses à toutes tes questions. Par exemple, si tu est quelqu'un qui travaille beaucoup et dort peu, si ton entourage te dit qu'il faut dormir, que le sommeil est réparateur. Si tu es fatigué par eux, tu peux leur répondre que d'après Proverbes 20:13, "N'aime pas le sommeil, tu risquerais de t'appauvrir. Garde les yeux ouverts et tu seras rassasié de pain."
+
+Lire la bible, notamment le livre des proverbes ou de l'Ecclésiaste, écrit par Salomon, te donnera de l'intelligence et de la sagesse. 
+
+## Categories
+
+How tall is Junior? If Junior is 1.5m. Your answer is a function of his age. He is very tall if I tell you that he is 6 years old. Very short if he is 20 years old. 
+Your brain automatically returns the relevant norm, which allows you to make a quick decision.
+
+We are also able to match intensity across categories and answer the question: "How expensive is a restaurant that matches Junior's height?"
+
+Our world is broken into categories for which we have a norm. And those norms allow us to make quick decisions.
+
+## What evokes you the 100 days of Donald Trump?
+
+Even if Trump sticks to his program, the first 100 days have nonetheless been marked by a major disruption in the global economy, which has had a negative impact on various markets, including Wall Street, the European market, and the Asian market. 
+
+Furthermore, we were shocked by his stances on the war in Ukraine, his attack on the Chairman of the Federal Reserve, Jerome Powell, as well as the increase in tariffs — especially in the context of the trade war with China.
+
+::: {.byline}
+<span class="date">May 1, 2025</span>
+:::
