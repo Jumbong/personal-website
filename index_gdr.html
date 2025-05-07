@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -114,7 +143,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#what-determines-the-price-of-stocks" id="toc-what-determines-the-price-of-stocks" class="nav-link active" data-scroll-target="#what-determines-the-price-of-stocks">What determines the price of stocks?</a></li>
+  <li><a href="#how-can-we-choose-a-model-when-we-modeling-a-risk" id="toc-how-can-we-choose-a-model-when-we-modeling-a-risk" class="nav-link active" data-scroll-target="#how-can-we-choose-a-model-when-we-modeling-a-risk">How can we choose a model when we modeling a risk?</a></li>
+  <li><a href="#what-drives-stock-prices" id="toc-what-drives-stock-prices" class="nav-link" data-scroll-target="#what-drives-stock-prices">What drives stock prices?</a></li>
   <li><a href="#we-are-champions-the-champions-the-first-trophy-of-harry-kane-in-his-career." id="toc-we-are-champions-the-champions-the-first-trophy-of-harry-kane-in-his-career." class="nav-link" data-scroll-target="#we-are-champions-the-champions-the-first-trophy-of-harry-kane-in-his-career.">We are champions the champions : The first trophy of Harry Kane in his career.</a></li>
   <li><a href="#warren-buffett-retires-at-94" id="toc-warren-buffett-retires-at-94" class="nav-link" data-scroll-target="#warren-buffett-retires-at-94">Warren Buffett retires at 94</a></li>
   <li><a href="#la-puissance-de-la-parole." id="toc-la-puissance-de-la-parole." class="nav-link" data-scroll-target="#la-puissance-de-la-parole.">La puissance de la parole.</a></li>
@@ -140,10 +170,26 @@ ul.task-list li input[type="checkbox"] {
 <div class="box">
 <p>Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.</p>
 </div>
-<section id="what-determines-the-price-of-stocks" class="level2">
-<h2 class="anchored" data-anchor-id="what-determines-the-price-of-stocks">What determines the price of stocks?</h2>
+<section id="how-can-we-choose-a-model-when-we-modeling-a-risk" class="level2">
+<h2 class="anchored" data-anchor-id="how-can-we-choose-a-model-when-we-modeling-a-risk">How can we choose a model when we modeling a risk?</h2>
 <div class="byline">
-<p><span class="date">May 5, 2025</span></p>
+<p><span class="date">May 7, 2025</span></p>
+</div>
+</section>
+<section id="what-drives-stock-prices" class="level2">
+<h2 class="anchored" data-anchor-id="what-drives-stock-prices">What drives stock prices?</h2>
+<p>It’s been about a week since I invested in Eutelsat stock at €3.59 through my PEA (Plan d’Épargne en Actions). When I woke up on Monday, May 5th, I was surprised to see that the stock had jumped to €4.20. Suddenly, it started dropping, and I was tempted to sell. Fortunately, I didn’t—because by the end of the day, the stock had climbed to over €4.65.</p>
+<p>That’s a 29.5% increase relative to my investment:</p>
+<p><span class="math display">\[
+\frac{4.65 - 3.59}{3.59} \times 100 ≈ 29.5\%
+\]</span></p>
+<p>Naturally, I started wondering what could have caused such a sharp rise. I looked it up on Google and checked the news on TV—but found nothing.</p>
+<p>Later that afternoon—maybe by chance, maybe because I had been actively searching—I stumbled upon an article in <em>Les Échos</em>. It mentioned that Eutelsat’s CEO, Eva Berneke, had been replaced by Stéphane Richard, the former CEO of Orange.</p>
+<p>That was likely one reason for the stock’s spike. Another possible explanation is the French government’s involvement with the company. In the context of European and French national defense, Eutelsat is seen as a strategic alternative to Starlink, SpaceX’s satellite internet service.</p>
+<p>It’s incredibly hard to predict stock prices.</p>
+<p>On a similar note, I also noticed that oil prices had dropped recently. And again, there’s a potential explanation: the number of oil producers within OPEC has increased by three. This rise in oil production leads to a greater supply, which in turn explains the drop in oil prices.</p>
+<div class="byline">
+<p><span class="date">May 6, 2025</span></p>
 </div>
 </section>
 <section id="we-are-champions-the-champions-the-first-trophy-of-harry-kane-in-his-career." class="level2">
