@@ -8,10 +8,29 @@ format:
 Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m'efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu'ils serviront de guide précieux pour ceux qui suivront une voie similaire.
 </div>
 
+::: {.byline}
+<span class="date">May 9, 2025</span>
+:::
 
-## How can we choose a model when we modeling a risk?
+## Should You Invest, Save, or Keep Your Money Under the Mattress?
 
+A quick read of the bible can help you to answer this question. I recommend reading Mathieu 25:14, the parable of the servants and the master's reward.
 
+In this parable, a master gives three servants different amounts of money to manage during his absence. The first servant receives five talents, the second two talents, and the third one talent. The first two servants invest their money and double it, while the third servant hides his talent in the ground.
+
+When the master returned from his journey, the first two servants presented their profits. The master was proud of them and rewarded them. But the third servant explained he knew that his master was hard and demanding. Because he was afraid of losing the money, he hid the talent in the ground. The master was angry and disappointed, and he took the talent. He told him that if he was so afraid, the least he could have done was put the money in a bank to earn interest.
+
+This parable teaches us that the most important to get money is to invest it wisely. If you are afraid of losing your money, you should at least put it in a bank to earn interest. Keep money under a pillow is not a good idea, and should be used as the last resort.
+
+::: {.byline}
+<span class="date">May 8, 2025</span>
+:::
+
+## How can we choose to modeling time series using ARDL?
+
+What ultimately determines the choice of a model is the data. This assumes that we’ve already carried out a preliminary analysis to understand the nature of the risk, define its scope, and identify the relevant risk factors.
+
+That’s why it’s misguided to say, for example, that we should—or should not—use an ARDL model to analyze a time series. What truly matters is ensuring that the residuals of the model are not autocorrelated.
 
 ::: {.byline}
 <span class="date">May 7, 2025</span>
@@ -77,17 +96,35 @@ Success = f(strategy, long-term investment, value investing, ...) + luck
 <span class="date">May 4, 2025</span>
 :::
 
-## La puissance de la parole.
+## Diagnostic de performance énergétique (DPE)
 
-La bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu'ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler. 
+Le DPE renseigne sur les performances énergétiques et environnementales d'un logement et d'un bâtiment, en évaluant ses émissions de gaz à effet de serre (GHG).
 
-Dans la bible, notamment dans prophète, l'auteur préconise l'usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d'avoir écouté fait preuve de folie et se couvre de honte.
+Le DPE contient les informations suivantes :
+- Les informations sur les caractéristiques du bâtiment telles que la surface, les orientations, les mûrs, les fenêtres, les matériaux, etc.
+- Les informations sur les équipements du logement tels que le chauffage, la climatisation, l'eau chaude sanitaire, la ventilation, etc.
 
-Plusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que "Les mots sont des pistolets chargés." 
+Le contenu et les modalités du DPE sont réglementés. Ainsi, les données sur les DPE peuvent être utilisées comme facteur de risque ESG (environnemental, social et de gouvernance).
 
+Pour plus d'informations, veuillez consulter le site de l'ademe [ici](https://data.ademe.fr/)
 
 ::: {.byline}
-<span class="date">April 30, 2025</span>
+<span class="date">May 3, 2025</span>
+:::
+
+## Aimé Césaire inspired by the Bible
+
+When we take time to reflect on the condition of the oppressed, the poor, and the suffering, we see that the Bible has inspired many well-known writers—among them, Aimé Césaire.
+
+In Proverbs 31:8–9, it is written:
+"Speak up for those who cannot speak for themselves, for the rights of all who are abandoned.Speak up and judge fairly; defend the rights of the poor and needy."
+ 
+
+With this in mind, we can believe that Aimé Césaire—a powerful French poet—was deeply influenced by this text when he wrote:
+"My mouth will be the mouth of those who have no mouth, my voice, the freedom of those who sink into the dungeons of despair."
+
+::: {.byline}
+<span class="date">May 2, 2025</span>
 :::
 
 ## La clé Lamine Yamal
@@ -128,34 +165,20 @@ Furthermore, we were shocked by his stances on the war in Ukraine, his attack on
 <span class="date">May 1, 2025</span>
 :::
 
-## Aimé Césaire inspired by the Bible
 
-When we take time to reflect on the condition of the oppressed, the poor, and the suffering, we see that the Bible has inspired many well-known writers—among them, Aimé Césaire.
 
-In Proverbs 31:8–9, it is written:
-"Speak up for those who cannot speak for themselves, for the rights of all who are abandoned.Speak up and judge fairly; defend the rights of the poor and needy."
- 
+## La puissance de la parole.
 
-With this in mind, we can believe that Aimé Césaire—a powerful French poet—was deeply influenced by this text when he wrote:
-"My mouth will be the mouth of those who have no mouth, my voice, the freedom of those who sink into the dungeons of despair."
+La bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu'ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler. 
 
-::: {.byline}
-<span class="date">May 2, 2025</span>
-:::
+Dans la bible, notamment dans prophète, l'auteur préconise l'usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d'avoir écouté fait preuve de folie et se couvre de honte.
 
-## Diagnostic de performance énergétique (DPE)
+Plusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que "Les mots sont des pistolets chargés." 
 
-Le DPE renseigne sur les performances énergétiques et environnementales d'un logement et d'un bâtiment, en évaluant ses émissions de gaz à effet de serre (GHG).
 
-Le DPE contient les informations suivantes :
-- Les informations sur les caractéristiques du bâtiment telles que la surface, les orientations, les mûrs, les fenêtres, les matériaux, etc.
-- Les informations sur les équipements du logement tels que le chauffage, la climatisation, l'eau chaude sanitaire, la ventilation, etc.
 
-Le contenu et les modalités du DPE sont réglementés. Ainsi, les données sur les DPE peuvent être utilisées comme facteur de risque ESG (environnemental, social et de gouvernance).
-
-Pour plus d'informations, veuillez consulter le site de l'ademe [ici](https://data.ademe.fr/)
 
 ::: {.byline}
-<span class="date">May 3, 2025</span>
+<span class="date">April 30, 2025</span>
 :::
 
