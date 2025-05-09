@@ -1,0 +1,86 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Define theta values\n",
+        "theta = np.linspace(0, 5, 500)\n",
+        "R1 = np.ones_like(theta)            # R(θ, θ̂₁) = 1\n",
+        "R2 = (3 - theta) ** 2               # R(θ, θ̂₂) = (3 - θ)²\n",
+        "\n",
+        "# Create the plot\n",
+        "plt.figure(figsize=(8, 5))\n",
+        "plt.plot(theta, R1, label=r'$R(\\theta, \\hat{\\theta}_1)$', linewidth=2)\n",
+        "plt.plot(theta, R2, label=r'$R(\\theta, \\hat{\\theta}_2)$', linewidth=2)\n",
+        "plt.xlabel(r'$\\theta$')\n",
+        "plt.ylabel('Risk')\n",
+        "plt.title('Comparison of Risk Functions')\n",
+        "plt.legend()\n",
+        "plt.grid(True)\n",
+        "# Set the x and y limits\n",
+        "plt.xlim(0, 5)\n",
+        "plt.ylim(0, 4)\n",
+        "plt.tight_layout()\n",
+        "# grid(True)\n",
+        "plt.grid(False)\n",
+        "\n",
+        "# Show the plot\n",
+        "plt.show()\n"
+      ],
+      "id": "82ef612c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Define p values from 0 to 1\n",
+        "p = np.linspace(0.01, 0.99, 500)  # Avoid 0 and 1 to prevent division by 0\n",
+        "n = 30  # Example sample size\n",
+        "\n",
+        "# Risk function R(p, p̂₁) = p(1 - p) / n\n",
+        "R1 = (p * (1 - p)) / n\n",
+        "\n",
+        "# Risk function R(p, p̂₂) = n / (4(n + sqrt(n))^2)\n",
+        "R2 = np.full_like(p, n / (4 * (n + np.sqrt(n))**2))\n",
+        "\n",
+        "# Plotting\n",
+        "plt.figure(figsize=(8, 5))\n",
+        "plt.plot(p, R1, label=r'$R(p, \\hat{p}_1)$', linewidth=2)\n",
+        "plt.plot(p, R2, label=r'$R(p, \\hat{p}_2)$', linewidth=2, linestyle='--')\n",
+        "plt.xlabel('p')\n",
+        "plt.ylabel('Risk')\n",
+        "plt.title('Comparison of Risk Functions: $\\hat{p}_1$ vs $\\hat{p}_2$')\n",
+        "plt.legend()\n",
+        "plt.grid(False)\n",
+        "plt.tight_layout()\n",
+        "# Remove unit x-axis and y-axis unités\n",
+        "plt.xlim(0, 1)\n",
+        "plt.ylim(0, 0.009)\n",
+        "plt.xticks([\"\"])\n",
+        "plt.show()"
+      ],
+      "id": "ed8a57a6",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/juniorjumbong/Desktop/personal-website/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
