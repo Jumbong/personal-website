@@ -434,6 +434,13 @@
     "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire."
   },
   {
+    "objectID": "index_gdr.html#regression-to-the-mean",
+    "href": "index_gdr.html#regression-to-the-mean",
+    "title": "",
+    "section": "Regression to the mean",
+    "text": "Regression to the mean\nRegression to the mean was discovered and named by Sir Francis Galton in the 19th century. It refers to the phenomenon where extreme observations tend to be followed by more moderate ones, and moving closer to the average.\nThis concept is often misunderstood, and interpreted in terms of causality. Take this proposition: &gt; “Highly intelligent women tend to marry men who are less intelligent than they are.” What is the explanation?\nSome may think of highly intelligent women wanting to avoid the competition equally intelligent men, or being forced to compromise in their choice of partner because intelligent men do not want to compete with intelligent women. This explanation is wrong.\nThe correlation between the intelligence scores of spouces is less than perfect. If the correlation between the intelligence scores of spouses is not perfect( and if men and women on average do not differ in intelligence), then it is mathematically inevitable that the higly intelligent women will be married to men who are on overage less intelligent than they are.\n\nMay 9, 2025"
+  },
+  {
     "objectID": "index_gdr.html#should-you-invest-save-or-keep-your-money-under-the-mattress",
     "href": "index_gdr.html#should-you-invest-save-or-keep-your-money-under-the-mattress",
     "title": "",
