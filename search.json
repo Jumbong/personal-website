@@ -434,11 +434,18 @@
     "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire."
   },
   {
-    "objectID": "index_gdr.html#how-can-we-choose-a-model-when-we-modeling-a-risk",
-    "href": "index_gdr.html#how-can-we-choose-a-model-when-we-modeling-a-risk",
+    "objectID": "index_gdr.html#should-you-invest-save-or-keep-your-money-under-the-mattress",
+    "href": "index_gdr.html#should-you-invest-save-or-keep-your-money-under-the-mattress",
     "title": "",
-    "section": "How can we choose a model when we modeling a risk?",
-    "text": "How can we choose a model when we modeling a risk?\n\nMay 7, 2025"
+    "section": "Should You Invest, Save, or Keep Your Money Under the Mattress?",
+    "text": "Should You Invest, Save, or Keep Your Money Under the Mattress?\nA quick read of the bible can help you to answer this question. I recommend reading Mathieu 25:14, the parable of the servants and the master’s reward.\nIn this parable, a master gives three servants different amounts of money to manage during his absence. The first servant receives five talents, the second two talents, and the third one talent. The first two servants invest their money and double it, while the third servant hides his talent in the ground.\nWhen the master returned from his journey, the first two servants presented their profits. The master was proud of them and rewarded them. But the third servant explained he knew that his master was hard and demanding. Because he was afraid of losing the money, he hid the talent in the ground. The master was angry and disappointed, and he took the talent. He told him that if he was so afraid, the least he could have done was put the money in a bank to earn interest.\nThis parable teaches us that the most important to get money is to invest it wisely. If you are afraid of losing your money, you should at least put it in a bank to earn interest. Keep money under a pillow is not a good idea, and should be used as the last resort.\n\nMay 8, 2025"
+  },
+  {
+    "objectID": "index_gdr.html#how-can-we-choose-to-modeling-time-series-using-ardl",
+    "href": "index_gdr.html#how-can-we-choose-to-modeling-time-series-using-ardl",
+    "title": "",
+    "section": "How can we choose to modeling time series using ARDL?",
+    "text": "How can we choose to modeling time series using ARDL?\nWhat ultimately determines the choice of a model is the data. This assumes that we’ve already carried out a preliminary analysis to understand the nature of the risk, define its scope, and identify the relevant risk factors.\nThat’s why it’s misguided to say, for example, that we should—or should not—use an ARDL model to analyze a time series. What truly matters is ensuring that the residuals of the model are not autocorrelated.\n\nMay 7, 2025"
   },
   {
     "objectID": "index_gdr.html#what-drives-stock-prices",
@@ -462,11 +469,18 @@
     "text": "Warren Buffett retires at 94\nThe most famous investor in the world, Warren Buffett, has announced his retirement at the age of 94 in the end of the year. He has announced this decision during the annual meeting of Berkshire Hathaway, the company he founded in 1965.\nWhat explains his success? He is known for his long-term investment strategy, which focuses on buying and holding quality companies. He has also been a strong advocate of value investing, which involves looking for undervalued stocks with strong fundamentals.\nDo all these elements fully explain his success? I don’t think so. To explain his success, we also need to take luck into account. He wrote a book, and many others have written about him. But not many people have achieved the kind of success he has. That’s why I want to propose a model to predict Warren Buffett’s success, which will be formulated as follows:\nSuccess = f(strategy, long-term investment, value investing, …) + luck\n\nMay 4, 2025"
   },
   {
-    "objectID": "index_gdr.html#la-puissance-de-la-parole.",
-    "href": "index_gdr.html#la-puissance-de-la-parole.",
+    "objectID": "index_gdr.html#diagnostic-de-performance-énergétique-dpe",
+    "href": "index_gdr.html#diagnostic-de-performance-énergétique-dpe",
     "title": "",
-    "section": "La puissance de la parole.",
-    "text": "La puissance de la parole.\nLa bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu’ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler.\nDans la bible, notamment dans prophète, l’auteur préconise l’usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d’avoir écouté fait preuve de folie et se couvre de honte.\nPlusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que “Les mots sont des pistolets chargés.”\n\nApril 30, 2025"
+    "section": "Diagnostic de performance énergétique (DPE)",
+    "text": "Diagnostic de performance énergétique (DPE)\nLe DPE renseigne sur les performances énergétiques et environnementales d’un logement et d’un bâtiment, en évaluant ses émissions de gaz à effet de serre (GHG).\nLe DPE contient les informations suivantes : - Les informations sur les caractéristiques du bâtiment telles que la surface, les orientations, les mûrs, les fenêtres, les matériaux, etc. - Les informations sur les équipements du logement tels que le chauffage, la climatisation, l’eau chaude sanitaire, la ventilation, etc.\nLe contenu et les modalités du DPE sont réglementés. Ainsi, les données sur les DPE peuvent être utilisées comme facteur de risque ESG (environnemental, social et de gouvernance).\nPour plus d’informations, veuillez consulter le site de l’ademe ici\n\nMay 3, 2025"
+  },
+  {
+    "objectID": "index_gdr.html#aimé-césaire-inspired-by-the-bible",
+    "href": "index_gdr.html#aimé-césaire-inspired-by-the-bible",
+    "title": "",
+    "section": "Aimé Césaire inspired by the Bible",
+    "text": "Aimé Césaire inspired by the Bible\nWhen we take time to reflect on the condition of the oppressed, the poor, and the suffering, we see that the Bible has inspired many well-known writers—among them, Aimé Césaire.\nIn Proverbs 31:8–9, it is written: “Speak up for those who cannot speak for themselves, for the rights of all who are abandoned.Speak up and judge fairly; defend the rights of the poor and needy.”\nWith this in mind, we can believe that Aimé Césaire—a powerful French poet—was deeply influenced by this text when he wrote: “My mouth will be the mouth of those who have no mouth, my voice, the freedom of those who sink into the dungeons of despair.”\n\nMay 2, 2025"
   },
   {
     "objectID": "index_gdr.html#la-clé-lamine-yamal",
@@ -497,18 +511,11 @@
     "text": "What evokes you the 100 days of Donald Trump?\nEven if Trump sticks to his program, the first 100 days have nonetheless been marked by a major disruption in the global economy, which has had a negative impact on various markets, including Wall Street, the European market, and the Asian market.\nFurthermore, we were shocked by his stances on the war in Ukraine, his attack on the Chairman of the Federal Reserve, Jerome Powell, as well as the increase in tariffs — especially in the context of the trade war with China.\n\nMay 1, 2025"
   },
   {
-    "objectID": "index_gdr.html#aimé-césaire-inspired-by-the-bible",
-    "href": "index_gdr.html#aimé-césaire-inspired-by-the-bible",
+    "objectID": "index_gdr.html#la-puissance-de-la-parole.",
+    "href": "index_gdr.html#la-puissance-de-la-parole.",
     "title": "",
-    "section": "Aimé Césaire inspired by the Bible",
-    "text": "Aimé Césaire inspired by the Bible\nWhen we take time to reflect on the condition of the oppressed, the poor, and the suffering, we see that the Bible has inspired many well-known writers—among them, Aimé Césaire.\nIn Proverbs 31:8–9, it is written: “Speak up for those who cannot speak for themselves, for the rights of all who are abandoned.Speak up and judge fairly; defend the rights of the poor and needy.”\nWith this in mind, we can believe that Aimé Césaire—a powerful French poet—was deeply influenced by this text when he wrote: “My mouth will be the mouth of those who have no mouth, my voice, the freedom of those who sink into the dungeons of despair.”\n\nMay 2, 2025"
-  },
-  {
-    "objectID": "index_gdr.html#diagnostic-de-performance-énergétique-dpe",
-    "href": "index_gdr.html#diagnostic-de-performance-énergétique-dpe",
-    "title": "",
-    "section": "Diagnostic de performance énergétique (DPE)",
-    "text": "Diagnostic de performance énergétique (DPE)\nLe DPE renseigne sur les performances énergétiques et environnementales d’un logement et d’un bâtiment, en évaluant ses émissions de gaz à effet de serre (GHG).\nLe DPE contient les informations suivantes : - Les informations sur les caractéristiques du bâtiment telles que la surface, les orientations, les mûrs, les fenêtres, les matériaux, etc. - Les informations sur les équipements du logement tels que le chauffage, la climatisation, l’eau chaude sanitaire, la ventilation, etc.\nLe contenu et les modalités du DPE sont réglementés. Ainsi, les données sur les DPE peuvent être utilisées comme facteur de risque ESG (environnemental, social et de gouvernance).\nPour plus d’informations, veuillez consulter le site de l’ademe ici\n\nMay 3, 2025"
+    "section": "La puissance de la parole.",
+    "text": "La puissance de la parole.\nLa bible met en évidence la puissance de la parole. Par la parole, Dieu à créé le monde. Pour des non croyants, ceci peut être ridicule. Je pense qu’ils conviennent avec moi que ceux qui maitrisent la parole ont un pouvoir. Ils peuvent séduire, enchanter, persuader, parfois ils peuvent même manipuler.\nDans la bible, notamment dans prophète, l’auteur préconise l’usage adéquat de la parole. Il dit que la langue, qui permet de parler, a un pouvoir de vie et de mort; ceux qui aiment parler en goûteront les fruits. Ensuite, il conseille de refléchir avant de parler. Celui qui répond avant d’avoir écouté fait preuve de folie et se couvre de honte.\nPlusieurs écrivaints ont souligné cette importance de la parole, notamment les mots. Jean Paul Sartre, un écrivain français, disait que “Les mots sont des pistolets chargés.”\n\nApril 30, 2025"
   },
   {
     "objectID": "3A/reglementation_prudentielle.html",
