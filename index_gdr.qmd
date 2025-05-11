@@ -8,9 +8,25 @@ format:
 Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m'efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu'ils serviront de guide précieux pour ceux qui suivront une voie similaire.
 </div>
 
+## Why certain couples marry and others do not?
+
+Today, saturday, May 10 2025, I attended the wedding of a friend--a girl I met in high school. We were in the same grade from ninth grade all the way through senior year.
+
+She was smart, almost among the top students in our class. She was attentive, displined, serious and hardworking. She rarely laughted out loud, but she always had a warm smile. Given her academic achievements and her work ethic, I expected her to pursue advanced studies and build a successful career. And that's exactly what happened--she went on to study at ENSAE, one of the most prestigious schools in France, and she is now an actuary.
+
+Now she is married too, and I hope she will find the same success in her marriage as she did in her studies and career. But this made me wonder: why do some people marry and others do not? What are the factors that influence the decision to marry?
+
+At her wedding, I began to reflect on this question using the story of my friend as a starting point. First, she and her husband come from similar social backgrounds—which I believe played a stabilizing role in their relationship.
+
+Then, there was distance. After her master’s, she earned a scholarship to continue her studies at ENSAE and moved to Paris, while her husband remained in Cameroon. They had to maintain a long-distance relationship for two years and waited until the third year to get married. Despite the distance, they managed to stay connected and committed.
+
+Lastly, their social circle made a real difference. The groom repeatedly thanked his friends during the ceremony for supporting their relationship. He said they reassured his bride during moments of doubt and helped keep them grounded and hopeful.
+
+By the end of the ceremony, I had identified three key factors that seemed to have supported their union: shared social status, the ability to overcome physical distance, and the strength of their support network. I believe there are many other factors yet to discover, and I’m curious to explore what else might influence the decision to marry.
+
 
 ::: {.byline}
-<span class="date">May 9, 2025</span>
+<span class="date">May 10, 2025</span>
 :::
 
 ## Regression to the mean
