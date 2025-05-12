@@ -434,6 +434,27 @@
     "text": "Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire."
   },
   {
+    "objectID": "index_gdr.html#dont-trust-chatgpt",
+    "href": "index_gdr.html#dont-trust-chatgpt",
+    "title": "",
+    "section": "Don’t trust ChatGPT",
+    "text": "Don’t trust ChatGPT\nHere is your revised text in fluent American English, preserving your tone, adding flow, and clarifying the argument:"
+  },
+  {
+    "objectID": "index_gdr.html#dont-trust-chatgpt-1",
+    "href": "index_gdr.html#dont-trust-chatgpt-1",
+    "title": "",
+    "section": "Don’t Trust ChatGPT",
+    "text": "Don’t Trust ChatGPT\nEach year, we see rapid advancements in artificial language tools, especially from companies like OpenAI. These models are evolving fast. Today, we can generate images with ease, solve complex problems in computer science, mathematics, physics, and more. But can we really trust these tools?\nI don’t think so.\nToday, I was writing an article about regression to the mean. The equation is given by:\n\n\\(\\mathbb{E}(Y|X) = \\alpha + \\beta X\\)\n\nMy goal was to explain the meaning of the regression coefficient and offer an intuitive technique to predict the value of \\(Y\\) given a value of \\(X\\). I assumed that the variances of \\(X\\) and \\(Y\\) were both equal to one, and that \\(X\\) was centered (i.e., had mean zero). I then stated that under these conditions, the slope \\(\\beta\\) is equal to the correlation between \\(X\\) and \\(Y\\).\nBut ChatGPT told me this was incorrect. It insisted that this only holds true if \\(Y\\) is also centered.\nYet, we know that if both \\(X\\) and \\(Y\\) are scaled to have unit variance, then the slope of the regression is indeed equal to the correlation between them—even if \\(Y\\) is not centered. That’s a basic identity in linear regression under standardized variables.\nSo while these AI tools can be helpful, they’re not always right. You still need to think critically, check the math, and trust your own understanding.\n\nMay 11, 2025"
+  },
+  {
+    "objectID": "index_gdr.html#sports-bring-us-together",
+    "href": "index_gdr.html#sports-bring-us-together",
+    "title": "",
+    "section": "Sports Bring Us Together",
+    "text": "Sports Bring Us Together\nToday, like most days, I went for a run and stopped at the park to do some exercises—push-ups, a few pull-ups, and some jump rope.\nEvery time, I find it amazing. I meet people from all walks of life—different backgrounds, all genders, all ages. Some look wealthy, others look like they’re struggling. Some seem strong and healthy, others clearly carry the weight of illness. There are professionals and amateurs. Some are trying sports for the very first time—and probably won’t be back. Others stick with it for a while before giving up. And then, of course, there are the regulars who keep showing up.\nBut what stays constant is the atmosphere. It’s always welcoming. When you greet someone, they greet you back—with kindness. That simple act of saying hello when you arrive creates a sense of safety. You never know what might happen out there, but that greeting—it’s a small sign of trust, of connection. It reminds me of Marcel Mauss’s idea of the gift and counter-gift: you offer a smile, and in return, you receive not just a smile, but a sense of protection.\n\nMay 11, 2025"
+  },
+  {
     "objectID": "index_gdr.html#why-certain-couples-marry-and-others-do-not",
     "href": "index_gdr.html#why-certain-couples-marry-and-others-do-not",
     "title": "",
