@@ -20,10 +20,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -69,6 +103,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -143,8 +180,12 @@ window.Quarto = {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#dont-trust-chatgpt" id="toc-dont-trust-chatgpt" class="nav-link active" data-scroll-target="#dont-trust-chatgpt">Don’t trust ChatGPT</a></li>
-  <li><a href="#dont-trust-chatgpt-1" id="toc-dont-trust-chatgpt-1" class="nav-link" data-scroll-target="#dont-trust-chatgpt-1">Don’t Trust ChatGPT</a></li>
+  <li><a href="#exploring-variable-relationships-in-python" id="toc-exploring-variable-relationships-in-python" class="nav-link active" data-scroll-target="#exploring-variable-relationships-in-python">Exploring Variable Relationships in Python</a></li>
+  <li><a href="#when-several-variables-are-correlated" id="toc-when-several-variables-are-correlated" class="nav-link" data-scroll-target="#when-several-variables-are-correlated">When several variables are correlated</a></li>
+  <li><a href="#variance-inflation-factor-vif-for-selected-variables-after-standardization" id="toc-variance-inflation-factor-vif-for-selected-variables-after-standardization" class="nav-link" data-scroll-target="#variance-inflation-factor-vif-for-selected-variables-after-standardization">Variance Inflation Factor (VIF) for selected variables after standardization</a>
+  <ul class="collapse">
+  <li><a href="#fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test" id="toc-fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test" class="nav-link" data-scroll-target="#fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test">Fit a linear regression model on a six variables after standardization not split data into train and test</a></li>
+  <li><a href="#dont-trust-chatgpt" id="toc-dont-trust-chatgpt" class="nav-link" data-scroll-target="#dont-trust-chatgpt">Don’t Trust ChatGPT</a></li>
   <li><a href="#sports-bring-us-together" id="toc-sports-bring-us-together" class="nav-link" data-scroll-target="#sports-bring-us-together">Sports Bring Us Together</a></li>
   <li><a href="#why-certain-couples-marry-and-others-do-not" id="toc-why-certain-couples-marry-and-others-do-not" class="nav-link" data-scroll-target="#why-certain-couples-marry-and-others-do-not">Why certain couples marry and others do not?</a></li>
   <li><a href="#regression-to-the-mean" id="toc-regression-to-the-mean" class="nav-link" data-scroll-target="#regression-to-the-mean">Regression to the mean</a></li>
@@ -160,6 +201,7 @@ window.Quarto = {
   <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
   <li><a href="#what-evokes-you-the-100-days-of-donald-trump" id="toc-what-evokes-you-the-100-days-of-donald-trump" class="nav-link" data-scroll-target="#what-evokes-you-the-100-days-of-donald-trump">What evokes you the 100 days of Donald Trump?</a></li>
   <li><a href="#la-puissance-de-la-parole." id="toc-la-puissance-de-la-parole." class="nav-link" data-scroll-target="#la-puissance-de-la-parole.">La puissance de la parole.</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -170,19 +212,335 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Spearman Correlation Matrix</h1>
+</div>
 
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <div class="box">
 <p>Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.</p>
 </div>
-<section id="dont-trust-chatgpt" class="level2">
-<h2 class="anchored" data-anchor-id="dont-trust-chatgpt">Don’t trust ChatGPT</h2>
-<p>Here is your revised text in fluent American English, preserving your tone, adding flow, and clarifying the argument:</p>
-<hr>
+<section id="exploring-variable-relationships-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-variable-relationships-in-python">Exploring Variable Relationships in Python</h2>
+<p>The graphic analysis is a tool to understand the relationship between the covariates and the response variable. It is very important when we want to perform a linear regression.</p>
+<div id="1d9cc927" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.api <span class="im">import</span> OLS, add_constant</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/Multiple_Regression_Dataset.csv'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">R</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">S</th>
+<th data-quarto-table-cell-role="th">Ed</th>
+<th data-quarto-table-cell-role="th">Ex0</th>
+<th data-quarto-table-cell-role="th">Ex1</th>
+<th data-quarto-table-cell-role="th">LF</th>
+<th data-quarto-table-cell-role="th">M</th>
+<th data-quarto-table-cell-role="th">N</th>
+<th data-quarto-table-cell-role="th">NW</th>
+<th data-quarto-table-cell-role="th">U1</th>
+<th data-quarto-table-cell-role="th">U2</th>
+<th data-quarto-table-cell-role="th">W</th>
+<th data-quarto-table-cell-role="th">X</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>79.1</td>
+<td>151</td>
+<td>1</td>
+<td>91</td>
+<td>58</td>
+<td>56</td>
+<td>510</td>
+<td>950</td>
+<td>33</td>
+<td>301</td>
+<td>108</td>
+<td>41</td>
+<td>394</td>
+<td>261</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>163.5</td>
+<td>143</td>
+<td>0</td>
+<td>113</td>
+<td>103</td>
+<td>95</td>
+<td>583</td>
+<td>1012</td>
+<td>13</td>
+<td>102</td>
+<td>96</td>
+<td>36</td>
+<td>557</td>
+<td>194</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>57.8</td>
+<td>142</td>
+<td>1</td>
+<td>89</td>
+<td>45</td>
+<td>44</td>
+<td>533</td>
+<td>969</td>
+<td>18</td>
+<td>219</td>
+<td>94</td>
+<td>33</td>
+<td>318</td>
+<td>250</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>196.9</td>
+<td>136</td>
+<td>0</td>
+<td>121</td>
+<td>149</td>
+<td>141</td>
+<td>577</td>
+<td>994</td>
+<td>157</td>
+<td>80</td>
+<td>102</td>
+<td>39</td>
+<td>673</td>
+<td>167</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>123.4</td>
+<td>141</td>
+<td>0</td>
+<td>121</td>
+<td>109</td>
+<td>101</td>
+<td>591</td>
+<td>985</td>
+<td>18</td>
+<td>30</td>
+<td>91</td>
+<td>20</td>
+<td>578</td>
+<td>174</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="7fc1255b" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'R'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> response]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">4</span>, ncols<span class="op">=</span><span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">18</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot boxplot for binary variable 'S'</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'S'</span>, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Boxplot of R by S'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'S'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot regression lines for all other covariates</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plot_index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cov <span class="kw">in</span> covariates:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cov <span class="op">!=</span> <span class="st">'S'</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        sns.regplot(data<span class="op">=</span>df, x<span class="op">=</span>cov, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[plot_index], scatter<span class="op">=</span><span class="va">True</span>, line_kws<span class="op">=</span>{<span class="st">"color"</span>: <span class="st">"red"</span>})</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_title(<span class="ss">f'</span><span class="sc">{</span>cov<span class="sc">}</span><span class="ss"> vs R'</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_xlabel(cov)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_ylabel(<span class="st">'R'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        plot_index <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Hide unused subplots</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(plot_index, <span class="bu">len</span>(axes)):</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    fig.delaxes(axes[i])</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_gdr_files/figure-html/cell-3-output-1.png" width="1910" height="1718" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="2486f330" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Spearman correlation matrix</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>spearman_corr <span class="op">=</span> df.corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(spearman_corr, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix Heatmap"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_gdr_files/figure-html/cell-4-output-1.png" width="888" height="801" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="dont-trust-chatgpt-1" class="level2">
-<h2 class="anchored" data-anchor-id="dont-trust-chatgpt-1">Don’t Trust ChatGPT</h2>
+<section id="when-several-variables-are-correlated" class="level2">
+<h2 class="anchored" data-anchor-id="when-several-variables-are-correlated">When several variables are correlated</h2>
+<p>When several variables are correlated with each other, we keep only one of them. The one the most correlated with the response variable.</p>
+<div id="06c314f5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[<span class="st">'R'</span>].drop(<span class="st">'R'</span>)  <span class="co"># exclude R-R</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Identify pairs of covariates with strong inter-correlation (e.g., &gt; 0.9)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>strong_pairs <span class="op">=</span> []</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.6</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> spearman_corr_with_R.index</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var1 <span class="kw">in</span> <span class="bu">enumerate</span>(covariates):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> var2 <span class="kw">in</span> covariates[i<span class="op">+</span><span class="dv">1</span>:]:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr.loc[var1, var2]) <span class="op">&gt;</span> threshold:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            strong_pairs.append((var1, var2))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: From each correlated pair, keep only the variable most correlated with R</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>to_keep <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>to_discard <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> strong_pairs:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr_with_R[var1]) <span class="op">&gt;=</span> <span class="bu">abs</span>(spearman_corr_with_R[var2]):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var1)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var2)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var2)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var1)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Final selection: all covariates excluding the ones to discard due to redundancy</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>final_selected_variables <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> covariates <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> to_discard]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>final_selected_variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['Ex1', 'LF', 'M', 'N', 'NW', 'U2']</code></pre>
+</div>
+</div>
+</section>
+<section id="variance-inflation-factor-vif-for-selected-variables-after-standardization" class="level1">
+<h1>Variance Inflation Factor (VIF) for selected variables after standardization</h1>
+<div id="665a9459" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>X_with_const <span class="op">=</span> add_constant(X)  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"variable"</span>] <span class="op">=</span> X_with_const.columns</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X_with_const.values, i)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_with_const.shape[<span class="dv">1</span>])]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> vif_data[vif_data[<span class="st">"variable"</span>] <span class="op">!=</span> <span class="st">"const"</span>]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  variable       VIF
+1      Ex1  1.586841
+2       LF  2.006338
+3        M  2.042110
+4        N  2.018055
+5       NW  1.242898
+6       U2  1.536967</code></pre>
+</div>
+</div>
+<section id="fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test" class="level2">
+<h2 class="anchored" data-anchor-id="fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test">Fit a linear regression model on a six variables after standardization not split data into train and test</h2>
+<div id="a3031b1d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'R'</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardisation des variables explicatives</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>X_scaled_vars <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Remettre les noms des colonnes (après standardisation)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> pd.DataFrame(X_scaled_vars, columns<span class="op">=</span>final_selected_variables)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Ajouter l'intercept (constante)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> add_constant(X_scaled_df)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Régression avec noms conservés</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> OLS(y, X_scaled_df).fit()</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      R   R-squared:                       0.568
+Model:                            OLS   Adj. R-squared:                  0.503
+Method:                 Least Squares   F-statistic:                     8.773
+Date:                Tue, 20 May 2025   Prob (F-statistic):           4.07e-06
+Time:                        23:49:30   Log-Likelihood:                -218.24
+No. Observations:                  47   AIC:                             450.5
+Df Residuals:                      40   BIC:                             463.4
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         90.5085      3.975     22.767      0.000      82.474      98.543
+Ex1           25.3077      5.008      5.054      0.000      15.187      35.429
+LF             4.9155      5.631      0.873      0.388      -6.465      16.296
+M              9.9027      5.681      1.743      0.089      -1.579      21.384
+N              2.6733      5.647      0.473      0.639      -8.741      14.087
+NW            11.1950      4.432      2.526      0.016       2.238      20.152
+U2             3.1268      4.928      0.634      0.529      -6.834      13.088
+==============================================================================
+Omnibus:                        1.619   Durbin-Watson:                   2.089
+Prob(Omnibus):                  0.445   Jarque-Bera (JB):                1.126
+Skew:                           0.045   Prob(JB):                        0.569
+Kurtosis:                       2.247   Cond. No.                         3.06
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+</div>
+</section>
+<section id="dont-trust-chatgpt" class="level2">
+<h2 class="anchored" data-anchor-id="dont-trust-chatgpt">Don’t Trust ChatGPT</h2>
 <p>Each year, we see rapid advancements in artificial language tools, especially from companies like OpenAI. These models are evolving fast. Today, we can generate images with ease, solve complex problems in computer science, mathematics, physics, and more. But can we really trust these tools?</p>
 <p>I don’t think so.</p>
 <p>Today, I was writing an article about <em>regression to the mean</em>. The equation is given by:</p>
@@ -339,6 +697,7 @@ window.Quarto = {
 </div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
