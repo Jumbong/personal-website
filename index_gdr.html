@@ -180,8 +180,13 @@ window.Quarto = {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#isaac-asimovs-three-laws-of-robotics" id="toc-isaac-asimovs-three-laws-of-robotics" class="nav-link active" data-scroll-target="#isaac-asimovs-three-laws-of-robotics">Isaac Asimov’s “Three Laws of Robotics”</a></li>
+  <li><a href="#the-prediction-risk" id="toc-the-prediction-risk" class="nav-link active" data-scroll-target="#the-prediction-risk">The prediction risk</a></li>
+  <li><a href="#observed-default-rate-odr" id="toc-observed-default-rate-odr" class="nav-link" data-scroll-target="#observed-default-rate-odr">Observed Default Rate (ODR)</a></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
+  <li><a href="#the-adulterous-woman" id="toc-the-adulterous-woman" class="nav-link" data-scroll-target="#the-adulterous-woman">The adulterous woman</a></li>
+  <li><a href="#isaac-asimovs-three-laws-of-robotics" id="toc-isaac-asimovs-three-laws-of-robotics" class="nav-link" data-scroll-target="#isaac-asimovs-three-laws-of-robotics">Isaac Asimov’s “Three Laws of Robotics”</a></li>
   <li><a href="#density-probability-function-using-plotly" id="toc-density-probability-function-using-plotly" class="nav-link" data-scroll-target="#density-probability-function-using-plotly">Density probability function using plotly</a></li>
+  <li><a href="#exploring-variable-relationships-in-python" id="toc-exploring-variable-relationships-in-python" class="nav-link" data-scroll-target="#exploring-variable-relationships-in-python">Exploring Variable Relationships in Python</a></li>
   <li><a href="#spearman-correlation-matrix" id="toc-spearman-correlation-matrix" class="nav-link" data-scroll-target="#spearman-correlation-matrix">Spearman Correlation Matrix</a>
   <ul class="collapse">
   <li><a href="#when-several-variables-are-correlated" id="toc-when-several-variables-are-correlated" class="nav-link" data-scroll-target="#when-several-variables-are-correlated">When several variables are correlated</a></li>
@@ -216,28 +221,488 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Exploring Variable Relationships in Python</h1>
-</div>
 
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <div class="box">
 <p>Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m’efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu’ils serviront de guide précieux pour ceux qui suivront une voie similaire.</p>
 </div>
+<section id="the-prediction-risk" class="level2">
+<h2 class="anchored" data-anchor-id="the-prediction-risk">The prediction risk</h2>
+<p>The risk prediction is the expected loss between the predicted value and the true value on new, unseen data. In formula form, it can be expressed as: <span class="math display">\[
+\text{R(X)} = \mathbb{E}[(Y - \hat{Y})^2] = \mathbb{E}[(Y - \mathbb{text{E}}(Y|X))^2]
+\]</span> where <span class="math inline">\(Y\)</span> is the true value, <span class="math inline">\(\hat{Y}\)</span> is the predicted value, and <span class="math inline">\(X\)</span> is the set of covariates used for prediction.</p>
+<div class="byline">
+<p><span class="date">May 28, 2025</span></p>
+</div>
+</section>
+<section id="observed-default-rate-odr" class="level2">
+<h2 class="anchored" data-anchor-id="observed-default-rate-odr">Observed Default Rate (ODR)</h2>
+<p>How can we estimate the observed default rate (ODR) of a portfolio of loans?</p>
+<p>This is example of a database where we want to estimate the ODR and the yearly ODR as the the average of the quarterly ODRs.</p>
+<div id="73eb0b36" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 1 : Création de la table "frequentist_PD"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulons 6 trimestres de données pour 2 clusters (A et B)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> [<span class="st">'A'</span>] <span class="op">*</span> <span class="dv">6</span> <span class="op">+</span> [<span class="st">'B'</span>] <span class="op">*</span> <span class="dv">6</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> pd.date_range(<span class="st">'2020-01-01'</span>, periods<span class="op">=</span><span class="dv">6</span>, freq<span class="op">=</span><span class="st">'QE'</span>).tolist() <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>odrQ <span class="op">=</span> [<span class="fl">0.020</span>, <span class="fl">0.025</span>, <span class="fl">0.030</span>, <span class="fl">0.028</span>, <span class="fl">0.027</span>, <span class="fl">0.029</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.030</span>, <span class="fl">0.032</span>, <span class="fl">0.031</span>, <span class="fl">0.033</span>, <span class="fl">0.035</span>, <span class="fl">0.034</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>frequentist_PD <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'cluster'</span>: clusters,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'hpm_arret'</span>: dates,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'odrQ'</span>: odrQ</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># On ajoute des colonnes d'index pour simuler "obs"</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>frequentist_PD[<span class="st">'obs'</span>] <span class="op">=</span> frequentist_PD.groupby(<span class="st">'cluster'</span>).cumcount()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># On trie pour garantir l'ordre temporel par cluster</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>frequentist_PD <span class="op">=</span> frequentist_PD.sort_values([<span class="st">'cluster'</span>, <span class="st">'hpm_arret'</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>frequentist_PD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">cluster</th>
+<th data-quarto-table-cell-role="th">hpm_arret</th>
+<th data-quarto-table-cell-role="th">odrQ</th>
+<th data-quarto-table-cell-role="th">obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>A</td>
+<td>2020-06-30</td>
+<td>0.025</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>A</td>
+<td>2020-09-30</td>
+<td>0.030</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>A</td>
+<td>2020-12-31</td>
+<td>0.028</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>A</td>
+<td>2021-03-31</td>
+<td>0.027</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>A</td>
+<td>2021-06-30</td>
+<td>0.029</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>B</td>
+<td>2020-03-31</td>
+<td>0.030</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>B</td>
+<td>2020-06-30</td>
+<td>0.032</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>B</td>
+<td>2020-09-30</td>
+<td>0.031</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>B</td>
+<td>2020-12-31</td>
+<td>0.033</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>B</td>
+<td>2021-03-31</td>
+<td>0.035</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>B</td>
+<td>2021-06-30</td>
+<td>0.034</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="e77011d2" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 2 : Simuler les frequentist_PD_2_j (décalages pour j = i+1, i = 1, 2, 3)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># On crée un dictionnaire pour stocker les décalages</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>frequentist_PD_2 <span class="op">=</span> {}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># On prépare une copie de base à laquelle on ajoutera les colonnes décalées</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> frequentist_PD.copy()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour chaque i (1 to 3), on génère le j = i + 1 et on décale les colonnes</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    shifted <span class="op">=</span> base.copy()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    shifted[<span class="st">'obs'</span>] <span class="op">=</span> shifted[<span class="st">'obs'</span>] <span class="op">-</span> i  <span class="co"># décale l'observation comme point=obs+i en SAS</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    shifted <span class="op">=</span> shifted.rename(columns<span class="op">=</span>{</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'cluster'</span>: <span class="ss">f'cluster</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'hpm_arret'</span>: <span class="ss">f'hpm_arret</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'odrQ'</span>: <span class="ss">f'odrQ</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    frequentist_PD_2[j] <span class="op">=</span> shifted[[<span class="st">'obs'</span>, <span class="ss">f'cluster</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, <span class="ss">f'hpm_arret</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, <span class="ss">f'odrQ</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>]]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># On merge progressivement pour simuler les frequentist_PD_3_j</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> base.copy()</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>):</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> pd.merge(merged, frequentist_PD_2[j], on<span class="op">=</span><span class="st">'obs'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>merged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">cluster</th>
+<th data-quarto-table-cell-role="th">hpm_arret</th>
+<th data-quarto-table-cell-role="th">odrQ</th>
+<th data-quarto-table-cell-role="th">obs</th>
+<th data-quarto-table-cell-role="th">cluster2</th>
+<th data-quarto-table-cell-role="th">hpm_arret2</th>
+<th data-quarto-table-cell-role="th">odrQ2</th>
+<th data-quarto-table-cell-role="th">cluster3</th>
+<th data-quarto-table-cell-role="th">hpm_arret3</th>
+<th data-quarto-table-cell-role="th">odrQ3</th>
+<th data-quarto-table-cell-role="th">cluster4</th>
+<th data-quarto-table-cell-role="th">hpm_arret4</th>
+<th data-quarto-table-cell-role="th">odrQ4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+<td>A</td>
+<td>2020-06-30</td>
+<td>0.025</td>
+<td>A</td>
+<td>2020-09-30</td>
+<td>0.030</td>
+<td>A</td>
+<td>2020-12-31</td>
+<td>0.028</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+<td>A</td>
+<td>2020-06-30</td>
+<td>0.025</td>
+<td>A</td>
+<td>2020-09-30</td>
+<td>0.030</td>
+<td>B</td>
+<td>2020-12-31</td>
+<td>0.033</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+<td>A</td>
+<td>2020-06-30</td>
+<td>0.025</td>
+<td>B</td>
+<td>2020-09-30</td>
+<td>0.031</td>
+<td>A</td>
+<td>2020-12-31</td>
+<td>0.028</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+<td>A</td>
+<td>2020-06-30</td>
+<td>0.025</td>
+<td>B</td>
+<td>2020-09-30</td>
+<td>0.031</td>
+<td>B</td>
+<td>2020-12-31</td>
+<td>0.033</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>A</td>
+<td>2020-03-31</td>
+<td>0.020</td>
+<td>0</td>
+<td>B</td>
+<td>2020-06-30</td>
+<td>0.032</td>
+<td>A</td>
+<td>2020-09-30</td>
+<td>0.030</td>
+<td>A</td>
+<td>2020-12-31</td>
+<td>0.028</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">57</td>
+<td>B</td>
+<td>2020-12-31</td>
+<td>0.033</td>
+<td>3</td>
+<td>B</td>
+<td>2021-03-31</td>
+<td>0.035</td>
+<td>A</td>
+<td>2021-06-30</td>
+<td>0.029</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">58</td>
+<td>B</td>
+<td>2020-12-31</td>
+<td>0.033</td>
+<td>3</td>
+<td>B</td>
+<td>2021-03-31</td>
+<td>0.035</td>
+<td>B</td>
+<td>2021-06-30</td>
+<td>0.034</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">59</td>
+<td>B</td>
+<td>2021-03-31</td>
+<td>0.035</td>
+<td>4</td>
+<td>A</td>
+<td>2021-06-30</td>
+<td>0.029</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60</td>
+<td>B</td>
+<td>2021-03-31</td>
+<td>0.035</td>
+<td>4</td>
+<td>B</td>
+<td>2021-06-30</td>
+<td>0.034</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">61</td>
+<td>B</td>
+<td>2021-06-30</td>
+<td>0.034</td>
+<td>5</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaT</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>62 rows × 13 columns</p>
+</div>
+</div>
+</div>
+<p>The SAS script is given below:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>%macro test1;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  %do i=1 %to 3 %by 1;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    %let j = %sysevalf(&amp;i.+1);</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    /* Crée une table contenant les colonnes odrQ décalées */</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    data frequentist_PD_2_&amp;j.;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      obs1 = 1;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      do while (obs1 &lt; nobs);</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        set frequentist_PD nobs=nobs;</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        obs&amp;j. = obs1 + &amp;i.;</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        set frequentist_PD (</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>          rename=(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            cluster=cluster&amp;j.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            lb=lb&amp;j.</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            ub=ub&amp;j.</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            hpm_arret=hpm_arret&amp;j.</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            def=defQ&amp;j.</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            n=nQ&amp;j.</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            odrQ=odrQ&amp;j.</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        ) point=obs&amp;j.;</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        output;</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        keep cluster lb ub hpm_arret def defQ&amp;j. n nQ&amp;j. odrQ odrQ&amp;j.;</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        obs1 + 1;</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>      end;</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    run;</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    /* Initialisation au premier tour */</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    %if &amp;i. = 1 %then %do;</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      data frequentist_PD_3_&amp;j.;</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        set frequentist_PD_2_&amp;j.;</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>      run;</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    %end;</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    /* Jointure gauche avec la table précédente pour empiler les odrQ */</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    %else %do;</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>      proc sql;</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        create table frequentist_PD_3_&amp;j. as</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        select a.*,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>               b.defQ&amp;j.,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>               b.nQ&amp;j.,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>               b.odrQ&amp;j.</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        from frequentist_PD_3_&amp;i. as a</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        left join frequentist_PD_2_&amp;j. as b</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>          on a.cluster = b.cluster</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>          and a.hpm_arret = b.hpm_arret;</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>      quit;</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    %end;</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  %end;</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  /* Résultat final : table contenant odrQ, odrQ2, odrQ3, odrQ4 */</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  data frequentist_PD_4;</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    set frequentist_PD_3_&amp;j.;</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    /* Calcul du ODR annuel glissant comme moyenne des 4 trimestres */</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    odrY = mean(of odrQ odrQ2 odrQ3 odrQ4);</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  run;</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  /* Décale hpm_arret de 9 mois (équivalent intnx) */</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  data frequentist_PD_4;</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    set frequentist_PD_4;</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    hpm_arret = intnx('month', hpm_arret, 9, 'same');</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    if year(hpm_arret) = 2019 then delete; /* Exclusion des années trop anciennes */</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  run;</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>  /* Sauvegarde finale */</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  data frequentist_PD_5;</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    set frequentist_PD_4;</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  run;</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>%mend;</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>/* Exécution de la macro */</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>%test1;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class=".byline">
+<p><span class="date">May 27, 2025</span></p>
+</div>
+</section>
+<section id="model-selection" class="level2">
+<h2 class="anchored" data-anchor-id="model-selection">Model Selection</h2>
+<p>We have a data with many covariates. But we want to include only the covariates that are relevant to the response variable. This allows us to have a parsimonious model, with fewer covariates, which is easier to interpret and to use for prediction.</p>
+<p>Generally, when we add more covariates to a model, the bias of the model decreases, but the variance increases.</p>
+<div class="byline">
+<p><span class="date">May 26, 2025</span></p>
+</div>
+</section>
+<section id="the-adulterous-woman" class="level2">
+<h2 class="anchored" data-anchor-id="the-adulterous-woman">The adulterous woman</h2>
+<p>A woman was caught in adultery. The Pharisees brought her to Jesus and asked him what should be done with her. They said that according the law of Moses, she should be stoned to death. Jesus replied, “Let anyone among you who is without sin be the first to throw a stone at her.”</p>
+<p>I like this story because it shows that Jesus is a feminist.</p>
+<div class="byline">
+<p><span class="date">May 25, 2025</span></p>
+</div>
+</section>
 <section id="isaac-asimovs-three-laws-of-robotics" class="level2">
 <h2 class="anchored" data-anchor-id="isaac-asimovs-three-laws-of-robotics">Isaac Asimov’s “Three Laws of Robotics”</h2>
 <ol type="1">
@@ -251,51 +716,51 @@ window.Quarto = {
 </section>
 <section id="density-probability-function-using-plotly" class="level2">
 <h2 class="anchored" data-anchor-id="density-probability-function-using-plotly">Density probability function using plotly</h2>
-<div id="a4fb4396" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simuler les données</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2012'</span>: np.random.randn(<span class="dv">200</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2013'</span>: np.random.randn(<span class="dv">200</span>) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculer les statistiques</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>stats_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min'</span>: df.<span class="bu">min</span>(),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'mean'</span>: df.mean(),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'median'</span>: df.median(),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max'</span>: df.<span class="bu">max</span>(),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'std'</span>: df.std()</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stats_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="db20c9f7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simuler les données</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2012'</span>: np.random.randn(<span class="dv">200</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2013'</span>: np.random.randn(<span class="dv">200</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculer les statistiques</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>stats_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min'</span>: df.<span class="bu">min</span>(),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'mean'</span>: df.mean(),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'median'</span>: df.median(),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max'</span>: df.<span class="bu">max</span>(),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'std'</span>: df.std()</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stats_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           min      mean    median       max       std
-2012 -2.632691 -0.126109 -0.099286  2.320956  0.993008
-2013 -1.895779  0.943396  0.914684  3.663702  1.027038</code></pre>
+<pre><code>           min     mean    median       max       std
+2012 -2.399943  0.07926  0.075151  2.206767  0.880948
+2013 -1.076208  1.02229  0.963917  3.607347  0.920831</code></pre>
 </div>
 </div>
-<div id="146848a6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Simuler les données</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2012'</span>: np.random.randn(<span class="dv">200</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2013'</span>: np.random.randn(<span class="dv">200</span>) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir au format long</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df.melt(var_name<span class="op">=</span><span class="st">'Year'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer le boxplot</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.box(df_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Value'</span>, points<span class="op">=</span><span class="va">False</span>, title<span class="op">=</span><span class="st">"Boxplot for 2012 and 2013"</span>, color<span class="op">=</span><span class="st">'Year'</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>             labels<span class="op">=</span>{<span class="st">'Year'</span>: <span class="st">'Year'</span>, <span class="st">'Value'</span>: <span class="st">'Values'</span>})</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0f4e7f88" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Simuler les données</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2012'</span>: np.random.randn(<span class="dv">200</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2013'</span>: np.random.randn(<span class="dv">200</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir au format long</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df.melt(var_name<span class="op">=</span><span class="st">'Year'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer le boxplot</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.box(df_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Value'</span>, points<span class="op">=</span><span class="va">False</span>, title<span class="op">=</span><span class="st">"Boxplot for 2012 and 2013"</span>, color<span class="op">=</span><span class="st">'Year'</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>             labels<span class="op">=</span>{<span class="st">'Year'</span>: <span class="st">'Year'</span>, <span class="st">'Value'</span>: <span class="st">'Values'</span>})</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
         <script type="text/javascript">
         window.PlotlyConfig = {MathJaxConfig: 'local'};
@@ -306,9 +771,9 @@ window.Quarto = {
 </div>
 <div class="cell-output cell-output-display">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="e6db10ef-0f4c-4a8c-901b-91b0eefbb346" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e6db10ef-0f4c-4a8c-901b-91b0eefbb346")) {                    Plotly.newPlot(                        "e6db10ef-0f4c-4a8c-901b-91b0eefbb346",                        [{"alignmentgroup":"True","boxpoints":false,"hovertemplate":"Year=%{x}\u003cbr\u003eValues=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"2012","marker":{"color":"#636efa"},"name":"2012","notched":false,"offsetgroup":"2012","orientation":"v","showlegend":true,"x":["2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012"],"x0":" ","xaxis":"x","y":{"dtype":"f8","bdata":"FXCyJhoXwj8HZ2Wn8yDwP5l74H0EMKy\u002fmsSujZFytL9YdWjT9z\u002fRP2B+uTeZi5G\u002fxNk9NiMl7z\u002fLHNWKC3T2P0cipUFMX7+\u002fbgMTFA+3n7\u002fVPgZ5hMLzvymAdFa4D8I\u002fyY21vWD+3z8NF4Bd1zPKP7\u002faWgRtu\u002fS\u002fRkOmLUtA0T9jE7ib\u002fxnsP3wiUR3c3OE\u002fq\u002fKYtJm54L9xEfaFGtaxPysavgfy4+M\u002fHXdoLas1rj+BwlDURczrv0ewKBN1Uvy\u002fYxzb+\u002f\u002f81L8iIcqN44xSv40gmxS+UPW\u002flmtiODcn5z\u002fZNVnp7QvyP2eGfcwRi\u002f0\u002f2HBS5v5Rf78qf5yg0p3rP1\u002fK3QzyjsE\u002fw9Hu2LwdtL+EuR21+r7Ev\u002fYxpOiVc9o\u002f3XUNrNGe4T+u4ByDZQbuP04d73tFY7m\u002fq6yML1sB0r9TrslGNP3kv1zUf7s6bMs\u002fJ75vt1tuz7\u002fgkFEyE7nIv+RmZlq+U\u002f2\u002fjgvXwMmJ8j\u002fUxyPZ2bPdv9c6otWoAt6\u002fNQFp9f1xxL8YRcqsdrj3P+l8+tP5W88\u002ft5geasdF8D9nwCD2YOixv4pFxwiMY\u002fg\u002f9vyewLpD9z8+YaRLWsD3v5nDGUuhG82\u002ffFAJTt0Xyb\u002feScIr5ezAvwLoAq5Ag9c\u002frAXopn9\u002fwz8BlSaqoXPoPxneQa1VZP4\u002fVsxavhfv17\u002f6EErBIdXzv8rVzm\u002f4O+Q\u002fg+OuATTYmD+lv2CX24LjvwXzAkSuIuu\u002fwkFFQ+8x5j+DhiyLxG30v6szeuqtttG\u002fA86FaeyN\u002fD9Av8xtvgPBv1Fq+7Cc19S\u002fDRClGqy1dj9DQ2TFm7a6P3znHTN8NfI\u002f5SvW7EuN2j9sF87hMX+cv\u002fFpo0SwU\u002f+\u002f0x4p4+RN4j+aokdDo8cAQMUuFiUFc++\u002fZWE8yOBPwj83fhfLIBvxvw5qBmyhSMA\u002fbFAkuh706z8p7pOeAuzKP+aZj5JGLLU\u002fZSkUy8ch6D9Q4MY\u002fP2bYv3MH3M7Gs\u002fY\u002fbGgnJa3oAUD6Co0zy5MBQBu8St+BFNE\u002fMDLslAMzhL88\u002f0UQjDPyP0JzyUeTk\u002fa\u002fkTRaMjZm7T8S\u002fNfRWS76P4CbiAT5b9G\u002fcWFn+N8I7z8B9RPDNhnsv8M7Zu+2ZeM\u002fU8p17n6k3D+m5rPuxnz2vxgp3Gy1\u002f9k\u002fO7jHKfzwyj9C8HOTtwDaP9d20s9WCdG\u002fMGb78Z1V7D\u002fX68bY+U\u002fqPzgVfMgx3Pa\u002f+hYfVPnB5T\u002fZ3dmbg8fLv4h\u002fCx70vPW\u002fyM1ke9zzsD90D0VMMsz6P+eYXJLrgPs\u002fp+ONIV0GxL8\u002f4RedGcT0vyjbAmG0G\u002fU\u002fJKCIA2XN9T9BZ30rWMz5PzVsmlAOTdG\u002f5HPpR95I9D8U8djRmgrnP+ETMb2A8eO\u002f064\u002fo2Aj+L8bmFEFL5\u002fjPxOaDdsbieC\u002fGb+XtIBkiL8Md9ct1pHmvwJRZ6Kutec\u002fUTE95Jmq6j\u002fryISSov3TvzprijX+f+U\u002fO\u002ftdUMiL6r\u002f7rQB+0Y3ov3MnUKFN7tG\u002fO9HtGb0H57+8J1P5GqXfv9OvLAqmG9I\u002fGDIfwDXP+T8ZtcmDi\u002f73P4aUgekdIdS\u002fopvDdI8HuT9aMUAvGQnEv5agoVfF1rk\u002fpfVyAjIEvT\u002fNf8KW2LfovwSg\u002ft8C1tG\u002fQnw22X\u002fZ4D8Bqjx+nKnNP2\u002f4KTTqpvG\u002ftFyIrraU4L\u002fIvwGDTO3QP7kt9cr2MARAqJwHxAHIz7\u002fLI7QidPrmP8WAIcZHCta\u002fy9gVCk1D8T8GWqGTXqP3v5x+91rPSd+\u002f4Tj9e9JC8L8d0Jwn3CDivzEdLkx8lfY\u002fAT4Hy4tq+b8G\u002ffDD8Tfgv\u002fUuIn\u002fFwQHAh1XA0pQs4j9A\u002fmCiEPLxv7A60zsFI9O\u002fzopXEv3Z4z8xtLGbH6bTv\u002fSTehj1Lf4\u002fRd\u002ff9cH17L\u002f3J9s9F\u002f3\u002fP85VZdlICdm\u002f0ke8QhK\u002fkz9EkHQDOKHBv2QUAGCoAPC\u002fxEC\u002fdhoyeD8pnprp5AbmPxMiHiV6uLe\u002fC2xfC8F93L9FazCxiIH6P3wQe2k7W\u002fu\u002feyhOgdky9T807DMi3wTcPyyS6NGlLM6\u002fl2Au0YWT8D\u002fN7aPxi8Pcv8AewPHbAeE\u002fQWaOPVDP9r+6ctQ3sBbzv0AI\u002fquFEeS\u002fFQZbSs5i+D9zIXmRcXjzvw=="},"y0":" ","yaxis":"y","type":"box"},{"alignmentgroup":"True","boxpoints":false,"hovertemplate":"Year=%{x}\u003cbr\u003eValues=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"2013","marker":{"color":"#EF553B"},"name":"2013","notched":false,"offsetgroup":"2013","orientation":"v","showlegend":true,"x":["2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013"],"x0":" ","xaxis":"x","y":{"dtype":"f8","bdata":"jD86jP4b+D\u002fEvfdHjNcBQK5AhnjS09c\u002fGM70G\u002fAW2z\u002fgT4rojpzuP1QjpjlTVOI\u002ffocSIvnR4T9UflTWW8\u002fkv2DxIJ9aqt8\u002f8L8emKAyA0DgwLZPern9PzqWTXf52wRAJcTfEAq49D\u002fsriqmjOv5P26bXHih0+E\u002f2PcOTTpI3j8w6u1iVVbiPw6+srC0dOQ\u002fghr8d0uD0T+82i7vJ9rMP0BRNZn2BOc\u002fAL2exq3k\u002fz9kdzoO7zf6PzJpLXaivuQ\u002fkkFHw7LF+z\u002fXyb778d4CQFBE9PnYrvG\u002f7j0WmVzk3j+AvMKBvinZv+ZrJKDqgNQ\u002fjtLlUxbv\u002fj+iPDxAfWP7Py7H39znnPQ\u002fgh7ukrcw\u002fT82KrIupNXfP1yODcrsXPk\u002f31ppjNuk9z9NR68ND9\u002f6P6Rrv2bpb9C\u002fFxisdQi2A0DEsw8ecqX4PwIMFd0BOeA\u002fdQCtFpr0BEC50P1fSlH4Pz5aaRwy1wBAH4wyrKsu+T9YxuiGybnSP4e4j2k3ngVA7LrDIN4B4r8knxzzimXyvxuEBj9zOfM\u002f2HH+8k+N\u002fj8YS9HcoJrQv\u002fBYheNVIcw\u002f3Q5vqYE07T9spY6DyGHqP4IwHP2+kgdAYI3RhuYW0b+idFR+UtADQMjSKgHqueQ\u002fnG8jKaMt4D8y6T7d86fzP6LZEpK3P\u002fw\u002f7BLl1H5W3D\u002f80B6TnubGP0wYND4tz8U\u002fbOd2zP1G4b\u002fkWY0KSYz0Py3UUYZZ4fc\u002fdnPmAI47+j\u002f+NAZT8irUP30VSP+cKP0\u002fqjNaVvL05j8gyLJfsO+jvwTNIlSmUPM\u002fIN1hNxNY+T+QvXF0SeOtP+ItUXwkjfw\u002fOn2OAssJ+z9g16ET9S\u002faPw3KkTiK7\u002fs\u002f3DgDH0cuBEDSHb9vzLjVP+Nn6\u002fmLKvM\u002fMLljRHsYtb\u002fWBiabs+PwP0Cdt7GE8KS\u002fpRxGhfbU9j\u002fKTgCnyHsQQBQm2qK8iPU\u002fauZcoz+rA0BOllk3eZbwP1gPLJ0PPvg\u002fsGvrBT4Ix78ofswBMr7ov0evCF8yRwhAqmx8dnQS5D\u002f0XMPIoyDpP879pVW\u002f\u002fN0\u002favtGKZ1A\u002fD86gEZAhR3\u002fP+ijAF4QQeI\u002fUg9HzxOIAUBGrCmtTVb+P4C5yJgNT7E\u002fTl9jKrZ7+D+ebkfEzbL0P4A7voaBiqu\u002fYHHdUbMZzr\u002fA3B\u002fEX5KHP2lFt\u002fIXXfE\u002f1Ne47aFu\u002fD9mBojUgq3QPxd62FnWDvE\u002f0qVOP0IlBUBUa7Z43nLaP+LZyqXRMOq\u002fmFukz9CD0z8BfN78QBLwP5oTjOC6C\u002fM\u002fZP12zoJsAkA8k98aLpntPyYNh6UbPes\u002fTv3VEJO7AUCQTZ4w3u3yP53DFDHqhOc\u002fQlS08fd57L+I1+\u002fJBD3av0pAqiH2o\u002fg\u002fIPb9NJSNxL9APM9BRz77v+M7JYPtSvY\u002f5D0fpkcC4r\u002faw6ZL4a4BwNRXGETzVcg\u002f8tcmhrxE8T+PkMPiS9r8P7LdBgfuK\u002fE\u002fiHnyCUaA8j9RkPMfHeDjP8RgELEM5vw\u002fSZZWK\u002fgq+T96nsb7vNgOQJBmW\u002fjh\u002f+U\u002fKCYbavNg+D9\u002fMcTbW9PkP0Dj7jhiKpQ\u002fEOfF8Rb1u7+EEi16y7P7P3a9eudzPPk\u002fDLzFMY0MCEDSPBlqW2Pzv6CFviG02K4\u002fjEnI2UIBBEAyga9yY\u002ff+P+r66CZOAtU\u002fn1+7Bn4c9D8I+azpT\u002fPqP3xvIIjRn+c\u002feMvdntJV4D\u002fEYtxinJsHQHniYGACHfw\u002fdPg36KeRwD+0XiduUjbcPzaJ2xlLSv0\u002f\u002frmM7r9i\u002fT9GC1dil4r\u002fPwJV650bSfI\u002f0s2FcA+MAUC6ayqMj9vsP\u002fty7AS03+4\u002fidYzWKmU9T9wa0hmJ974P8R300EGM8U\u002f+AM9xuoWwT+uzjG1RCfgvxmUf209J\u002fY\u002fp9HS\u002f5038j+9k6dl0YjyP25KyKdtMdM\u002fSKeBboTU7D8X+V3RZQz3P9xEbjN5McA\u002fgGGZYZX7iL\u002f01pu6xrb\u002fP9gG6GOLoNk\u002fOgwEHlsY2T\u002f6\u002fOgAr\u002fnRPzZSorg5OPc\u002fEmhMnqlR4j\u002ftrHp3yuvxP3T7VerY0P+\u002fIFsokdcf+T9mGvZr6qX+P8Z5LGqA3wpAnsxV5U8m4T9w0tK9ownhP5oqVEUhxwFAekgnaQYj9j8gKAFJPkX\u002fPw=="},"y0":" ","yaxis":"y","type":"box"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Year"},"categoryorder":"array","categoryarray":["2012","2013"]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Values"}},"legend":{"title":{"text":"Year"},"tracegroupgap":0},"title":{"text":"Boxplot for 2012 and 2013"},"boxmode":"overlay"},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="e7fd0754-c331-4b74-96cb-354c8c5b68cf" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e7fd0754-c331-4b74-96cb-354c8c5b68cf")) {                    Plotly.newPlot(                        "e7fd0754-c331-4b74-96cb-354c8c5b68cf",                        [{"alignmentgroup":"True","boxpoints":false,"hovertemplate":"Year=%{x}\u003cbr\u003eValues=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"2012","marker":{"color":"#636efa"},"name":"2012","notched":false,"offsetgroup":"2012","orientation":"v","showlegend":true,"x":["2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012","2012"],"x0":" ","xaxis":"x","y":{"dtype":"f8","bdata":"mJpfQqFM8z\u002fhgy1dROjwP2I1vg4\u002fgeG\u002ffsXPbzoa7D+DrDQspIi\u002fv\u002fMpuViI5\u002fA\u002fs31n3sg\u002f9j95xl5KgGPtv1lq0ZXPGOc\u002f3o7cdpnP57\u002fw3RtWYva7vyx62YAG3\u002fO\u002f\u002fVc92gFk2D9BzhjS9G3BvwJ\u002fKbkvWd4\u002fqPTrCFHo978tluGTAkrtv++nizKYNgHAXd8nLK6l8b8l8ATd+KUAQD4+Vbf3f94\u002ffOKF5Oz\u002f8r8Cr+FtA8\u002f0P6T27DFkIsm\u002f7gHhERTw1b9lQmNrY4zQP7rQEeExEOk\u002fsGQ5U2R73j+6PNmD\u002fsjev1fYaoF9eNg\u002fX665QRUZ8r+bMx4cxr7vvzfylNreHsc\u002fVNm3ShXC3D9lfgs8Ydr6v7mY4uUVP9i\u002fMbu0bWIi8b82Eqr0FOScv+2AeW6Cq7i\u002fcJelssAS7b\u002fDh4rBvCDeP3pAHT\u002ffiwPAY27vyX09BkBSE8aIiX76v5gX04XXg+Q\u002fDL8hl6Il5r+Zrk+fwXjkv7oAaH5DJ+8\u002f1T2n\u002fPvZ7j8fQcHzj2zpP+dsxFTDHN6\u002fLLP2nRAj6z83sIvxg0\u002favzkVonJ2yPu\u002fQGoVfmDu9b\u002f46cdz18YEwLUw0WqBKdY\u002fNtBB\u002f4VS0b+a8yee8GPkP\u002fc6M9tVD\u002fq\u002fpwgjY4IE6D+U5Lc5S333PyaQ5mnOgtq\u002f03D2L\u002f84879vw\u002fCTIPTavzn36+h87PA\u002fYShqhAfJ5j\u002f47bmsSLrdP2XmY0CLDvu\u002f83SNnxsl7T+rQRr17yH4PzRfnf4rKbC\u002fdhE6DIKc+j\u002f0+gHfvh\u002frv4Zqp9rvhAFAzyV+K4jDzb9s2BwhilVavzorWe\u002fXo5m\u002f2w5hQvs977+z4No8iLq9P8RzE523v\u002fo\u002fJGeBX0sy87+86GO40O7uP8rCWUQYWu+\u002faR4qHCls\u002fD8VR13P9sT0v8jWuTUQbvI\u002fyheVmHVq5b9C3UxAsWHqv+y03LuR6v+\u002f\u002fEnENqI5xD90MJRhJx0CQFj\u002fgjIQaOU\u002f37jrgpx63b8g2BHAqi7oP9WgfjXcmNq\u002fWuMSCL21478410G6GPGwv04O2UCRzvU\u002fPAJXlWlp5T8R2BeoPDntv6kou13xdOO\u002ftmpgoe3x6T+js15q2RncPw073u02ePi\u002fvxcaK1iM7T9wiEqz5N7vv7A13Ct3SfE\u002fHqy5pIYvoz\u002fBtIJ1gguoP0cL5igwFMC\u002fFMi5oxUqzb\u002f8j\u002fA55y\u002fYvwGMBrucXfI\u002fXErY7n2+w79C6jxUme\u002fhvwQlN+AAweq\u002fSUtOwNvx4b\u002fwhVcB+Zz6Pzj5u5h9g+2\u002fnDAJhkRgtT8iuzEBPjLkP4V2+rkGGcM\u002f\u002fgN7pI8yuT97x\u002f1L8ZXSv9lu04hFrdK\u002fkHQjfUAN77+np0r1aID6vxkGnDK\u002fcu6\u002fWx4YCTn29j97Oig+TeP0P38glQWSpOk\u002fxPleVBhCxT+n5y6vWbLcv21S6TN4h+W\u002frxYgpC292r\u002f4sTRk3j\u002foP6pSsEwrLPg\u002fWCTn9UCp8r9aPv1Cjgaev8ieAq3Xbc8\u002fScdheDeaoT+0TxOet\u002fDlvyhb+wMlA7q\u002fAQ7R+utK5j\u002fPoUOvdMLmP3OlvyeHU+m\u002fioRogfuY3b+Aw7w1sNbOPx4ohp4nhcS\u002fvL+V0QEb8z8RU2DdK5Xev24g5qAge6E\u002fzFHo9ueD8r9BltR\u002fgOPRv8xcF4eCMt2\u002fH\u002fRYNXJP0T9MN3xDMZHNP+CaNCmtVeg\u002fKQQM1cPQ8D+UzFdLP93xv\u002fsaQwBFYuI\u002fR9fdi9mx8b\u002fvp5p\u002fTvbtv7hwBztmqNE\u002fqZTVh2Ub5j8eI59eAmXzv1vTvgoCNPC\u002fa\u002f3TWnJ6879njfTFtXXCP\u002fPRVvXU2eu\u002foVjD0JwG6b+odRhhs4nxvy5CIeSi9\u002fO\u002fA9BRnAqQ7D9t25LJYtDov9lh6qpgTfQ\u002fvgy6eLj30r8NqJY+xf7QP\u002fFFuu0mdvs\u002fp8CwLn+72T88NRd1CKIFwOYXuM5pSd6\u002fgwIOW6DK8T8ppsqgDaDgP6XSzjwG3+A\u002fmk11z9od+T+A\u002fxJGKl\u002f3v+B36GFX79G\u002fqTjDhDpJir\u002fmpiR57\u002fDnPyUyckjSpNO\u002fEnhXidmY1z\u002fn4XYpNcHwP\u002fmyUl9vy\u002fc\u002fBJIs0aSsBkBeU0VkuLvpP5CsuLc33f6\u002fvnV5zg\u002fc1L9EdO3h8Vbwvw=="},"y0":" ","yaxis":"y","type":"box"},{"alignmentgroup":"True","boxpoints":false,"hovertemplate":"Year=%{x}\u003cbr\u003eValues=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"2013","marker":{"color":"#EF553B"},"name":"2013","notched":false,"offsetgroup":"2013","orientation":"v","showlegend":true,"x":["2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013","2013"],"x0":" ","xaxis":"x","y":{"dtype":"f8","bdata":"5dn7eDc86z\u002fnXbVf4cDvP6ad0puZS\u002fA\u002fzO4AjM6U6r\u002fks3wv9eX8P6ucADRi5ug\u002fAGYY1EzQnb9b7sSD1Yz4P2IhdM4YD\u002fk\u002fDE\u002f3fbTU8T\u002f2dCLr0JrbP\u002fwyJ7TVUdy\u002fipbesqJd8j+4+LWEuAzoPw67gPZH9vM\u002fpEXr0IVXyz9+AaEsm5zuv6hIKjcObfc\u002foqTG0WwQ9j+8T+xCsIXoPzOucx6SDQVAeI9vHbH+yT\u002f9xL9q480AQJQgZm19E8Y\u002f8ZZut5pY\u002fz8bKDqPuscOQMjazGWjUtO\u002fWVqmP+m47j+MUXgCfMPdP3xN9KtpbfQ\u002fEvKjKIKf+D9gvYkINV6lv9cqEsMMfec\u002f9vBsDkxm\u002fD+os7Lv3ljoP1TCr3ohkf8\u002fJkprkanQ5j8w6VMnFlfVPyfrvkMT2vE\u002fqZrRHvFR8T88C475pbzYv3m14W+VV+U\u002fFH+d5Y190b8g2LDsCwy1P8JBybEElfw\u002fAAs63a8jqT9gOaHUwasEQLDlVZKRvOe\u002fDM9fD1FjzD905AmkqQvGP0gGBfCfrf8\u002fuQvxFp7G8j+u++tAzxwFQD6ZCtORnAVAuJejEo0U6L+CYRgF96\u002f6P6Ys2U2W8N4\u002fMUfhAAwU8z\u002fwHcUVmu7Lv++tVwxdtARAVDQfNNt96D8iWr0JPOAAQLoCokQwaPg\u002fA+s\u002fivqo7D9MOOPnNO3Yv2Jcq93PA+Q\u002fTEglusgq\u002fD8QITLHSUPBv9rKMPQ9Nto\u002fhmX5OvLD+T\u002fsArDYiB\u002f6P3TeKWQ\u002f6sg\u002fA9htatZ88j9o6vEbDLTgPz81f57vPu0\u002f3M9iWAoh6T+cvk8pWZ7pvxTqg3UnUsM\u002ffGOytWfU\u002fT9Ol90SI9kCQHhBglAaL8q\u002f6LKkUYVq6T\u002fYEOjl62\u002fYP3qTk6BlFeY\u002fk6qMd7Z05j8CgsfmvaLuv2HpKl3YPv0\u002f6gDIg6xXBEAGWWsgWKrqP+jn\u002f9zCMQRAcKsRGoGUvj\u002fwbolLgXzGP4C2CYs6rds\u002fEiHwC\u002f7B7T8y+xWIVjjjP3Bt\u002f+G6S6E\u002fOKtUlPJUxD\u002f6Q995vPnUP3gwb7pzqtU\u002f5NSVNddt\u002fz8uayyfbDbcP8gsxva6\u002feA\u002ffgE3A4tR0j8AHNknZwaTv\u002faUPSbND+4\u002fVKefVcHpA0BuhF1wYoDqP\u002fFl2WmFmvA\u002fyr+olQV24r\u002fIwpv3GPjfPxhD45cjXsO\u002fqO6Fs1kE7T9UuuAyFF\u002fUv2jpjzKTfee\u002fgdHSKPXb9T+CT57Dm8f0PzV0N2DC0uk\u002f4Devj1\u002floT+rEjTH4533P9P6NrPA3PI\u002fwH2tqAt54z9BUz9TAYH0P2zD9q6Acf0\u002fwlJvDSIn3D8+TIgA6tzSPwLZr8GgZ+U\u002fDX2QG3Xt9D+WgPyUxnPrPwRYtftmWOg\u002fvJoo23Ac37+8UpnnSBbxP\u002fClXun6EOk\u002f0E\u002fsqwn3+j+yYu4EYeHzPzLNeI5Ua++\u002fLow0BqKG\u002fD9RoFx+cwr1P9CWLbfHm9q\u002f0MZTACTz+j8DQ07HqGL1P+OHmGXSHP8\u002f4hQtnYw50j8np4OharDzP5DdxRtdraU\u002fpAFjq\u002fcT+D+cEwPH4RXbv9S1KLQaLPM\u002fRIyYsK\u002f66z9dH2I2EBX1P8Tb4oCHdtg\u002fV9H0vRrB8j+9bHxZv\u002fT1Pz674x2Afec\u002fslhwZgwq5b+sJ4d2SDYCQNR9o4e0hOI\u002fg+Enwczw6D9Aw0hU9cWqv0JrbP4oZfS\u002fYk76670hAEBod+i2\u002fa7lP50ZMXtctQhAXlSvaePd+j+8Wb2I+1XsP0w5MzpPVwFAwIEPuTeO7j\u002f4xzWAO1\u002fxPx5ZhtIoJdM\u002f\u002f+XoBBVv9j\u002fm0ifcos8DQEJuUIhlbeQ\u002fmBWE1qfn+z9Wm15UC1X8PwDmqQZ6\u002fVk\u002fbJtX3BL37L\u002fAv5DXzBYCQC6IWSivqvc\u002f8tugv86mBkDpcB8ZXLwDQA6rVqJ7IvI\u002fJD8PB1dz3D8oL4xz\u002fo70PyBwd8wRMrO\u002fGP6QpUy34r+g4qd7O8riv3aStYhyxOG\u002fUBC4ep03AECanoj7C5nUP5DuKJzBou4\u002fEO4\u002fKA\u002fM7b9Sr3Jr1P79P\u002fAF2pjInf0\u002fH3VqrCq++D82uaHPG7\u002fwPxpIMrboQ9o\u002fEvsbpVE+6j98oEybjqjzP+DM0NdGlOO\u002fIDihkv0fqr8OOwjZLE\u002f3vw=="},"y0":" ","yaxis":"y","type":"box"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Year"},"categoryorder":"array","categoryarray":["2012","2013"]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Values"}},"legend":{"title":{"text":"Year"},"tracegroupgap":0},"title":{"text":"Boxplot for 2012 and 2013"},"boxmode":"overlay"},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('e6db10ef-0f4c-4a8c-901b-91b0eefbb346');
+var gd = document.getElementById('e7fd0754-c331-4b74-96cb-354c8c5b68cf');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -333,35 +798,35 @@ if (outputEl) {{
                         })                };            </script>        </div>
 </div>
 </div>
-<div id="cfa32926" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gaussian_kde</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Example data (you can replace this with your real df["age"])</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>])</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA if needed</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> age[<span class="op">~</span>np.isnan(age)]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE estimate</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>kde <span class="op">=</span> gaussian_kde(age)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define range of x values</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(age.<span class="bu">min</span>(), age.<span class="bu">max</span>(), <span class="dv">200</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> kde(x_vals)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using Plotly</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure()</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>fig.add_trace(go.Scatter(x<span class="op">=</span>x_vals, y<span class="op">=</span>y_vals, mode<span class="op">=</span><span class="st">'lines'</span>, name<span class="op">=</span><span class="st">'Density'</span>, line<span class="op">=</span><span class="bu">dict</span>(width<span class="op">=</span><span class="dv">2</span>)))</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>fig.update_layout(title<span class="op">=</span><span class="st">"Density of age"</span>, xaxis_title<span class="op">=</span><span class="st">"Age"</span>, yaxis_title<span class="op">=</span><span class="st">"Density"</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0343b529" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gaussian_kde</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Example data (you can replace this with your real df["age"])</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> np.array([<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>])</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA if needed</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> age[<span class="op">~</span>np.isnan(age)]</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE estimate</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>kde <span class="op">=</span> gaussian_kde(age)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define range of x values</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(age.<span class="bu">min</span>(), age.<span class="bu">max</span>(), <span class="dv">200</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> kde(x_vals)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using Plotly</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>fig.add_trace(go.Scatter(x<span class="op">=</span>x_vals, y<span class="op">=</span>y_vals, mode<span class="op">=</span><span class="st">'lines'</span>, name<span class="op">=</span><span class="st">'Density'</span>, line<span class="op">=</span><span class="bu">dict</span>(width<span class="op">=</span><span class="dv">2</span>)))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>fig.update_layout(title<span class="op">=</span><span class="st">"Density of age"</span>, xaxis_title<span class="op">=</span><span class="st">"Age"</span>, yaxis_title<span class="op">=</span><span class="st">"Density"</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="b9e7fb32-622d-43a8-9569-754a790b1ee8" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b9e7fb32-622d-43a8-9569-754a790b1ee8")) {                    Plotly.newPlot(                        "b9e7fb32-622d-43a8-9569-754a790b1ee8",                        [{"line":{"width":2},"mode":"lines","name":"Density","x":{"dtype":"f8","bdata":"AAAAAAAALkCTAhJ+ciEuQCUFJPzkQi5AuAc2eldkLkBLCkj4yYUuQN0MWnY8py5AcA9s9K7ILkADEn5yIeouQJUUkPCTCy9AKBeibgYtL0C7GbTseE4vQE0cxmrrby9A4B7Y6F2RL0ByIepm0LIvQAUk\u002fORC1C9AmCYOY7X1L0CVFJDwkwswQN8VmS9NHDBAKBeibgYtMEBxGKutvz0wQLsZtOx4TjBABBu9KzJfMEBNHMZq628wQJcdz6mkgDBA4B7Y6F2RMEApIOEnF6IwQHIh6mbQsjBAvCLzpYnDMEAFJPzkQtQwQE4lBST85DBAmCYOY7X1MEDhJxeibgYxQCopIOEnFzFAdCopIOEnMUC9KzJfmjgxQAYtO55TSTFAUC5E3QxaMUCZL00cxmoxQOIwVlt\u002fezFALDJfmjiMMUB1M2jZ8ZwxQL40cRirrTFACDZ6V2S+MUBRN4OWHc8xQJo4jNXW3zFA5DmVFJDwMUAtO55TSQEyQHY8p5ICEjJAwD2w0bsiMkAJP7kQdTMyQFJAwk8uRDJAnEHLjudUMkDlQtTNoGUyQC5E3QxadjJAeEXmSxOHMkDBRu+KzJcyQApI+MmFqDJAVEkBCT+5MkCdSgpI+MkyQOZLE4ex2jJAME0cxmrrMkB5TiUFJPwyQMJPLkTdDDNADFE3g5YdM0BVUkDCTy4zQJ5TSQEJPzNA6FRSQMJPM0AxVlt\u002fe2AzQHpXZL40cTNAxFht\u002fe2BM0ANWnY8p5IzQFZbf3tgozNAoFyIuhm0M0DpXZH50sQzQDJfmjiM1TNAfGCjd0XmM0DFYay2\u002fvYzQA5jtfW3BzRAWGS+NHEYNEChZcdzKik0QOpm0LLjOTRANGjZ8ZxKNEB9aeIwVls0QMZq628PbDRAEGz0rsh8NEBZbf3tgY00QKJuBi07njRA7G8PbPSuNEA1cRirrb80QH5yIepm0DRAyHMqKSDhNEARdTNo2fE0QFp2PKeSAjVApHdF5ksTNUDteE4lBSQ1QDZ6V2S+NDVAgHtgo3dFNUDJfGniMFY1QBJ+ciHqZjVAXH97YKN3NUClgISfXIg1QO6Bjd4VmTVAOIOWHc+pNUCBhJ9ciLo1QMqFqJtByzVAFIex2vrbNUBdiLoZtOw1QKaJw1ht\u002fTVA8IrMlyYONkA5jNXW3x42QIKN3hWZLzZAzI7nVFJANkAVkPCTC1E2QF6R+dLEYTZAqJICEn5yNkDxkwtRN4M2QDqVFJDwkzZAhJYdz6mkNkDNlyYOY7U2QBaZL00cxjZAYJo4jNXWNkCpm0HLjuc2QPKcSgpI+DZAPJ5TSQEJN0CEn1yIuhk3QM6gZcdzKjdAGKJuBi07N0Bgo3dF5ks3QKqkgISfXDdA9KWJw1htN0A8p5ICEn43QIaom0HLjjdA0KmkgISfN0AYq62\u002fPbA3QGKstv72wDdArK2\u002fPbDRN0D0rsh8aeI3QD6w0bsi8zdAiLHa+tsDOEDQsuM5lRQ4QBq07HhOJThAZLX1twc2OECstv72wEY4QPa3BzZ6VzhAP7kQdTNoOECIuhm07Hg4QNK7IvOliThAG70rMl+aOEBkvjRxGKs4QK6\u002fPbDRuzhA98BG74rMOEBAwk8uRN04QIrDWG397ThA08RhrLb+OEAcxmrrbw85QGbHcyopIDlAr8h8aeIwOUD4yYWom0E5QELLjudUUjlAi8yXJg5jOUDUzaBlx3M5QB7PqaSAhDlAZ9Cy4zmVOUCw0bsi86U5QPrSxGGstjlAQ9TNoGXHOUCM1dbfHtg5QNbW3x7Y6DlAH9joXZH5OUBo2fGcSgo6QLLa+tsDGzpA+9sDG70rOkBE3Qxadjw6QI7eFZkvTTpA198e2OhdOkAg4ScXom46QGriMFZbfzpAs+M5lRSQOkD85ELUzaA6QEbmSxOHsTpAj+dUUkDCOkDY6F2R+dI6QCLqZtCy4zpAa+tvD2z0OkC07HhOJQU7QP7tgY3eFTtAR++KzJcmO0CQ8JMLUTc7QNrxnEoKSDtAI\u002fOlicNYO0Bs9K7IfGk7QLb1twc2ejtA\u002f\u002fbARu+KO0BI+MmFqJs7QJL50sRhrDtA2\u002frbAxu9O0Ak\u002fORC1M07QG797YGN3jtAt\u002f72wEbvO0AAAAAAAAA8QA=="},"y":{"dtype":"f8","bdata":"XCsrHMFkpj8UxCYcssimP3KGFltaK6c\u002fAAOK5KOMpz8OB9CmeeynP1zd4oLHSqg\u002fHDN6W3qnqD9KAjEjgAKpPyH8runHW6k\u002fkyHG50GzqT9XgHaK3wiqP0dqy3yTXKo\u002fGOyGsFGuqj9JyZFlD\u002f6qP8TRJzDDS6s\u002fRP65\u002fWSXqz85Y4EY7uCrP6yxvylZKKw\u002fQqmrOqJtrD\u002fbigm0xrCsP7BFcVzF8aw\u002f475FVZ4wrT\u002fuMmIWU22tP6lFhGjmp60\u002f9N96XlzgrT8JdiNNuhauP\u002fi8QMIGS64\u002fqi83ekl9rj\u002f2CL1Ui62uP3uIjEjW264\u002flm8oVjUIrz\u002fdo8N5tDKvP1fKXZxgW68\u002fz3gnhEeCrz8fSkHEd6evP+K06asAy68\u002fZfktNfLsrz9Vapl5rgawP\u002f7wFAApFrA\u002fMVmEdfEksD\u002flUYvSEDOwP0MzszeQQLA\u002f6PQn5HhNsD9Qi38s1FmwP3WqlXGrZbA\u002fwqmFFwhxsD8p98t883uwP1MumPF2hrA\u002f3oRYr5uQsD\u002fczobQapqwP6rovkjto7A\u002fddMl3SutsD9eTCgdL7awP3QYl1v\u002fvrA\u002f+a0mqKTHsD93S1fJJtCwP13yyTaN2LA\u002fVRwGFN\u002fgsD+EYrMrI+mwP\u002fOrSetf8bA\u002fzdY5X5v5sD9hLpAv2wGxPxpgEZ0kCrE\u002fGgPSfnwSsT\u002frK0hA5xqxP23t1d9oI7E\u002fHhbL7QQssT9s6tuLvjSxP\u002fQUCm2YPbE\u002f+oP81ZRGsT98cMKdtU+xP1FY\u002fS78WLE\u002feEltiWlisT8eetpD\u002fmuxP9jOVo66dbE\u002fTaDRNJ5\u002fsT8FyvehqImxPzDPWeLYk7E\u002fkK7Rpy2esT\u002fS1SFNpaixP7KFxtk9s7E\u002fgePyBfW9sT+g6rI+yMixP4FwK6q007E\u002fgHfxK7fesT+MIXJpzOmxP+ywZM7w9LE\u002fAy1AkSAAsj9bca63VwuyP3em9hqSFrI\u002fVGVZbMshsj8qEFk5\u002fyyyP3876e8oOLI\u002fPVqA4kNDsj\u002fdPAdMS06yP0dXolM6WbI\u002faShREAxksj\u002f2imCMu26yP8YlrchDebI\u002fXKSzv5+Dsj\u002fv02xoyo2yP5A19Li+l7I\u002fewv4qHehsj9fW\u002fIz8KqyP8DSKlsjtLI\u002freqBJwy9sj8vFgarpcWyP3QwVALrzbI\u002fU8XEVdfVsj\u002fwLmjaZd2yPyve09KR5LI\u002fK3fDj1brsj\u002fouJBwr\u002fGyPyxsheOX97I\u002fRtQKZgv9sj9ZUbqEBQKzPwMRU9uBBrM\u002fcs6YFHwKsz\u002fHvR\u002fq7w2zP\u002ffQCSTZELM\u002fBo25mDMTsz9kpn4s+xSzP7SRQNErFrM\u002ftCQrhsEWsz\u002fnR2FXuBazPy2XuV0MFrM\u002f7aSIvrkUsz\u002fwYHyrvBKzP7rri2IRELM\u002fhd\u002f+LbQMsz8M045koQizP2GQpWnVA7M\u002fFyu6rUz+sj\u002f7zs6uA\u002fiyP+XKEPn28LI\u002flgOcJyPpsj8BoWLlhOCyP0ZuOe4Y17I\u002fKAoJENzMsj\u002faqyMsy8GyP3HnvjjjtbI\u002foYaQQiGpsj8ANo1ugpuyP012x\u002fsDjbI\u002frvNsRaN9sj\u002fKG+DEXW2yPy6H6xMxXLI\u002fJIsM7xpKsj8ND9I3GTeyP4eMTPcpI7I\u002fRvOLYEsOsj+\u002fASjTe\u002fixP26Cz9254bE\u002fXcLaQATKsT\u002f3gN3wWbGxP3uLNBm6l7E\u002fhC6LHiR9sT\u002fpplShl2GxP1bANYAURbE\u002fqNpa2ponsT\u002fGn7YRKwmxPyHKJc3F6bA\u002fFXd0+mvJsD\u002fhoEHQHqiwP9+Avc\u002ffhbA\u002fqcM\u002fxrBisD8CprLOkz6wP7RB0FKLGbA\u002fnAtfGDTnrz\u002f2Fj0KhpmvP9hkkDITSq8\u002fW1RG7OL4rj8DllE2\u002faWuP4W9pLNqUa4\u002fQnO3qjT7rT\u002fEhJQEZaOtP4uUb0sGSq0\u002fuqrBqCPvrD89aOziyJKsPwwfZFoCNaw\u002fg5BhBt3Vqz+WjxxxZnWrP25AkbOsE6s\u002fPifScL6wqj8NrenQqkyqPyY1TnuB56k\u002fFEvskFKBqT833cqlLhqpP87eTbomsqg\u002fQw4cNExJqD\u002fP+qzWsN+nPzi9hLtmdac\u002fpisjSoAKpz+4nawvEJ+mPxegUlYpM6Y\u002fsziD3N7GpT8xmeULRFqlP+pUK1Bs7aQ\u002fZ169LWuApD+bOUw4VBOkPw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"title":{"text":"Density of age"},"xaxis":{"title":{"text":"Age"}},"yaxis":{"title":{"text":"Density"}}},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="8727c745-2a0a-4f07-abe0-60d797abb6fc" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("8727c745-2a0a-4f07-abe0-60d797abb6fc")) {                    Plotly.newPlot(                        "8727c745-2a0a-4f07-abe0-60d797abb6fc",                        [{"line":{"width":2},"mode":"lines","name":"Density","x":{"dtype":"f8","bdata":"AAAAAAAALkCTAhJ+ciEuQCUFJPzkQi5AuAc2eldkLkBLCkj4yYUuQN0MWnY8py5AcA9s9K7ILkADEn5yIeouQJUUkPCTCy9AKBeibgYtL0C7GbTseE4vQE0cxmrrby9A4B7Y6F2RL0ByIepm0LIvQAUk\u002fORC1C9AmCYOY7X1L0CVFJDwkwswQN8VmS9NHDBAKBeibgYtMEBxGKutvz0wQLsZtOx4TjBABBu9KzJfMEBNHMZq628wQJcdz6mkgDBA4B7Y6F2RMEApIOEnF6IwQHIh6mbQsjBAvCLzpYnDMEAFJPzkQtQwQE4lBST85DBAmCYOY7X1MEDhJxeibgYxQCopIOEnFzFAdCopIOEnMUC9KzJfmjgxQAYtO55TSTFAUC5E3QxaMUCZL00cxmoxQOIwVlt\u002fezFALDJfmjiMMUB1M2jZ8ZwxQL40cRirrTFACDZ6V2S+MUBRN4OWHc8xQJo4jNXW3zFA5DmVFJDwMUAtO55TSQEyQHY8p5ICEjJAwD2w0bsiMkAJP7kQdTMyQFJAwk8uRDJAnEHLjudUMkDlQtTNoGUyQC5E3QxadjJAeEXmSxOHMkDBRu+KzJcyQApI+MmFqDJAVEkBCT+5MkCdSgpI+MkyQOZLE4ex2jJAME0cxmrrMkB5TiUFJPwyQMJPLkTdDDNADFE3g5YdM0BVUkDCTy4zQJ5TSQEJPzNA6FRSQMJPM0AxVlt\u002fe2AzQHpXZL40cTNAxFht\u002fe2BM0ANWnY8p5IzQFZbf3tgozNAoFyIuhm0M0DpXZH50sQzQDJfmjiM1TNAfGCjd0XmM0DFYay2\u002fvYzQA5jtfW3BzRAWGS+NHEYNEChZcdzKik0QOpm0LLjOTRANGjZ8ZxKNEB9aeIwVls0QMZq628PbDRAEGz0rsh8NEBZbf3tgY00QKJuBi07njRA7G8PbPSuNEA1cRirrb80QH5yIepm0DRAyHMqKSDhNEARdTNo2fE0QFp2PKeSAjVApHdF5ksTNUDteE4lBSQ1QDZ6V2S+NDVAgHtgo3dFNUDJfGniMFY1QBJ+ciHqZjVAXH97YKN3NUClgISfXIg1QO6Bjd4VmTVAOIOWHc+pNUCBhJ9ciLo1QMqFqJtByzVAFIex2vrbNUBdiLoZtOw1QKaJw1ht\u002fTVA8IrMlyYONkA5jNXW3x42QIKN3hWZLzZAzI7nVFJANkAVkPCTC1E2QF6R+dLEYTZAqJICEn5yNkDxkwtRN4M2QDqVFJDwkzZAhJYdz6mkNkDNlyYOY7U2QBaZL00cxjZAYJo4jNXWNkCpm0HLjuc2QPKcSgpI+DZAPJ5TSQEJN0CEn1yIuhk3QM6gZcdzKjdAGKJuBi07N0Bgo3dF5ks3QKqkgISfXDdA9KWJw1htN0A8p5ICEn43QIaom0HLjjdA0KmkgISfN0AYq62\u002fPbA3QGKstv72wDdArK2\u002fPbDRN0D0rsh8aeI3QD6w0bsi8zdAiLHa+tsDOEDQsuM5lRQ4QBq07HhOJThAZLX1twc2OECstv72wEY4QPa3BzZ6VzhAP7kQdTNoOECIuhm07Hg4QNK7IvOliThAG70rMl+aOEBkvjRxGKs4QK6\u002fPbDRuzhA98BG74rMOEBAwk8uRN04QIrDWG397ThA08RhrLb+OEAcxmrrbw85QGbHcyopIDlAr8h8aeIwOUD4yYWom0E5QELLjudUUjlAi8yXJg5jOUDUzaBlx3M5QB7PqaSAhDlAZ9Cy4zmVOUCw0bsi86U5QPrSxGGstjlAQ9TNoGXHOUCM1dbfHtg5QNbW3x7Y6DlAH9joXZH5OUBo2fGcSgo6QLLa+tsDGzpA+9sDG70rOkBE3Qxadjw6QI7eFZkvTTpA198e2OhdOkAg4ScXom46QGriMFZbfzpAs+M5lRSQOkD85ELUzaA6QEbmSxOHsTpAj+dUUkDCOkDY6F2R+dI6QCLqZtCy4zpAa+tvD2z0OkC07HhOJQU7QP7tgY3eFTtAR++KzJcmO0CQ8JMLUTc7QNrxnEoKSDtAI\u002fOlicNYO0Bs9K7IfGk7QLb1twc2ejtA\u002f\u002fbARu+KO0BI+MmFqJs7QJL50sRhrDtA2\u002frbAxu9O0Ak\u002fORC1M07QG797YGN3jtAt\u002f72wEbvO0AAAAAAAAA8QA=="},"y":{"dtype":"f8","bdata":"XCsrHMFkpj8UxCYcssimP3KGFltaK6c\u002fAAOK5KOMpz8OB9CmeeynP1zd4oLHSqg\u002fHDN6W3qnqD9KAjEjgAKpPyH8runHW6k\u002fkyHG50GzqT9XgHaK3wiqP0dqy3yTXKo\u002fGOyGsFGuqj9JyZFlD\u002f6qP8TRJzDDS6s\u002fRP65\u002fWSXqz85Y4EY7uCrP6yxvylZKKw\u002fQqmrOqJtrD\u002fbigm0xrCsP7BFcVzF8aw\u002f475FVZ4wrT\u002fuMmIWU22tP6lFhGjmp60\u002f9N96XlzgrT8JdiNNuhauP\u002fi8QMIGS64\u002fqi83ekl9rj\u002f2CL1Ui62uP3uIjEjW264\u002flm8oVjUIrz\u002fdo8N5tDKvP1fKXZxgW68\u002fz3gnhEeCrz8fSkHEd6evP+K06asAy68\u002fZfktNfLsrz9Vapl5rgawP\u002f7wFAApFrA\u002fMVmEdfEksD\u002flUYvSEDOwP0MzszeQQLA\u002f6PQn5HhNsD9Qi38s1FmwP3WqlXGrZbA\u002fwqmFFwhxsD8p98t883uwP1MumPF2hrA\u002f3oRYr5uQsD\u002fczobQapqwP6rovkjto7A\u002fddMl3SutsD9eTCgdL7awP3QYl1v\u002fvrA\u002f+a0mqKTHsD93S1fJJtCwP13yyTaN2LA\u002fVRwGFN\u002fgsD+EYrMrI+mwP\u002fOrSetf8bA\u002fzdY5X5v5sD9hLpAv2wGxPxpgEZ0kCrE\u002fGgPSfnwSsT\u002frK0hA5xqxP23t1d9oI7E\u002fHhbL7QQssT9s6tuLvjSxP\u002fQUCm2YPbE\u002f+oP81ZRGsT98cMKdtU+xP1FY\u002fS78WLE\u002feEltiWlisT8eetpD\u002fmuxP9jOVo66dbE\u002fTaDRNJ5\u002fsT8FyvehqImxPzDPWeLYk7E\u002fkK7Rpy2esT\u002fS1SFNpaixP7KFxtk9s7E\u002fgePyBfW9sT+g6rI+yMixP4FwK6q007E\u002fgHfxK7fesT+MIXJpzOmxP+ywZM7w9LE\u002fAy1AkSAAsj9bca63VwuyP3em9hqSFrI\u002fVGVZbMshsj8qEFk5\u002fyyyP3876e8oOLI\u002fPVqA4kNDsj\u002fdPAdMS06yP0dXolM6WbI\u002faShREAxksj\u002f2imCMu26yP8YlrchDebI\u002fXKSzv5+Dsj\u002fv02xoyo2yP5A19Li+l7I\u002fewv4qHehsj9fW\u002fIz8KqyP8DSKlsjtLI\u002freqBJwy9sj8vFgarpcWyP3QwVALrzbI\u002fU8XEVdfVsj\u002fwLmjaZd2yPyve09KR5LI\u002fK3fDj1brsj\u002fouJBwr\u002fGyPyxsheOX97I\u002fRtQKZgv9sj9ZUbqEBQKzPwMRU9uBBrM\u002fcs6YFHwKsz\u002fHvR\u002fq7w2zP\u002ffQCSTZELM\u002fBo25mDMTsz9kpn4s+xSzP7SRQNErFrM\u002ftCQrhsEWsz\u002fnR2FXuBazPy2XuV0MFrM\u002f7aSIvrkUsz\u002fwYHyrvBKzP7rri2IRELM\u002fhd\u002f+LbQMsz8M045koQizP2GQpWnVA7M\u002fFyu6rUz+sj\u002f7zs6uA\u002fiyP+XKEPn28LI\u002flgOcJyPpsj8BoWLlhOCyP0ZuOe4Y17I\u002fKAoJENzMsj\u002faqyMsy8GyP3HnvjjjtbI\u002foYaQQiGpsj8ANo1ugpuyP012x\u002fsDjbI\u002frvNsRaN9sj\u002fKG+DEXW2yPy6H6xMxXLI\u002fJIsM7xpKsj8ND9I3GTeyP4eMTPcpI7I\u002fRvOLYEsOsj+\u002fASjTe\u002fixP26Cz9254bE\u002fXcLaQATKsT\u002f3gN3wWbGxP3uLNBm6l7E\u002fhC6LHiR9sT\u002fpplShl2GxP1bANYAURbE\u002fqNpa2ponsT\u002fGn7YRKwmxPyHKJc3F6bA\u002fFXd0+mvJsD\u002fhoEHQHqiwP9+Avc\u002ffhbA\u002fqcM\u002fxrBisD8CprLOkz6wP7RB0FKLGbA\u002fnAtfGDTnrz\u002f2Fj0KhpmvP9hkkDITSq8\u002fW1RG7OL4rj8DllE2\u002faWuP4W9pLNqUa4\u002fQnO3qjT7rT\u002fEhJQEZaOtP4uUb0sGSq0\u002fuqrBqCPvrD89aOziyJKsPwwfZFoCNaw\u002fg5BhBt3Vqz+WjxxxZnWrP25AkbOsE6s\u002fPifScL6wqj8NrenQqkyqPyY1TnuB56k\u002fFEvskFKBqT833cqlLhqpP87eTbomsqg\u002fQw4cNExJqD\u002fP+qzWsN+nPzi9hLtmdac\u002fpisjSoAKpz+4nawvEJ+mPxegUlYpM6Y\u002fsziD3N7GpT8xmeULRFqlP+pUK1Bs7aQ\u002fZ169LWuApD+bOUw4VBOkPw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"title":{"text":"Density of age"},"xaxis":{"title":{"text":"Age"}},"yaxis":{"title":{"text":"Density"}}},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('b9e7fb32-622d-43a8-9569-754a790b1ee8');
+var gd = document.getElementById('8727c745-2a0a-4f07-abe0-60d797abb6fc');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -386,18 +851,21 @@ if (outputEl) {{
                         })                };            </script>        </div>
 </div>
 </div>
+</section>
+<section id="exploring-variable-relationships-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-variable-relationships-in-python">Exploring Variable Relationships in Python</h2>
 <p>The graphic analysis is a tool to understand the relationship between the covariates and the response variable. It is very important when we want to perform a linear regression.</p>
-<div id="1fee1982" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.api <span class="im">import</span> OLS, add_constant</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/Multiple_Regression_Dataset.csv'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div id="cc2c52da" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.api <span class="im">import</span> OLS, add_constant</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/Multiple_Regression_Dataset.csv'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -513,42 +981,42 @@ if (outputEl) {{
 </div>
 </div>
 </div>
-<div id="4503803c" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'R'</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> response]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">4</span>, ncols<span class="op">=</span><span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">False</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot boxplot for binary variable 'S'</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'S'</span>, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Boxplot of R by S'</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'S'</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R'</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot regression lines for all other covariates</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plot_index <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cov <span class="kw">in</span> covariates:</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cov <span class="op">!=</span> <span class="st">'S'</span>:</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        sns.regplot(data<span class="op">=</span>df, x<span class="op">=</span>cov, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[plot_index], scatter<span class="op">=</span><span class="va">True</span>, line_kws<span class="op">=</span>{<span class="st">"color"</span>: <span class="st">"red"</span>})</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_title(<span class="ss">f'</span><span class="sc">{</span>cov<span class="sc">}</span><span class="ss"> vs R'</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_xlabel(cov)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_ylabel(<span class="st">'R'</span>)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        plot_index <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Hide unused subplots</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(plot_index, <span class="bu">len</span>(axes)):</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    fig.delaxes(axes[i])</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ab2c634e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'R'</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> response]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">4</span>, ncols<span class="op">=</span><span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">False</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot boxplot for binary variable 'S'</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'S'</span>, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Boxplot of R by S'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'S'</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R'</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot regression lines for all other covariates</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plot_index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cov <span class="kw">in</span> covariates:</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cov <span class="op">!=</span> <span class="st">'S'</span>:</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        sns.regplot(data<span class="op">=</span>df, x<span class="op">=</span>cov, y<span class="op">=</span><span class="st">'R'</span>, ax<span class="op">=</span>axes[plot_index], scatter<span class="op">=</span><span class="va">True</span>, line_kws<span class="op">=</span>{<span class="st">"color"</span>: <span class="st">"red"</span>})</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_title(<span class="ss">f'</span><span class="sc">{</span>cov<span class="sc">}</span><span class="ss"> vs R'</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_xlabel(cov)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        axes[plot_index].set_ylabel(<span class="st">'R'</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        plot_index <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Hide unused subplots</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(plot_index, <span class="bu">len</span>(axes)):</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    fig.delaxes(axes[i])</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_gdr_files/figure-html/cell-6-output-1.png" width="472" height="470" class="figure-img"></p>
+<p><img src="index_gdr_files/figure-html/cell-8-output-1.png" width="472" height="470" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -556,17 +1024,17 @@ if (outputEl) {{
 </section>
 <section id="spearman-correlation-matrix" class="level1">
 <h1>Spearman Correlation Matrix</h1>
-<div id="40c29606" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Spearman correlation matrix</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>spearman_corr <span class="op">=</span> df.corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(spearman_corr, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix Heatmap"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7968448a" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Spearman correlation matrix</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>spearman_corr <span class="op">=</span> df.corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(spearman_corr, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix Heatmap"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_gdr_files/figure-html/cell-7-output-1.png" width="888" height="801" class="figure-img"></p>
+<p><img src="index_gdr_files/figure-html/cell-9-output-1.png" width="888" height="801" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -574,37 +1042,37 @@ if (outputEl) {{
 <section id="when-several-variables-are-correlated" class="level2">
 <h2 class="anchored" data-anchor-id="when-several-variables-are-correlated">When several variables are correlated</h2>
 <p>When several variables are correlated with each other, we keep only one of them. The one the most correlated with the response variable.</p>
-<div id="de6a35c3" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[<span class="st">'R'</span>].drop(<span class="st">'R'</span>)  <span class="co"># exclude R-R</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Identify pairs of covariates with strong inter-correlation (e.g., &gt; 0.9)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>strong_pairs <span class="op">=</span> []</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.6</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> spearman_corr_with_R.index</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var1 <span class="kw">in</span> <span class="bu">enumerate</span>(covariates):</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> var2 <span class="kw">in</span> covariates[i<span class="op">+</span><span class="dv">1</span>:]:</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr.loc[var1, var2]) <span class="op">&gt;</span> threshold:</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            strong_pairs.append((var1, var2))</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: From each correlated pair, keep only the variable most correlated with R</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>to_keep <span class="op">=</span> <span class="bu">set</span>()</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>to_discard <span class="op">=</span> <span class="bu">set</span>()</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> strong_pairs:</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr_with_R[var1]) <span class="op">&gt;=</span> <span class="bu">abs</span>(spearman_corr_with_R[var2]):</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var1)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var2)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var2)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var1)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Final selection: all covariates excluding the ones to discard due to redundancy</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>final_selected_variables <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> covariates <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> to_discard]</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>final_selected_variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div id="e1d56ff1" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[<span class="st">'R'</span>].drop(<span class="st">'R'</span>)  <span class="co"># exclude R-R</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Identify pairs of covariates with strong inter-correlation (e.g., &gt; 0.9)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>strong_pairs <span class="op">=</span> []</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.6</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> spearman_corr_with_R.index</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var1 <span class="kw">in</span> <span class="bu">enumerate</span>(covariates):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> var2 <span class="kw">in</span> covariates[i<span class="op">+</span><span class="dv">1</span>:]:</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr.loc[var1, var2]) <span class="op">&gt;</span> threshold:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            strong_pairs.append((var1, var2))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: From each correlated pair, keep only the variable most correlated with R</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>to_keep <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>to_discard <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> strong_pairs:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr_with_R[var1]) <span class="op">&gt;=</span> <span class="bu">abs</span>(spearman_corr_with_R[var2]):</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var1)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var2)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var2)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var1)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Final selection: all covariates excluding the ones to discard due to redundancy</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>final_selected_variables <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> covariates <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> to_discard]</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>final_selected_variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>['Ex1', 'LF', 'M', 'N', 'NW', 'U2']</code></pre>
 </div>
 </div>
@@ -612,22 +1080,22 @@ if (outputEl) {{
 </section>
 <section id="variance-inflation-factor-vif-for-selected-variables-after-standardization" class="level1">
 <h1>Variance Inflation Factor (VIF) for selected variables after standardization</h1>
-<div id="1f4a370e" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]  </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>X_with_const <span class="op">=</span> add_constant(X)  </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"variable"</span>] <span class="op">=</span> X_with_const.columns</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X_with_const.values, i)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_with_const.shape[<span class="dv">1</span>])]</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> vif_data[vif_data[<span class="st">"variable"</span>] <span class="op">!=</span> <span class="st">"const"</span>]</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="60ba31ae" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]  </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>X_with_const <span class="op">=</span> add_constant(X)  </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"variable"</span>] <span class="op">=</span> X_with_const.columns</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X_with_const.values, i)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_with_const.shape[<span class="dv">1</span>])]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> vif_data[vif_data[<span class="st">"variable"</span>] <span class="op">!=</span> <span class="st">"const"</span>]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  variable       VIF
 1      Ex1  1.586841
@@ -640,32 +1108,32 @@ if (outputEl) {{
 </div>
 <section id="fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test" class="level2">
 <h2 class="anchored" data-anchor-id="fit-a-linear-regression-model-on-a-six-variables-after-standardization-not-split-data-into-train-and-test">Fit a linear regression model on a six variables after standardization not split data into train and test</h2>
-<div id="b15fcbc4" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'R'</span>]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardisation des variables explicatives</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>X_scaled_vars <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Remettre les noms des colonnes (après standardisation)</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> pd.DataFrame(X_scaled_vars, columns<span class="op">=</span>final_selected_variables)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Ajouter l'intercept (constante)</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> add_constant(X_scaled_df)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Régression avec noms conservés</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> OLS(y, X_scaled_df).fit()</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2663d591" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'R'</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardisation des variables explicatives</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>X_scaled_vars <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Remettre les noms des colonnes (après standardisation)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> pd.DataFrame(X_scaled_vars, columns<span class="op">=</span>final_selected_variables)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ➕ Ajouter l'intercept (constante)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>X_scaled_df <span class="op">=</span> add_constant(X_scaled_df)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Régression avec noms conservés</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> OLS(y, X_scaled_df).fit()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:                      R   R-squared:                       0.568
 Model:                            OLS   Adj. R-squared:                  0.503
 Method:                 Least Squares   F-statistic:                     8.773
-Date:                Sat, 24 May 2025   Prob (F-statistic):           4.07e-06
-Time:                        19:39:10   Log-Likelihood:                -218.24
+Date:                Sat, 31 May 2025   Prob (F-statistic):           4.07e-06
+Time:                        16:51:47   Log-Likelihood:                -218.24
 No. Observations:                  47   AIC:                             450.5
 Df Residuals:                      40   BIC:                             463.4
 Df Model:                           6                                         
