@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jumbong Junior">
+<meta name="dcterms.date" content="2025-06-07">
+
+<title>Proportional Odds Model for Ordinal Logistic Regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Accueil</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index_gdr.html"> 
+<span class="menu-text">Daily Story</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">A propos de moi</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Summary</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-the-proportional-odds-model" id="toc-introduction-to-the-proportional-odds-model" class="nav-link active" data-scroll-target="#introduction-to-the-proportional-odds-model">Introduction to the Proportional Odds Model</a></li>
+  <li><a href="#assessing-the-proportional-odds-assumption-the-likelihood-ratio-test" id="toc-assessing-the-proportional-odds-assumption-the-likelihood-ratio-test" class="nav-link" data-scroll-target="#assessing-the-proportional-odds-assumption-the-likelihood-ratio-test">Assessing the Proportional Odds Assumption: The Likelihood Ratio Test</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Proportional Odds Model for Ordinal Logistic Regression</h1>
+<p class="subtitle lead">Assessing Proportionality in the Proportional Odds Model for Ordinal Logistic Regression using python</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 7, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Certainly! Here is a more fluent and clear version in American English:</p>
+<hr>
+<p>The proportional odds model for ordinal logistic regression was first introduced by <span class="citation" data-cites="mccullagh1980regression">McCullagh (<a href="#ref-mccullagh1980regression" role="doc-biblioref">1980</a>)</span>. This model extends binary logistic regression to situations where the dependent variable is ordinal—that is, it consists of ordered categorical values. The proportional odds model is built on several assumptions, including independence of observations, linearity of the log-odds, absence of multicollinearity among predictors, and, most importantly, the proportional odds assumption. This last assumption states that the regression coefficients are constant across all thresholds of the ordinal dependent variable. Ensuring the proportional odds assumption holds is crucial for the validity and interpretability of the model.</p>
+<p>A variety of methods have been proposed in the literature to assess model fit and, in particular, to test the proportional odds assumption. In this paper, we focus on two approaches developed by Brant in his article <span class="citation" data-cites="brant1990assessing">Brant (<a href="#ref-brant1990assessing" role="doc-biblioref">1990</a>)</span>, “Assessing Proportionality in the Proportional Odds Model for Ordinal Logistic Regression.” We also demonstrate how to implement these techniques in Python, applying them to real-world data. Whether you come from a background in data science, machine learning, or statistics, this article aims to help your understand how to evaluate model fit in ordinal logistic regression.</p>
+<p>This paper is organized into four main sections:</p>
+<ol type="1">
+<li>The first section introduces the proportional odds model and its assumptions.</li>
+<li>The second section discusses how to assess the proportional odds assumption using the likelihood ratio test.</li>
+<li>The third section covers the assessment of the proportional odds assumption using the separate fits approach.</li>
+<li>The final section provides examples, illustrating the implementation of these assessment methods in Python with data.</li>
+</ol>
+<section id="introduction-to-the-proportional-odds-model" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-the-proportional-odds-model">Introduction to the Proportional Odds Model</h2>
+<p>Before presenting the model, we introduce the data structure. We assume we have <span class="math inline">\(N\)</span> independent observations. Each observation is represented by a vector of <span class="math inline">\(p\)</span> explanatory variables <span class="math inline">\(X_i = (X_{i1}, X_{i2}, \ldots, X_{ip})\)</span>, along with a dependent or response variable <span class="math inline">\(Y\)</span> that takes ordinal values from <span class="math inline">\(1\)</span> to <span class="math inline">\(K\)</span>. The proportional odds model specifically models the cumulative distribution probabilities of the response variable <span class="math inline">\(Y\)</span>, defined as <span class="math inline">\(\gamma_j = P(Y \leq j \mid X_i)\)</span> for <span class="math inline">\(j = 1, 2, \dots, K-1\)</span>, as functions of the explanatory variables <span class="math inline">\(X_i\)</span>. The model is formulated as follows:</p>
+<p><span id="eq-proportional_odds_model"><span class="math display">\[
+\text{logit}(\gamma_j) = \log\left(\frac{\gamma_j}{1 - \gamma_j}\right) = \theta_j - \beta^\top \mathbf{X}
+\tag{1}\]</span></span></p>
+<p>Where <span class="math inline">\(\theta_j\)</span> are the intercepts for each category j and respect the condition <span class="math inline">\(\theta_1 &lt; \theta_2 &lt; ... &lt; \theta_{K-1}\)</span>, and <span class="math inline">\(\beta\)</span> is the vector of regression coefficients which are the same for all categories. We observe a monotonic trend in the coefficients <span class="math inline">\(\theta_j\)</span> across the categories of the response variable Y.</p>
+<p>This model is also known as the grouped continuous model, as it can be derived by assuming the existence of a continuous latent variable <span class="math inline">\(Y^*\)</span>. This latent variable follows a linear regression model with conditional mean <span class="math inline">\(\eta = \boldsymbol{\beta}^{\top} \mathbf{X}\)</span>, and it relates to the observed ordinal variable <span class="math inline">\(Y\)</span> through thresholds <span class="math inline">\(\theta_j\)</span> defined as follows: <span id="eq-latent_variable_model"><span class="math display">\[
+y^* = {\beta}^{T}\mathbf{X} + \epsilon
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(\epsilon\)</span> is an error term (random noise), generally assumed to follow a standard logistic distribution in the proportional odds model.</p>
+<p>The latent variable <span class="math inline">\(Y^*\)</span> is unobserved and partitioned into intervals defined by thresholds <span class="math inline">\(\theta_1, \theta_2, \dots, \theta_{K-1}\)</span>, generating the observed ordinal variable <span class="math inline">\(Y\)</span> as follows:</p>
+<p><span id="eq-observed_variable_model"><span class="math display">\[
+Y = \begin{cases}
+1 &amp; \text{if } Y^* \leq \theta_1 \\
+2 &amp; \text{if } \theta_1 &lt; Y^* \leq \theta_2 \\
+\vdots &amp; \\
+K &amp; \text{if } Y^* &gt; \theta_{K-1}
+\end{cases}
+\tag{3}\]</span></span></p>
+<p>In the next section, we introduce the various approaches proposed by <span class="citation" data-cites="brant1990assessing">Brant (<a href="#ref-brant1990assessing" role="doc-biblioref">1990</a>)</span> for assessing the proportional odds assumption. These methods evaluate whether the regression coefficients remain constant across the categories defined by the ordinal response variable.</p>
+</section>
+<section id="assessing-the-proportional-odds-assumption-the-likelihood-ratio-test" class="level2">
+<h2 class="anchored" data-anchor-id="assessing-the-proportional-odds-assumption-the-likelihood-ratio-test">Assessing the Proportional Odds Assumption: The Likelihood Ratio Test</h2>
+<p>To assess the proportional odds assumption in an ordinal logistic regression model, <span class="citation" data-cites="brant1990assessing">Brant (<a href="#ref-brant1990assessing" role="doc-biblioref">1990</a>)</span> proposes the use of the likelihood ratio test. This approach begins by fitting a less restrictive model in which the regression coefficients are allowed to vary across categories. This model is expressed as: <span id="eq-likelihood_ratio_model"><span class="math display">\[
+\text{logit}(\gamma_j) = \theta_j - \beta_j^\top \mathbf{X}
+\tag{4}\]</span></span></p>
+<p>where <span class="math inline">\(\beta_j\)</span> is the vector of regression coefficients for each category j. Here the coefficients <span class="math inline">\(\beta_j\)</span> are allowed to vary across categories, which means that the proportional odds assumption is not satisfied. We then use the conventionnel likelihood ratio test to assess the hypothesis : <span id="eq-likelihood_ratio_test"><span class="math display">\[
+H_0: \beta_j = \beta \quad \text{for all } j = 1, 2, \ldots, K-1
+\tag{5}\]</span></span></p>
+<p>To perform this test, we conduct a likelihood ratio test comparing the unconstrained (non-proportional or satured) model with the constrained (proportional odds or reduced) model.</p>
+<p>Before proceeding further, we briefly recall how to use the likelihood ratio test in hypothesis testing. Suppose we want to evaluate the null hypothesis <span class="math inline">\(H_0 : \theta \in \Theta_0\)</span> against the alternative <span class="math inline">\(H_1 : \theta \in \Theta_1\)</span>,</p>
+<p>The likelihood ratio statistic is defined as: <span id="eq-likelihood_ratio_statistic"><span class="math display">\[
+\lambda = 2 \log\left(\frac{\displaystyle\sup_{\theta \in \Theta}\mathcal{L}(\theta)}{\displaystyle\sup_{\theta \in \Theta_0}\mathcal{L}(\theta)}\right)
+= 2\log\left(\frac{\mathcal{L}(\hat{\theta})}{\mathcal{L}(\hat{\theta}_0)}\right),
+\tag{6}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{L}(\theta)\)</span> is the likelihood function, <span class="math inline">\(\hat{\theta}\)</span> is the maximum likelihood estimate (MLE) under the full model, and <span class="math inline">\(\hat{\theta}_0\)</span> is the MLE under the constrained model. The test statistic <span class="math inline">\(\lambda\)</span> follows a chi-square distribution with degrees of freedom equal to the difference in the number of parameters between the full and constrained models.</p>
+<p>Here, <span class="math inline">\(\hat{\theta}\)</span> is the <strong>maximum likelihood estimate (MLE)</strong> under the full (unconstrained) model, and <span class="math inline">\(\hat{\theta}_0\)</span> is the MLE under the constrained model where the proportional odds assumption holds. The test statistic <span class="math inline">\(\lambda\)</span> follows a chi-square distribution under the null hypothesis.</p>
+<p>In a general setting, suppose the full parameter space is denoted by</p>
+<p><span class="math display">\[
+\Theta = (\theta_1, \theta_2, \ldots, \theta_q, \ldots, \theta_p),
+\]</span></p>
+<p>and the restricted parameter space under the null hypothesis is</p>
+<p><span class="math display">\[
+\Theta_0 = (\theta_1, \theta_2, \ldots, \theta_q).
+\]</span></p>
+<p><strong>(Note: These parameters are generic and should not be confused with the <span class="math inline">\(K - 1\)</span> thresholds or intercepts in the proportional odds model.)</strong>, the likelihood ratio test statistic <span class="math inline">\(\lambda\)</span> follows a chi-square distribution with <span class="math inline">\(p - q\)</span> degrees of freedom. Where <span class="math inline">\(p\)</span> represents the total number of parameters in the full (unconstrained or “saturated”) model, while <span class="math inline">\(K - 1\)</span> corresponds to the number of parameters in the reduced (restricted) model.</p>
+<p>Now, let us apply this approach to the ordinal logistic regression model with the proportional odds assumption. Assume that our response variable has <span class="math inline">\(K\)</span> ordered categories and that we have <span class="math inline">\(p\)</span> predictor variables. To use the likelihood ratio test to evaluate the proportional odds assumption, we need to compare two models:</p>
+<section id="unconstrained-model-non-proportional-odds" class="level4">
+<h4 class="anchored" data-anchor-id="unconstrained-model-non-proportional-odds">1. <strong>Unconstrained Model (non-proportional odds):</strong></h4>
+<p>This model allows each outcome threshold to have its own set of regression coefficients, meaning that we do not assume the regression coefficients are equal across all thresholds. The model is defined as:</p>
+<p><span class="math display">\[
+\text{logit}(\mathbb{P}(Y \leq j \mid \mathbf{X})) = \theta_j - \boldsymbol{\beta}_j^\top \mathbf{X}
+\]</span></p>
+<ul>
+<li>There are <span class="math inline">\(K - 1\)</span> threshold (intercept) parameters: <span class="math inline">\(\theta_1, \theta_2, \ldots, \theta_{K-1}\)</span></li>
+<li>Each threshold has its own vector of slope coefficients <span class="math inline">\({\beta}_j\)</span> of dimension <span class="math inline">\(p\)</span></li>
+</ul>
+<p>Thus, the total number of parameters in the unconstrained model is:</p>
+<p><span class="math display">\[
+(K - 1) \text{ thresholds} + (K - 1) \times p \text{ slopes} = (K - 1)(p + 1)
+\]</span></p>
+</section>
+<section id="proportional-odds-model" class="level4">
+<h4 class="anchored" data-anchor-id="proportional-odds-model">2. <strong>Proportional Odds Model:</strong></h4>
+<p>This model assumes a single set of regression coefficients for all thresholds:</p>
+<p><span class="math display">\[
+\text{logit}(\mathbb{P}(Y \leq j \mid \mathbf{X})) = \theta_j - {\beta}^\top \mathbf{X}
+\]</span></p>
+<ul>
+<li>There are <span class="math inline">\(K - 1\)</span> threshold parameters</li>
+<li>There is one common slope vector <span class="math inline">\({\beta}\)</span> for all <span class="math inline">\(j\)</span></li>
+</ul>
+<p>Thus, the total number of parameters in the proportional odds model is:</p>
+<p><span class="math display">\[
+(K - 1) \text{ thresholds} + p \text{ slopes} = (K - 1) + p
+\]</span></p>
+<p>Thus, the likelihood ratio test statistic follows a chi-square distribution with degrees of freedom:</p>
+<p><span id="eq-likelihood_ratio_df"><span class="math display">\[
+\text{df} = [(K - 1) \times (p+1)] - [(K - 1) + p] = (K - 2) \times p
+\tag{7}\]</span></span></p>
+<p>This test provides a formal way to assess whether the proportional odds assumption holds for the given data. At a significance level of 1%, 5%, or any other conventional threshold, the proportional odds assumption is rejected if the test statistic <span class="math inline">\(\lambda\)</span> exceeds the critical value from the chi-square distribution with <span class="math inline">\((K - 2) \times p\)</span> degrees of freedom.</p>
+<p>In other words, we reject the null hypothesis</p>
+<p><span class="math display">\[
+H_0 : {\beta}_1 = {\beta}_2 = \cdots = {\beta}_{K-1} = {\beta},
+\]</span></p>
+<p>which states that the regression coefficients are equal across all cumulative logits. This test has the advantage of being straightforward to implement and provides an overall assessment of the proportional odds assumption.</p>
+<p>In the next section, we introduce the proportional odds test based on separate fits.</p>
+<ol start="2" type="1">
+<li><strong>Assessing the Proportional Odds Assumption: The Separate Fits Approach</strong></li>
+</ol>
+<p>To understand this part, you must understand the Mahalanobis distance and its properties. The Mahalanobis distance can be used to measure the dissimilarity between two vectors <span class="math inline">\(x=(x_1, x_2, \ldots, x_p)^\top\)</span> and <span class="math inline">\(y=(y_1, y_2, \ldots, y_p)^\top\)</span> in a multivariate space with the same distribution. It is defined as: <span id="eq-mahalanobis_distance"><span class="math display">\[
+D_M(x, y) = \sqrt{(x - y)^\top \Sigma^{-1} (x - y)}
+\tag{8}\]</span></span></p>
+<p>where <span class="math inline">\(\Sigma\)</span> is the covariance matrix of the distribution. The Mahalanobis distance is linked with the <span class="math inline">\(\chi^2\)</span> distribution, specifically, if <span class="math inline">\(X \sim N(\mu, \Sigma)\)</span> is a p-dimensional normal random vector, with the mean <span class="math inline">\(\mu\)</span> and covariance matrix <span class="math inline">\(\Sigma\)</span>, then the Mahalanobis distance <span class="math inline">\(D_M(X, \mu)\)</span> follows a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(p\)</span> degrees of freedom. This step is essential for understanding how to assess proportionality using separate fits. You will see why shortly.</p>
+<p>In fact, the author notes that the natural approach to evaluating the proportional odds assumption is to fit a set of <span class="math inline">\(K-1\)</span> binary logistic regression models (where <span class="math inline">\(K\)</span> is the number of categories of the response variable), and then use the statistical properties of the estimated parameters to construct a test statistic for the proportional odds hypothesis.</p>
+<p>The procedure is as follows:</p>
+<p>First, we construct separate binary logistic regression models for each threshold <span class="math inline">\(j = 1, 2, \ldots, K-1\)</span> of the ordinal response variable <span class="math inline">\(Y\)</span>. For each threshold <span class="math inline">\(j\)</span>, we define a binary variable <span class="math inline">\(Z_j\)</span>, which takes the value 1 if the observation exceeds threshold <span class="math inline">\(j\)</span>, and 0 otherwise. Specifically, we have: <span id="eq-binary_response"><span class="math display">\[
+Z_j = \begin{cases}
+0 &amp; \text{if } Y &gt; j \\
+0 &amp; \text{if } Y \leq j
+\end{cases}
+\tag{9}\]</span></span></p>
+<p>With the probaility, <span class="math inline">\(\pi_j = P(Z_j = 1 \mid \mathbf{X}) = 1 - \gamma_j\)</span> satisfying the logistic regression model: <span id="eq-binary_logit_model"><span class="math display">\[
+\text{logit}(\pi_j) = \theta_j - \beta_j^\top \mathbf{X}.
+\tag{10}\]</span></span></p>
+<p>Then, assessing the proportional odds assumption in this context involves testing the hypothesis that the regression coefficients <span class="math inline">\(\beta_j\)</span> are equal across all <span class="math inline">\(K-1\)</span> models. This is equivalent to testing the hypothesis:</p>
+<p><span id="eq-proportional_odds_hypothesis"><span class="math display">\[
+H_0 : \beta_1 = \beta_2 = \cdots = \beta_{K-1} = \beta
+\tag{11}\]</span></span></p>
+<p>Let <span class="math inline">\(\hat{\beta}_j\)</span> denote the maximum likelihood estimators of the regression coefficients for each binary model, and let <span class="math inline">\(\hat{\beta} = (\hat{\beta}_1^\top, \hat{\beta}_2^\top, \ldots, \hat{\beta}_{K-1}^\top)^\top\)</span> represent the global vector of estimators. This vector is asymptotically normally distributed, such that <span class="math inline">\(\mathbb{E}(\hat{\beta}_j) \approx \beta\)</span>, with variance-covariance matrix <span class="math inline">\(\mathbb{V}(\hat{\beta}_j)\)</span>. The general term of this matrix, <span class="math inline">\(\text{cov}(\hat{\beta}_j, \hat{\beta}_k)\)</span>, needs to be determined and is given by:</p>
+<p><span id="eq-variance_covariance_matrix"><span class="math display">\[
+\widehat{V}(\hat{\boldsymbol{\beta}}) =
+\begin{bmatrix}
+\text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_1) &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_2) &amp; \cdots &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_{K-1}) \\
+\text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_1) &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_2) &amp; \cdots &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_{K-1}) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_1) &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_2) &amp; \cdots &amp; \text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_{K-1})
+\end{bmatrix}
+\in \mathbb{R}^{(K-1)p \times (K-1)p}
+\tag{12}\]</span></span></p>
+<p>where <span class="math inline">\(\text{Cov}(\hat{\boldsymbol{\beta}}_j, \hat{\boldsymbol{\beta}}_k)\)</span> is the covariance between the estimated coefficients of the <span class="math inline">\(j\)</span>-th and <span class="math inline">\(k\)</span>-th binary models. To evaluate the proportional odds assumption, Brant constructs a matrix <span class="math inline">\(\mathbf{D}\)</span> that captures the differences between the coefficients <span class="math inline">\(\hat{\beta}_j\)</span>. Recall that each vector <span class="math inline">\(\hat{\beta}_j\)</span> has dimension <span class="math inline">\(p\)</span>. The matrix <span class="math inline">\(\mathbf{D}\)</span> is defined as follows:</p>
+<p><span id="eq-difference_matrix"><span class="math display">\[
+\mathbf{D} =
+\begin{bmatrix}
+I &amp; -I &amp; 0 &amp; \cdots &amp; 0 \\
+I &amp; 0 &amp; -I &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+I &amp; 0 &amp; 0 &amp; \cdots &amp; -I \\
+\end{bmatrix}
+\in \mathbb{R}^{(K-2)p \times (K-1)p}
+\tag{13}\]</span></span></p>
+<p>where <span class="math inline">\(I\)</span> is the identity matrix of size <span class="math inline">\(p \times p\)</span>. The first row of the matrix D corresponds to the difference between the first and second coefficients, the second row corresponds to the difference between the second and third coefficients, and so on, until the last row which corresponds to the difference between the <span class="math inline">\((K-2)\)</span>-th and <span class="math inline">\((K-1)\)</span>-th coefficients. We can notice that the product <span class="math inline">\(\mathbf{D} \hat{{\beta}}\)</span> will yield a vector of differences between the coefficients <span class="math inline">\(\hat{\beta_j}\)</span>.</p>
+<p>Once the matrix <span class="math inline">\(\mathbf{D}\)</span> is constructed, Brant defines the Wald statistic <span class="math inline">\(X^2\)</span> to test the proportional odds assumption. This statistic can be interpreted as the Mahalanobis distance between the vector <span class="math inline">\(\mathbf{D} \hat{\boldsymbol{\beta}}\)</span> and the zero vector. The Wald statistic is defined as follows:</p>
+<p><span id="eq-wald_statistic"><span class="math display">\[
+X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}}) \mathbf{D}^\top \right]^{-1} (\mathbf{D} \hat{{\beta}})
+\tag{14}\]</span></span></p>
+<p>which will be asymptotically <span class="math inline">\(\chi^2\)</span> distributed with <span class="math inline">\((K - 2)p\)</span> degrees of freedom under the null hypothesis. The challenging part here is to determine the variance-covariance matrix <span class="math inline">\(\widehat{V}(\hat{\beta})\)</span>. In his article, Brant provides an explicit estimator for this variance-covariance matrix, which is based on the maximum likelihood estimators <span class="math inline">\(\hat{\beta}_j\)</span> from each binary model.</p>
+<p>In the following sections, we implement these approaches in Python, using the <code>statsmodels</code> package for the regressions and statistical tests.</p>
+</section>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p>The data for this example comes from the “Wine Quality” dataset, which contains information about red wine samples and their quality ratings. The dataset includes 1,599 observations and 12 variables. The target variable, “quality,” is ordinal and originally ranges from 3 to 8. To ensure enough observations in each group, we combine categories 3 and 4 into a single category (labeled 4), and categories 7 and 8 into a single category (labeled 7), so the response variable has four levels. We then handle outliers in the explanatory variables using the Interquartile Range (IQR) method. Finally, we select three predictors—volatile acidity, free sulfur dioxide, and total sulfur dioxide—to use in our ordinal logistic regression model, and we standardize these variables to have a mean of 0 and a standard deviation of 1.</p>
+<p>Tables 1 and 2 present the results of the three binary logistic regression models and the proportional odds model, respectively. Several discrepancies can be seen in these tables, particularly in the “volatile acidity” coefficients. For instance, the difference in the “volatile acidity” coefficient between the first and second binary models is -0.280, while the difference between the second and third models is 0.361. These differences—especially when compared alongside the standard errors—suggest that the proportional odds assumption may not hold.</p>
+<p>To assess the overall significance of the proportional odds assumption, we perform the likelihood ratio test, which yields a test statistic of <span class="math inline">\(\mathrm{LR} = 53.207\)</span> and a p-value of <span class="math inline">\(1.066 \times 10^{-9}\)</span> when compared to the chi-square distribution with 6 degrees of freedom. This result indicates that the proportional odds assumption is violated at the 5% significance level, suggesting that the model may not be appropriate for the data. We also use the separate fits approach to further investigate this assumption. The Wald test statistic is computed as <span class="math inline">\(X^2 = 41.880\)</span>, with a p-value of <span class="math inline">\(1.232 \times 10^{-7}\)</span>, also based on the chi-square distribution with 6 degrees of freedom. This further confirms that the proportional odds assumption is violated at the 5% significance level.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This paper had two main goals: first, to illustrate how to test the <strong>proportional odds assumption</strong> in the context of <strong>ordinal logistic regression</strong>, and second, to encourage readers to explore <span class="citation" data-cites="brant1990assessing">Brant (<a href="#ref-brant1990assessing" role="doc-biblioref">1990</a>)</span>’s article for a deeper understanding of the topic.</p>
+<p>Brant’s work extends beyond assessing the proportional odds assumption—it also provides methods for evaluating the overall adequacy of the ordinal logistic regression model. For instance, he discusses how to test whether the latent variable <span class="math inline">\(Y^*\)</span> truly follows a logistic distribution or whether an alternative link function might be more appropriate.</p>
+<p>In this article, we focused on a global assessment of the proportional odds assumption, without investigating which specific coefficients may be responsible for any violations. Brant also addresses this finer-grained analysis, which is why we <strong>strongly encourage</strong> you to read his 1990 article in full.</p>
+<p>We welcome any comments or suggestions. Happy reading!</p>
+<div id="0151d3fd" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"winequality-red.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data.head()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Repartition de la variable cible quality </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'quality'</span>].value_counts(normalize<span class="op">=</span><span class="va">False</span>).sort_index()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># I want to regroup modalities 3, 4 and the modalities 7 and 8</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'quality'</span>] <span class="op">=</span> data[<span class="st">'quality'</span>].replace({<span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">8</span>: <span class="dv">7</span>})</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'quality'</span>].value_counts(normalize<span class="op">=</span><span class="va">False</span>).sort_index()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of observations:"</span>, data.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of observations: 1599</code></pre>
+</div>
+</div>
+<div id="61ad1c73" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traitons les outliers des variables privées de la variable cible quality par IQR.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_outliers_iqr(df, column):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Q1 <span class="op">=</span> df[column].quantile(<span class="fl">0.25</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    Q3 <span class="op">=</span> df[column].quantile(<span class="fl">0.75</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    IQR <span class="op">=</span> Q3 <span class="op">-</span> Q1</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    lower_bound <span class="op">=</span> Q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> IQR</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    upper_bound <span class="op">=</span> Q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> IQR</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[(df[column] <span class="op">&gt;=</span> lower_bound) <span class="op">&amp;</span> (df[column] <span class="op">&lt;=</span> upper_bound)]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> data.columns:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> remove_outliers_iqr(data, col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b99482dd" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>var_names_without_quality <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> data.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">##  Create the boxplot of each variable per group of quality</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var <span class="kw">in</span> <span class="bu">enumerate</span>(var_names_without_quality):</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">3</span>, <span class="dv">4</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    sns.boxplot(x<span class="op">=</span><span class="st">'quality'</span>, y<span class="op">=</span>var, data<span class="op">=</span>data)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Boxplot of </span><span class="sc">{</span>var<span class="sc">}</span><span class="ss"> by quality'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Quality'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(var)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="proportional_ordinal_regression_files/figure-html/cell-4-output-1.png" width="1433" height="950" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6be795e8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Implement the ordered logistic regression to variables 'volatile acidity', 'free sulfur dioxide', and 'total sulfur dioxide'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.miscmodels.ordinal_model <span class="im">import</span> OrderedModel</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="op">=</span> [<span class="st">'volatile acidity'</span>, <span class="st">'free sulfur dioxide'</span>, <span class="st">'total sulfur dioxide'</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the explanatory variables</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>data[explanatory_vars] <span class="op">=</span> StandardScaler().fit_transform(data[explanatory_vars])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fit_ordered_logistic_regression(data, response_var, explanatory_vars):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> OrderedModel(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        data[response_var],</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        data[explanatory_vars],</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        distr<span class="op">=</span><span class="st">'logit'</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> model.fit(method<span class="op">=</span><span class="st">'bfgs'</span>, disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>response_var <span class="op">=</span> <span class="st">'quality'</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> fit_ordered_logistic_regression(data, response_var, explanatory_vars)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.summary())</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the log-likelihood of the model</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>log_reduced <span class="op">=</span> result.llf</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Log-likelihood of the reduced model: </span><span class="sc">{</span>log_reduced<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             OrderedModel Results                             
+==============================================================================
+Dep. Variable:                quality   Log-Likelihood:                -1130.1
+Model:                   OrderedModel   AIC:                             2272.
+Method:            Maximum Likelihood   BIC:                             2302.
+Date:                Sat, 07 Jun 2025                                         
+Time:                        17:43:35                                         
+No. Observations:                1135                                         
+Df Residuals:                    1129                                         
+Df Model:                           3                                         
+========================================================================================
+                           coef    std err          z      P&gt;|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+volatile acidity        -0.7180      0.064    -11.302      0.000      -0.842      -0.593
+free sulfur dioxide      0.3627      0.076      4.770      0.000       0.214       0.512
+total sulfur dioxide    -0.5903      0.080     -7.406      0.000      -0.747      -0.434
+4/5                     -3.8601      0.182    -21.153      0.000      -4.218      -3.502
+5/6                      1.3002      0.050     25.863      0.000       1.202       1.399
+6/7                      0.8830      0.042     20.948      0.000       0.800       0.966
+========================================================================================
+Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
+</div>
+</div>
+<div id="427f9d4f" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>num_of_thresholds <span class="op">=</span> <span class="bu">len</span>(result.params) <span class="op">-</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Number of thresholds is total params minus explanatory vars</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>OrderedModel(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        data[response_var],</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        data[explanatory_vars],</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        distr<span class="op">=</span><span class="st">'logit'</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ).transform_threshold_params(result.params[<span class="op">-</span>num_of_thresholds:])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>array([       -inf, -3.86010874, -0.19012621,  2.2279648 ,         inf])</code></pre>
+</div>
+</div>
+<div id="0a7d211a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The likelihood ratio test</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the full multinomial model</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>data_sm <span class="op">=</span> sm.add_constant(data[explanatory_vars])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>model_full <span class="op">=</span> sm.MNLogit(data[response_var], data_sm)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>result_full <span class="op">=</span> model_full.fit(method<span class="op">=</span><span class="st">'bfgs'</span>, disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summary</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result_full.summary())</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Commpute the log-likelihood of the full model</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>log_full <span class="op">=</span> result_full.llf</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Log-likelihood of the full model: </span><span class="sc">{</span>log_full<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the likelihood ratio statistic</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>LR_statistic <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (log_full <span class="op">-</span> log_reduced)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Likelihood Ratio Statistic: </span><span class="sc">{</span>LR_statistic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the degrees of freedom</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> (num_of_thresholds <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="bu">len</span>(explanatory_vars)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> result_full.df_model <span class="op">-</span> OrderedModel(</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        data[response_var],</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        data[explanatory_vars],</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        distr<span class="op">=</span><span class="st">'logit'</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    ).fit().df_model</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Degrees of Freedom: </span><span class="sc">{</span>df1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Degrees of Freedom for the full model: </span><span class="sc">{</span>df2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the p-value</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The LR statistic :"</span>, LR_statistic)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> chi2.sf(LR_statistic, df1)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P-value: </span><span class="sc">{</span>p_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject the null hypothesis: The proportional odds assumption is violated."</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject the null hypothesis: The proportional odds assumption holds."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          MNLogit Regression Results                          
+==============================================================================
+Dep. Variable:                quality   No. Observations:                 1135
+Model:                        MNLogit   Df Residuals:                     1123
+Method:                           MLE   Df Model:                            9
+Date:                Sat, 07 Jun 2025   Pseudo R-squ.:                  0.1079
+Time:                        17:43:36   Log-Likelihood:                -1103.5
+converged:                      False   LL-Null:                       -1236.9
+Covariance Type:            nonrobust   LLR p-value:                 2.753e-52
+========================================================================================
+           quality=5       coef    std err          z      P&gt;|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+const                    3.2418      0.269     12.034      0.000       2.714       3.770
+volatile acidity        -0.6541      0.180     -3.624      0.000      -1.008      -0.300
+free sulfur dioxide      0.2494      0.323      0.772      0.440      -0.384       0.882
+total sulfur dioxide     0.6314      0.310      2.037      0.042       0.024       1.239
+----------------------------------------------------------------------------------------
+           quality=6       coef    std err          z      P&gt;|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+const                    3.2549      0.269     12.089      0.000       2.727       3.783
+volatile acidity        -1.0838      0.184     -5.880      0.000      -1.445      -0.723
+free sulfur dioxide      0.6269      0.325      1.930      0.054      -0.010       1.264
+total sulfur dioxide     0.0723      0.315      0.230      0.818      -0.544       0.689
+----------------------------------------------------------------------------------------
+           quality=7       coef    std err          z      P&gt;|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+const                    1.4139      0.302      4.684      0.000       0.822       2.006
+volatile acidity        -1.8364      0.214     -8.596      0.000      -2.255      -1.418
+free sulfur dioxide      1.0125      0.358      2.830      0.005       0.311       1.714
+total sulfur dioxide    -0.9086      0.389     -2.337      0.019      -1.671      -0.147
+========================================================================================
+Log-likelihood of the full model: -1103.467809036406
+Likelihood Ratio Statistic: 53.20717259748881
+Degrees of Freedom: 6
+Degrees of Freedom for the full model: 6.0
+The LR statistic : 53.20717259748881
+P-value: 1.0658102529671109e-09
+Reject the null hypothesis: The proportional odds assumption is violated.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/juniorjumbong/Desktop/personal-website/.venv/lib/python3.13/site-packages/statsmodels/base/model.py:607: ConvergenceWarning:
+
+Maximum Likelihood optimization failed to converge. Check mle_retvals
+
+/Users/juniorjumbong/Desktop/personal-website/.venv/lib/python3.13/site-packages/statsmodels/base/optimizer.py:737: RuntimeWarning:
+
+Maximum number of iterations has been exceeded.
+
+/Users/juniorjumbong/Desktop/personal-website/.venv/lib/python3.13/site-packages/statsmodels/base/model.py:607: ConvergenceWarning:
+
+Maximum Likelihood optimization failed to converge. Check mle_retvals
+</code></pre>
+</div>
+</div>
+<div id="c321233d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fit_binary_models(data, explanatory_vars, y):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - data : DataFrame pandas original (doit contenir toutes les variables)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">    - explanatory_vars : liste des variables explicatives</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - y : array-like, cible ordinale (n,) (ex: 4, 5, 6, 7)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Retourne :</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">      - binary_models : liste d'objets Logit results (statsmodels)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">      - beta_hat : array (K-1, p+1) (coeffs incluant l'intercept)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">      - var_hat : liste de matrices (p+1, p+1) (variance-covariance complète)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">      - z_mat : DataFrame des variables binaires z_j (pour debug/inspection)</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">      - thresholds : liste des seuils utilisés</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    qualities <span class="op">=</span> np.sort(np.unique(y))   <span class="co"># toutes les modalités, triées</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    thresholds <span class="op">=</span> qualities[:<span class="op">-</span><span class="dv">1</span>]         <span class="co"># seuils pour les modèles binaires (K-1)</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="bu">len</span>(explanatory_vars)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> <span class="bu">len</span>(thresholds)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    binary_models <span class="op">=</span> []</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    beta_hat <span class="op">=</span> np.full((K_1, p<span class="op">+</span><span class="dv">1</span>), np.nan)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    p_values_beta_hat <span class="op">=</span> np.full((K_1, p<span class="op">+</span><span class="dv">1</span>), np.nan)  <span class="co"># pour les p-values</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    var_hat <span class="op">=</span> []</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    z_mat <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>np.arange(n))</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    X_with_const <span class="op">=</span> sm.add_constant(data[explanatory_vars])</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construction et estimation des modèles binaires pour chaque seuil</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, t <span class="kw">in</span> <span class="bu">enumerate</span>(thresholds):</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        z_j <span class="op">=</span> (y <span class="op">&gt;</span> t).astype(<span class="bu">int</span>)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        z_mat[<span class="ss">f'z&gt;</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> z_j</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> sm.Logit(z_j, X_with_const)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        binary_models.append(res)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        beta_hat[j, :] <span class="op">=</span> res.params.values           <span class="co"># Incluant intercept</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        p_values_beta_hat[j, :] <span class="op">=</span> res.pvalues.values  <span class="co"># P-values des coefficients</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>        var_hat.append(res.cov_params().values)      <span class="co"># Covariance complète (p+1, p+1)</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> binary_models, beta_hat, X_with_const, var_hat, z_mat, thresholds</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>binary_models, beta_hat,X_with_const, var_hat, z_mat, thresholds <span class="op">=</span> fit_binary_models(data, explanatory_vars, data[response_var])</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les coefficients estimés</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimated coefficients (beta_hat):"</span>)</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(beta_hat)</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les p-values des coefficients</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"P-values of coefficients (p_values_beta_hat):"</span>)</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_with_const)</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les seuils</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Thresholds:"</span>)</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(thresholds)   </span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"z_mat (variables binaires créées) :</span><span class="ch">\n</span><span class="st">"</span>, z_mat.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated coefficients (beta_hat):
+[[ 4.09606917 -0.88743434  0.63477387  0.20921617]
+ [ 0.15729349 -0.60735704  0.4339553  -0.65663161]
+ [-2.60302245 -0.9677302   0.60691768 -1.30246297]]
+P-values of coefficients (p_values_beta_hat):
+      const  volatile acidity  free sulfur dioxide  total sulfur dioxide
+0       1.0          1.080055            -0.441353             -0.282198
+1       1.0          2.173545             1.189601              1.058458
+2       1.0          1.444552             0.024634              0.530321
+3       1.0         -1.471421             0.257627              0.774077
+4       1.0          1.080055            -0.441353             -0.282198
+...     ...               ...                  ...                   ...
+1594    1.0          0.472561             2.005078              0.124061
+1595    1.0          0.168814             2.820555              0.408443
+1596    1.0         -0.074184             1.655588             -0.038443
+1597    1.0          0.745933             2.005078              0.124061
+1598    1.0         -1.289172             0.374124              0.042809
+
+[1135 rows x 4 columns]
+Thresholds:
+[4 5 6]
+z_mat (variables binaires créées) :
+    z&gt;4  z&gt;5  z&gt;6
+0  1.0  0.0  0.0
+1  1.0  0.0  0.0
+2  1.0  0.0  0.0
+3  1.0  1.0  0.0
+4  1.0  0.0  0.0</code></pre>
+</div>
+</div>
+<div id="f5bd615a" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_pi_hat(binary_models, X_with_const):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">    - binary_models : liste d'objets Logit results (statsmodels)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">    - X_with_const  : matrice (n, p+1) des variables explicatives AVEC constante</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Retourne :</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">      - pi_hat : array (n, K-1) des fitted values pour chaque modèle binaire</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X_with_const.shape[<span class="dv">0</span>]</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> <span class="bu">len</span>(binary_models)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    pi_hat <span class="op">=</span> np.full((n, K_1), np.nan)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> m, model <span class="kw">in</span> <span class="bu">enumerate</span>(binary_models):</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        pi_hat[:, m] <span class="op">=</span> model.predict(X_with_const)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi_hat</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Supposons que tu as :</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># - binary_models (liste)</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># - X_with_const (matrice numpy (n, p+1) créée dans la fonction précédente)</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="op">=</span> compute_pi_hat(binary_models, X_with_const)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de pi_hat :"</span>, pi_hat.shape)  <span class="co"># (n, K-1)</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de pi_hat :</span><span class="ch">\n</span><span class="st">"</span>, pi_hat[:<span class="dv">5</span>, :])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape de pi_hat : (1135, 3)
+Aperçu de pi_hat :
+ [[0.94258882 0.37638681 0.02796232]
+ [0.95866233 0.20724576 0.00466477]
+ [0.94982271 0.25776823 0.00922353]
+ [0.99675485 0.65802083 0.11599334]
+ [0.94258882 0.37638681 0.02796232]]</code></pre>
+</div>
+</div>
+<div id="e381978e" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assemble_varBeta(pi_hat, X_with_const):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Construit la matrice de variance-covariance globale varBeta pour les estimateurs des modèles binaires.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - pi_hat : array (n, K-1), chaque colonne = fitted proba du modèle binaire j</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - X_with_const : array (n, p+1), matrice de design AVEC constante</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Retourne :</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">      - varBeta : array ((K-1)*p, (K-1)*p) [sans l'intercept]</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assure que tout est en numpy</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(X_with_const, <span class="st">'values'</span>):</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> X_with_const.values</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> np.asarray(X_with_const)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    n, p1 <span class="op">=</span> X.shape  <span class="co"># p1 = p + 1 (avec intercept)</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p1 <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> pi_hat.shape[<span class="dv">1</span>]</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialisation de la matrice globale</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    varBeta <span class="op">=</span> np.zeros(((K_1)<span class="op">*</span>p, (K_1)<span class="op">*</span>p))</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pour chaque bloc (j, l)</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(K_1):</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        pi_j <span class="op">=</span> pi_hat[:, j]</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>        Wj <span class="op">=</span> np.diag(pi_j <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pi_j))</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>        X_j <span class="op">=</span> X</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>        Xt <span class="op">=</span> X_j.T</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Diagonale principale (variance de beta_j)</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        inv_XtWjX <span class="op">=</span> np.linalg.pinv(Xt <span class="op">@</span> Wj <span class="op">@</span> X_j)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># On enlève la première ligne/colonne (intercept)</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>        inv_XtWjX_no_const <span class="op">=</span> inv_XtWjX[<span class="dv">1</span>:, <span class="dv">1</span>:]</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>        row_start <span class="op">=</span> j <span class="op">*</span> p</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>        row_end <span class="op">=</span> (j <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> p</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>        varBeta[row_start:row_end, row_start:row_end] <span class="op">=</span> inv_XtWjX_no_const</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Blocs hors diagonale (covariances entre beta_j et beta_l)</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> l <span class="kw">in</span> <span class="bu">range</span>(j <span class="op">+</span> <span class="dv">1</span>, K_1):</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>            pi_l <span class="op">=</span> pi_hat[:, l]</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>            Wml <span class="op">=</span> np.diag(pi_l <span class="op">-</span> pi_j <span class="op">*</span> pi_l)</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>            Wl <span class="op">=</span> np.diag(pi_l <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> pi_l))</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Termes croisés</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>            inv_XtWlX <span class="op">=</span> np.linalg.pinv(Xt <span class="op">@</span> Wl <span class="op">@</span> X_j)</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>            block_vars <span class="op">=</span> (</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>                inv_XtWjX <span class="op">@</span> (Xt <span class="op">@</span> Wml <span class="op">@</span> X_j) <span class="op">@</span> inv_XtWlX</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>            )[<span class="dv">1</span>:, <span class="dv">1</span>:]  <span class="co"># Retirer intercept</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Place les blocs (symétriques)</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>            col_start <span class="op">=</span> l <span class="op">*</span> p</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>            col_end <span class="op">=</span> (l <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> p</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>            varBeta[row_start:row_end, col_start:col_end] <span class="op">=</span> block_vars</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>            varBeta[col_start:col_end, row_start:row_end] <span class="op">=</span> block_vars.T  <span class="co"># symétrie</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> varBeta</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>varBeta <span class="op">=</span> assemble_varBeta(pi_hat, X_with_const)</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de varBeta :"</span>, varBeta.shape)  <span class="co"># ((K-1)*p, (K-1)*p)</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de varBeta :</span><span class="ch">\n</span><span class="st">"</span>, varBeta[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape de varBeta : (9, 9)
+Aperçu de varBeta :
+ [[ 2.87696584e-02  8.96840197e-04 -9.43834509e-04  1.80729535e-03
+   2.32011452e-04]
+ [ 8.96840197e-04  1.09112963e-01 -5.78619412e-02  3.21424832e-04
+   3.10295243e-03]
+ [-9.43834509e-04 -5.78619412e-02  7.73627725e-02 -4.69694598e-04
+  -1.48837502e-03]
+ [ 1.80729535e-03  3.21424832e-04 -4.69694598e-04  4.61543407e-03
+   1.04759944e-04]
+ [ 2.32011452e-04  3.10295243e-03 -1.48837502e-03  1.04759944e-04
+   7.48753786e-03]]</code></pre>
+</div>
+</div>
+<div id="c13f6b34" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fill_varBeta_diagonal(varBeta, var_hat):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> <span class="bu">len</span>(var_hat)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> var_hat[<span class="dv">0</span>].shape[<span class="dv">0</span>] <span class="op">-</span> <span class="dv">1</span>  <span class="co"># -1 car on enlève l'intercept</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(K_1):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        block <span class="op">=</span> var_hat[m][<span class="dv">1</span>:, <span class="dv">1</span>:]  <span class="co"># enlève intercept</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        row_start <span class="op">=</span> m <span class="op">*</span> p</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        row_end <span class="op">=</span> (m <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> p</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        varBeta[row_start:row_end, row_start:row_end] <span class="op">=</span> block</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> varBeta</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># betaStar : concaténation des coefficients sans intercept</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>betaStar <span class="op">=</span> beta_hat[:, <span class="dv">1</span>:].flatten()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compléter les blocs diagonaux de varBeta</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>varBeta <span class="op">=</span> fill_varBeta_diagonal(varBeta, var_hat)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de varBeta après remplissage diagonal :"</span>, varBeta.shape)  <span class="co"># ((K-1)*p, (K-1)*p)</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de varBeta après remplissage diagonal :</span><span class="ch">\n</span><span class="st">"</span>, varBeta[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu    </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape de varBeta après remplissage diagonal : (9, 9)
+Aperçu de varBeta après remplissage diagonal :
+ [[ 2.87696584e-02  8.96840197e-04 -9.43834509e-04  1.80729535e-03
+   2.32011452e-04]
+ [ 8.96840197e-04  1.09112963e-01 -5.78619412e-02  3.21424832e-04
+   3.10295243e-03]
+ [-9.43834509e-04 -5.78619412e-02  7.73627725e-02 -4.69694598e-04
+  -1.48837502e-03]
+ [ 1.80729535e-03  3.21424832e-04 -4.69694598e-04  4.61543407e-03
+   1.04759944e-04]
+ [ 2.32011452e-04  3.10295243e-03 -1.48837502e-03  1.04759944e-04
+   7.48753786e-03]]</code></pre>
+</div>
+</div>
+<div id="ee76f532" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construct_D(K_1, p):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Construit la matrice D de taille ((K-2)*p, (K-1)*p) pour le test de Wald.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    K_1 : nombre de seuils (K-1)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    p   : nombre de variables explicatives (hors intercept)</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.zeros(((K_1<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>p, K_1<span class="op">*</span>p))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    I <span class="op">=</span> np.eye(p)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(K_1<span class="op">-</span><span class="dv">1</span>):  <span class="co"># i = 0 à K-2</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(K_1):</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> j <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                temp <span class="op">=</span> I</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> j <span class="op">==</span> i<span class="op">+</span><span class="dv">1</span>:</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                temp <span class="op">=</span> <span class="op">-</span>I</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>                temp <span class="op">=</span> np.zeros((p, p))</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            col_start <span class="op">=</span> j<span class="op">*</span>p</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>            col_end <span class="op">=</span> (j<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>p</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>            row_start <span class="op">=</span> i<span class="op">*</span>p</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>            row_end <span class="op">=</span> (i<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>p</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            D[row_start:row_end, col_start:col_end] <span class="op">+=</span> temp</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> D</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> construct_D(<span class="bu">len</span>(thresholds), <span class="bu">len</span>(explanatory_vars))</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de D :"</span>, D.shape)  <span class="co"># ((K-2)*p, (K-1)*p)</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de D :</span><span class="ch">\n</span><span class="st">"</span>, D[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape de D : (6, 9)
+Aperçu de D :
+ [[ 1.  0.  0. -1.  0.]
+ [ 0.  1.  0.  0. -1.]
+ [ 0.  0.  1.  0.  0.]
+ [ 1.  0.  0.  0.  0.]
+ [ 0.  1.  0.  0.  0.]]</code></pre>
+</div>
+</div>
+<div id="9206891f" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wald_statistic(D, betaStar, varBeta):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la statistique de Wald X^2 pour le test de proportionnalité.</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    Db <span class="op">=</span> D <span class="op">@</span> betaStar</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    V <span class="op">=</span> D <span class="op">@</span> varBeta <span class="op">@</span> D.T</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Symétriser V pour stabilité</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#V = 0.5 * (V + V.T)</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Utilise le pseudo-inverse par sécurité numérique</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    inv_V <span class="op">=</span> np.linalg.inv(V)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    X2 <span class="op">=</span> <span class="bu">float</span>(Db.T <span class="op">@</span> inv_V <span class="op">@</span> Db)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="918baeca" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Supposons que tu as K_1, p, betaStar, varBeta</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>K_1 <span class="op">=</span> <span class="bu">len</span>(binary_models)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Nombre de variables explicatives (hors intercept)</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> construct_D(K_1, p)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> wald_statistic(D, betaStar, varBeta)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ddl <span class="op">=</span> (K_1<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>p</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>pval <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> chi2.cdf(X2, ddl)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistique X² = </span><span class="sc">{</span>X2<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Degrés de liberté = </span><span class="sc">{</span>ddl<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value = </span><span class="sc">{</span>pval<span class="sc">:.4g}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistique X² = 42.8803
+Degrés de liberté = 6
+p-value = 1.232e-07</code></pre>
+</div>
+</div>
+
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-brant1990assessing" class="csl-entry" role="listitem">
+Brant, Rollin. 1990. <span>“Assessing Proportionality in the Proportional Odds Model for Ordinal Logistic Regression.”</span> <em>Biometrics</em>, 1171–78.
+</div>
+<div id="ref-wine_quality_186" class="csl-entry" role="listitem">
+Cortez, Cerdeira, Paulo, and J. Reis. 2009. <span>“<span>Wine Quality</span>.”</span> UCI Machine Learning Repository.
+</div>
+<div id="ref-mccullagh1980regression" class="csl-entry" role="listitem">
+McCullagh, Peter. 1980. <span>“Regression Models for Ordinal Data.”</span> <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 42 (2): 109–27.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

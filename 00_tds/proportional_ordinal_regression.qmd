@@ -1,0 +1,653 @@
+---
+title: "Proportional Odds Model for Ordinal Logistic Regression"
+subtitle: "Assessing Proportionality in the Proportional Odds Model for Ordinal Logistic Regression using python"
+date: last-modified
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+
+categories: []
+tags: [Time Series, Spurious Regression]
+title-block-banner: false
+bibliography: references.bib
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 1.1em
+
+jupyter: python3
+notice: |
+    @mccullagh1980regression @brant1990assessing @wine_quality_186
+---
+
+Certainly! Here is a more fluent and clear version in American English:
+
+---
+
+The proportional odds model for ordinal logistic regression was first introduced by @mccullagh1980regression. This model extends binary logistic regression to situations where the dependent variable is ordinal—that is, it consists of ordered categorical values. The proportional odds model is built on several assumptions, including independence of observations, linearity of the log-odds, absence of multicollinearity among predictors, and, most importantly, the proportional odds assumption. This last assumption states that the regression coefficients are constant across all thresholds of the ordinal dependent variable. Ensuring the proportional odds assumption holds is crucial for the validity and interpretability of the model.
+
+A variety of methods have been proposed in the literature to assess model fit and, in particular, to test the proportional odds assumption. In this paper, we focus on two approaches developed by Brant in his article @brant1990assessing, "Assessing Proportionality in the Proportional Odds Model for Ordinal Logistic Regression." We also demonstrate how to implement these techniques in Python, applying them to real-world data. Whether you come from a background in data science, machine learning, or statistics, this article aims to help your understand how to evaluate model fit in ordinal logistic regression.
+
+This paper is organized into four main sections:
+
+1. The first section introduces the proportional odds model and its assumptions.
+2. The second section discusses how to assess the proportional odds assumption using the likelihood ratio test.
+3. The third section covers the assessment of the proportional odds assumption using the separate fits approach.
+4. The final section provides examples, illustrating the implementation of these assessment methods in Python with data.
+
+
+
+## Introduction to the Proportional Odds Model
+
+Before presenting the model, we introduce the data structure. We assume we have $N$ independent observations. Each observation is represented by a vector of $p$ explanatory variables $X_i = (X_{i1}, X_{i2}, \ldots, X_{ip})$, along with a dependent or response variable $Y$ that takes ordinal values from $1$ to $K$. The proportional odds model specifically models the cumulative distribution probabilities of the response variable $Y$, defined as $\gamma_j = P(Y \leq j \mid X_i)$ for $j = 1, 2, \dots, K-1$, as functions of the explanatory variables $X_i$. The model is formulated as follows:
+
+$$
+\text{logit}(\gamma_j) = \log\left(\frac{\gamma_j}{1 - \gamma_j}\right) = \theta_j - \beta^\top \mathbf{X}
+$$ {#eq-proportional_odds_model}
+
+Where $\theta_j$ are the intercepts for each category j and respect the condition $\theta_1 < \theta_2 < ... < \theta_{K-1}$, and $\beta$ is the vector of regression coefficients which are the same for all categories. 
+We observe a monotonic trend in the coefficients $\theta_j$ across the categories of the response variable Y.
+
+
+This model is also known as the grouped continuous model, as it can be derived by assuming the existence of a continuous latent variable $Y^*$. This latent variable follows a linear regression model with conditional mean $\eta = \boldsymbol{\beta}^{\top} \mathbf{X}$, and it relates to the observed ordinal variable $Y$ through thresholds $\theta_j$ defined as follows:
+$$
+y^* = {\beta}^{T}\mathbf{X} + \epsilon
+$$ {#eq-latent_variable_model}
+
+
+where $\epsilon$ is an error term (random noise), generally assumed to follow a standard logistic distribution in the proportional odds model.
+
+The latent variable $Y^*$ is unobserved and partitioned into intervals defined by thresholds $\theta_1, \theta_2, \dots, \theta_{K-1}$, generating the observed ordinal variable $Y$ as follows:
+
+$$
+Y = \begin{cases}
+1 & \text{if } Y^* \leq \theta_1 \\
+2 & \text{if } \theta_1 < Y^* \leq \theta_2 \\
+\vdots & \\
+K & \text{if } Y^* > \theta_{K-1}
+\end{cases}
+$$ {#eq-observed_variable_model}
+
+
+
+In the next section, we introduce the various approaches proposed by @brant1990assessing for assessing the proportional odds assumption. These methods evaluate whether the regression coefficients remain constant across the categories defined by the ordinal response variable.
+
+## Assessing the Proportional Odds Assumption: The Likelihood Ratio Test
+
+To assess the proportional odds assumption in an ordinal logistic regression model, @brant1990assessing proposes the use of the likelihood ratio test. This approach begins by fitting a less restrictive model in which the regression coefficients are allowed to vary across categories. This model is expressed as:
+$$
+\text{logit}(\gamma_j) = \theta_j - \beta_j^\top \mathbf{X}
+$$ {#eq-likelihood_ratio_model}
+
+where $\beta_j$ is the vector of regression coefficients for each category j. Here the coefficients $\beta_j$ are allowed to vary across categories, which means that the proportional odds assumption is not satisfied. We then use the conventionnel likelihood ratio test to assess the hypothesis :
+$$
+H_0: \beta_j = \beta \quad \text{for all } j = 1, 2, \ldots, K-1
+$$ {#eq-likelihood_ratio_test}
+
+To perform this test, we conduct a likelihood ratio test comparing the unconstrained (non-proportional or satured) model with the constrained (proportional odds or reduced) model. 
+
+Before proceeding further, we briefly recall how to use the likelihood ratio test in hypothesis testing. Suppose we want to evaluate the null hypothesis $H_0 : \theta \in \Theta_0$ against the alternative $H_1 : \theta \in \Theta_1$, 
+
+The likelihood ratio statistic is defined as:
+$$
+\lambda = 2 \log\left(\frac{\displaystyle\sup_{\theta \in \Theta}\mathcal{L}(\theta)}{\displaystyle\sup_{\theta \in \Theta_0}\mathcal{L}(\theta)}\right) 
+= 2\log\left(\frac{\mathcal{L}(\hat{\theta})}{\mathcal{L}(\hat{\theta}_0)}\right),
+$${#eq-likelihood_ratio_statistic}
+
+where $\mathcal{L}(\theta)$ is the likelihood function, $\hat{\theta}$ is the maximum likelihood estimate (MLE) under the full model, and $\hat{\theta}_0$ is the MLE under the constrained model. The test statistic $\lambda$ follows a chi-square distribution with degrees of freedom equal to the difference in the number of parameters between the full and constrained models.
+
+
+
+Here, $\hat{\theta}$ is the **maximum likelihood estimate (MLE)** under the full (unconstrained) model, and $\hat{\theta}_0$ is the MLE under the constrained model where the proportional odds assumption holds. The test statistic $\lambda$ follows a chi-square distribution under the null hypothesis.
+
+
+In a general setting, suppose the full parameter space is denoted by
+
+$$
+\Theta = (\theta_1, \theta_2, \ldots, \theta_q, \ldots, \theta_p),
+$$
+
+and the restricted parameter space under the null hypothesis is
+
+$$
+\Theta_0 = (\theta_1, \theta_2, \ldots, \theta_q).
+$$
+
+**(Note: These parameters are generic and should not be confused with the $K - 1$ thresholds or intercepts in the proportional odds model.)**, the likelihood ratio test statistic $\lambda$ follows a chi-square distribution with $p - q$ degrees of freedom. Where $p$ represents the total number of parameters in the full (unconstrained or "saturated") model, while $K - 1$ corresponds to the number of parameters in the reduced (restricted) model.
+
+
+Now, let us apply this approach to the ordinal logistic regression model with the proportional odds assumption.
+Assume that our response variable has $K$ ordered categories and that we have $p$ predictor variables.
+To use the likelihood ratio test to evaluate the proportional odds assumption, we need to compare two models:
+
+
+#### 1. **Unconstrained Model (non-proportional odds):**
+
+
+This model allows each outcome threshold to have its own set of regression coefficients, meaning that we do not assume the regression coefficients are equal across all thresholds. The model is defined as:
+
+$$
+\text{logit}(\mathbb{P}(Y \leq j \mid \mathbf{X})) = \theta_j - \boldsymbol{\beta}_j^\top \mathbf{X}
+$$
+
+* There are $K - 1$ threshold (intercept) parameters: $\theta_1, \theta_2, \ldots, \theta_{K-1}$
+* Each threshold has its own vector of slope coefficients ${\beta}_j$ of dimension $p$
+
+Thus, the total number of parameters in the unconstrained model is:
+
+$$
+(K - 1) \text{ thresholds} + (K - 1) \times p \text{ slopes} = (K - 1)(p + 1)
+$$
+
+#### 2. **Proportional Odds Model:**
+
+This model assumes a single set of regression coefficients for all thresholds:
+
+$$
+\text{logit}(\mathbb{P}(Y \leq j \mid \mathbf{X})) = \theta_j - {\beta}^\top \mathbf{X}
+$$
+
+* There are $K - 1$ threshold parameters
+* There is one common slope vector ${\beta}$ for all $j$
+
+Thus, the total number of parameters in the proportional odds model is:
+
+$$
+(K - 1) \text{ thresholds} + p \text{ slopes} = (K - 1) + p
+$$
+
+
+
+Thus, the likelihood ratio test statistic follows a chi-square distribution with degrees of freedom:
+
+$$
+\text{df} = [(K - 1) \times (p+1)] - [(K - 1) + p] = (K - 2) \times p
+$${#eq-likelihood_ratio_df}
+
+
+This test provides a formal way to assess whether the proportional odds assumption holds for the given data. At a significance level of 1%, 5%, or any other conventional threshold, the proportional odds assumption is rejected if the test statistic $\lambda$ exceeds the critical value from the chi-square distribution with $(K - 2) \times p$ degrees of freedom. 
+
+In other words, we reject the null hypothesis
+
+$$
+H_0 : {\beta}_1 = {\beta}_2 = \cdots = {\beta}_{K-1} = {\beta},
+$$
+
+which states that the regression coefficients are equal across all cumulative logits. This test has the advantage of being straightforward to implement and provides an overall assessment of the proportional odds assumption.
+
+In the next section, we introduce the proportional odds test based on separate fits.
+
+2. **Assessing the Proportional Odds Assumption: The Separate Fits Approach**
+
+To understand this part, you must understand the Mahalanobis distance and its properties. The Mahalanobis distance can be used to measure the dissimilarity between two vectors $x=(x_1, x_2, \ldots, x_p)^\top$ and $y=(y_1, y_2, \ldots, y_p)^\top$ in a multivariate space with the same distribution. It is defined as:
+$$
+D_M(x, y) = \sqrt{(x - y)^\top \Sigma^{-1} (x - y)}
+$${#eq-mahalanobis_distance}
+
+where $\Sigma$ is the covariance matrix of the distribution. The Mahalanobis distance is linked with the $\chi^2$ distribution, specifically, if $X \sim N(\mu, \Sigma)$ is a p-dimensional normal random vector, with the mean $\mu$ and covariance matrix $\Sigma$, then the Mahalanobis distance $D_M(X, \mu)$ follows a $\chi^2$ distribution with $p$ degrees of freedom. This step is essential for understanding how to assess proportionality using separate fits. You will see why shortly.
+
+In fact, the author notes that the natural approach to evaluating the proportional odds assumption is to fit a set of $K-1$ binary logistic regression models (where $K$ is the number of categories of the response variable), and then use the statistical properties of the estimated parameters to construct a test statistic for the proportional odds hypothesis.
+
+The procedure is as follows:
+
+First, we construct separate binary logistic regression models for each threshold $j = 1, 2, \ldots, K-1$ of the ordinal response variable $Y$. For each threshold $j$, we define a binary variable $Z_j$, which takes the value 1 if the observation exceeds threshold $j$, and 0 otherwise. Specifically, we have:
+$$
+Z_j = \begin{cases}
+0 & \text{if } Y > j \\
+0 & \text{if } Y \leq j
+\end{cases}
+$${#eq-binary_response}
+
+With the probaility, $\pi_j = P(Z_j = 1 \mid \mathbf{X}) = 1 - \gamma_j$ satisfying the logistic regression model:
+$$
+\text{logit}(\pi_j) = \theta_j - \beta_j^\top \mathbf{X}.
+$${#eq-binary_logit_model}
+
+
+Then, assessing the proportional odds assumption in this context involves testing the hypothesis that the regression coefficients $\beta_j$ are equal across all $K-1$ models. This is equivalent to testing the hypothesis:
+
+$$
+H_0 : \beta_1 = \beta_2 = \cdots = \beta_{K-1} = \beta
+$${#eq-proportional_odds_hypothesis}
+
+
+
+Let $\hat{\beta}_j$ denote the maximum likelihood estimators of the regression coefficients for each binary model, and let $\hat{\beta} = (\hat{\beta}_1^\top, \hat{\beta}_2^\top, \ldots, \hat{\beta}_{K-1}^\top)^\top$ represent the global vector of estimators. This vector is asymptotically normally distributed, such that $\mathbb{E}(\hat{\beta}_j) \approx \beta$, with variance-covariance matrix $\mathbb{V}(\hat{\beta}_j)$. The general term of this matrix, $\text{cov}(\hat{\beta}_j, \hat{\beta}_k)$, needs to be determined and is given by:
+
+
+$$
+\widehat{V}(\hat{\boldsymbol{\beta}}) =
+\begin{bmatrix}
+\text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_1) & \text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_2) & \cdots & \text{Cov}(\hat{\boldsymbol{\beta}}_1, \hat{\boldsymbol{\beta}}_{K-1}) \\
+\text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_1) & \text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_2) & \cdots & \text{Cov}(\hat{\boldsymbol{\beta}}_2, \hat{\boldsymbol{\beta}}_{K-1}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_1) & \text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_2) & \cdots & \text{Cov}(\hat{\boldsymbol{\beta}}_{K-1}, \hat{\boldsymbol{\beta}}_{K-1})
+\end{bmatrix}
+\in \mathbb{R}^{(K-1)p \times (K-1)p}
+$${#eq-variance_covariance_matrix}
+
+where $\text{Cov}(\hat{\boldsymbol{\beta}}_j, \hat{\boldsymbol{\beta}}_k)$ is the covariance between the estimated coefficients of the $j$-th and $k$-th binary models.
+To evaluate the proportional odds assumption, Brant constructs a matrix $\mathbf{D}$ that captures the differences between the coefficients $\hat{\beta}_j$. Recall that each vector $\hat{\beta}_j$ has dimension $p$. The matrix $\mathbf{D}$ is defined as follows:
+
+
+$$
+\mathbf{D} = 
+\begin{bmatrix}
+I & -I & 0 & \cdots & 0 \\
+I & 0 & -I & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+I & 0 & 0 & \cdots & -I \\
+\end{bmatrix}
+\in \mathbb{R}^{(K-2)p \times (K-1)p}
+$${#eq-difference_matrix}
+
+where $I$ is the identity matrix of size $p \times p$.  The first row of the matrix D corresponds to the difference between the first and second coefficients, the second row corresponds to the difference between the second and third coefficients, and so on, until the last row which corresponds to the difference between the $(K-2)$-th and $(K-1)$-th coefficients. We can notice that the product $\mathbf{D} \hat{{\beta}}$ will yield a vector of differences between the coefficients $\hat{\beta_j}$. 
+
+Once the matrix $\mathbf{D}$ is constructed, Brant defines the Wald statistic $X^2$ to test the proportional odds assumption. This statistic can be interpreted as the Mahalanobis distance between the vector $\mathbf{D} \hat{\boldsymbol{\beta}}$ and the zero vector. The Wald statistic is defined as follows:
+
+$$
+X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}}) \mathbf{D}^\top \right]^{-1} (\mathbf{D} \hat{{\beta}})
+$${#eq-wald_statistic}
+
+which will be asymptotically $\chi^2$ distributed with $(K - 2)p$ degrees of freedom under the null hypothesis. The challenging part here is to determine the variance-covariance matrix $\widehat{V}(\hat{\beta})$. In his article, Brant provides an explicit estimator for this variance-covariance matrix, which is based on the maximum likelihood estimators $\hat{\beta}_j$ from each binary model.
+
+In the following sections, we implement these approaches in Python, using the `statsmodels` package for the regressions and statistical tests.
+
+## Example
+
+
+
+The data for this example comes from the "Wine Quality" dataset, which contains information about red wine samples and their quality ratings. The dataset includes 1,599 observations and 12 variables. The target variable, "quality," is ordinal and originally ranges from 3 to 8. To ensure enough observations in each group, we combine categories 3 and 4 into a single category (labeled 4), and categories 7 and 8 into a single category (labeled 7), so the response variable has four levels. We then handle outliers in the explanatory variables using the Interquartile Range (IQR) method. Finally, we select three predictors—volatile acidity, free sulfur dioxide, and total sulfur dioxide—to use in our ordinal logistic regression model, and we standardize these variables to have a mean of 0 and a standard deviation of 1.
+
+Tables 1 and 2 present the results of the three binary logistic regression models and the proportional odds model, respectively. Several discrepancies can be seen in these tables, particularly in the "volatile acidity" coefficients. For instance, the difference in the "volatile acidity" coefficient between the first and second binary models is -0.280, while the difference between the second and third models is 0.361. These differences—especially when compared alongside the standard errors—suggest that the proportional odds assumption may not hold.
+
+
+
+To assess the overall significance of the proportional odds assumption, we perform the likelihood ratio test, which yields a test statistic of $\mathrm{LR} = 53.207$ and a p-value of $1.066 \times 10^{-9}$ when compared to the chi-square distribution with 6 degrees of freedom. This result indicates that the proportional odds assumption is violated at the 5% significance level, suggesting that the model may not be appropriate for the data. We also use the separate fits approach to further investigate this assumption. The Wald test statistic is computed as $X^2 = 41.880$, with a p-value of $1.232 \times 10^{-7}$, also based on the chi-square distribution with 6 degrees of freedom. This further confirms that the proportional odds assumption is violated at the 5% significance level.
+
+
+## Conclusion
+
+This paper had two main goals: first, to illustrate how to test the **proportional odds assumption** in the context of **ordinal logistic regression**, and second, to encourage readers to explore @brant1990assessing’s article for a deeper understanding of the topic.
+
+Brant’s work extends beyond assessing the proportional odds assumption—it also provides methods for evaluating the overall adequacy of the ordinal logistic regression model. For instance, he discusses how to test whether the latent variable $Y^*$ truly follows a logistic distribution or whether an alternative link function might be more appropriate.
+
+In this article, we focused on a global assessment of the proportional odds assumption, without investigating which specific coefficients may be responsible for any violations. Brant also addresses this finer-grained analysis, which is why we **strongly encourage** you to read his 1990 article in full.
+
+
+
+We welcome any comments or suggestions. Happy reading!
+
+
+
+
+
+```{python}
+
+import pandas as pd
+
+data = pd.read_csv("winequality-red.csv", sep=";")
+data.head()
+
+# Repartition de la variable cible quality 
+
+data['quality'].value_counts(normalize=False).sort_index()
+
+# I want to regroup modalities 3, 4 and the modalities 7 and 8
+data['quality'] = data['quality'].replace({3: 4, 8: 7})
+data['quality'].value_counts(normalize=False).sort_index()
+print("Number of observations:", data.shape[0])
+```
+
+
+```{python}
+# Traitons les outliers des variables privées de la variable cible quality par IQR.
+
+def remove_outliers_iqr(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    return df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+for col in data.columns:
+    if col != 'quality':
+        data = remove_outliers_iqr(data, col)
+```
+
+```{python}
+var_names_without_quality = [col for col in data.columns if col != 'quality']
+
+##  Create the boxplot of each variable per group of quality
+import matplotlib.pyplot as plt
+import seaborn as sns
+plt.figure(figsize=(15, 10))
+for i, var in enumerate(var_names_without_quality):
+    plt.subplot(3, 4, i + 1)
+    sns.boxplot(x='quality', y=var, data=data)
+    plt.title(f'Boxplot of {var} by quality')
+    plt.xlabel('Quality')
+    plt.ylabel(var)
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Implement the ordered logistic regression to variables 'volatile acidity', 'free sulfur dioxide', and 'total sulfur dioxide'
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+from sklearn.preprocessing import StandardScaler
+explanatory_vars = ['volatile acidity', 'free sulfur dioxide', 'total sulfur dioxide']
+# Standardize the explanatory variables
+data[explanatory_vars] = StandardScaler().fit_transform(data[explanatory_vars])
+
+def fit_ordered_logistic_regression(data, response_var, explanatory_vars):
+    model = OrderedModel(
+        data[response_var],
+        data[explanatory_vars],
+        distr='logit'
+    )
+    result = model.fit(method='bfgs', disp=False)
+    return result
+response_var = 'quality'
+
+result = fit_ordered_logistic_regression(data, response_var, explanatory_vars)
+print(result.summary())
+# Compute the log-likelihood of the model
+log_reduced = result.llf
+print(f"Log-likelihood of the reduced model: {log_reduced}")
+```
+
+
+```{python}
+num_of_thresholds = len(result.params) - len(explanatory_vars)  # Number of thresholds is total params minus explanatory vars
+OrderedModel(
+        data[response_var],
+        data[explanatory_vars],
+        distr='logit'
+    ).transform_threshold_params(result.params[-num_of_thresholds:])
+```
+
+```{python}
+# The likelihood ratio test
+# Compute the full multinomial model
+import statsmodels.api as sm
+
+data_sm = sm.add_constant(data[explanatory_vars])
+model_full = sm.MNLogit(data[response_var], data_sm)
+result_full = model_full.fit(method='bfgs', disp=False)
+#summary
+print(result_full.summary())
+# Commpute the log-likelihood of the full model
+log_full = result_full.llf
+print(f"Log-likelihood of the full model: {log_full}")
+
+# Compute the likelihood ratio statistic
+
+LR_statistic = 2 * (log_full - log_reduced)
+print(f"Likelihood Ratio Statistic: {LR_statistic}")
+
+# Compute the degrees of freedom
+df1 = (num_of_thresholds - 1) * len(explanatory_vars)
+df2 = result_full.df_model - OrderedModel(
+        data[response_var],
+        data[explanatory_vars],
+        distr='logit'
+    ).fit().df_model
+print(f"Degrees of Freedom: {df1}")
+print(f"Degrees of Freedom for the full model: {df2}")
+
+# Compute the p-value
+from scipy.stats import chi2
+print("The LR statistic :", LR_statistic)
+p_value = chi2.sf(LR_statistic, df1)
+print(f"P-value: {p_value}")
+if p_value < 0.05:
+    print("Reject the null hypothesis: The proportional odds assumption is violated.")
+else:
+    print("Fail to reject the null hypothesis: The proportional odds assumption holds.")
+```
+
+
+
+
+```{python}
+import numpy as np
+import statsmodels.api as sm
+import pandas as pd
+
+def fit_binary_models(data, explanatory_vars, y):
+    """
+    - data : DataFrame pandas original (doit contenir toutes les variables)
+    - explanatory_vars : liste des variables explicatives
+    - y : array-like, cible ordinale (n,) (ex: 4, 5, 6, 7)
+
+    Retourne :
+      - binary_models : liste d'objets Logit results (statsmodels)
+      - beta_hat : array (K-1, p+1) (coeffs incluant l'intercept)
+      - var_hat : liste de matrices (p+1, p+1) (variance-covariance complète)
+      - z_mat : DataFrame des variables binaires z_j (pour debug/inspection)
+      - thresholds : liste des seuils utilisés
+    """
+    qualities = np.sort(np.unique(y))   # toutes les modalités, triées
+    thresholds = qualities[:-1]         # seuils pour les modèles binaires (K-1)
+    p = len(explanatory_vars)
+    n = len(y)
+    K_1 = len(thresholds)
+
+    binary_models = []
+    beta_hat = np.full((K_1, p+1), np.nan)
+    p_values_beta_hat = np.full((K_1, p+1), np.nan)  # pour les p-values
+    var_hat = []
+    z_mat = pd.DataFrame(index=np.arange(n))
+    X_with_const = sm.add_constant(data[explanatory_vars])
+
+    # Construction et estimation des modèles binaires pour chaque seuil
+    for j, t in enumerate(thresholds):
+        z_j = (y > t).astype(int)
+        z_mat[f'z>{t}'] = z_j
+        model = sm.Logit(z_j, X_with_const)
+        res = model.fit(disp=0)
+        binary_models.append(res)
+        beta_hat[j, :] = res.params.values           # Incluant intercept
+        p_values_beta_hat[j, :] = res.pvalues.values  # P-values des coefficients
+        var_hat.append(res.cov_params().values)      # Covariance complète (p+1, p+1)
+
+    return binary_models, beta_hat, X_with_const, var_hat, z_mat, thresholds
+binary_models, beta_hat,X_with_const, var_hat, z_mat, thresholds = fit_binary_models(data, explanatory_vars, data[response_var])
+# Afficher les coefficients estimés
+print("Estimated coefficients (beta_hat):")
+print(beta_hat)
+# Afficher les p-values des coefficients
+print("P-values of coefficients (p_values_beta_hat):")
+print(X_with_const)
+# Afficher les seuils
+print("Thresholds:")
+print(thresholds)   
+print("z_mat (variables binaires créées) :\n", z_mat.head())
+```
+
+
+
+```{python}
+def compute_pi_hat(binary_models, X_with_const):
+    """
+    - binary_models : liste d'objets Logit results (statsmodels)
+    - X_with_const  : matrice (n, p+1) des variables explicatives AVEC constante
+
+    Retourne :
+      - pi_hat : array (n, K-1) des fitted values pour chaque modèle binaire
+    """
+    n = X_with_const.shape[0]
+    K_1 = len(binary_models)
+    pi_hat = np.full((n, K_1), np.nan)
+    for m, model in enumerate(binary_models):
+        pi_hat[:, m] = model.predict(X_with_const)
+    return pi_hat
+
+# Supposons que tu as :
+# - binary_models (liste)
+# - X_with_const (matrice numpy (n, p+1) créée dans la fonction précédente)
+
+pi_hat = compute_pi_hat(binary_models, X_with_const)
+print("Shape de pi_hat :", pi_hat.shape)  # (n, K-1)
+print("Aperçu de pi_hat :\n", pi_hat[:5, :])
+
+
+
+```
+
+
+
+```{python}
+import numpy as np
+
+def assemble_varBeta(pi_hat, X_with_const):
+    """
+    Construit la matrice de variance-covariance globale varBeta pour les estimateurs des modèles binaires.
+    - pi_hat : array (n, K-1), chaque colonne = fitted proba du modèle binaire j
+    - X_with_const : array (n, p+1), matrice de design AVEC constante
+
+    Retourne :
+      - varBeta : array ((K-1)*p, (K-1)*p) [sans l'intercept]
+    """
+    # Assure que tout est en numpy
+    if hasattr(X_with_const, 'values'):
+        X = X_with_const.values
+    else:
+        X = np.asarray(X_with_const)
+    n, p1 = X.shape  # p1 = p + 1 (avec intercept)
+    p = p1 - 1
+    K_1 = pi_hat.shape[1]
+
+    # Initialisation de la matrice globale
+    varBeta = np.zeros(((K_1)*p, (K_1)*p))
+
+    # Pour chaque bloc (j, l)
+    for j in range(K_1):
+        pi_j = pi_hat[:, j]
+        Wj = np.diag(pi_j * (1 - pi_j))
+        X_j = X
+        Xt = X_j.T
+
+        # Diagonale principale (variance de beta_j)
+        inv_XtWjX = np.linalg.pinv(Xt @ Wj @ X_j)
+        # On enlève la première ligne/colonne (intercept)
+        inv_XtWjX_no_const = inv_XtWjX[1:, 1:]
+
+        row_start = j * p
+        row_end = (j + 1) * p
+        varBeta[row_start:row_end, row_start:row_end] = inv_XtWjX_no_const
+
+        # Blocs hors diagonale (covariances entre beta_j et beta_l)
+        for l in range(j + 1, K_1):
+            pi_l = pi_hat[:, l]
+            Wml = np.diag(pi_l - pi_j * pi_l)
+            Wl = np.diag(pi_l * (1 - pi_l))
+            # Termes croisés
+            inv_XtWlX = np.linalg.pinv(Xt @ Wl @ X_j)
+            block_vars = (
+                inv_XtWjX @ (Xt @ Wml @ X_j) @ inv_XtWlX
+            )[1:, 1:]  # Retirer intercept
+            # Place les blocs (symétriques)
+            col_start = l * p
+            col_end = (l + 1) * p
+            varBeta[row_start:row_end, col_start:col_end] = block_vars
+            varBeta[col_start:col_end, row_start:row_end] = block_vars.T  # symétrie
+
+    return varBeta
+
+varBeta = assemble_varBeta(pi_hat, X_with_const)
+print("Shape de varBeta :", varBeta.shape)  # ((K-1)*p, (K-1)*p)
+print("Aperçu de varBeta :\n", varBeta[:5, :5])  # Afficher un aperçu
+```
+
+
+```{python}
+def fill_varBeta_diagonal(varBeta, var_hat):
+    K_1 = len(var_hat)
+    p = var_hat[0].shape[0] - 1  # -1 car on enlève l'intercept
+    for m in range(K_1):
+        block = var_hat[m][1:, 1:]  # enlève intercept
+        row_start = m * p
+        row_end = (m + 1) * p
+        varBeta[row_start:row_end, row_start:row_end] = block
+    return varBeta
+
+# betaStar : concaténation des coefficients sans intercept
+betaStar = beta_hat[:, 1:].flatten()
+
+# Compléter les blocs diagonaux de varBeta
+varBeta = fill_varBeta_diagonal(varBeta, var_hat)
+print("Shape de varBeta après remplissage diagonal :", varBeta.shape)  # ((K-1)*p, (K-1)*p)
+print("Aperçu de varBeta après remplissage diagonal :\n", varBeta[:5, :5])  # Afficher un aperçu    
+```
+
+
+
+```{python}
+import numpy as np
+
+def construct_D(K_1, p):
+    """
+    Construit la matrice D de taille ((K-2)*p, (K-1)*p) pour le test de Wald.
+    K_1 : nombre de seuils (K-1)
+    p   : nombre de variables explicatives (hors intercept)
+    """
+    D = np.zeros(((K_1-1)*p, K_1*p))
+    I = np.eye(p)
+    for i in range(K_1-1):  # i = 0 à K-2
+        for j in range(K_1):
+            if j == 0:
+                temp = I
+            elif j == i+1:
+                temp = -I
+            else:
+                temp = np.zeros((p, p))
+            col_start = j*p
+            col_end = (j+1)*p
+            row_start = i*p
+            row_end = (i+1)*p
+            D[row_start:row_end, col_start:col_end] += temp
+    return D
+D = construct_D(len(thresholds), len(explanatory_vars))
+print("Shape de D :", D.shape)  # ((K-2)*p, (K-1)*p)
+print("Aperçu de D :\n", D[:5, :5])  # Afficher un aperçu
+```
+
+
+```{python}
+def wald_statistic(D, betaStar, varBeta):
+    """
+    Calcule la statistique de Wald X^2 pour le test de proportionnalité.
+    """
+    Db = D @ betaStar
+    V = D @ varBeta @ D.T
+    # Symétriser V pour stabilité
+    #V = 0.5 * (V + V.T)
+    # Utilise le pseudo-inverse par sécurité numérique
+    inv_V = np.linalg.inv(V)
+    X2 = float(Db.T @ inv_V @ Db)
+    return X2
+
+```
+
+
+```{python}
+# Supposons que tu as K_1, p, betaStar, varBeta
+K_1 = len(binary_models)
+p = len(explanatory_vars)  # Nombre de variables explicatives (hors intercept)
+D = construct_D(K_1, p)
+X2 = wald_statistic(D, betaStar, varBeta)
+ddl = (K_1-1)*p
+
+from scipy.stats import chi2
+pval = 1 - chi2.cdf(X2, ddl)
+
+print(f"Statistique X² = {X2:.4f}")
+print(f"Degrés de liberté = {ddl}")
+print(f"p-value = {pval:.4g}")
+
+```
+

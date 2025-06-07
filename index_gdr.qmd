@@ -8,7 +8,187 @@ format:
 Compte tenu de ma spécialisation en gestion des risques, les contenus que je prévois de partager dans cette section dédiée à la 3ème année (3A) porteront principalement sur les enseignements spécifiques à cette spécialisation. Je m'efforcerai de rendre ces partages aussi pertinents et enrichissants que possible, en espérant qu'ils serviront de guide précieux pour ceux qui suivront une voie similaire.
 </div>
 
+## The prediction risk
 
+The risk prediction is the expected loss between the predicted value and the true value on new, unseen data. In formula form, it can be expressed as:
+$$
+\text{R(X)} = \mathbb{E}[(Y - \hat{Y})^2] = \mathbb{E}[(Y - \mathbb{text{E}}(Y|X))^2]
+$$
+where $Y$ is the true value, $\hat{Y}$ is the predicted value, and $X$ is the set of covariates used for prediction.
+
+::: {.byline}
+<span class="date">May 28, 2025</span>
+:::
+
+
+## Observed Default Rate (ODR)
+
+How can we estimate the observed default rate (ODR) of a portfolio of loans? 
+
+This is example of a database where we want to estimate the ODR and the yearly ODR as the the average of the quarterly ODRs.
+```{python}
+import pandas as pd
+import numpy as np
+
+
+# Étape 1 : Création de la table "frequentist_PD"
+# Simulons 6 trimestres de données pour 2 clusters (A et B)
+clusters = ['A'] * 6 + ['B'] * 6
+dates = pd.date_range('2020-01-01', periods=6, freq='QE').tolist() * 2
+odrQ = [0.020, 0.025, 0.030, 0.028, 0.027, 0.029,
+        0.030, 0.032, 0.031, 0.033, 0.035, 0.034]
+
+frequentist_PD = pd.DataFrame({
+    'cluster': clusters,
+    'hpm_arret': dates,
+    'odrQ': odrQ
+})
+
+# On ajoute des colonnes d'index pour simuler "obs"
+frequentist_PD['obs'] = frequentist_PD.groupby('cluster').cumcount()
+
+# On trie pour garantir l'ordre temporel par cluster
+frequentist_PD = frequentist_PD.sort_values(['cluster', 'hpm_arret']).reset_index(drop=True)
+
+frequentist_PD
+```
+
+```{python}
+# Étape 2 : Simuler les frequentist_PD_2_j (décalages pour j = i+1, i = 1, 2, 3)
+
+# On crée un dictionnaire pour stocker les décalages
+frequentist_PD_2 = {}
+
+# On prépare une copie de base à laquelle on ajoutera les colonnes décalées
+base = frequentist_PD.copy()
+
+# Pour chaque i (1 to 3), on génère le j = i + 1 et on décale les colonnes
+for i in range(1, 4):
+    j = i + 1
+    shifted = base.copy()
+    shifted['obs'] = shifted['obs'] - i  # décale l'observation comme point=obs+i en SAS
+    shifted = shifted.rename(columns={
+        'cluster': f'cluster{j}',
+        'hpm_arret': f'hpm_arret{j}',
+        'odrQ': f'odrQ{j}'
+    })
+    frequentist_PD_2[j] = shifted[['obs', f'cluster{j}', f'hpm_arret{j}', f'odrQ{j}']]
+
+# On merge progressivement pour simuler les frequentist_PD_3_j
+merged = base.copy()
+for j in range(2, 5):
+    merged = pd.merge(merged, frequentist_PD_2[j], on='obs', how='left')
+
+merged
+```
+
+The SAS script is given below:
+
+```default
+%macro test1;
+
+  %do i=1 %to 3 %by 1;
+    %let j = %sysevalf(&i.+1);
+
+    /* Crée une table contenant les colonnes odrQ décalées */
+    data frequentist_PD_2_&j.;
+      obs1 = 1;
+      do while (obs1 < nobs);
+        set frequentist_PD nobs=nobs;
+        obs&j. = obs1 + &i.;
+
+        set frequentist_PD (
+          rename=(
+            cluster=cluster&j.
+            lb=lb&j.
+            ub=ub&j.
+            hpm_arret=hpm_arret&j.
+            def=defQ&j.
+            n=nQ&j.
+            odrQ=odrQ&j.
+          )
+        ) point=obs&j.;
+
+        output;
+        keep cluster lb ub hpm_arret def defQ&j. n nQ&j. odrQ odrQ&j.;
+        obs1 + 1;
+      end;
+    run;
+
+    /* Initialisation au premier tour */
+    %if &i. = 1 %then %do;
+      data frequentist_PD_3_&j.;
+        set frequentist_PD_2_&j.;
+      run;
+    %end;
+
+    /* Jointure gauche avec la table précédente pour empiler les odrQ */
+    %else %do;
+      proc sql;
+        create table frequentist_PD_3_&j. as
+        select a.*,
+               b.defQ&j.,
+               b.nQ&j.,
+               b.odrQ&j.
+        from frequentist_PD_3_&i. as a
+        left join frequentist_PD_2_&j. as b
+          on a.cluster = b.cluster
+          and a.hpm_arret = b.hpm_arret;
+      quit;
+    %end;
+
+  %end;
+
+  /* Résultat final : table contenant odrQ, odrQ2, odrQ3, odrQ4 */
+  data frequentist_PD_4;
+    set frequentist_PD_3_&j.;
+    
+    /* Calcul du ODR annuel glissant comme moyenne des 4 trimestres */
+    odrY = mean(of odrQ odrQ2 odrQ3 odrQ4);
+  run;
+
+  /* Décale hpm_arret de 9 mois (équivalent intnx) */
+  data frequentist_PD_4;
+    set frequentist_PD_4;
+    hpm_arret = intnx('month', hpm_arret, 9, 'same');
+    if year(hpm_arret) = 2019 then delete; /* Exclusion des années trop anciennes */
+  run;
+
+  /* Sauvegarde finale */
+  data frequentist_PD_5;
+    set frequentist_PD_4;
+  run;
+
+%mend;
+
+/* Exécution de la macro */
+%test1;
+```
+
+::: .byline
+<span class="date">May 27, 2025</span>
+:::
+
+## Model Selection
+
+We have a data with many covariates. But we want to include only the covariates that are relevant to the response variable. This allows us to have a parsimonious model, with fewer covariates, which is easier to interpret and to use for prediction.
+
+Generally, when we add more covariates to a model, the bias of the model decreases, but the variance increases. 
+
+
+::: {.byline}
+<span class="date">May 26, 2025</span>
+:::
+
+## The adulterous woman
+
+A woman was caught in adultery. The Pharisees brought her to Jesus and asked him what should be done with her. They said that according the law of Moses, she should be stoned to death. Jesus replied, "Let anyone among you who is without sin be the first to throw a stone at her." 
+
+I like this story because it shows that Jesus is a feminist. 
+
+::: {.byline}
+<span class="date">May 25, 2025</span>
+:::
 
 ## Isaac Asimov's "Three Laws of Robotics"
 
