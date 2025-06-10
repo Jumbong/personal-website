@@ -1,5 +1,5 @@
 ---
-title: "A propos de moi"
+title: "About Me"
 ---
 
 <div class="box">
@@ -7,19 +7,19 @@ title: "A propos de moi"
 
 <div class="container">
 <ul>
-    <li> Etudiante gestion des risques financiers </li>
-    <li> École Nationale de la Statistique et de l'analyse de l'information </li>
+    <li>  </li>
+    <li>  </li>
     <br>
-    <li> Email : jumbong.jr@gmail.com </li>
-    <li> CV (Français/English) : [CV](CV/CV_Jumbong.pdf) </li>
+    <li> </li>
+    <li> </li>
 </ul> 
 
 <img src="illust_graphics.jpg"  style="width: 250px; height: 250px;">
 </div>
 
-<h2> Intérêts</h2>
+<h2> </h2>
 
-Je m'intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu'aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l'audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l'évolution des approches statistiques, ce qui m'amène à effectuer une veille constante des nouvelles méthodes.
+
 
 </div>
 
