@@ -1,0 +1,12 @@
+{
+  "hash": "13b8d49051f7062a3260bf050fe255d2",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Model Selection\"\nsubtitle: \"\"\ndate: last-modified\nsidebar: auto\nnumber-sections: false\ntoc: true\nauthor:\n  - Jumbong Junior \n\ncategories: []\ntags: [\"Model Selection\"]\ntitle-block-banner: false\nbibliography: references.bib\nformat: \n  html: \n    mainfont: Times New Roman\n    fontsize: 1.1em\n\njupyter: python3\nnotice: |\n    @wasserman2004all \n---\n\n\n\n# Introduction \n\nIn practice, we have data with many variables to construct a model. In credit scoring for examples, we may have more than 100 variables. But we may not want to include all of them in the model. Même après avoir utilisé une approche experte pour select relevant variables, il est possible que nous ayons encore trop de variables. A smaller model with fewer variables has several advantages: It might give better predictions than a larger model and it is more parimonious [simple] then easier to interpret. If we take the example of regression, as you add more variables, the bias of the model decreases, but the variance increases. This is known as the bias-variance trade-off. Too few variables yield high bias [this called underfitting].Too many covariates yields high variance [this called overfitting]. Good prediction requires a balance between bias and variance.\nC'est dans ce contexte que les mèthodes de sélection de variables sont utiles. \n\n",
+    "supporting": [
+      "model_selection_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
