@@ -268,9 +268,16 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "A propos de moi",
+    "title": "About Me",
     "section": "",
-    "text": "Jumbong Junior\n\n\n\n\nEtudiante gestion des risques financiers\n\n\nÉcole Nationale de la Statistique et de l’analyse de l’information\n\n\n\nEmail : jumbong.jr@gmail.com\n\n\nCV (Français/English) : CV\n\n\n\n\n\nIntérêts\n\nJe m’intéresse particulièrement à la modélisation des risques financiers (risques de marché et de crédit) ainsi qu’aux normes et réglementations qui régissent le système bancaire (Bâle III, etc.), à l’audit des modèles quantitatifs et à la validation des méthodes statistiques appliquées à la gestion des risques. Je suis également passionné par l’évolution des approches statistiques, ce qui m’amène à effectuer une veille constante des nouvelles méthodes.\n\n\n\n\n Back to top"
+    "text": "Jumbong Junior\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "00_tds/model_selection.html",
+    "href": "00_tds/model_selection.html",
+    "title": "Model Selection",
+    "section": "",
+    "text": "Introduction\nIn practice, we have data with many variables to construct a model. In credit scoring for examples, we may have more than 100 variables. But we may not want to include all of them in the model. Même après avoir utilisé une approche experte pour select relevant variables, il est possible que nous ayons encore trop de variables. A smaller model with fewer variables has several advantages: It might give better predictions than a larger model and it is more parimonious [simple] then easier to interpret. If we take the example of regression, as you add more variables, the bias of the model decreases, but the variance increases. This is known as the bias-variance trade-off. Too few variables yield high bias [this called underfitting].Too many covariates yields high variance [this called overfitting]. Good prediction requires a balance between bias and variance. C’est dans ce contexte que les mèthodes de sélection de variables sont utiles.\n\n\n\n\n\n Back to topReferences\n\nWasserman, Larry. 2004. All of Statistics: A Concise Course in Statistical Inference. Springer Science & Business Media."
   },
   {
     "objectID": "LearningSas/prerequisites.html",
