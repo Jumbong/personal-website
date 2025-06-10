@@ -22,9 +22,6 @@ notice: |
     @mccullagh1980regression @brant1990assessing @wine_quality_186
 ---
 
-Certainly! Here is a more fluent and clear version in American English:
-
----
 
 The proportional odds model for ordinal logistic regression was first introduced by @mccullagh1980regression. This model extends binary logistic regression to situations where the dependent variable is ordinal—that is, it consists of ordered categorical values. The proportional odds model is built on several assumptions, including independence of observations, linearity of the log-odds, absence of multicollinearity among predictors, and, most importantly, the proportional odds assumption. This last assumption states that the regression coefficients are constant across all thresholds of the ordinal dependent variable. Ensuring the proportional odds assumption holds is crucial for the validity and interpretability of the model.
 
