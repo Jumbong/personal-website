@@ -1,0 +1,90 @@
+---
+title: "Fourrier Transformation"
+subtitle: ""
+date: last-modified
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+
+categories: []
+tags: [""]
+title-block-banner: false
+bibliography: references.bib
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 1.1em
+
+jupyter: python3
+notice: |
+    @balac2011transformee @cooley1965algorithm
+---
+
+# Introduction
+
+The primary goal of the Fourier transformation is to analyze signals by decomposing them into their constituent frequencies. It was Joseph Fourier who first recognized the significance of spectral decomposition of a signal. Indeed, he demonstrated that any periodic signal can be decomposed into a finite sum of sinusoidal signals with constant frequencies and amplitudes. The finite set of these frequencies constitutes the spectrum of the signal. 
+
+Beyond spectral analysis, the Fourier transformation is employed in solving partial differential equations, evaluating integrals, and computing sums of series. It has applications in various fields, including physics, engineering, and signal processing. In recent years, it has found new uses in finance, such as estimating financial asset volatility, which We will cover in future posts.
+
+In this article, we explore the numerical computation of the Fourier transform for both real and complex functions. Drawing on the work of @balac2011transformee, who proposed a quadrature-based approach, we illustrate how this method can be applied. We also demonstrate how the Fast Fourier Transform (FFT) algorithm [ for more details see @cooley1965algorithm] enables efficient computation of the discrete Fourier transform, making it well-suited for calculating the Fourier transform of integrable functions and the Fourier coefficients of periodic functions.
+
+This article was motivated by the realization that the numerical methods implemented in Python—such as [`scipy.fft` and `numpy.fft`] do not directly compute the Fourier transform of a function. This observation had already been made by @balac2011transformee in the context of MATLAB.
+
+
+
+
+```{python}
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.fft import fft, fftfreq, fftshift
+
+# Define the function f(t) = exp(-pi * t^2)
+def f(t):
+    return np.exp(-np.pi * t**2)
+
+# Parameters
+N = 1024
+T = 1.0 / 64
+t = np.linspace(-N/2*T, N/2*T, N, endpoint=False)
+y = f(t)
+
+# FFT with scipy
+yf_scipy = fftshift(fft(y)) * T
+xf = fftshift(fftfreq(N, T))
+FT_exact = np.exp(-np.pi * xf**2)
+
+# FFT with numpy
+yf_numpy = np.fft.fftshift(np.fft.fft(y)) * T
+xf_numpy = np.fft.fftshift(np.fft.fftfreq(N, T))
+
+# Plot side-by-side
+fig, axs = plt.subplots(1, 2, figsize=(14, 5), sharey=True)
+
+# Left: Scipy FFT
+axs[0].plot(xf, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs[0].plot(xf, np.real(yf_scipy), 'r--', linewidth=1, label='FFT (scipy)')
+axs[0].set_xlim(-6, 6)
+axs[0].set_ylim(-1, 1)
+axs[0].set_title("Scipy FFT")
+axs[0].set_xlabel("Frequency")
+axs[0].set_ylabel("Amplitude")
+axs[0].legend()
+axs[0].grid(True)
+
+# Right: Numpy FFT
+axs[1].plot(xf_numpy, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs[1].plot(xf_numpy, np.real(yf_numpy), 'b--', linewidth=1, label='FFT (numpy)')
+axs[1].set_xlim(-6, 6)
+axs[1].set_title("NumPy FFT")
+axs[1].set_xlabel("Frequency")
+axs[1].legend()
+axs[1].grid(True)
+
+plt.suptitle("Comparison of FFT Implementations vs. Exact Fourier Transform", fontsize=14)
+plt.tight_layout()
+plt.show()
+
+```

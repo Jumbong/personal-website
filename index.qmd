@@ -48,6 +48,7 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
     - [Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
 
     - [Number of optimal defaults in credit rating](Others/number_obs_for_model.qmd)
+    - [Fourier Transformation](00_tds/fourrier_transformation.qmd)
 
 
 # Learning SAS
