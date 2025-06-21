@@ -60,31 +60,30 @@ FT_exact = np.exp(-np.pi * xf**2)
 yf_numpy = np.fft.fftshift(np.fft.fft(y)) * T
 xf_numpy = np.fft.fftshift(np.fft.fftfreq(N, T))
 
-# Plot side-by-side
-fig, axs = plt.subplots(1, 2, figsize=(14, 5), sharey=True)
+# Plot with subplot_mosaic
+fig, axs = plt.subplot_mosaic([["scipy", "numpy"]], figsize=(14, 5), layout="constrained", sharey=True)
 
-# Left: Scipy FFT
-axs[0].plot(xf, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
-axs[0].plot(xf, np.real(yf_scipy), 'r--', linewidth=1, label='FFT (scipy)')
-axs[0].set_xlim(-6, 6)
-axs[0].set_ylim(-1, 1)
-axs[0].set_title("Scipy FFT")
-axs[0].set_xlabel("Frequency")
-axs[0].set_ylabel("Amplitude")
-axs[0].legend()
-axs[0].grid(True)
+# Scipy FFT
+axs["scipy"].plot(xf, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs["scipy"].plot(xf, np.real(yf_scipy), 'r--', linewidth=1, label='FFT (scipy)')
+axs["scipy"].set_xlim(-6, 6)
+axs["scipy"].set_ylim(-1, 1)
+axs["scipy"].set_title("Scipy FFT")
+axs["scipy"].set_xlabel("Frequency")
+axs["scipy"].set_ylabel("Amplitude")
+axs["scipy"].legend()
+axs["scipy"].grid(False)
 
-# Right: Numpy FFT
-axs[1].plot(xf_numpy, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
-axs[1].plot(xf_numpy, np.real(yf_numpy), 'b--', linewidth=1, label='FFT (numpy)')
-axs[1].set_xlim(-6, 6)
-axs[1].set_title("NumPy FFT")
-axs[1].set_xlabel("Frequency")
-axs[1].legend()
-axs[1].grid(True)
+# NumPy FFT
+axs["numpy"].plot(xf_numpy, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs["numpy"].plot(xf_numpy, np.real(yf_numpy), 'b--', linewidth=1, label='FFT (numpy)')
+axs["numpy"].set_xlim(-6, 6)
+axs["numpy"].set_title("NumPy FFT")
+axs["numpy"].set_xlabel("Frequency")
+axs["numpy"].legend()
+axs["numpy"].grid(False)
 
 plt.suptitle("Comparison of FFT Implementations vs. Exact Fourier Transform", fontsize=14)
-plt.tight_layout()
 plt.show()
 
 ```
@@ -278,7 +277,7 @@ approx_vals = np.array([tfquad(f, nu, n, T) for nu in nu_vals])
 fig, axs = plt.subplot_mosaic([["quad", "tfquad"]], figsize=(12, 4), layout="constrained")
 
 # Plot using scipy.integrate.quad
-axs["quad"].plot(nu_vals, np.real(integral_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (quad)')
+axs["quad"].plot(nu_vals, np.real(exact_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (quad)')
 axs["quad"].plot(nu_vals, np.real(approx_vals), 'r--', linewidth=1.5, label=r'approximation $\hat{S}_n$')
 axs["quad"].set_title("TF avec scipy.integrate.quad")
 axs["quad"].set_xlabel(r'$\nu$')
