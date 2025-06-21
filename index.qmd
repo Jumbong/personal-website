@@ -43,12 +43,13 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
     - [Proportional Odds Model for Ordinal Logistic Regression](00_tds/proportional_ordinal_regression.qmd) 
     - [Spurious Regression in Time Series](Others/spurious_reg.qmd)
     - [Multiple Linear Regression Analysis](https://towardsdatascience.com/multiple-linear-regression-analysis/multiple-linear-regression-analysis-using-python-1c0f2b7d8e3a)
+     - [Fourier Transformation](00_tds/fourrier_transformation.qmd)
 
 - **Others :**
     - [Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
 
     - [Number of optimal defaults in credit rating](Others/number_obs_for_model.qmd)
-    - [Fourier Transformation](00_tds/fourrier_transformation.qmd)
+   
 
 
 # Learning SAS
