@@ -61,7 +61,7 @@ yf_numpy = np.fft.fftshift(np.fft.fft(y)) * T
 xf_numpy = np.fft.fftshift(np.fft.fftfreq(N, T))
 
 # Plot with subplot_mosaic
-fig, axs = plt.subplot_mosaic([["scipy", "numpy"]], figsize=(14, 5), layout="constrained", sharey=True)
+fig, axs = plt.subplot_mosaic([["scipy", "numpy"]], figsize=(7, 5), layout="constrained", sharey=True)
 
 # Scipy FFT
 axs["scipy"].plot(xf, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
@@ -267,34 +267,46 @@ T = 2.0
 n = 32
 nu_vals = np.linspace(-6, 6, 500)
 exact_vals = exact_fourier_transform(nu_vals)
-approx_vals = np.array([tfquad(f, nu, n, T) for nu in nu_vals])
+tfquad_vals = np.array([tfquad(f, nu, n, T) for nu in nu_vals])
+
+# Compute the approximation using scipy integral
+tf_integral_vals = np.array([tf_integral(f, nu, T) for nu in nu_vals])
 
 ```
 
 
 
 ```{python}
-fig, axs = plt.subplot_mosaic([["quad", "tfquad"]], figsize=(12, 4), layout="constrained")
+fig, axs = plt.subplot_mosaic([["tfquad", "quad"]], figsize=(7, 5), layout="constrained")
+
+# Plot using tfquad implementation
+axs["tfquad"].plot(nu_vals, np.real(exact_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (exact)')
+axs["tfquad"].plot(nu_vals, np.real(tfquad_vals), 'r--', linewidth=1.5, label=r'approximation $\hat{S}_n$')
+axs["tfquad"].set_title("TF avec tfquad (rectangles)")
+axs["tfquad"].set_xlabel(r'$\nu$')
+axs["tfquad"].grid(False)
+axs["tfquad"].set_ylim(-0.5, 2.1)
 
 # Plot using scipy.integrate.quad
 axs["quad"].plot(nu_vals, np.real(exact_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (quad)')
-axs["quad"].plot(nu_vals, np.real(approx_vals), 'r--', linewidth=1.5, label=r'approximation $\hat{S}_n$')
+axs["quad"].plot(nu_vals, np.real(tf_integral_vals), 'r--', linewidth=1.5, label=r'approximation $\hat{S}_n$')
 axs["quad"].set_title("TF avec scipy.integrate.quad")
 axs["quad"].set_xlabel(r'$\nu$')
 axs["quad"].set_ylabel('Amplitude')
 axs["quad"].grid(False)
-axs["quad"].legend()
 axs["quad"].set_ylim(-0.5, 2.1)
 
-# Plot using tfquad implementation
-axs["tfquad"].plot(nu_vals, np.real(exact_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (exact)')
-axs["tfquad"].plot(nu_vals, np.real(approx_vals), 'r--', linewidth=1.5, label=r'approximation $\hat{S}_n$')
-axs["tfquad"].set_title("TF avec tfquad (rectangles)")
-axs["tfquad"].set_xlabel(r'$\nu$')
-axs["tfquad"].grid(False)
-axs["tfquad"].legend()
-axs["tfquad"].set_ylim(-0.5, 2.1)
 
+
+# --- Global legend below the plots ---
+# Take handles from one subplot only (assumes labels are consistent)
+handles, labels = axs["quad"].get_legend_handles_labels()
+fig.legend(handles, labels,
+           loc='lower center', bbox_to_anchor=(0.5, -0.05),
+           ncol=3, frameon=False)
+
+plt.suptitle("Comparison of FFT Implementations vs. Exact Fourier Transform", fontsize=14)
+plt.subplots_adjust(bottom=0.2)  # Make room for the legend
 plt.show()
 
 
