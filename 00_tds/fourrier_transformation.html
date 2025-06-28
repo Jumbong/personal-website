@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-06-22">
+<meta name="dcterms.date" content="2025-06-29">
 
 <title>Fourrier Transformation</title>
 <style>
@@ -208,6 +208,12 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#mis-en-oeuvre-in-python" id="toc-mis-en-oeuvre-in-python" class="nav-link" data-scroll-target="#mis-en-oeuvre-in-python">Mis en Oeuvre in Python</a></li>
   </ul></li>
+  <li><a href="#characterization-of-the-approximation" id="toc-characterization-of-the-approximation" class="nav-link" data-scroll-target="#characterization-of-the-approximation">Characterization of the Approximation</a>
+  <ul class="collapse">
+  <li><a href="#le-caractère-oscillant-de-lapproximation" id="toc-le-caractère-oscillant-de-lapproximation" class="nav-link" data-scroll-target="#le-caractère-oscillant-de-lapproximation">Le caractère oscillant de l’approximation</a></li>
+  </ul></li>
+  <li><a href="#the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." id="toc-the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." class="nav-link" data-scroll-target="#the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic.">The approximation using the quadrature method of rectangles à gauche is periodic.</a></li>
+  <li><a href="#utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." id="toc-utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." class="nav-link" data-scroll-target="#utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu.">Utilisation the l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction f en un point <span class="math inline">\(\nu\)</span>.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -238,7 +244,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 22, 2025</p>
+      <p class="date">June 29, 2025</p>
     </div>
   </div>
   
@@ -256,7 +262,7 @@ window.Quarto = {
 <p>Beyond spectral analysis, the Fourier transformation is employed in solving partial differential equations, evaluating integrals, and computing sums of series. It has applications in various fields, including physics, engineering, and signal processing. In recent years, it has found new uses in finance, such as estimating financial asset volatility, which We will cover in future posts.</p>
 <p>In this article, we explore the numerical computation of the Fourier transform for both real and complex functions. Drawing on the work of <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span>, who proposed a quadrature-based approach, we illustrate how this method can be applied. We also demonstrate how the Fast Fourier Transform (FFT) algorithm <span class="citation" data-cites="cooley1965algorithm">(for more details see <a href="#ref-cooley1965algorithm" role="doc-biblioref">Cooley and Tukey 1965</a>)</span> enables efficient computation of the discrete Fourier transform, making it well-suited for calculating the Fourier transform of integrable functions and the Fourier coefficients of periodic functions.</p>
 <p>This article was motivated by the realization that the numerical methods implemented in Python—such as [<code>scipy.fft</code> and <code>numpy.fft</code>] do not directly compute the Fourier transform of a function. This observation had already been made by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> in the context of MATLAB.</p>
-<div id="ff180c4c" class="cell" data-execution_count="1">
+<div id="514fb381" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -396,7 +402,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <section id="mis-en-oeuvre-in-python" class="level3">
 <h3 class="anchored" data-anchor-id="mis-en-oeuvre-in-python">Mis en Oeuvre in Python</h3>
 <p>The function <code>tfquad</code> below implements the quadrature method of rectangles à gauche to compute the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>.</p>
-<div id="cfe69c72" class="cell" data-execution_count="2">
+<div id="9818457a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -428,7 +434,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use the function scipy’s <code>quad</code> functionnfor defining the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of a function <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
-<div id="5e505fcc" class="cell" data-execution_count="3">
+<div id="901e5492" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -437,7 +443,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3d06dcf2" class="cell" data-execution_count="4">
+<div id="973e4688" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -464,7 +470,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the approximation using scipy integral</span></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>tf_integral_vals <span class="op">=</span> np.array([tf_integral(f, nu, T) <span class="cf">for</span> nu <span class="kw">in</span> nu_vals])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="00f7a7a0" class="cell" data-execution_count="5">
+<div id="fd55c5d5" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplot_mosaic([[<span class="st">"tfquad"</span>, <span class="st">"quad"</span>]], figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using tfquad implementation</span></span>
@@ -497,7 +503,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.2</span>)  <span class="co"># Make room for the legend</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_94469/938168490.py:30: UserWarning:
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_70773/938168490.py:30: UserWarning:
 
 This figure was using a layout engine that is incompatible with subplots_adjust and/or tight_layout; not calling subplots_adjust.
 </code></pre>
@@ -510,10 +516,187 @@ This figure was using a layout engine that is incompatible with subplots_adjust 
 </div>
 </div>
 </div>
-
-
-
+<p>We are able now to compute the Fourier transform of a function using the quadrature method of rectangles. Let’s characterize this approximation.</p>
 </section>
+</section>
+<section id="characterization-of-the-approximation" class="level2">
+<h2 class="anchored" data-anchor-id="characterization-of-the-approximation">Characterization of the Approximation</h2>
+<section id="le-caractère-oscillant-de-lapproximation" class="level3">
+<h3 class="anchored" data-anchor-id="le-caractère-oscillant-de-lapproximation">Le caractère oscillant de l’approximation</h3>
+<p>We observe that the transform <span class="math inline">\(\hat{f}\)</span> of the function <span class="math inline">\(f\)</span> is oscillatory. This oscillatory nature is due to the complex exponential term <span class="math inline">\(e^{-2\pi i \nu t}\)</span> in the integral.</p>
+<p>To illustrate this, the figure below represents the function <span class="math inline">\(f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}\)</span>, ainsi que les parties réelle et imaginaire de sa transformée de Fourier <span class="math inline">\(\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C}\)</span>, for <span class="math inline">\(\nu = \frac{5}{2}\)</span>. Bien que la fonction <span class="math inline">\(f\)</span> soit lisse, on observe des fortes oscillations pour la fonction <span class="math inline">\(\hat{f}\)</span>,.</p>
+<div id="5e426526" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">5</span> <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">1000</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1000</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>t<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> <span class="kw">lambda</span> t: f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>f_vals <span class="op">=</span> f(t1)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>phi_vals <span class="op">=</span> phi(t2)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t1, f_vals, <span class="st">'k'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="vs">r"$f(t) = e^{-t^2}$"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.real(phi_vals), <span class="st">'b'</span>, label<span class="op">=</span><span class="vs">r"$\Re(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.imag(phi_vals), <span class="st">'r'</span>, label<span class="op">=</span><span class="vs">r"$\Im(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="vs">r"$\phi(t) = f(t)e^{-2i\pi\nu t}$, $\nu=5/2$"</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend()</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourrier_transformation_files/figure-html/cell-7-output-1.png" width="950" height="373" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ces fortes variations peuvent poser des problèmes pour l’approximation numérique de la transformée de Fourier en utilisant des méthodes de quadrature même lorsqu’on prend un nombre de points <span class="math inline">\(n\)</span> assez grand. L’utilisation de l’agorithme de la transformée de Fourier rapide (FFT) est une solution pour surmonter ce problème.</p>
+</section>
+</section>
+<section id="the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." class="level2">
+<h2 class="anchored" data-anchor-id="the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic.">The approximation using the quadrature method of rectangles à gauche is periodic.</h2>
+<p>On remarque que même si la fonction <span class="math inline">\(f\)</span> n’est pas périodique, la transformée de Fourier <span class="math inline">\(\hat{f}\)</span> est périodique. En effet, la fonction <span class="math inline">\(\hat{S}_n\)</span> est périodique de période <span class="math inline">\(T = \frac{n}{T}\)</span> : <span class="math display">\[
+\forall \nu \in \mathbb{R} \quad
+\widehat{S}_n\left(\nu + \frac{n}{T} \right)
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi\left(\nu + \frac{n}{T} \right)T \frac{k}{n}}
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} \underbrace{e^{-2i\pi k}}_{=1}
+\]</span></p>
+<p><span class="math display">\[
+\phantom{\forall \nu \in \mathbb{R} \quad
+\widehat{S}_n\left(\nu + \frac{n}{T} \right)}
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} = \widehat{S}_n(\nu).
+\]</span></p>
+<p>This periodicity of <span class="math inline">\(\hat{S}_n\)</span> has pour consequence that it is not possible to compute the Fourier transform by the quadrature method for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span> when the parameter <span class="math inline">\(T\)</span> and <span class="math inline">\(n\)</span> are fixed. In fact, it is impossible to compute <span class="math inline">\(\hat{f}(\nu)\)</span> when <span class="math inline">\(\nu  \geq {\nu}_{max}\)</span> or <span class="math inline">\(\nu \leq -{\nu}_{max}\)</span> where <span class="math inline">\({\nu}_{max} = \frac{n}{T}\)</span> is the period of the Fourier transform <span class="math inline">\(\hat{S}_n\)</span>. So in practice, for computing the Fourier transform of a function <span class="math inline">\(f\)</span> for <span class="math inline">\(\nu\)</span> very large, we need to increase the parameter <span class="math inline">\(T\)</span> or <span class="math inline">\(n\)</span>. In fact, by evaluating the error of the approximation of the Fourier transform <span class="math inline">\(\hat{f}\)</span> by the quadrature method of rectangles à gauche, we can see that we have a good approximation au point <span class="math inline">\(\nu\)</span> when this relation holds:</p>
+<p><span class="math display">\[
+\frac{\nu T}{n} \ll 1.
+\]</span></p>
+<p><span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span> shows that when using the algorithm of the Fast Fourier Transform (FFT), we can correctly compute the Fourier transform of a function <span class="math inline">\(f\)</span> for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span>, even when <span class="math inline">\(\frac{\nu T}{n}\)</span> is proche to 1 for toute fonction <span class="math inline">\(f\)</span> continue par morceaux et à support borné.</p>
+</section>
+<section id="utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." class="level2">
+<h2 class="anchored" data-anchor-id="utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu.">Utilisation the l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction f en un point <span class="math inline">\(\nu\)</span>.</h2>
+<p>Dans cette partie, nous considérons toujours que <span class="math inline">\(\hat{S}_n(\nu)\)</span> est l’approximation de la transformée de Fourier <span class="math inline">\(\hat{f}(\nu)\)</span> de la fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu \in [-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]\)</span> où <span class="math inline">\(\nu_{max} = \frac{n}{T}\)</span> ie <span class="math display">\[
+\hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
+\]</span></p>
+<p>Nous allons présenter l’algorithme de la transformée qui permet d’approximer <span class="math inline">\(\hat{f}(\nu)\)</span>. Nous n’allons pas détailler l’algorithme de la Transformée de Fourier Rapide (FFT) dans cet article. <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> provides a simplified explanation of the FFT algorithm. Pour plus de détails, je vous recommande de lire l’article de <span class="citation" data-cites="cooley1965algorithm">Cooley and Tukey (<a href="#ref-cooley1965algorithm" role="doc-biblioref">1965</a>)</span>.</p>
+<p>Ce qu’il faut retenir est que l’utilisation de l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span> se fait en deux étapes :</p>
+<p>La première étape utilise le fait que <span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span> shows that when <span class="math inline">\(\hat{S_n}(\nu)\)</span> is evaluated at <span class="math inline">\(\nu = \frac{j}{T}\)</span> for <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>, we have the good approximation of the Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span>.</p>
+<p>De plus nous savons que <span class="math inline">\(\hat{S_n}\)</span> est périodique. Et Cette périodicité fait jouer un rôle symétrique aux indices <span class="math inline">\(j \in \{0, 1, \ldots, n-1\}\)</span> et <span class="math inline">\(k \in \{-n/2, -n/2 + 1, \ldots, -1\}\)</span>. En effet, les valeurs de la transformée de Fourier de f sur l’intervalle <span class="math inline">\([-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]\)</span> peuvent être déduites des valeurs de <span class="math inline">\(\hat{S_n}\)</span> aux points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span> comme suit :</p>
+<p><span class="math display">\[
+\widehat{S}_n(\nu'_j) = \frac{T}{n} (-1)^j \sum_{k=0}^{n-1} f_k\, e^{-2i\pi j \frac{k}{n}}
+=
+\begin{cases}
+\widehat{S}_n(\nu_j) &amp; \text{si } j \in \left\{0, \dots, \frac{n}{2} - 1 \right\} \\
+\widehat{S}_n(\nu_{j-n}) &amp; \text{si } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\text{où on a exploité la relation} \quad
+e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2i\pi k}}_{=1}
+= e^{-2i\pi (j-n) \frac{k}{n}}
+\quad \text{pour } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
+\]</span></p>
+<p>Cette relation nous montre que l’on peut calculer la transformée de Fourier <span class="math inline">\(\hat{S_n}(\frac{j}{T})\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>. De plus, lorsque <span class="math inline">\(n\)</span> est une puissance de 2, calcul est plus rapide. Ce procédé est appelé la Transformée de Fourier Rapide (FFT).</p>
+<p>Si nous récapitulons, nous avons montré que nous pouvons approximer la transformée de Fourier de la fonction <span class="math inline">\(f\)</span> dans l’intervalle <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> en les fréquences <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span> avec <span class="math inline">\(n = 2^m\)</span> pour un entier <span class="math inline">\(m \geq 0\)</span> en utilisant l’algorithme de la Transformée de Fourier Rapide (FFT) en procédant comme suit :</p>
+<ul>
+<li><p>Créer la suite finie F de valeurs <span class="math inline">\(f(\frac{2k - n}{2n} T)\)</span> pour <span class="math inline">\(k = 0, 1, \ldots, n-1\)</span>.</p></li>
+<li><p>Calculer la transformée de Fourier discrète <span class="math inline">\(\hat{F}\)</span> de la suite F en utilisant l’algorithme de la Transformée de Fourier Rapide (FFT) qui est donnée par <span class="math inline">\(\sum_{k=0}^{n-1} f_k e^{-2i\pi \frac{jk}{n}}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>.</p></li>
+<li><p>Symmétriser les valeurs de la seconde partie de <span class="math inline">\(-\frac{n}{2}, \ldots, -1\)</span>;</p></li>
+<li><p>Multiplier chacune des valeurs du tableau par <span class="math inline">\(\frac{T}{n} (-1)^{j-1}\)</span> où <span class="math inline">\(j \in \{1, \ldots, n\}\)</span>.</p></li>
+</ul>
+<p>On dispose ainsi d’un tableau correspondant aux valeurs de la transformée de Fourier <span class="math inline">\(\hat{f}(\nu_j)\)</span> pour <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
+<p>Donc dans la première étape, consiste à discretiser l’intervalle <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> en <span class="math inline">\(n\)</span> points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>. En effet on a :</p>
+<p>La fonction matlab tffft suivante calcule la transformée de Fourier en python d’une fonction donnée en mettant en œuvre les différentes étapes qui ont été détaillées précédemment.</p>
+<div id="834ecddb" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tffft(f, T, n):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier approchée d'une fonction f à support dans [-T/2, T/2],</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant l’algorithme FFT.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    f : callable</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Fonction à transformer (doit être vectorisable avec numpy).</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    T : float</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Largeur de la fenêtre temporelle (intervalle [-T/2, T/2]).</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">    n : int</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Nombre de points de discrétisation (doit être une puissance de 2 pour FFT efficace).</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Retours</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">    tf : np.ndarray</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Valeurs approximées de la transformée de Fourier aux fréquences discrètes.</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">    nu : np.ndarray</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">        Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> T <span class="op">/</span> n</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> T <span class="op">+</span> np.arange(n) <span class="op">*</span> h  <span class="co"># noeuds temporels</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> f(t)                         <span class="co"># échantillonnage de f</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    tf <span class="op">=</span> h <span class="op">*</span> (<span class="op">-</span><span class="dv">1</span>) <span class="op">**</span> np.arange(n) <span class="op">*</span> fftshift(fft(F))  <span class="co"># TF approximée</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction donnée (une fonction de Gauss).</p>
+<div id="5ad90658" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramètres</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">8</span>  <span class="co"># 256</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la transformée de Fourier</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>tf, nu, t <span class="op">=</span> tffft(f, T, n)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation graphique</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t, f(t), <span class="st">'-g'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"temps"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Fonction considérée"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.1</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(nu, np.<span class="bu">abs</span>(tf), <span class="st">'-b'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"fréquence"</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Transformée de Fourier"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourrier_transformation_files/figure-html/cell-9-output-1.png" width="950" height="375" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dans ce cas, lorsque n est une puissance de 2 <span class="math inline">\(\hat{S_n}\)</span> est approximée rapidement. Et c’est l’algorithme qui permet d’estimer <span class="math inline">\(\hat{S_n}\)</span> au point <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span> qui est appelé la Transformée de Fourier Rapide (FFT).</p>
+
+
+
 </section>
 </section>
 
@@ -523,6 +706,9 @@ Balac, Stéphane. 2011. <span>“La Transform<span>é</span>e de Fourier Vue Sou
 </div>
 <div id="ref-cooley1965algorithm" class="csl-entry" role="listitem">
 Cooley, James W, and John W Tukey. 1965. <span>“An Algorithm for the Machine Calculation of Complex Fourier Series.”</span> <em>Mathematics of Computation</em> 19 (90): 297–301.
+</div>
+<div id="ref-epstein2005well" class="csl-entry" role="listitem">
+Epstein, Charles L. 2005. <span>“How Well Does the Finite Fourier Transform Approximate the Fourier Transform?”</span> <em>Communications on Pure and Applied Mathematics: A Journal Issued by the Courant Institute of Mathematical Sciences</em> 58 (10): 1421–35.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
