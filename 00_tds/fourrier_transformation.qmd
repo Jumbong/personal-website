@@ -19,7 +19,7 @@ format:
 
 jupyter: python3
 notice: |
-    @balac2011transformee @cooley1965algorithm
+    @balac2011transformee @cooley1965algorithm @epstein2005well
 ---
 
 # Introduction
@@ -311,3 +311,199 @@ plt.show()
 
 
 ```
+
+We are able now to compute the Fourier transform of a function using the quadrature method of rectangles. Let's characterize this approximation.
+
+## Characterization of the Approximation
+
+### Le caractère oscillant de l'approximation
+
+We observe that the transform $\hat{f}$ of the function $f$ is oscillatory. This oscillatory nature is due to the complex exponential term $e^{-2\pi i \nu t}$ in the integral. 
+
+To illustrate this, the figure below represents the function $f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}$, ainsi que les parties réelle et imaginaire de sa transformée de Fourier $\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C}$, for $\nu = \frac{5}{2}$. Bien que la fonction $f$ soit lisse, on observe des fortes oscillations pour la fonction $\hat{f}$,.
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+nu = 5 / 2
+t1 = np.linspace(-8, 8, 1000)
+t2 = np.linspace(-4, 4, 1000)
+
+f = lambda t: np.exp(-t**2)
+phi = lambda t: f(t) * np.exp(-2j * np.pi * nu * t)
+
+f_vals = f(t1)
+phi_vals = phi(t2)
+
+# Plot
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
+axs[0].plot(t1, f_vals, 'k', linewidth=2)
+axs[0].set_xlim(-8, 8)
+axs[0].set_ylim(0, 1)
+axs[0].set_title(r"$f(t) = e^{-t^2}$")
+axs[0].grid(True)
+
+axs[1].plot(t2, np.real(phi_vals), 'b', label=r"$\Re(\phi)$", linewidth=2)
+axs[1].plot(t2, np.imag(phi_vals), 'r', label=r"$\Im(\phi)$", linewidth=2)
+axs[1].set_xlim(-4, 4)
+axs[1].set_ylim(-1, 1)
+axs[1].set_title(r"$\phi(t) = f(t)e^{-2i\pi\nu t}$, $\nu=5/2$")
+axs[1].legend()
+axs[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+Ces fortes variations peuvent poser des problèmes pour l'approximation numérique de la transformée de Fourier en utilisant des méthodes de quadrature même lorsqu'on prend un nombre de points $n$ assez grand. L'utilisation de l'agorithme de la transformée de Fourier rapide (FFT) est une solution pour surmonter ce problème.
+
+## The approximation using the quadrature method of rectangles à gauche is periodic.
+
+On remarque que même si la fonction $f$ n'est pas périodique, la transformée de Fourier $\hat{f}$ est périodique. En effet, la fonction $\hat{S}_n$ est périodique de période $T = \frac{n}{T}$ :
+$$
+\forall \nu \in \mathbb{R} \quad 
+\widehat{S}_n\left(\nu + \frac{n}{T} \right)
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi\left(\nu + \frac{n}{T} \right)T \frac{k}{n}}
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} \underbrace{e^{-2i\pi k}}_{=1}
+$$
+
+$$
+\phantom{\forall \nu \in \mathbb{R} \quad 
+\widehat{S}_n\left(\nu + \frac{n}{T} \right)}
+= \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} = \widehat{S}_n(\nu).
+$$
+
+This periodicity of $\hat{S}_n$ has pour consequence that it is not possible to compute the Fourier transform by the quadrature method for all frequencies $\nu \in \mathbb{R}$ when the parameter $T$ and $n$ are fixed. In fact, it is impossible to compute $\hat{f}(\nu)$ when $\nu  \geq {\nu}_{max}$ or $\nu \leq -{\nu}_{max}$ where ${\nu}_{max} = \frac{n}{T}$ is the period of the Fourier transform $\hat{S}_n$. So in practice, for computing the Fourier transform of a function $f$ for $\nu$ very large, we need to increase the parameter $T$ or $n$. In fact, by evaluating the error of the approximation of the Fourier transform $\hat{f}$ by the quadrature method of rectangles à gauche, we can see that we have a good approximation au point $\nu$ when this relation holds:
+
+$$
+\frac{\nu T}{n} \ll 1.
+$$
+
+@epstein2005well shows that when using the algorithm of the Fast Fourier Transform (FFT), we can correctly compute the Fourier transform of a function $f$ for all frequencies $\nu \in \mathbb{R}$, even when $\frac{\nu T}{n}$ is proche to 1 for toute fonction $f$ continue par morceaux et à support borné.
+
+## Utilisation the l'algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d'une fonction f en un point $\nu$.
+
+Dans cette partie, nous considérons toujours que $\hat{S}_n(\nu)$ est l'approximation de la transformée de Fourier $\hat{f}(\nu)$ de la fonction $f$ en un point $\nu \in [-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]$ où $\nu_{max} = \frac{n}{T}$ ie 
+$$
+\hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
+$$
+
+Nous allons présenter l'algorithme de la transformée qui permet d'approximer $\hat{f}(\nu)$. Nous n'allons pas détailler l'algorithme de la Transformée de Fourier Rapide (FFT) dans cet article. @balac2011transformee
+provides a simplified explanation of the FFT algorithm. Pour plus de détails, je vous recommande de lire l'article de @cooley1965algorithm. 
+
+Ce qu'il faut retenir est que l'utilisation de l'algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d'une fonction $f$ en un point $\nu$ se fait en deux étapes :
+
+La première étape utilise le fait que @epstein2005well shows that when $\hat{S_n}(\nu)$ is evaluated at $\nu = \frac{j}{T}$ for $j = 0, 1, \ldots, n-1$, we have the good approximation of the Fourier transform $\hat{f}(\nu)$. 
+
+De plus nous savons que $\hat{S_n}$ est périodique. Et Cette périodicité fait jouer un rôle symétrique aux indices $j \in \{0, 1, \ldots, n-1\}$ et $k \in \{-n/2, -n/2 + 1, \ldots, -1\}$. En effet, les valeurs de la transformée de Fourier de f sur l'intervalle $[-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]$ peuvent être déduites des valeurs de $\hat{S_n}$ aux points $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$ comme suit :
+
+$$
+\widehat{S}_n(\nu'_j) = \frac{T}{n} (-1)^j \sum_{k=0}^{n-1} f_k\, e^{-2i\pi j \frac{k}{n}} 
+= 
+\begin{cases}
+\widehat{S}_n(\nu_j) & \text{si } j \in \left\{0, \dots, \frac{n}{2} - 1 \right\} \\
+\widehat{S}_n(\nu_{j-n}) & \text{si } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}
+\end{cases}
+$$
+
+$$
+\text{où on a exploité la relation} \quad
+e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2i\pi k}}_{=1} 
+= e^{-2i\pi (j-n) \frac{k}{n}} 
+\quad \text{pour } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
+$$
+
+Cette relation nous montre que l'on peut calculer la transformée de Fourier $\hat{S_n}(\frac{j}{T})$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$. De plus, lorsque $n$ est une puissance de 2, calcul est plus rapide. Ce procédé est appelé la Transformée de Fourier Rapide (FFT).
+
+Si nous récapitulons, nous avons montré que nous pouvons approximer la transformée de Fourier de la fonction $f$ dans l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ en les fréquences $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$ avec $n = 2^m$ pour un entier $m \geq 0$ en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT) en procédant comme suit :
+
+- Créer la suite finie F de valeurs $f(\frac{2k - n}{2n} T)$ pour $k = 0, 1, \ldots, n-1$.
+- Calculer la transformée de Fourier discrète $\hat{F}$ de la suite F en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT) qui est donnée par $\sum_{k=0}^{n-1} f_k e^{-2i\pi \frac{jk}{n}}$ pour $j = 0, 1, \ldots, n-1$.
+
+- Symmétriser les valeurs de la seconde partie de $-\frac{n}{2}, \ldots, -1$;
+- Multiplier chacune des valeurs du tableau par $\frac{T}{n} (-1)^{j-1}$ où $j \in \{1, \ldots, n\}$.
+
+On dispose ainsi d'un tableau correspondant aux valeurs de la transformée de Fourier $\hat{f}(\nu_j)$ pour $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$.
+
+Donc dans la première étape, consiste à discretiser l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ en $n$ points $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$.  En effet on a :
+
+La fonction matlab tffft suivante calcule la transformée de Fourier en python d’une fonction donnée en mettant
+en œuvre les différentes étapes qui ont été détaillées précédemment.
+
+```{python}
+
+import numpy as np
+from scipy.fft import fft, fftshift
+
+def tffft(f, T, n):
+    """
+    Calcule la transformée de Fourier approchée d'une fonction f à support dans [-T/2, T/2],
+    en utilisant l’algorithme FFT.
+
+    Paramètres
+    ----------
+    f : callable
+        Fonction à transformer (doit être vectorisable avec numpy).
+    T : float
+        Largeur de la fenêtre temporelle (intervalle [-T/2, T/2]).
+    n : int
+        Nombre de points de discrétisation (doit être une puissance de 2 pour FFT efficace).
+
+    Retours
+    -------
+    tf : np.ndarray
+        Valeurs approximées de la transformée de Fourier aux fréquences discrètes.
+    nu : np.ndarray
+        Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).
+    """
+    h = T / n
+    t = -0.5 * T + np.arange(n) * h  # noeuds temporels
+    F = f(t)                         # échantillonnage de f
+    tf = h * (-1) ** np.arange(n) * fftshift(fft(F))  # TF approximée
+    nu = -n / (2 * T) + np.arange(n) / T              # fréquences ν_j = j/T
+
+    return tf, nu, t
+
+```
+
+On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction donnée
+(une fonction de Gauss).
+
+```{python}
+# Paramètres
+a = 10
+f = lambda t: np.exp(-a * t**2)
+T = 10
+n = 2**8  # 256
+
+# Calcul de la transformée de Fourier
+tf, nu, t = tffft(f, T, n)
+
+# Représentation graphique
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
+axs[0].plot(t, f(t), '-g', linewidth=3)
+axs[0].set_xlabel("temps")
+axs[0].set_title("Fonction considérée")
+axs[0].set_xlim(-6, 6)
+axs[0].set_ylim(-0.5, 1.1)
+axs[0].grid(True)
+
+axs[1].plot(nu, np.abs(tf), '-b', linewidth=3)
+axs[1].set_xlabel("fréquence")
+axs[1].set_title("Transformée de Fourier")
+axs[1].set_xlim(-15, 15)
+axs[1].set_ylim(-0.5, 1)
+axs[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+```
+
+
+
+Dans ce cas, lorsque n est une puissance de 2 $\hat{S_n}$ est approximée rapidement. Et c'est l'algorithme qui permet d'estimer $\hat{S_n}$ au point $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$ qui est appelé la Transformée de Fourier Rapide (FFT). 
