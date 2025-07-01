@@ -19,19 +19,30 @@ format:
 
 jupyter: python3
 notice: |
-    @balac2011transformee @cooley1965algorithm @epstein2005well
+    @balac2011transformee @cooley1965algorithm @epstein2005well el2013parametric
 ---
 
 # Introduction
 
-The primary goal of the Fourier transformation is to analyze signals by decomposing them into their constituent frequencies. It was Joseph Fourier who first recognized the significance of spectral decomposition of a signal. Indeed, he demonstrated that any periodic signal can be decomposed into a finite sum of sinusoidal signals with constant frequencies and amplitudes. The finite set of these frequencies constitutes the spectrum of the signal. 
+When we were in our third year of the Risk Management program at an engineering school, we took a course on the calibration of stochastic processes. To assess our understanding, the instructor gave us a selection of academic papers and asked us to choose one, study it thoroughly, and reproduce its results.
 
-Beyond spectral analysis, the Fourier transformation is employed in solving partial differential equations, evaluating integrals, and computing sums of series. It has applications in various fields, including physics, engineering, and signal processing. In recent years, it has found new uses in finance, such as estimating financial asset volatility, which We will cover in future posts.
+We chose the paper by @el2013parametric, which proposes a method for estimating the parameters of stochastic volatility models based on contrast minimization and deconvolution.
 
-In this article, we explore the numerical computation of the Fourier transform for both real and complex functions. Drawing on the work of @balac2011transformee, who proposed a quadrature-based approach, we illustrate how this method can be applied. We also demonstrate how the Fast Fourier Transform (FFT) algorithm [ for more details see @cooley1965algorithm] enables efficient computation of the discrete Fourier transform, making it well-suited for calculating the Fourier transform of integrable functions and the Fourier coefficients of periodic functions.
+To do so, we had to implement an optimization algorithm that relies on the Fourier transform to evaluate the following function:
 
-This article was motivated by the realization that the numerical methods implemented in Python—such as [`scipy.fft` and `numpy.fft`] do not directly compute the Fourier transform of a function. This observation had already been made by @balac2011transformee in the context of MATLAB.
 
+$$
+\hat{f}(\nu) = \int_{-\infty}^{+\infty} f_{\theta}(t) e^{-2i\pi\nu t} dt
+$$
+où $f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)$ et $\theta = (\phi, \gamma, \mathcal{E})$ est un vecteur de paramètres. 
+
+
+
+To compute the Fourier transform of $f$, @el2013parametric uses the left Riemann sum (rectangle quadrature) method implemented in MATLAB and suggests that using the Fast Fourier Transform (FFT) algorithm could accelerate the computation of the Fourier transform.
+
+We decided to reproduce the paper using Python. Implementing the left rectangle quadrature method was straightforward, and we initially believed that the `scipy.fft` and `numpy.fft` libraries would allow us to compute the Fourier transform of $f$ using the FFT algorithm.
+
+However, we were surprised to discover that these functions do not compute the Fourier transform of a continuous function but rather the discrete Fourier transform (DFT) of a finite sequence. The plot below illustrates this observation.
 
 
 
@@ -88,31 +99,41 @@ plt.show()
 
 ```
 
+
+
+
+This motivation led us to write this article to explain how to compute the Fourier transform of a function using both the left Riemann sum (rectangle quadrature) method and the Fast Fourier Transform (FFT) algorithm.
+
+The paper by @el2013parametric illustrates an application of the Fourier transform in finance and ecology. Beyond these domains, the Fourier transform plays a key role in spectral analysis, solving partial differential equations, evaluating integrals, and computing series sums. It is widely used in physics, engineering, and signal processing.
+
+In the literature, several articles discuss approximating the Fourier transform and implementing it using numerical methods. However, we have not found a source as clear and comprehensive as the one by @balac2011transformee, which proposes a quadrature-based approach to compute the Fourier transform and explains how to use the FFT algorithm to compute the discrete Fourier transform.
+
+We use @balac2011transformee as our primary reference to show how to approximate the Fourier transform in Python using both methods: the left rectangle quadrature method and the Fast Fourier Transform (FFT) algorithm.
+
+
+
+
+
+
 ## Definition and Properties of the Fourier Transform
 
-We must first define the space in which the function we want to compute the Fourier transform is defined and the caracteristics they must satisfy so that the Fourier transform exists.
-These functions are defined in the space of integrable functions, denoted by $L^1(\mathbb{R,K})$ which are functions $f:\mathbb{R} \to \mathbb{K}$ [where $\mathbb{K}$ is either $\mathbb{R}$ or $\mathbb{C}$]. These functions are integrable in the sense of Lebesgue, meaning that the integral of their absolute value is finite:
+We adopt the framework presented by @balac2011transformee to define the Fourier transform of a function $f$ and to introduce its properties.
+
+The functions considered belong to the space of integrable functions, denoted $L^1(\mathbb{R,K})$, consisting of all functions  $f:\mathbb{R} \to \mathbb{K}$ [where $\mathbb{K}$ is either $\mathbb{R}$ or $\mathbb{C}$]. These functions are integrable in the sense of Lebesgue, meaning that the integral of their absolute value is finite:
 $$
 \int_{-\infty}^{+\infty} |f(t)| dt < +\infty.
 $$
 
-So for a function $f$ to be in $L^1(\mathbb{R,K})$, the product $f(t) \cdot e^{-2i\pi\nu t}$ is integrable for all $\nu \in \mathbb{R}$. And for all $\nu \in \mathbb{R}$, the function $\hat{f}$ [notée egalement $F(f)$] defined by 
+
+So, for a function $f$ to belong to $L^1(\mathbb{R}, \mathbb{K})$, the product $f(t) \cdot e^{-2i\pi\nu t}$ must also be integrable for all $\nu \in \mathbb{R}$. In that case, the **Fourier transform** of $f$, denoted $\hat{f}$ (or sometimes $\mathcal{F}(f)$), is defined for all $\nu \in \mathbb{R}$ by:
+
 $$
 \hat{f}(\nu) = \int_{-\infty}^{+\infty}
-f(x) e^{-2i\pi\nu t} dt
+f(t) \, e^{-2i\pi\nu t} \, dt.
 $$
 
-is well-defined and is called the Fourier transform of $f$. 
 
-We deduce in this formula that a Fourier transform is a complex-valued function, and it is a linear operator. We can also deduce others properties of the Fourier transform in particular for a function $f$ in $L^1(\mathbb{R,R})$, une fonction à valeurs réelles :
-
-- Translation property: If $f$ is in $L^1(\mathbb{R,K})$, $t_0 \in \mathbb{R}$,  and $h : t \in \mathbb{R} \mapsto f(t - t_0)$, we have $h \in L^1(\mathbb{R,K})$ and $\hat{h}(\nu) = e^{-2i\pi\nu t_0} \hat{f}(\nu)$.
-- Homothety property: If $f$ is in $L^1(\mathbb{R,K})$ and $a \in \mathbb{R}$, then the function $g : t \in \mathbb{R} \mapsto f(at)$ is in $L^1(\mathbb{R,K})$ and $\hat{g}(\nu) = \frac{1}{|a|} \hat{f}\left(\frac{\nu}{a}\right)$.
-
-- Modulation property: If $f$ is in $L^1(\mathbb{R,K})$ and $\nu_0 \in \mathbb{R}$,  and $h : t \in \mathbb{R} \mapsto f(t) e^{2i\pi\nu_0 t}$, we have $h \in L^1(\mathbb{R,K})$ and $\hat{h}(\nu) = \hat{f}(\nu - \nu_0)$.
-
-- If $f \in L^1(\mathbb{R,R})$ and est pair, then $\hat{f}$ is also real-valued and the real part of $\hat{f}$ is also an even function.
-- If $f$ is in $L^1(\mathbb{R,R})$ and is odd, then $\hat{f}$ is est une fonction imaginaire pure and the imaginary part of $\hat{f}$ is also an odd function.
+The key takeaway is that the Fourier transform $\hat{f}$ of a function $f$ is a complex-valued, linear function that depends on the frequency $\nu$. If $f \in L^1(\mathbb{R})$, is real-valued and even, then $\hat{f}$ is also real-valued and even. Conversely, if $f$ is real-valued and odd, then $\hat{f}$ is purely imaginary and odd as well.
 
 For some functions, the Fourier transform can be computed analytically. For example, for the function $f : t \in \mathbb{R} \mapsto \mathbb{1}_{[-\frac{a}{2}, \frac{a}{2}]}(t)$, the Fourier transform is given by:
 $$
@@ -120,7 +141,7 @@ $$
 $$
 where $sinc(t) = \frac{\sin(t)}{t}$ is the sinc function.
 
-However, for many functions, the Fourier transform cannot be computed analytically. In such cases, we can use numerical methods to approximate the Fourier transform. We will explore these numerical dans la suite of this article.
+However, for many functions, the Fourier transform cannot be computed analytically. In such cases, we can use numerical methods to approximate it. We will explore these numerical approaches in the following sections of this article.
 
 ## How to approximate the Fourier Transform?
 
@@ -130,21 +151,21 @@ $$
 \hat{f}(\nu) \approx \int_{-T}^{T} f(t) e^{-2i\pi\nu t} dt
 $$
 
-In his article, @balac2011transformee va plus loin en montrant qu'approximating the Fourier transform met en oeuvre trois outils mathématiques :
+In his article, @balac2011transformee goes further by showing that approximating the Fourier transform involves three key mathematical tools:
 
-- Les séries de Fourier dans le cadre d'un signal périodique.
-- La transformée de Fourier dans le cadre d'un signal non périodique.
-- La transformée de Fourier discrète dans le cadre d'un signal discret.
+* **Fourier series**, in the context of a periodic signal,
+* **The Fourier transform**, for non-periodic signals,
+* **The discrete Fourier transform**, for discrete signals.
 
-And for each of these tools, computing the Fourier transform revient à calculer l'intgrale below:
+For each of these tools, computing the Fourier transform essentially comes down to evaluating the following integral:
 $$
 \hat{f}(\nu) \approx \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) e^{-2i\pi\nu t} dt
 $$
-I recommends reading his article for more details on these three tools. Then we will focus on the numerical computation of the Fourier transform using quadrature methods, which is a numerical integration technique.
-
+I recommend reading his article for more details on these three tools. Next, we will focus on the numerical computation of the Fourier transform using quadrature methods, a technique for performing numerical integration.
+ 
 ## Numerical Computation of the Fourier Transform
 
-We show that to compute the Fourier transform of a function $f$ consists to approximating it by the integral below in the interval $[-\frac{T}{2}, \frac{T}{2}]$:
+We show that computing the Fourier transform of a function $f$ consists to approximating it by the integral the following integral over the interval $[-\frac{T}{2}, \frac{T}{2}]$:
 $$
 \underbrace{
   \int_{-\infty}^{+\infty} f(t)\, e^{-2\pi i \nu t} \, dt
@@ -157,10 +178,11 @@ $$
 
 where T is a large enough number such that the integral converges. Une valeur approchée of the integral $\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt$ can be computed using quadrature methods. In the next section, we will approximate the integral using the quadrature method of rectangles à gauche.
 
-## Quadrature Method of Rectangles à Gauche
+## Quadrature method of left Rectangles
 
-For computing the integral $\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt$, using the quadrature method of rectangles à gauche, we must respect the following steps:
-1. **Discretization of the Interval**: We discretize the interval $[-\frac{T}{2}, \frac{T}{2}]$ into $N$ uniform subintervals of length $h_t = \frac{T}{N}$. The points in the interval are given by:
+To compute the integral $\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt$, using the quadrature method of left rectangles, we follow these steps:
+
+1. **Discretization of the Interval:**: We divide the interval $[-\frac{T}{2}, \frac{T}{2}]$ into $N$ uniform subintervals of length $h_t = \frac{T}{N}$. The discretization points[eft endpoints of the rectangles] in the interval are given by:
 
 $$
 t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
@@ -176,6 +198,9 @@ By taking into account that we have $t_{k+1} - t_k = h_t$, and $t_k = -\frac{T}{
 $$
 \tilde{S}(\nu) = \sum_{k=0}^{N-1} f(t_k) e^{-2\pi i \nu t_k} h_t.
 $$
+
+We call it the **quadrature method of left rectangles** because it uses the **left endpoint** $t_k$ of each subinterval to approximate the value of the function $f(t)$ at that point.
+
 3. **Final Formula**: The final formula for the approximation of the Fourier transform is given by:
 
 $$
@@ -192,9 +217,10 @@ $$
 }
 $$
 
-### Mis en Oeuvre in Python 
+### Implementation of the left rectangle quadrature method in Python.
 
-The function `tfquad` below implements the quadrature method of rectangles à gauche to compute the Fourier transform of a function `f` at a given frequency `nu`. 
+
+The function `tfquad` below implements the **left rectangle quadrature method** to compute the **Fourier transform** of a function `f` at a given frequency `nu`.
 
 ```{python}
 import numpy as np
@@ -229,7 +255,7 @@ def tfquad(f, nu, n, T):
 
 ```
 
-We can also use the function scipy's `quad` functionnfor defining the Fourier transform of a function `f` at a given frequency `nu`.  The function `tf_integral` below implements this approach. It uses numerical integration to compute the Fourier transform of a function `f` over the interval $[-T/2, T/2]$.
+We can also use SciPy’s `quad` function to define the **Fourier transform** of a function `f` at a given frequency `nu`. The function `tf_integral` below implements this approach. It uses numerical integration to compute the Fourier transform of `f` over the interval $[-T/2, T/2]$.
 
 
 ```{python}
@@ -312,11 +338,12 @@ plt.show()
 
 ```
 
-We are able now to compute the Fourier transform of a function using the quadrature method of rectangles. Let's characterize this approximation.
+We are now able to compute the Fourier transform of a function using the **left rectangle quadrature method**. Let's take a closer look at the characteristics and limitations of this approximation.
 
-## Characterization of the Approximation
 
-### Le caractère oscillant de l'approximation
+## Characterizing the approximation using the left rectangle quadrature method
+
+### The approximation of the Fourier transform $\hat{f}$ using the **left rectangle quadrature method** exhibits an **oscillatory behavior** by nature.
 
 We observe that the transform $\hat{f}$ of the function $f$ is oscillatory. This oscillatory nature is due to the complex exponential term $e^{-2\pi i \nu t}$ in the integral. 
 
@@ -457,21 +484,20 @@ def tffft(f, T, n):
     -------
     tf : np.ndarray
         Valeurs approximées de la transformée de Fourier aux fréquences discrètes.
-    nu : np.ndarray
+    freq_nu : np.ndarray
         Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).
     """
     h = T / n
     t = -0.5 * T + np.arange(n) * h  # noeuds temporels
     F = f(t)                         # échantillonnage de f
     tf = h * (-1) ** np.arange(n) * fftshift(fft(F))  # TF approximée
-    nu = -n / (2 * T) + np.arange(n) / T              # fréquences ν_j = j/T
+    freq_nu = -n / (2 * T) + np.arange(n) / T              # fréquences ν_j = j/T
 
-    return tf, nu, t
+    return tf, freq_nu, t
 
 ```
 
-On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction donnée
-(une fonction de Gauss).
+On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction de la fonction de Gaussienne $f(t) = e^{-10t^2}$ sur l'intervalle $[-10, 10]$ en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT).
 
 ```{python}
 # Paramètres
@@ -504,6 +530,97 @@ plt.tight_layout()
 plt.show()
 ```
 
+La méthode que nous venons de présenter permet le calcul et  représentation de la transformée de Fourier d'une fonction $f$. Le calcul se fait à des points $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$ où $n$ est une puissance de 2 qui appartiennent à l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$. Cependant, elle ne permet pas de calculer la transformée de Fourier pour des points $\nu$ qui sont dans l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ mais qui ne sont pas de la forme $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$.
+
+Pour calculer la transformée de Fourier d'une fonction $f$ pour un point $\nu$ qui n'est pas de la forme $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$, on a besoin d'utiliser le théorème d'interpolation de Shannon. 
 
 
-Dans ce cas, lorsque n est une puissance de 2 $\hat{S_n}$ est approximée rapidement. Et c'est l'algorithme qui permet d'estimer $\hat{S_n}$ au point $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$ qui est appelé la Transformée de Fourier Rapide (FFT). 
+
+## Utilisation du théorème d'interpolation de Shannon pour calculer la transformée de Fourier d'une fonction $f$ en un point $\nu$.
+
+Que nous dit le théorème de Shannon ?  Il nous dit que pour une fonction $g$ à bande limitée c'est-à-dire dont la transformée de Fourier $\hat{g}$ est nulle en dehors d'un intervalle $[-\frac{B}{2}, \frac{B}{2}]$, on peut reconstruire la fonction $g$ à partir de ses échantillons $g_k = g\left(\frac{k}{B}\right)$ pour $k \in \mathbb{Z}$. Si on note $\nu_c$ le plus petit réel positif tel que $\hat{g}$ est nulle en déhors de l'intervalle $[-2 \pi \nu_c, 2 \pi \nu_c]$, alors on a la formule d'interpolation de Shannon :
+Pour tout $t \in \mathbb{R}$, et $\alpha$ un réel positif, vérifiant $\alpha \geq \frac{1}{2 \nu_c}$, on a :
+
+$$
+g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(t - k\alpha)\right)
+$$
+
+où $\text{sinc}(x) = \frac{\sin(x)}{x}$ est la fonction sinus cardinal sinc.
+
+@balac2011transformee montre que lorsque la fonction $f$ est à support borné dans un intervalle $[-T/2, T/2]$, on peut utiliser le théorème d'interpolation de Shannon pour calculer la transformée de Fourier $\hat{f}(\nu)$ pour tout $\nu \in \mathbb{R}$ en utilisant les valeurs de la transformée de Fourier discrète $\hat{S}_n(\nu_j)$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$. Pour ce faire, il considère $\alpha = \frac{1}{T}$ et obtient pour tout $\nu \in \mathbb{R}$ la formule d'interpolation de Shannon suivante :
+$$
+\hat{f}(\nu) = \sum_{j=-\frac{n}{2}}^{\frac{n}{2}-1} \hat{S}_n\left(\frac{j}{T}\right)\, \text{sinc}\left(\pi T\left(\nu - \frac{j}{T}\right)\right)
+$$
+
+Le programme ci-dessous illustre l'utilisation du théorème d'interpolation de Shannon pour calculer la transformée de Fourier d'une fonction $f$ en un point $\nu$.
+
+```{python}
+import numpy as np
+
+def shannon(tf, nu, T):
+    """
+    Approxime la valeur de la transformée de Fourier de la fonction f en la fréquence 'nu'
+    à partir de ses valeurs discrètes calculées via la FFT.
+
+    Paramètres :
+    - tf : tableau numpy, valeurs de la TF (centrées avec fftshift) aux fréquences j/T pour j = -n/2, ..., n/2 - 1
+    - nu : float, fréquence à laquelle on veut approximer la TF
+    - T  : float, largeur de la fenêtre temporelle utilisée pour la FFT
+
+    Retour :
+    - tfnu : approximation de la TF en la fréquence 'nu'
+    """
+    n = len(tf)
+    tfnu = 0.0
+    for j in range(n):
+        k = j - n // 2  # correspond à l'indice j dans {-n/2, ..., n/2 - 1}
+        tfnu += tf[j] * np.sinc(T * nu - k)  # np.sinc(x) = sin(pi x)/(pi x) en numpy
+
+    return tfnu
+
+```
+
+Enfin, nous pouvons definir la 
+
+```{python}
+def fourier_at_nu(f, T, n, nu):
+    """
+    Calcule la transformée de Fourier de f en la fréquence nu
+    en utilisant tffft + interpolation de Shannon.
+    """
+    tf, _, _ = tffft(f, T, n)
+    return shannon(tf, nu, T)
+
+```
+
+
+```{python}
+a = 0.5
+f = lambda t: np.exp(-a * np.abs(t))                          # Fonction à transformer
+fhat_exact = lambda nu: (2 * a) / (a**2 + 4 * np.pi**2 * nu**2)  # TF exacte
+
+T = 40     # largeur de la fenêtre
+n = 2**10  # nombre de points de discrétisation
+
+# Calcul pour nu = 3/T
+nu = 3 / T
+# Valeur exacte de la TF
+exact_value = fhat_exact(nu)
+# Approximation de la TF en nu
+approx_value = fourier_at_nu(f, T, n, nu)
+print(f"Exact value at nu={nu}: {exact_value}")
+print(f"Approximation at nu={nu}: {approx_value}")
+
+# Calcul pour nu = pi/T
+nu = np.pi / T
+# Valeur exacte de la TF
+exact_value = fhat_exact(nu)
+# Approximation de la TF en nu
+approx_value = fourier_at_nu(f, T, n, nu)
+print(f"Exact value at nu={nu}: {exact_value}")
+print(f"Approximation at nu={nu}: {approx_value}")
+```
+
+Une alternative à l'interpolation de Shannon est d'utiliser d'autres méthodes d'interpolation comme l'interpolation de Lagrange ou l'interpolation de Newton. 
+
+## Conclusion

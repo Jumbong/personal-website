@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-06-28">
+<meta name="dcterms.date" content="2025-06-29">
 
 <title>Fourrier Transformation</title>
 <style>
@@ -238,7 +238,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 28, 2025</p>
+      <p class="date">June 29, 2025</p>
     </div>
   </div>
   
@@ -256,7 +256,7 @@ window.Quarto = {
 <p>Beyond spectral analysis, the Fourier transformation is employed in solving partial differential equations, evaluating integrals, and computing sums of series. It has applications in various fields, including physics, engineering, and signal processing. In recent years, it has found new uses in finance, such as estimating financial asset volatility, which We will cover in future posts.</p>
 <p>In this article, we explore the numerical computation of the Fourier transform for both real and complex functions. Drawing on the work of <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span>, who proposed a quadrature-based approach, we illustrate how this method can be applied. We also demonstrate how the Fast Fourier Transform (FFT) algorithm <span class="citation" data-cites="cooley1965algorithm">(for more details see <a href="#ref-cooley1965algorithm" role="doc-biblioref">Cooley and Tukey 1965</a>)</span> enables efficient computation of the discrete Fourier transform, making it well-suited for calculating the Fourier transform of integrable functions and the Fourier coefficients of periodic functions.</p>
 <p>This article was motivated by the realization that the numerical methods implemented in Python—such as [<code>scipy.fft</code> and <code>numpy.fft</code>] do not directly compute the Fourier transform of a function. This observation had already been made by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> in the context of MATLAB.</p>
-<div id="2790fcb3" class="cell" data-execution_count="1">
+<div id="014e76e4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -396,7 +396,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <section id="mis-en-oeuvre-in-python" class="level3">
 <h3 class="anchored" data-anchor-id="mis-en-oeuvre-in-python">Mis en Oeuvre in Python</h3>
 <p>The function <code>tfquad</code> below implements the quadrature method of rectangles à gauche to compute the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>.</p>
-<div id="95e6754b" class="cell" data-execution_count="2">
+<div id="08418428" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -428,7 +428,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use the function scipy’s <code>quad</code> functionnfor defining the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of a function <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
-<div id="0c6e6495" class="cell" data-execution_count="3">
+<div id="875353cc" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -437,7 +437,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="86444a77" class="cell" data-execution_count="4">
+<div id="da4ca08f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -461,7 +461,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>exact_vals <span class="op">=</span> exact_fourier_transform(nu_vals)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>approx_vals <span class="op">=</span> np.array([tfquad(f, nu, n, T) <span class="cf">for</span> nu <span class="kw">in</span> nu_vals])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3e2a2ebc" class="cell" data-execution_count="5">
+<div id="643c35d1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplot_mosaic([[<span class="st">"quad"</span>, <span class="st">"tfquad"</span>]], figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using scipy.integrate.quad</span></span>
