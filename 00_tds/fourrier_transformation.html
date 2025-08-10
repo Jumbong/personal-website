@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-06-29">
+<meta name="dcterms.date" content="2025-07-22">
 
 <title>Fourrier Transformation</title>
 <style>
@@ -204,16 +204,18 @@ window.Quarto = {
   <li><a href="#definition-and-properties-of-the-fourier-transform" id="toc-definition-and-properties-of-the-fourier-transform" class="nav-link" data-scroll-target="#definition-and-properties-of-the-fourier-transform">Definition and Properties of the Fourier Transform</a></li>
   <li><a href="#how-to-approximate-the-fourier-transform" id="toc-how-to-approximate-the-fourier-transform" class="nav-link" data-scroll-target="#how-to-approximate-the-fourier-transform">How to approximate the Fourier Transform?</a></li>
   <li><a href="#numerical-computation-of-the-fourier-transform" id="toc-numerical-computation-of-the-fourier-transform" class="nav-link" data-scroll-target="#numerical-computation-of-the-fourier-transform">Numerical Computation of the Fourier Transform</a></li>
-  <li><a href="#quadrature-method-of-rectangles-à-gauche" id="toc-quadrature-method-of-rectangles-à-gauche" class="nav-link" data-scroll-target="#quadrature-method-of-rectangles-à-gauche">Quadrature Method of Rectangles à Gauche</a>
+  <li><a href="#quadrature-method-of-left-rectangles" id="toc-quadrature-method-of-left-rectangles" class="nav-link" data-scroll-target="#quadrature-method-of-left-rectangles">Quadrature method of left Rectangles</a>
   <ul class="collapse">
-  <li><a href="#mis-en-oeuvre-in-python" id="toc-mis-en-oeuvre-in-python" class="nav-link" data-scroll-target="#mis-en-oeuvre-in-python">Mis en Oeuvre in Python</a></li>
+  <li><a href="#implementation-of-the-left-rectangle-quadrature-method-in-python." id="toc-implementation-of-the-left-rectangle-quadrature-method-in-python." class="nav-link" data-scroll-target="#implementation-of-the-left-rectangle-quadrature-method-in-python.">Implementation of the left rectangle quadrature method in Python.</a></li>
   </ul></li>
-  <li><a href="#characterization-of-the-approximation" id="toc-characterization-of-the-approximation" class="nav-link" data-scroll-target="#characterization-of-the-approximation">Characterization of the Approximation</a>
+  <li><a href="#characterizing-the-approximation-using-the-left-rectangle-quadrature-method" id="toc-characterizing-the-approximation-using-the-left-rectangle-quadrature-method" class="nav-link" data-scroll-target="#characterizing-the-approximation-using-the-left-rectangle-quadrature-method">Characterizing the approximation using the left rectangle quadrature method</a>
   <ul class="collapse">
-  <li><a href="#le-caractère-oscillant-de-lapproximation" id="toc-le-caractère-oscillant-de-lapproximation" class="nav-link" data-scroll-target="#le-caractère-oscillant-de-lapproximation">Le caractère oscillant de l’approximation</a></li>
+  <li><a href="#the-approximation-of-the-fourier-transform-hatf-using-the-left-rectangle-quadrature-method-exhibits-an-oscillatory-behavior-by-nature." id="toc-the-approximation-of-the-fourier-transform-hatf-using-the-left-rectangle-quadrature-method-exhibits-an-oscillatory-behavior-by-nature." class="nav-link" data-scroll-target="#the-approximation-of-the-fourier-transform-hatf-using-the-left-rectangle-quadrature-method-exhibits-an-oscillatory-behavior-by-nature.">The approximation of the Fourier transform <span class="math inline">\(\hat{f}\)</span> using the <strong>left rectangle quadrature method</strong> exhibits an <strong>oscillatory behavior</strong> by nature.</a></li>
   </ul></li>
-  <li><a href="#the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." id="toc-the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." class="nav-link" data-scroll-target="#the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic.">The approximation using the quadrature method of rectangles à gauche is periodic.</a></li>
-  <li><a href="#utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." id="toc-utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." class="nav-link" data-scroll-target="#utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu.">Utilisation the l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction f en un point <span class="math inline">\(\nu\)</span>.</a></li>
+  <li><a href="#the-approximation-obtained-using-the-left-rectangle-quadrature-method-is-periodic-in-nature." id="toc-the-approximation-obtained-using-the-left-rectangle-quadrature-method-is-periodic-in-nature." class="nav-link" data-scroll-target="#the-approximation-obtained-using-the-left-rectangle-quadrature-method-is-periodic-in-nature.">The approximation obtained using the left rectangle quadrature method is periodic in nature.</a></li>
+  <li><a href="#computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm." id="toc-computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm." class="nav-link" data-scroll-target="#computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm.">Computing the Fourier Transform at Frequency <span class="math inline">\(\nu\)</span> Using the FFT Algorithm.</a></li>
+  <li><a href="#using-shannons-interpolation-theorem-to-compute-the-fourier-transform-of-a-function-f-at-a-point-nu" id="toc-using-shannons-interpolation-theorem-to-compute-the-fourier-transform-of-a-function-f-at-a-point-nu" class="nav-link" data-scroll-target="#using-shannons-interpolation-theorem-to-compute-the-fourier-transform-of-a-function-f-at-a-point-nu">Using Shannon’s Interpolation Theorem to Compute the Fourier Transform of a Function <span class="math inline">\(f\)</span> at a Point <span class="math inline">\(\nu\)</span></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -244,7 +246,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 29, 2025</p>
+      <p class="date">July 22, 2025</p>
     </div>
   </div>
   
@@ -258,11 +260,16 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The primary goal of the Fourier transformation is to analyze signals by decomposing them into their constituent frequencies. It was Joseph Fourier who first recognized the significance of spectral decomposition of a signal. Indeed, he demonstrated that any periodic signal can be decomposed into a finite sum of sinusoidal signals with constant frequencies and amplitudes. The finite set of these frequencies constitutes the spectrum of the signal.</p>
-<p>Beyond spectral analysis, the Fourier transformation is employed in solving partial differential equations, evaluating integrals, and computing sums of series. It has applications in various fields, including physics, engineering, and signal processing. In recent years, it has found new uses in finance, such as estimating financial asset volatility, which We will cover in future posts.</p>
-<p>In this article, we explore the numerical computation of the Fourier transform for both real and complex functions. Drawing on the work of <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span>, who proposed a quadrature-based approach, we illustrate how this method can be applied. We also demonstrate how the Fast Fourier Transform (FFT) algorithm <span class="citation" data-cites="cooley1965algorithm">(for more details see <a href="#ref-cooley1965algorithm" role="doc-biblioref">Cooley and Tukey 1965</a>)</span> enables efficient computation of the discrete Fourier transform, making it well-suited for calculating the Fourier transform of integrable functions and the Fourier coefficients of periodic functions.</p>
-<p>This article was motivated by the realization that the numerical methods implemented in Python—such as [<code>scipy.fft</code> and <code>numpy.fft</code>] do not directly compute the Fourier transform of a function. This observation had already been made by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> in the context of MATLAB.</p>
-<div id="514fb381" class="cell" data-execution_count="1">
+<p>When we were in our third year of the Risk Management program at an engineering school, we took a course on the calibration of stochastic processes. To assess our understanding, the instructor gave us a selection of academic papers and asked us to choose one, study it thoroughly, and reproduce its results.</p>
+<p>We chose the paper by <span class="citation" data-cites="el2013parametric">El Kolei (<a href="#ref-el2013parametric" role="doc-biblioref">2013</a>)</span>, which proposes a method for estimating the parameters of stochastic volatility models based on contrast minimization and deconvolution.</p>
+<p>To do so, we had to implement an optimization algorithm that relies on the Fourier transform to evaluate the following function:</p>
+<p><span class="math display">\[
+\hat{f}(\nu) = \int_{-\infty}^{+\infty} f_{\theta}(t) e^{-2i\pi\nu t} dt
+\]</span> où <span class="math inline">\(f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)\)</span> andd <span class="math inline">\(\theta = (\phi, \gamma, \mathcal{E})\)</span> a vector of parameters to estimate.</p>
+<p>To compute the Fourier transform of <span class="math inline">\(f\)</span>, <span class="citation" data-cites="el2013parametric">El Kolei (<a href="#ref-el2013parametric" role="doc-biblioref">2013</a>)</span> uses the left Riemann sum (rectangle quadrature) method implemented in MATLAB and suggests that using the Fast Fourier Transform (FFT) algorithm could accelerate the computation of the Fourier transform.</p>
+<p>We decided to reproduce the paper using Python. Implementing the left rectangle quadrature method was straightforward, and we initially believed that the <code>scipy.fft</code> and <code>numpy.fft</code> libraries would allow us to compute the Fourier transform of <span class="math inline">\(f\)</span> using the FFT algorithm.</p>
+<p>However, we were surprised to discover that these functions do not compute the Fourier transform of a continuous function but rather the discrete Fourier transform (DFT) of a finite sequence. The plot below illustrates this observation.</p>
+<div id="52333aa9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -319,28 +326,26 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>This motivation led us to write this article to explain how to compute the Fourier transform of a function using both the left Riemann sum (rectangle quadrature) method and the Fast Fourier Transform (FFT) algorithm.</p>
+<p>The paper by <span class="citation" data-cites="el2013parametric">El Kolei (<a href="#ref-el2013parametric" role="doc-biblioref">2013</a>)</span> illustrates an application of the Fourier transform in finance and ecology. Beyond these domains, the Fourier transform plays a key role in spectral analysis, solving partial differential equations, evaluating integrals, and computing series sums. It is widely used in physics, engineering, and signal processing.</p>
+<p>In the literature, several articles discuss approximating the Fourier transform and implementing it using numerical methods. However, we have not found a source as clear and comprehensive as the one by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span>, which proposes a quadrature-based approach to compute the Fourier transform and explains how to use the FFT algorithm to compute the discrete Fourier transform.</p>
+<p>We use <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> as our primary reference to show how to approximate the Fourier transform in Python using both methods: the left rectangle quadrature method and the Fast Fourier Transform (FFT) algorithm.</p>
 <section id="definition-and-properties-of-the-fourier-transform" class="level2">
 <h2 class="anchored" data-anchor-id="definition-and-properties-of-the-fourier-transform">Definition and Properties of the Fourier Transform</h2>
-<p>We must first define the space in which the function we want to compute the Fourier transform is defined and the caracteristics they must satisfy so that the Fourier transform exists. These functions are defined in the space of integrable functions, denoted by <span class="math inline">\(L^1(\mathbb{R,K})\)</span> which are functions <span class="math inline">\(f:\mathbb{R} \to \mathbb{K}\)</span> [where <span class="math inline">\(\mathbb{K}\)</span> is either <span class="math inline">\(\mathbb{R}\)</span> or <span class="math inline">\(\mathbb{C}\)</span>]. These functions are integrable in the sense of Lebesgue, meaning that the integral of their absolute value is finite: <span class="math display">\[
+<p>We adopt the framework presented by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> to define the Fourier transform of a function <span class="math inline">\(f\)</span> and to introduce its properties.</p>
+<p>The functions considered belong to the space of integrable functions, denoted <span class="math inline">\(L^1(\mathbb{R,K})\)</span>, consisting of all functions <span class="math inline">\(f:\mathbb{R} \to \mathbb{K}\)</span> [where <span class="math inline">\(\mathbb{K}\)</span> is either <span class="math inline">\(\mathbb{R}\)</span> or <span class="math inline">\(\mathbb{C}\)</span>]. These functions are integrable in the sense of Lebesgue, meaning that the integral of their absolute value is finite: <span class="math display">\[
 \int_{-\infty}^{+\infty} |f(t)| dt &lt; +\infty.
 \]</span></p>
-<p>So for a function <span class="math inline">\(f\)</span> to be in <span class="math inline">\(L^1(\mathbb{R,K})\)</span>, the product <span class="math inline">\(f(t) \cdot e^{-2i\pi\nu t}\)</span> is integrable for all <span class="math inline">\(\nu \in \mathbb{R}\)</span>. And for all <span class="math inline">\(\nu \in \mathbb{R}\)</span>, the function <span class="math inline">\(\hat{f}\)</span> [notée egalement <span class="math inline">\(F(f)\)</span>] defined by <span class="math display">\[
+<p>So, for a function <span class="math inline">\(f\)</span> to belong to <span class="math inline">\(L^1(\mathbb{R}, \mathbb{K})\)</span>, the product <span class="math inline">\(f(t) \cdot e^{-2i\pi\nu t}\)</span> must also be integrable for all <span class="math inline">\(\nu \in \mathbb{R}\)</span>. In that case, the <strong>Fourier transform</strong> of <span class="math inline">\(f\)</span>, denoted <span class="math inline">\(\hat{f}\)</span> (or sometimes <span class="math inline">\(\mathcal{F}(f)\)</span>), is defined for all <span class="math inline">\(\nu \in \mathbb{R}\)</span> by:</p>
+<p><span class="math display">\[
 \hat{f}(\nu) = \int_{-\infty}^{+\infty}
-f(x) e^{-2i\pi\nu t} dt
+f(t) \, e^{-2i\pi\nu t} \, dt.
 \]</span></p>
-<p>is well-defined and is called the Fourier transform of <span class="math inline">\(f\)</span>.</p>
-<p>We deduce in this formula that a Fourier transform is a complex-valued function, and it is a linear operator. We can also deduce others properties of the Fourier transform in particular for a function <span class="math inline">\(f\)</span> in <span class="math inline">\(L^1(\mathbb{R,R})\)</span>, une fonction à valeurs réelles :</p>
-<ul>
-<li><p>Translation property: If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^1(\mathbb{R,K})\)</span>, <span class="math inline">\(t_0 \in \mathbb{R}\)</span>, and <span class="math inline">\(h : t \in \mathbb{R} \mapsto f(t - t_0)\)</span>, we have <span class="math inline">\(h \in L^1(\mathbb{R,K})\)</span> and <span class="math inline">\(\hat{h}(\nu) = e^{-2i\pi\nu t_0} \hat{f}(\nu)\)</span>.</p></li>
-<li><p>Homothety property: If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^1(\mathbb{R,K})\)</span> and <span class="math inline">\(a \in \mathbb{R}\)</span>, then the function <span class="math inline">\(g : t \in \mathbb{R} \mapsto f(at)\)</span> is in <span class="math inline">\(L^1(\mathbb{R,K})\)</span> and <span class="math inline">\(\hat{g}(\nu) = \frac{1}{|a|} \hat{f}\left(\frac{\nu}{a}\right)\)</span>.</p></li>
-<li><p>Modulation property: If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^1(\mathbb{R,K})\)</span> and <span class="math inline">\(\nu_0 \in \mathbb{R}\)</span>, and <span class="math inline">\(h : t \in \mathbb{R} \mapsto f(t) e^{2i\pi\nu_0 t}\)</span>, we have <span class="math inline">\(h \in L^1(\mathbb{R,K})\)</span> and <span class="math inline">\(\hat{h}(\nu) = \hat{f}(\nu - \nu_0)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(f \in L^1(\mathbb{R,R})\)</span> and est pair, then <span class="math inline">\(\hat{f}\)</span> is also real-valued and the real part of <span class="math inline">\(\hat{f}\)</span> is also an even function.</p></li>
-<li><p>If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^1(\mathbb{R,R})\)</span> and is odd, then <span class="math inline">\(\hat{f}\)</span> is est une fonction imaginaire pure and the imaginary part of <span class="math inline">\(\hat{f}\)</span> is also an odd function.</p></li>
-</ul>
+<p>The key takeaway is that the Fourier transform <span class="math inline">\(\hat{f}\)</span> of a function <span class="math inline">\(f\)</span> is a complex-valued, linear function that depends on the frequency <span class="math inline">\(\nu\)</span>. If <span class="math inline">\(f \in L^1(\mathbb{R})\)</span>, is real-valued and even, then <span class="math inline">\(\hat{f}\)</span> is also real-valued and even. Conversely, if <span class="math inline">\(f\)</span> is real-valued and odd, then <span class="math inline">\(\hat{f}\)</span> is purely imaginary and odd as well.</p>
 <p>For some functions, the Fourier transform can be computed analytically. For example, for the function <span class="math inline">\(f : t \in \mathbb{R} \mapsto \mathbb{1}_{[-\frac{a}{2}, \frac{a}{2}]}(t)\)</span>, the Fourier transform is given by: <span class="math display">\[
 \hat{f} : \nu \in \mathbb{R} \mapsto a sinc(a \pi \nu)
 \]</span> where <span class="math inline">\(sinc(t) = \frac{\sin(t)}{t}\)</span> is the sinc function.</p>
-<p>However, for many functions, the Fourier transform cannot be computed analytically. In such cases, we can use numerical methods to approximate the Fourier transform. We will explore these numerical dans la suite of this article.</p>
+<p>However, for many functions, the Fourier transform cannot be computed analytically. In such cases, we can use numerical methods to approximate it. We will explore these numerical approaches in the following sections of this article.</p>
 </section>
 <section id="how-to-approximate-the-fourier-transform" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-approximate-the-fourier-transform">How to approximate the Fourier Transform?</h2>
@@ -348,19 +353,19 @@ f(x) e^{-2i\pi\nu t} dt
 <p><span class="math display">\[
 \hat{f}(\nu) \approx \int_{-T}^{T} f(t) e^{-2i\pi\nu t} dt
 \]</span></p>
-<p>In his article, <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> va plus loin en montrant qu’approximating the Fourier transform met en oeuvre trois outils mathématiques :</p>
+<p>In his article, <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> goes further by showing that approximating the Fourier transform involves three key mathematical tools:</p>
 <ul>
-<li>Les séries de Fourier dans le cadre d’un signal périodique.</li>
-<li>La transformée de Fourier dans le cadre d’un signal non périodique.</li>
-<li>La transformée de Fourier discrète dans le cadre d’un signal discret.</li>
+<li><strong>Fourier series</strong>, in the context of a periodic signal,</li>
+<li><strong>The Fourier transform</strong>, for non-periodic signals,</li>
+<li><strong>The discrete Fourier transform</strong>, for discrete signals.</li>
 </ul>
-<p>And for each of these tools, computing the Fourier transform revient à calculer l’intgrale below: <span class="math display">\[
+<p>For each of these tools, computing the Fourier transform essentially comes down to evaluating the following integral: <span class="math display">\[
 \hat{f}(\nu) \approx \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) e^{-2i\pi\nu t} dt
-\]</span> I recommends reading his article for more details on these three tools. Then we will focus on the numerical computation of the Fourier transform using quadrature methods, which is a numerical integration technique.</p>
+\]</span> I recommend reading his article for more details on these three tools. Next, we will focus on the numerical computation of the Fourier transform using quadrature methods, a technique for performing numerical integration.</p>
 </section>
 <section id="numerical-computation-of-the-fourier-transform" class="level2">
 <h2 class="anchored" data-anchor-id="numerical-computation-of-the-fourier-transform">Numerical Computation of the Fourier Transform</h2>
-<p>We show that to compute the Fourier transform of a function <span class="math inline">\(f\)</span> consists to approximating it by the integral below in the interval <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span>: <span class="math display">\[
+<p>We show that computing the Fourier transform of a function <span class="math inline">\(f\)</span> consists to approximating it by the integral the following integral over the interval <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span>: <span class="math display">\[
 \underbrace{
   \int_{-\infty}^{+\infty} f(t)\, e^{-2\pi i \nu t} \, dt
 }_{=\,\hat{f}(\nu)}
@@ -371,9 +376,12 @@ f(x) e^{-2i\pi\nu t} dt
 \]</span></p>
 <p>where T is a large enough number such that the integral converges. Une valeur approchée of the integral <span class="math inline">\(\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt\)</span> can be computed using quadrature methods. In the next section, we will approximate the integral using the quadrature method of rectangles à gauche.</p>
 </section>
-<section id="quadrature-method-of-rectangles-à-gauche" class="level2">
-<h2 class="anchored" data-anchor-id="quadrature-method-of-rectangles-à-gauche">Quadrature Method of Rectangles à Gauche</h2>
-<p>For computing the integral <span class="math inline">\(\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt\)</span>, using the quadrature method of rectangles à gauche, we must respect the following steps: 1. <strong>Discretization of the Interval</strong>: We discretize the interval <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> into <span class="math inline">\(N\)</span> uniform subintervals of length <span class="math inline">\(h_t = \frac{T}{N}\)</span>. The points in the interval are given by:</p>
+<section id="quadrature-method-of-left-rectangles" class="level2">
+<h2 class="anchored" data-anchor-id="quadrature-method-of-left-rectangles">Quadrature method of left Rectangles</h2>
+<p>To compute the integral <span class="math inline">\(\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt\)</span>, using the quadrature method of left rectangles, we follow these steps:</p>
+<ol type="1">
+<li><strong>Discretization of the Interval:</strong>: We divide the interval <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> into <span class="math inline">\(N\)</span> uniform subintervals of length <span class="math inline">\(h_t = \frac{T}{N}\)</span>. The discretization points[eft endpoints of the rectangles] in the interval are given by:</li>
+</ol>
 <p><span class="math display">\[
 t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 \]</span></p>
@@ -385,7 +393,11 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 \]</span></p>
 <p>By taking into account that we have <span class="math inline">\(t_{k+1} - t_k = h_t\)</span>, and <span class="math inline">\(t_k = -\frac{T}{2} + k \cdot h_t = T(\frac{k}{N} - \frac{1}{2})\)</span>, we can rewrite the integral as: <span class="math display">\[
 \tilde{S}(\nu) = \sum_{k=0}^{N-1} f(t_k) e^{-2\pi i \nu t_k} h_t.
-\]</span> 3. <strong>Final Formula</strong>: The final formula for the approximation of the Fourier transform is given by:</p>
+\]</span></p>
+<p>We call it the <strong>quadrature method of left rectangles</strong> because it uses the <strong>left endpoint</strong> <span class="math inline">\(t_k\)</span> of each subinterval to approximate the value of the function <span class="math inline">\(f(t)\)</span> at that point.</p>
+<ol start="3" type="1">
+<li><strong>Final Formula</strong>: The final formula for the approximation of the Fourier transform is given by:</li>
+</ol>
 <p><span class="math display">\[
 \boxed{
 \forall \nu \in \mathbb{R} \quad
@@ -399,10 +411,10 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 \quad \text{où } f_k = f\left( \frac{2k - n}{2n} T \right).
 }
 \]</span></p>
-<section id="mis-en-oeuvre-in-python" class="level3">
-<h3 class="anchored" data-anchor-id="mis-en-oeuvre-in-python">Mis en Oeuvre in Python</h3>
-<p>The function <code>tfquad</code> below implements the quadrature method of rectangles à gauche to compute the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>.</p>
-<div id="9818457a" class="cell" data-execution_count="2">
+<section id="implementation-of-the-left-rectangle-quadrature-method-in-python." class="level3">
+<h3 class="anchored" data-anchor-id="implementation-of-the-left-rectangle-quadrature-method-in-python.">Implementation of the left rectangle quadrature method in Python.</h3>
+<p>The function <code>tfquad</code> below implements the <strong>left rectangle quadrature method</strong> to compute the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>.</p>
+<div id="1ac5c41d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -433,8 +445,8 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can also use the function scipy’s <code>quad</code> functionnfor defining the Fourier transform of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of a function <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
-<div id="901e5492" class="cell" data-execution_count="3">
+<p>We can also use SciPy’s <code>quad</code> function to define the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
+<div id="f7cad009" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -443,7 +455,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="973e4688" class="cell" data-execution_count="4">
+<div id="9fc28ee8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -470,7 +482,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the approximation using scipy integral</span></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>tf_integral_vals <span class="op">=</span> np.array([tf_integral(f, nu, T) <span class="cf">for</span> nu <span class="kw">in</span> nu_vals])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fd55c5d5" class="cell" data-execution_count="5">
+<div id="beaec646" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplot_mosaic([[<span class="st">"tfquad"</span>, <span class="st">"quad"</span>]], figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using tfquad implementation</span></span>
@@ -503,7 +515,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.2</span>)  <span class="co"># Make room for the legend</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_70773/938168490.py:30: UserWarning:
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_31663/938168490.py:30: UserWarning:
 
 This figure was using a layout engine that is incompatible with subplots_adjust and/or tight_layout; not calling subplots_adjust.
 </code></pre>
@@ -516,16 +528,25 @@ This figure was using a layout engine that is incompatible with subplots_adjust 
 </div>
 </div>
 </div>
-<p>We are able now to compute the Fourier transform of a function using the quadrature method of rectangles. Let’s characterize this approximation.</p>
+<p>We are now able to compute the Fourier transform of a function using the <strong>left rectangle quadrature method</strong>. Let’s take a closer look at the characteristics and limitations of this approximation.</p>
 </section>
 </section>
-<section id="characterization-of-the-approximation" class="level2">
-<h2 class="anchored" data-anchor-id="characterization-of-the-approximation">Characterization of the Approximation</h2>
-<section id="le-caractère-oscillant-de-lapproximation" class="level3">
-<h3 class="anchored" data-anchor-id="le-caractère-oscillant-de-lapproximation">Le caractère oscillant de l’approximation</h3>
-<p>We observe that the transform <span class="math inline">\(\hat{f}\)</span> of the function <span class="math inline">\(f\)</span> is oscillatory. This oscillatory nature is due to the complex exponential term <span class="math inline">\(e^{-2\pi i \nu t}\)</span> in the integral.</p>
-<p>To illustrate this, the figure below represents the function <span class="math inline">\(f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}\)</span>, ainsi que les parties réelle et imaginaire de sa transformée de Fourier <span class="math inline">\(\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C}\)</span>, for <span class="math inline">\(\nu = \frac{5}{2}\)</span>. Bien que la fonction <span class="math inline">\(f\)</span> soit lisse, on observe des fortes oscillations pour la fonction <span class="math inline">\(\hat{f}\)</span>,.</p>
-<div id="5e426526" class="cell" data-execution_count="6">
+<section id="characterizing-the-approximation-using-the-left-rectangle-quadrature-method" class="level2">
+<h2 class="anchored" data-anchor-id="characterizing-the-approximation-using-the-left-rectangle-quadrature-method">Characterizing the approximation using the left rectangle quadrature method</h2>
+<section id="the-approximation-of-the-fourier-transform-hatf-using-the-left-rectangle-quadrature-method-exhibits-an-oscillatory-behavior-by-nature." class="level3">
+<h3 class="anchored" data-anchor-id="the-approximation-of-the-fourier-transform-hatf-using-the-left-rectangle-quadrature-method-exhibits-an-oscillatory-behavior-by-nature.">The approximation of the Fourier transform <span class="math inline">\(\hat{f}\)</span> using the <strong>left rectangle quadrature method</strong> exhibits an <strong>oscillatory behavior</strong> by nature.</h3>
+<p><span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> highlights that the Fourier transform <span class="math inline">\(\hat{f}\)</span> of the function <span class="math inline">\(f\)</span> is inherently <strong>oscillatory</strong>. This behavior arises from the <strong>complex exponential term</strong> <span class="math inline">\(e^{-2\pi i \nu t}\)</span> in the integral definition of the transform.</p>
+<p>To illustrate this, the figure below shows the function</p>
+<p><span class="math display">\[
+f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
+\]</span></p>
+<p>along with the <strong>real and imaginary parts</strong> of its Fourier transform</p>
+<p><span class="math display">\[
+\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C},
+\]</span></p>
+<p>evaluated at <span class="math inline">\(\nu = \frac{5}{2}\)</span>.</p>
+<p>Although <span class="math inline">\(f\)</span> is smooth, we clearly observe <strong>strong oscillations</strong> in <span class="math inline">\(\hat{f}\)</span>, highlighting the influence of the exponential kernel.</p>
+<div id="4a5a68b9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -566,12 +587,15 @@ This figure was using a layout engine that is incompatible with subplots_adjust 
 </div>
 </div>
 </div>
-<p>Ces fortes variations peuvent poser des problèmes pour l’approximation numérique de la transformée de Fourier en utilisant des méthodes de quadrature même lorsqu’on prend un nombre de points <span class="math inline">\(n\)</span> assez grand. L’utilisation de l’agorithme de la transformée de Fourier rapide (FFT) est une solution pour surmonter ce problème.</p>
+<p>These rapid variations can create difficulties in the <strong>numerical approximation</strong> of the Fourier transform using quadrature methods, even when a large number of points <span class="math inline">\(n\)</span> is used. One way to overcome this issue is by using the <strong>Fast Fourier Transform (FFT)</strong> algorithm.</p>
 </section>
 </section>
-<section id="the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic." class="level2">
-<h2 class="anchored" data-anchor-id="the-approximation-using-the-quadrature-method-of-rectangles-à-gauche-is-periodic.">The approximation using the quadrature method of rectangles à gauche is periodic.</h2>
-<p>On remarque que même si la fonction <span class="math inline">\(f\)</span> n’est pas périodique, la transformée de Fourier <span class="math inline">\(\hat{f}\)</span> est périodique. En effet, la fonction <span class="math inline">\(\hat{S}_n\)</span> est périodique de période <span class="math inline">\(T = \frac{n}{T}\)</span> : <span class="math display">\[
+<section id="the-approximation-obtained-using-the-left-rectangle-quadrature-method-is-periodic-in-nature." class="level2">
+<h2 class="anchored" data-anchor-id="the-approximation-obtained-using-the-left-rectangle-quadrature-method-is-periodic-in-nature.">The approximation obtained using the left rectangle quadrature method is periodic in nature.</h2>
+<p>We observe that even if the function <span class="math inline">\(f\)</span> is <strong>not periodic</strong>, its Fourier transform approximation <span class="math inline">\(\hat{f}\)</span> appears <strong>periodic</strong>. In fact, the function <span class="math inline">\(\hat{S}_n\)</span>, resulting from the quadrature method, is periodic with period</p>
+<p><span class="math display">\[
+\Delta \nu = \frac{n}{T}.
+\]</span> <span class="math display">\[
 \forall \nu \in \mathbb{R} \quad
 \widehat{S}_n\left(\nu + \frac{n}{T} \right)
 = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi\left(\nu + \frac{n}{T} \right)T \frac{k}{n}}
@@ -582,21 +606,29 @@ This figure was using a layout engine that is incompatible with subplots_adjust 
 \widehat{S}_n\left(\nu + \frac{n}{T} \right)}
 = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} = \widehat{S}_n(\nu).
 \]</span></p>
-<p>This periodicity of <span class="math inline">\(\hat{S}_n\)</span> has pour consequence that it is not possible to compute the Fourier transform by the quadrature method for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span> when the parameter <span class="math inline">\(T\)</span> and <span class="math inline">\(n\)</span> are fixed. In fact, it is impossible to compute <span class="math inline">\(\hat{f}(\nu)\)</span> when <span class="math inline">\(\nu  \geq {\nu}_{max}\)</span> or <span class="math inline">\(\nu \leq -{\nu}_{max}\)</span> where <span class="math inline">\({\nu}_{max} = \frac{n}{T}\)</span> is the period of the Fourier transform <span class="math inline">\(\hat{S}_n\)</span>. So in practice, for computing the Fourier transform of a function <span class="math inline">\(f\)</span> for <span class="math inline">\(\nu\)</span> very large, we need to increase the parameter <span class="math inline">\(T\)</span> or <span class="math inline">\(n\)</span>. In fact, by evaluating the error of the approximation of the Fourier transform <span class="math inline">\(\hat{f}\)</span> by the quadrature method of rectangles à gauche, we can see that we have a good approximation au point <span class="math inline">\(\nu\)</span> when this relation holds:</p>
+<p>This periodicity of <span class="math inline">\(\hat{S}_n\)</span> implies that it is <strong>not possible to compute the Fourier transform</strong> for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span> using the quadrature method when the parameters <span class="math inline">\(T\)</span> and <span class="math inline">\(n\)</span> are fixed. In fact, it becomes <strong>impossible to compute <span class="math inline">\(\hat{f}(\nu)\)</span></strong> accurately when</p>
+<p><span class="math display">\[
+|\nu| \geq \nu_{\text{max}},
+\]</span></p>
+<p>where <span class="math inline">\(\nu_{\text{max}} = \frac{n}{T}\)</span> is the <strong>maximum frequency</strong> that can be resolved due to the periodic nature of <span class="math inline">\(\hat{S}_n\)</span>.</p>
+<p>As a result, in practice, <strong>to compute the Fourier transform for large frequencies</strong>, one must increase either the time window <span class="math inline">\(T\)</span> or the number of points <span class="math inline">\(n\)</span>.</p>
+<p>Furthermore, by evaluating the error in approximating <span class="math inline">\(\hat{f}(\nu)\)</span> using the left rectangle quadrature method, we find that the approximation is reliable <strong>at frequency <span class="math inline">\(\nu\)</span></strong> when the following condition holds:</p>
+<p><span class="math display">\[
+|\nu| \ll \frac{n}{T}
+\]</span></p>
 <p><span class="math display">\[
 \frac{\nu T}{n} \ll 1.
 \]</span></p>
-<p><span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span> shows that when using the algorithm of the Fast Fourier Transform (FFT), we can correctly compute the Fourier transform of a function <span class="math inline">\(f\)</span> for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span>, even when <span class="math inline">\(\frac{\nu T}{n}\)</span> is proche to 1 for toute fonction <span class="math inline">\(f\)</span> continue par morceaux et à support borné.</p>
+<p><span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span> shows that when using the <strong>Fast Fourier Transform (FFT)</strong> algorithm, it is possible to accurately compute the Fourier transform of a function <span class="math inline">\(f\)</span> for all frequencies <span class="math inline">\(\nu \in \mathbb{R}\)</span>, even when <span class="math inline">\(\frac{\nu T}{n}\)</span> is close to 1 — provided that <span class="math inline">\(f\)</span> is <strong>piecewise continuous</strong> and has <strong>compact support</strong>.</p>
 </section>
-<section id="utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu." class="level2">
-<h2 class="anchored" data-anchor-id="utilisation-the-lalgorithme-de-la-transformée-de-fourier-rapide-fft-pour-calculer-la-transformée-de-fourier-dune-fonction-f-en-un-point-nu.">Utilisation the l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction f en un point <span class="math inline">\(\nu\)</span>.</h2>
-<p>Dans cette partie, nous considérons toujours que <span class="math inline">\(\hat{S}_n(\nu)\)</span> est l’approximation de la transformée de Fourier <span class="math inline">\(\hat{f}(\nu)\)</span> de la fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu \in [-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]\)</span> où <span class="math inline">\(\nu_{max} = \frac{n}{T}\)</span> ie <span class="math display">\[
+<section id="computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm." class="level2">
+<h2 class="anchored" data-anchor-id="computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm.">Computing the Fourier Transform at Frequency <span class="math inline">\(\nu\)</span> Using the FFT Algorithm.</h2>
+<p>In this section, we denote by <span class="math inline">\(\hat{S}_n(\nu)\)</span> the approximation of the Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span> of the function <span class="math inline">\(f\)</span> at a point <span class="math inline">\(\nu \in \left[-\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2}\right]\)</span>, where <span class="math inline">\(\nu_{\text{max}} = \frac{n}{T}\)</span>, i.e., <span class="math display">\[
 \hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
 \]</span></p>
-<p>Nous allons présenter l’algorithme de la transformée qui permet d’approximer <span class="math inline">\(\hat{f}(\nu)\)</span>. Nous n’allons pas détailler l’algorithme de la Transformée de Fourier Rapide (FFT) dans cet article. <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> provides a simplified explanation of the FFT algorithm. Pour plus de détails, je vous recommande de lire l’article de <span class="citation" data-cites="cooley1965algorithm">Cooley and Tukey (<a href="#ref-cooley1965algorithm" role="doc-biblioref">1965</a>)</span>.</p>
-<p>Ce qu’il faut retenir est que l’utilisation de l’algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span> se fait en deux étapes :</p>
-<p>La première étape utilise le fait que <span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span> shows that when <span class="math inline">\(\hat{S_n}(\nu)\)</span> is evaluated at <span class="math inline">\(\nu = \frac{j}{T}\)</span> for <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>, we have the good approximation of the Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span>.</p>
-<p>De plus nous savons que <span class="math inline">\(\hat{S_n}\)</span> est périodique. Et Cette périodicité fait jouer un rôle symétrique aux indices <span class="math inline">\(j \in \{0, 1, \ldots, n-1\}\)</span> et <span class="math inline">\(k \in \{-n/2, -n/2 + 1, \ldots, -1\}\)</span>. En effet, les valeurs de la transformée de Fourier de f sur l’intervalle <span class="math inline">\([-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]\)</span> peuvent être déduites des valeurs de <span class="math inline">\(\hat{S_n}\)</span> aux points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span> comme suit :</p>
+<p>We now present the Fourier transform algorithm used to approximate <span class="math inline">\(\hat{f}(\nu)\)</span>. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article.@balac2011transformee provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by <span class="citation" data-cites="cooley1965algorithm">Cooley and Tukey (<a href="#ref-cooley1965algorithm" role="doc-biblioref">1965</a>)</span>.</p>
+<p>What is important to understand is that the use of the FFT algorithm to approximate the Fourier transform of a function <span class="math inline">\(f\)</span> is based on the result shown by <span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span>, which states that when <span class="math inline">\(\hat{S}_n(\nu)\)</span> is evaluated at the frequencies <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = 0, 1, \dots, n - 1\)</span>, it gives a good approximation of the continuous Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span>.</p>
+<p>Moreover, <span class="math inline">\(\hat{S}_n\)</span> is known to be periodic. This periodicity gives a symmetric role to the indices <span class="math inline">\(j \in \{0, 1, \dots, n - 1\}\)</span> and <span class="math inline">\(k \in \{-\frac{n}{2}, -\frac{n}{2} + 1, \dots, -1\}\)</span>. In fact, the values of the Fourier transform of <span class="math inline">\(f\)</span> over the interval <span class="math inline">\(\left[ -\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2} \right]\)</span> can be derived from the values of <span class="math inline">\(\hat{S}_n\)</span> at the points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span>, for <span class="math inline">\(j = 0, 1, \dots, n - 1\)</span>, as follows:</p>
 <p><span class="math display">\[
 \widehat{S}_n(\nu'_j) = \frac{T}{n} (-1)^j \sum_{k=0}^{n-1} f_k\, e^{-2i\pi j \frac{k}{n}}
 =
@@ -611,18 +643,20 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 = e^{-2i\pi (j-n) \frac{k}{n}}
 \quad \text{pour } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
 \]</span></p>
-<p>Cette relation nous montre que l’on peut calculer la transformée de Fourier <span class="math inline">\(\hat{S_n}(\frac{j}{T})\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>. De plus, lorsque <span class="math inline">\(n\)</span> est une puissance de 2, calcul est plus rapide. Ce procédé est appelé la Transformée de Fourier Rapide (FFT).</p>
-<p>Si nous récapitulons, nous avons montré que nous pouvons approximer la transformée de Fourier de la fonction <span class="math inline">\(f\)</span> dans l’intervalle <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> en les fréquences <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span> avec <span class="math inline">\(n = 2^m\)</span> pour un entier <span class="math inline">\(m \geq 0\)</span> en utilisant l’algorithme de la Transformée de Fourier Rapide (FFT) en procédant comme suit :</p>
+<p>This relationship shows that we can compute the Fourier transform <span class="math inline">\(\hat{S}_n\left( \frac{j}{T} \right)\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>. Moreover, when <span class="math inline">\(n\)</span> is a power of 2, it can be shown that the computation becomes faster <span class="citation" data-cites="balac2011transformee">(see <a href="#ref-balac2011transformee" role="doc-biblioref">Balac 2011</a>)</span>. This process is known as the Fast Fourier Transform (FFT).</p>
+<p>To summarize, we have shown that the Fourier transform of the function <span class="math inline">\(f\)</span> can be approximated over the interval <span class="math inline">\(\left[-\frac{T}{2}, \frac{T}{2}\right]\)</span> at the frequencies <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>, where <span class="math inline">\(n = 2^m\)</span> for some integer <span class="math inline">\(m \geq 0\)</span>, by applying the FFT algorithm as follows:</p>
 <ul>
-<li><p>Créer la suite finie F de valeurs <span class="math inline">\(f(\frac{2k - n}{2n} T)\)</span> pour <span class="math inline">\(k = 0, 1, \ldots, n-1\)</span>.</p></li>
-<li><p>Calculer la transformée de Fourier discrète <span class="math inline">\(\hat{F}\)</span> de la suite F en utilisant l’algorithme de la Transformée de Fourier Rapide (FFT) qui est donnée par <span class="math inline">\(\sum_{k=0}^{n-1} f_k e^{-2i\pi \frac{jk}{n}}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>.</p></li>
-<li><p>Symmétriser les valeurs de la seconde partie de <span class="math inline">\(-\frac{n}{2}, \ldots, -1\)</span>;</p></li>
-<li><p>Multiplier chacune des valeurs du tableau par <span class="math inline">\(\frac{T}{n} (-1)^{j-1}\)</span> où <span class="math inline">\(j \in \{1, \ldots, n\}\)</span>.</p></li>
+<li><p>Construct the finite sequence <span class="math inline">\(F\)</span> of values <span class="math inline">\(f\left( \frac{2k - n}{2n} T \right)\)</span> for <span class="math inline">\(k = 0, 1, \ldots, n - 1\)</span>.</p></li>
+<li><p>Compute the discrete Fourier transform <span class="math inline">\(\hat{F}\)</span> of the sequence <span class="math inline">\(F\)</span> using the Fast Fourier Transform (FFT) algorithm, which is given by</p>
+<p><span class="math display">\[
+\hat{F}_j = \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \frac{jk}{n}}, \quad \text{for } j = 0, 1, \ldots, n-1.
+\]</span></p></li>
+<li><p>Reindex and symmetrize the values to span <span class="math inline">\(j = -\frac{n}{2}, \ldots, -1\)</span>.</p></li>
+<li><p>Multiply each value in the array by <span class="math inline">\(\frac{T}{n} (-1)^{j-1}\)</span>, where <span class="math inline">\(j \in \{1, \ldots, n\}\)</span>.</p></li>
 </ul>
-<p>On dispose ainsi d’un tableau correspondant aux valeurs de la transformée de Fourier <span class="math inline">\(\hat{f}(\nu_j)\)</span> pour <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
-<p>Donc dans la première étape, consiste à discretiser l’intervalle <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span> en <span class="math inline">\(n\)</span> points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span>. En effet on a :</p>
-<p>La fonction matlab tffft suivante calcule la transformée de Fourier en python d’une fonction donnée en mettant en œuvre les différentes étapes qui ont été détaillées précédemment.</p>
-<div id="834ecddb" class="cell" data-execution_count="7">
+<p>This yields an array corresponding to the values of the Fourier transform <span class="math inline">\(\hat{f}(\nu_j)\)</span>, with <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
+<p>The following Python function <code>tffft</code> implements these steps to compute the Fourier transform of a given function.</p>
+<div id="b6961a2e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -644,19 +678,19 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">    tf : np.ndarray</span></span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Valeurs approximées de la transformée de Fourier aux fréquences discrètes.</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">    nu : np.ndarray</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">    freq_nu : np.ndarray</span></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">        Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).</span></span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> T <span class="op">/</span> n</span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> T <span class="op">+</span> np.arange(n) <span class="op">*</span> h  <span class="co"># noeuds temporels</span></span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> f(t)                         <span class="co"># échantillonnage de f</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    tf <span class="op">=</span> h <span class="op">*</span> (<span class="op">-</span><span class="dv">1</span>) <span class="op">**</span> np.arange(n) <span class="op">*</span> fftshift(fft(F))  <span class="co"># TF approximée</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    freq_nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, freq_nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction donnée (une fonction de Gauss).</p>
-<div id="5ad90658" class="cell" data-execution_count="8">
+<p>The following program illustrates how to compute the Fourier transform of the Gaussian function <span class="math inline">\(f(t) = e^{-10t^2}\)</span> over the interval <span class="math inline">\([-10, 10]\)</span>, using the Fast Fourier Transform (FFT) algorithm.</p>
+<div id="7c255f5a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramètres</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
@@ -693,19 +727,105 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 </div>
 </div>
 </div>
-<p>Dans ce cas, lorsque n est une puissance de 2 <span class="math inline">\(\hat{S_n}\)</span> est approximée rapidement. Et c’est l’algorithme qui permet d’estimer <span class="math inline">\(\hat{S_n}\)</span> au point <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> pour <span class="math inline">\(j = 0, 1, \ldots, n-1\)</span> qui est appelé la Transformée de Fourier Rapide (FFT).</p>
+<p>The method we have just presented allows us to compute and visualize the Fourier transform of a function <span class="math inline">\(f\)</span> at discrete points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span>, for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>, where <span class="math inline">\(n\)</span> is a power of 2. These points lie within the interval <span class="math inline">\(\left[-\frac{n}{2T}, \frac{n}{2T}\right]\)</span>. However, this approach does not allow us to evaluate the Fourier transform at arbitrary points <span class="math inline">\(\nu\)</span> in the same interval when <span class="math inline">\(\nu\)</span> is not of the form <span class="math inline">\(\nu_j = \frac{j}{T}\)</span>.</p>
+<p>To compute the Fourier transform of a function <span class="math inline">\(f\)</span> at a point <span class="math inline">\(\nu\)</span> that does not coincide with one of the sampling frequencies <span class="math inline">\(\nu_j\)</span>, interpolation methods can be used (e.g., linear, polynomial, spline interpolation, etc.). In this article, we adopt the approach proposed by <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span>, which relies on <strong>Shannon’s interpolation theorem</strong> to compute the Fourier transform of a function <span class="math inline">\(f\)</span> at any point <span class="math inline">\(\nu\)</span>.</p>
+</section>
+<section id="using-shannons-interpolation-theorem-to-compute-the-fourier-transform-of-a-function-f-at-a-point-nu" class="level2">
+<h2 class="anchored" data-anchor-id="using-shannons-interpolation-theorem-to-compute-the-fourier-transform-of-a-function-f-at-a-point-nu">Using Shannon’s Interpolation Theorem to Compute the Fourier Transform of a Function <span class="math inline">\(f\)</span> at a Point <span class="math inline">\(\nu\)</span></h2>
+<p>Que nous dit le théorème de Shannon ? Il nous dit que pour une fonction <span class="math inline">\(g\)</span> à bande limitée c’est-à-dire dont la transformée de Fourier <span class="math inline">\(\hat{g}\)</span> est nulle en dehors d’un intervalle <span class="math inline">\([-\frac{B}{2}, \frac{B}{2}]\)</span>, on peut reconstruire la fonction <span class="math inline">\(g\)</span> à partir de ses échantillons <span class="math inline">\(g_k = g\left(\frac{k}{B}\right)\)</span> pour <span class="math inline">\(k \in \mathbb{Z}\)</span>. Si on note <span class="math inline">\(\nu_c\)</span> le plus petit réel positif tel que <span class="math inline">\(\hat{g}\)</span> est nulle en déhors de l’intervalle <span class="math inline">\([-2 \pi \nu_c, 2 \pi \nu_c]\)</span>, alors on a la formule d’interpolation de Shannon : Pour tout <span class="math inline">\(t \in \mathbb{R}\)</span>, et <span class="math inline">\(\alpha\)</span> un réel positif, vérifiant <span class="math inline">\(\alpha \geq \frac{1}{2 \nu_c}\)</span>, on a :</p>
+<p><span class="math display">\[
+g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(t - k\alpha)\right)
+\]</span></p>
+<p>où <span class="math inline">\(\text{sinc}(x) = \frac{\sin(x)}{x}\)</span> est la fonction sinus cardinal sinc.</p>
+<p><span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> montre que lorsque la fonction <span class="math inline">\(f\)</span> est à support borné dans un intervalle <span class="math inline">\([-T/2, T/2]\)</span>, on peut utiliser le théorème d’interpolation de Shannon pour calculer la transformée de Fourier <span class="math inline">\(\hat{f}(\nu)\)</span> pour tout <span class="math inline">\(\nu \in \mathbb{R}\)</span> en utilisant les valeurs de la transformée de Fourier discrète <span class="math inline">\(\hat{S}_n(\nu_j)\)</span> pour <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>. Pour ce faire, il considère <span class="math inline">\(\alpha = \frac{1}{T}\)</span> et obtient pour tout <span class="math inline">\(\nu \in \mathbb{R}\)</span> la formule d’interpolation de Shannon suivante : <span class="math display">\[
+\hat{f}(\nu) = \sum_{j=-\frac{n}{2}}^{\frac{n}{2}-1} \hat{S}_n\left(\frac{j}{T}\right)\, \text{sinc}\left(\pi T\left(\nu - \frac{j}{T}\right)\right)
+\]</span></p>
+<p>Le programme ci-dessous illustre l’utilisation du théorème d’interpolation de Shannon pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span>.</p>
+<div id="0775eb09" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shannon(tf, nu, T):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Approxime la valeur de la transformée de Fourier de la fonction f en la fréquence 'nu'</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">    à partir de ses valeurs discrètes calculées via la FFT.</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres :</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - tf : tableau numpy, valeurs de la TF (centrées avec fftshift) aux fréquences j/T pour j = -n/2, ..., n/2 - 1</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">    - nu : float, fréquence à laquelle on veut approximer la TF</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - T  : float, largeur de la fenêtre temporelle utilisée pour la FFT</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Retour :</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    - tfnu : approximation de la TF en la fréquence 'nu'</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(tf)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    tfnu <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> j <span class="op">-</span> n <span class="op">//</span> <span class="dv">2</span>  <span class="co"># correspond à l'indice j dans {-n/2, ..., n/2 - 1}</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        tfnu <span class="op">+=</span> tf[j] <span class="op">*</span> np.sinc(T <span class="op">*</span> nu <span class="op">-</span> k)  <span class="co"># np.sinc(x) = sin(pi x)/(pi x) en numpy</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfnu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Enfin, nous pouvons definir la</p>
+<div id="8a924e02" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fourier_at_nu(f, T, n, nu):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier de f en la fréquence nu</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant tffft + interpolation de Shannon.</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    tf, _, _ <span class="op">=</span> tffft(f, T, n)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> shannon(tf, nu, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="16e356a5" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> np.<span class="bu">abs</span>(t))                          <span class="co"># Fonction à transformer</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fhat_exact <span class="op">=</span> <span class="kw">lambda</span> nu: (<span class="dv">2</span> <span class="op">*</span> a) <span class="op">/</span> (a<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.pi<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> nu<span class="op">**</span><span class="dv">2</span>)  <span class="co"># TF exacte</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">40</span>     <span class="co"># largeur de la fenêtre</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">10</span>  <span class="co"># nombre de points de discrétisation</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = 3/T</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">3</span> <span class="op">/</span> T</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = pi/T</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> np.pi <span class="op">/</span> T</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exact value at nu=0.075: 2.118347413776218
+Approximation at nu=0.075: (2.1185707502943534-3.313537429625715e-17j)
+Exact value at nu=0.07853981633974483: 2.0262491352594427
+Approximation at nu=0.07853981633974483: (2.0264201680784835-2.0283412100428305e-17j)</code></pre>
+</div>
+</div>
+<p>Une alternative à l’interpolation de Shannon est d’utiliser d’autres méthodes d’interpolation comme l’interpolation de Lagrange ou l’interpolation de Newton.</p>
+</section>
+<section id="conclusion" class="level2">
+
 
 
 
 </section>
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Conclusion</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-balac2011transformee" class="csl-entry" role="listitem">
 Balac, Stéphane. 2011. <span>“La Transform<span>é</span>e de Fourier Vue Sous l’angle Du Calcul Num<span>é</span>rique.”</span>
 </div>
 <div id="ref-cooley1965algorithm" class="csl-entry" role="listitem">
 Cooley, James W, and John W Tukey. 1965. <span>“An Algorithm for the Machine Calculation of Complex Fourier Series.”</span> <em>Mathematics of Computation</em> 19 (90): 297–301.
+</div>
+<div id="ref-el2013parametric" class="csl-entry" role="listitem">
+El Kolei, Salima. 2013. <span>“Parametric Estimation of Hidden Stochastic Model by Contrast Minimization and Deconvolution: Application to the Stochastic Volatility Model.”</span> <em>Metrika</em> 76 (8): 1031–81.
 </div>
 <div id="ref-epstein2005well" class="csl-entry" role="listitem">
 Epstein, Charles L. 2005. <span>“How Well Does the Finite Fourier Transform Approximate the Fourier Transform?”</span> <em>Communications on Pure and Applied Mathematics: A Journal Issued by the Courant Institute of Mathematical Sciences</em> 58 (10): 1421–35.

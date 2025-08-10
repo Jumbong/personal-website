@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-06-18">
+<meta name="dcterms.date" content="2025-08-10">
 
 <title>Model Selection</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -45,7 +79,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -91,6 +125,9 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -165,7 +202,40 @@ window.Quarto = {
     <h2 id="toc-title">Summary</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#framework-of-this-paper." id="toc-framework-of-this-paper." class="nav-link active" data-scroll-target="#framework-of-this-paper.">Framework of this paper.</a></li>
+  <li><a href="#scoring-models" id="toc-scoring-models" class="nav-link" data-scroll-target="#scoring-models">Scoring models</a>
+  <ul class="collapse">
+  <li><a href="#mallows-c_p-statistic" id="toc-mallows-c_p-statistic" class="nav-link" data-scroll-target="#mallows-c_p-statistic">Mallow’s <span class="math inline">\(C_p\)</span> statistic</a></li>
+  <li><a href="#likelihood-and-penalization" id="toc-likelihood-and-penalization" class="nav-link" data-scroll-target="#likelihood-and-penalization">Likelihood and penalization</a>
+  <ul class="collapse">
+  <li><a href="#akaike-information-criterion-aic" id="toc-akaike-information-criterion-aic" class="nav-link" data-scroll-target="#akaike-information-criterion-aic">Akaike Information Criterion (AIC)</a></li>
+  <li><a href="#bayesian-information-criterion-bic" id="toc-bayesian-information-criterion-bic" class="nav-link" data-scroll-target="#bayesian-information-criterion-bic">Bayesian Information Criterion (BIC)</a></li>
+  </ul></li>
+  <li><a href="#leave-one-out-cross-validation-loocv-and-k-fold-cross-validation" id="toc-leave-one-out-cross-validation-loocv-and-k-fold-cross-validation" class="nav-link" data-scroll-target="#leave-one-out-cross-validation-loocv-and-k-fold-cross-validation">Leave-One-Out Cross-Validation (LOOCV) and k-Fold Cross-Validation</a></li>
+  <li><a href="#k-fold-cross-validation" id="toc-k-fold-cross-validation" class="nav-link" data-scroll-target="#k-fold-cross-validation">K-Fold Cross-Validation</a></li>
+  <li><a href="#other-criteria" id="toc-other-criteria" class="nav-link" data-scroll-target="#other-criteria">Other criteria</a></li>
+  </ul></li>
+  <li><a href="#selection-procedure" id="toc-selection-procedure" class="nav-link" data-scroll-target="#selection-procedure">Selection Procedure</a>
+  <ul class="collapse">
+  <li><a href="#exhaustive-search" id="toc-exhaustive-search" class="nav-link" data-scroll-target="#exhaustive-search">Exhaustive Search</a></li>
+  <li><a href="#stepwise-search" id="toc-stepwise-search" class="nav-link" data-scroll-target="#stepwise-search">Stepwise Search</a>
+  <ul class="collapse">
+  <li><a href="#forward-stepwise-selection" id="toc-forward-stepwise-selection" class="nav-link" data-scroll-target="#forward-stepwise-selection">Forward Stepwise Selection</a></li>
+  <li><a href="#backward-stepwise-selection" id="toc-backward-stepwise-selection" class="nav-link" data-scroll-target="#backward-stepwise-selection">Backward Stepwise Selection</a></li>
+  <li><a href="#stepwise-selection-mixed-method" id="toc-stepwise-selection-mixed-method" class="nav-link" data-scroll-target="#stepwise-selection-mixed-method">Stepwise Selection (Mixed Method)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application">Application</a>
+  <ul class="collapse">
+  <li><a href="#presentation-of-the-dataset" id="toc-presentation-of-the-dataset" class="nav-link" data-scroll-target="#presentation-of-the-dataset">Presentation of the dataset</a></li>
+  <li><a href="#handling-missing-values" id="toc-handling-missing-values" class="nav-link" data-scroll-target="#handling-missing-values">Handling Missing Values</a></li>
+  <li><a href="#reducing-covariates-using-a-correlation-threshold-of-0.6" id="toc-reducing-covariates-using-a-correlation-threshold-of-0.6" class="nav-link" data-scroll-target="#reducing-covariates-using-a-correlation-threshold-of-0.6">Reducing Covariates Using a Correlation Threshold of 0.6</a></li>
+  <li><a href="#model-selection-with-backward-stepwise-selection" id="toc-model-selection-with-backward-stepwise-selection" class="nav-link" data-scroll-target="#model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</a>
+  <ul class="collapse">
+  <li><a href="#result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" id="toc-result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" class="nav-link" data-scroll-target="#result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion">Result of the backward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</a></li>
+  <li><a href="#result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" id="toc-result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="nav-link" data-scroll-target="#result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -195,7 +265,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 18, 2025</p>
+      <p class="date">August 10, 2025</p>
     </div>
   </div>
   
@@ -207,14 +277,1194 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>We will discuss the problem that may arise in multiple regression in practice. We have data with many variables but we may not want to include all of them in the model. We may not want to include all of them because some variables may be irrelevat, or because a smaller model with fewer variables has several advantages: It might give better predictions than a larger model and it is more parimonious [simple] then easier to interpret.In fact, as you add more variables, the bias of the model decreases, but the variance increases. This is known as the bias-variance trade-off. Too few variables yield high bias [this called underfitting].Too many covariates yields high variance [this called overfitting]. Good prediction requires a balance between bias and variance.</p>
-<p>Même après avoir utilisé une approche experte, [ou éliminer les rédondances entre les variables fortement corrélés, ou les variables qui ont un vif élévé dans le cadre de certains modèles de régressions] pour select relevant variables, il est possible que nous ayons encore trop de variables. A smaller model with fewer variables has several advantages: It might give better predictions than a larger model and it is more parimonious [simple] then easier to interpret. If we take the example of regression, as you add more variables, the bias of the model decreases, but the variance increases. This is known as the bias-variance trade-off. Too few variables yield high bias [this called underfitting].Too many covariates yields high variance [this called overfitting]. Good prediction requires a balance between bias and variance.</p>
-<p>C’est dans ce contexte que les mèthodes de sélection de variables sont utiles. There exists two main approaches to variable selection that we will explore : the first method consists to minimize the risk prediction and the second method assumes some subset of the <span class="math inline">\(\beta\)</span> coefficients are exactly equal to 0 and tries to find the true model, that is, the smallest sub-model consisting of nonzero <span class="math inline">\(\beta\)</span> terms.</p>
+<p><strong>Introduction</strong></p>
+<p>Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious—hence easier to interpret—and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.</p>
+<p>This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others—such as traditional model selection methods—require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.</p>
+<p>Importantly, the choice of scoring criterion depends on the fundamental objective of the regression. In linear regression, three main objectives can be distinguished:</p>
+<ol type="1">
+<li><strong>Parameter estimation</strong> – obtaining stable and precise coefficient estimates.</li>
+<li><strong>Variable selection</strong> – identifying the predictors whose coefficients are truly nonzero and significant.</li>
+<li><strong>Prediction</strong> – forecasting future values of the response variable as accurately as possible.</li>
+</ol>
+<p>A model chosen to minimize the mean squared error of the coefficients (parameter estimation) is not necessarily the best for identifying the most relevant variables (variable selection) or for maximizing predictive accuracy (prediction). In this article, we focus on model selection methods. We first review the different scoring criteria used for model selection, and then present the strategies that allow us to navigate the space of possible models and select the most relevant variables according to the goal of the regression. The first section introduces the framework of model selection. The second section discusses the different scoring criteria used to evaluate models.</p>
+<section id="framework-of-this-paper." class="level1">
+<h1>Framework of this paper.</h1>
+<p>In this section, we provide a brief overview of the linear regression model. We begin by describing the dataset, including the number of observations and the number of covariates. We then introduce the model itself and outline the assumptions made about the data.</p>
+<p>We assume that we have a dataset with <span class="math inline">\(n\)</span> observations and <span class="math inline">\(p\)</span> covariates. The response variable is denoted by <span class="math inline">\(Y\)</span> is continuous and the covariates are denoted by <span class="math inline">\(X_1, \ldots, X_p\)</span>. We assume that the relationship between the response variable and the covariates is linear, that is: <span class="math display">\[
+Y_i = \beta_0 + \sum_{j=1}^{p} \beta_j X_{ij} + \epsilon_i
+\]</span></p>
+<p>for <span class="math inline">\(i = 1, \ldots, n\)</span>, where <span class="math inline">\(\beta_0\)</span> is the intercept, <span class="math inline">\(\beta_j\)</span> is the coefficient of the <span class="math inline">\(j\)</span>-th covariate, and <span class="math inline">\(\epsilon_i\)</span> is the error term. We assume that the error term is independent and identically distributed (i.i.d.) with mean zero and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+</section>
+<section id="scoring-models" class="level1">
+<h1>Scoring models</h1>
+<p>In model selection, the first challenge is to assign a score to each model, where a model is defined by a particular subset of covariates. This section explains how models can be scored.</p>
+<p>Let us first discuss the problem of scoring models. Let <span class="math inline">\(S \subset \{1, \ldots, p\}\)</span> and let <span class="math inline">\(\mathcal{X}_S = \{X_j : j \in S\}\)</span> denote a subset of the covariates. Let <span class="math inline">\(\beta_S\)</span> denote the coefficients of the corresponding set of covariates and let <span class="math inline">\(\hat{\beta}_S\)</span> denote the least squares estimate of <span class="math inline">\(\beta_S\)</span>. Also, let <span class="math inline">\(X_S\)</span> denote the <span class="math inline">\(X\)</span> matrix for this subset of covariates and define <span class="math inline">\(\hat{r}_S(x) = \hat{\beta}_{0,S} + \sum_{j \in S} \hat{\beta}_j x_j,\)</span> to be the estimated regression function. The predicted values from model <span class="math inline">\(S\)</span> are denoted by <span class="math inline">\(\hat{Y}_i(S) = \hat{r}_S(X_i)\)</span>. The <span class="math inline">\(\textbf{prediction risk}\)</span> is defined to be</p>
+<p><span class="math display">\[
+\begin{equation}
+R(S) = \sum_{i=1}^{n} \mathbb{E}\left(\hat{Y}_i(S) - Y_i^*\right)^2
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(Y_i^*\)</span> is the future observation of <span class="math inline">\(Y_i\)</span> at the covariate <span class="math inline">\(X_i\)</span>. The goal of model selection is to find the subset <span class="math inline">\(S\)</span> that makes the prediction risk <span class="math inline">\(R(S)\)</span> small.</p>
+<p>With data, we cannot compute the prediction risk <span class="math inline">\(R(S)\)</span> directly. In this situation, we generally use its estimate <span class="math inline">\(\hat{R}(S)\)</span> based on the available data. The estimation of the prediction risk are used as our scoring criteria.</p>
+<p>The naive estimate of the prediction risk that we can use is : the <span class="math inline">\(\textbf{training error}\)</span>, which is defined as</p>
+<p><span class="math display">\[
+\hat{R_{tr}}(S) = \sum_{i=1}^{n} \left(\hat{Y}_i(S) - Y_i\right)^2
+\]</span></p>
+<p>where <span class="math inline">\(Y_i\)</span> is the observed value of the response variable for the <span class="math inline">\(i\)</span>-th observation.</p>
+<p>However, the training error is very biased as an estimate of the prediction risk. It is always smaller than the prediction risk <span class="math inline">\(R(S)\)</span>. In fact,</p>
+<p><span class="math display">\[
+bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{i=1}^{n} \mathbb{Cov}\left(\hat{Y}_i(S), Y_i\right)
+\]</span></p>
+<p>What explains this biais is that the data is used twice: once to fit the model and once to compute the training error. When we fit a complex model, with many parameters, the covariance <span class="math inline">\(\mathbb{Cov}\left(\hat{Y}_i(S), Y_i\right)\)</span> will be large and the bias of the training error will get worse. This is why we need to use a more reliable estimate of the prediction risk.</p>
+<section id="mallows-c_p-statistic" class="level2">
+<h2 class="anchored" data-anchor-id="mallows-c_p-statistic">Mallow’s <span class="math inline">\(C_p\)</span> statistic</h2>
+<p>The Mallow’s <span class="math inline">\(C_p\)</span> statistic is a popular method for model selection. It is defined as: <span class="math display">\[
+\hat{R}(S) = \hat{R_{tr}}(S) + 2|S| \hat{\sigma}^2
+\]</span></p>
+<p>where <span class="math inline">\(|S|\)</span> is the number of terms in <span class="math inline">\(S\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> is the estimated of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term obtained from the full model with all variables(<span class="math inline">\(k\)</span>). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow’s <span class="math inline">\(C_p\)</span> statistic will be large. The goal is to find the model that minimizes the Mallow’s <span class="math inline">\(C_p\)</span> statistic. The Mallow’s <span class="math inline">\(C_p\)</span> statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.</p>
+</section>
+<section id="likelihood-and-penalization" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-and-penalization">Likelihood and penalization</h2>
+<p>The approach below to estimate the prediction risk is based on the maximum likelihood estimation of the parameters. In the hypothesis that the error term is normally distributed, the likelihood function is given by: <span class="math display">\[
+\begin{align*}
+\mathcal{l}(Y, \beta, \sigma^2)
+&amp;= \log l(Y, \beta, \sigma^2) \\
+&amp;= -\frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (Y_i - X_i\beta)^2 - \frac{n}{2} \log(\sigma^2).
+\end{align*}
+\]</span></p>
+<p>If you compute the maximum likelihood estimate of the parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>, for the model <span class="math inline">\(S\)</span>, that have <span class="math inline">\(|S|\)</span> variables, you will get respectively : <span class="math inline">\(\hat{\beta(S)_{MV}} = \hat{\beta(S)_{MCO}}\)</span> and <span class="math inline">\(\hat{\sigma(S)^2_{MV}} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2\)</span>.</p>
+<p>The log-likelihood of the model for the model <span class="math inline">\(S\)</span> which has <span class="math inline">\(|S|\)</span> variables is then given by: <span class="math display">\[
+\mathcal{l(S)} = -\frac{n}{2}(1 + \log(2\pi)) - \frac{n}{2} \log \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2}{n}
+\]</span></p>
+<p>Choosing the model that maximizes the log-likelihood is equivalent to choosing the model that have the smallest residual sum of squares (RSS), that is: <span class="math display">\[
+\hat{R}(S) = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2
+\]</span></p>
+<p>In other to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as: <span class="math display">\[
+- 2\mathcal{l}(S) + 2|S| f(n)  
+\]</span></p>
+<p>where <span class="math inline">\(f(n)\)</span> is a function of penalization that depends on the sample size <span class="math inline">\(n\)</span>. This relation allows us to define the AIC and BIC criteria, which are defined below.</p>
+<section id="akaike-information-criterion-aic" class="level3">
+<h3 class="anchored" data-anchor-id="akaike-information-criterion-aic">Akaike Information Criterion (AIC)</h3>
+<p>Another method for model selection is the Akaike Information Criterion (AIC). The idea behind the AIC is to find a model that minimizes the information loss. The idea is to choose S to minimize the AIC criterion, which is defined as: <span class="math display">\[
+\text{AIC}(S) =  - 2\mathbfcal{l}_S + 2|S|
+\]</span> where <span class="math inline">\(\mathbfcal{l}_S\)</span> is the log-likelihood of the model <span class="math inline">\(S\)</span> evaluated at the maximum likelihood estimates of the parameters. Here <span class="math inline">\(f(n) = 2\)</span>.</p>
+<p>This can be thought of goodness of fit plus a complexity. When we want to choose two models, we will prefer the one with the lower AIC.</p>
+</section>
+<section id="bayesian-information-criterion-bic" class="level3">
+<h3 class="anchored" data-anchor-id="bayesian-information-criterion-bic">Bayesian Information Criterion (BIC)</h3>
+<p>The Bayesian Information Criterion (BIC) is another method for model selection. It is similar to the AIC, and BIC is defined as: <span class="math display">\[
+\text{BIC}(S) = -2\mathbfcal{l}_S + 2|S| \frac{1}{2} \log(n)
+\]</span></p>
+<p>where <span class="math inline">\(\mathbfcal{l}_S\)</span> is the log-likelihood of the model <span class="math inline">\(S\)</span> evaluated at the maximum likelihood estimates of the parameters. We call it Bayesian Information Criterion because it can be derived from a Bayesian perspective. In fact let <span class="math inline">\(S = \{S_1, \ldots, S_m\}\)</span> denoted a set of models. When we assigns a prior probability to each model <span class="math inline">\(S_i\)</span> as <span class="math inline">\(\pi(S_i) = \frac{1}{m}\)</span>, the posterior probability of the model <span class="math inline">\(S_i\)</span> given the data is proportional to the likelihood of the model <span class="math inline">\(S_i\)</span> given the data, that is: <span class="math display">\[
+\pi(S_i | \text{data}) \propto \frac{e^{-\frac{1}{2} \text{BIC}(S_i)}}{\sum_{j=1}^{m} e^{-\frac{1}{2} \text{BIC}(S_j)}}
+\]</span></p>
+<p>Hence, choosing the model that minimizes the BIC is equivalent to choosing the model with the highest posterior probability given the data. It also has a interpretation in terms of description length. It puts a more severe penalty for complexity than the AIC, which is why it is often preferred when the sample size is large. In fact, by definition, <span class="math inline">\(f(n) = \frac{1}{2} \log(n)\)</span>. Ainsi, more the sample size <span class="math inline">\(n\)</span> is large, more the penalty is lower when we compare with the penalty of the AIC. However, this penalty is generally greater than 2 (When <span class="math inline">\(n &gt; 7\)</span>), donc the BIC tends to select smaller models than the AIC. The use of this criterion is similar to the use of the AIC, so when we want to choose two models, we will prefer the one with the lower BIC.</p>
+</section>
+</section>
+<section id="leave-one-out-cross-validation-loocv-and-k-fold-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="leave-one-out-cross-validation-loocv-and-k-fold-cross-validation">Leave-One-Out Cross-Validation (LOOCV) and k-Fold Cross-Validation</h2>
+<p>Yet another method for model selection is leave-one-out cross-validation (LOOCV). In this case, the risk estimator is given by:</p>
+<p><span class="math display">\[
+\hat{R}_{LOOCV}(S) = \sum_{i=1}^{n} \left(\hat{Y}_{-i}(S) - Y_{(i)}\right)^2
+\]</span></p>
+<p>Where _{-i}(S) is the prediction for <span class="math inline">\(Y_i\)</span> using the model <span class="math inline">\(S\)</span> fitted on all data except the <span class="math inline">\(i\)</span>-th observation, and <span class="math inline">\(Y_{(i)}\)</span> is the <span class="math inline">\(i\)</span>-th observation of the response variable. It can be shown that <span class="math display">\[
+\hat{R}_{LOOCV}(S) = \sum_{i=1}^{n} (\frac{\hat{Y}_{i}(S) - Y_{i}}{1 - h_{ii}(S)})^2
+\]</span> where <span class="math inline">\(h_{ii}(S)\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of the hat matrix <span class="math inline">\(H_S = X_S(X_S^TX_S)^{-1}X_S^T\)</span> for the model <span class="math inline">\(S\)</span>.</p>
+<p>Thus, one need not actually drop each observation and refit the model. A generalization of LOOCV is k-fold cross-validation.</p>
+</section>
+<section id="k-fold-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cross-validation">K-Fold Cross-Validation</h2>
+<p>In this approach, the data is divided into <span class="math inline">\(k\)</span> groups, or <em>folds</em> (commonly <span class="math inline">\(k = 5\)</span> or <span class="math inline">\(k = 10\)</span>). One fold is omitted, and the model is fitted using the remaining <span class="math inline">\(k-1\)</span> folds. The fitted model is then used to predict the responses for the omitted fold. The risk is estimated as</p>
+<p><span class="math display">\[
+\sum_i \left( Y_i - \hat{Y}_i \right)^2,
+\]</span></p>
+<p>where the sum is taken over the data points in the omitted fold. This process is repeated for each of the <span class="math inline">\(k\)</span> folds, and the average of the <span class="math inline">\(k\)</span> risk estimates is taken as the overall risk estimate.</p>
+<p>This method is particularly appropriate when the primary objective of the regression is <strong>prediction</strong>. In this context, alternative performance measures such as the <strong>Mean Absolute Error (MAE)</strong> or the <strong>Root Mean Squared Error (RMSE)</strong> can also be used to evaluate the model’s predictive performance.</p>
+</section>
+<section id="other-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="other-criteria">Other criteria</h2>
+<p>In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted <span class="math inline">\(R^2\)</span> is a widely used criterion, defined as</p>
+<p><span class="math display">\[
+\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R^2(S) \right).
+\]</span></p>
+<p>Another option is to use nested model tests, such as the <strong>F-test</strong>. The F-test compares two nested models—specifically, a model <span class="math inline">\(S_1\)</span> whose covariates form a subset of those in a larger model <span class="math inline">\(S_2\)</span>. The null hypothesis states that the additional variables in <span class="math inline">\(S_2\)</span> do not improve the fit of the model compared to <span class="math inline">\(S_1\)</span>.</p>
+<p>The methods presented above primarily address two key objectives of linear regression: <strong>parameter estimation</strong> and <strong>variable selection</strong>.</p>
+</section>
+</section>
+<section id="selection-procedure" class="level1">
+<h1>Selection Procedure</h1>
+<p>Once models can be scored, the next step is to search either the entire space of possible models or a selected subset to find the one with the best score. With <span class="math inline">\(k\)</span> covariates, there are <span class="math inline">\(2^k - 1\)</span> possible models—a number that quickly becomes prohibitive for large <span class="math inline">\(k\)</span> (for example, more than one million when <span class="math inline">\(k = 20\)</span>). In such cases, exhaustive search is impractical, and heuristic methods are preferred. Broadly, model selection strategies fall into two categories: <strong>exhaustive search</strong> and <strong>stepwise search</strong>.</p>
+<section id="exhaustive-search" class="level2">
+<h2 class="anchored" data-anchor-id="exhaustive-search">Exhaustive Search</h2>
+<p>This approach evaluates every possible model and selects the one with the best score. Feasible only for small <span class="math inline">\(k\)</span>, as computation becomes prohibitive for large numbers of covariates.</p>
+</section>
+<section id="stepwise-search" class="level2">
+<h2 class="anchored" data-anchor-id="stepwise-search">Stepwise Search</h2>
+<p>The methods presented here aim to identify a <em>local optimum</em>—that is, a model that performs better than its neighboring models. Such methods are generally recommended only when exhaustive search is not feasible (for example, when both <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> are large).</p>
+<section id="forward-stepwise-selection" class="level3">
+<h3 class="anchored" data-anchor-id="forward-stepwise-selection">Forward Stepwise Selection</h3>
+<p>In this approach, we first select a scoring criterion (AIC, BIC, Mallows’ <span class="math inline">\(C_p\)</span>, etc.). We start with an empty model and, at each step, add the variable that provides the greatest improvement in the criterion. This process continues until no variable improves the score or all variables are included in the model.</p>
+</section>
+<section id="backward-stepwise-selection" class="level3">
+<h3 class="anchored" data-anchor-id="backward-stepwise-selection">Backward Stepwise Selection</h3>
+<p>Here, we also begin by selecting a scoring criterion (AIC, BIC, Mallows’ <span class="math inline">\(C_p\)</span>, etc.). We start with the full model containing all variables and, at each step, remove the variable whose removal most improves the criterion. We continue removing variables one at a time until no further improvement is possible or only the essential variables remain.</p>
+</section>
+<section id="stepwise-selection-mixed-method" class="level3">
+<h3 class="anchored" data-anchor-id="stepwise-selection-mixed-method">Stepwise Selection (Mixed Method)</h3>
+<p>In the mixed approach, we again begin by selecting a scoring criterion (AIC, BIC, Mallows’ <span class="math inline">\(C_p\)</span>, etc.). We start with an empty model and add variables one at a time, as in forward selection, until no additional variable improves the score. Then, we proceed as in backward selection, removing variables one at a time if doing so improves the criterion. This process stops when no further improvement can be made or all variables are included in the model.</p>
+</section>
+</section>
+</section>
+<section id="application" class="level1">
+<h1>Application</h1>
+<p>In practice, before use the model selection techniques, we need to ensure that the covariates are not highly correlated. To do that, we will use the technique below.</p>
+<ul>
+<li><p>The first step is to remove the covariates that are not relevant to the response variable using expert approch, treatment of missing values, etc.</p></li>
+<li><p>Next, define a threshold for the correlation between covariates and the response variable. For example, we can set the threshold to 0.6. This will help us to remove the covariates that are not correlated with the response variable. We will not use this technique here to let enough covariates to selection techniques.</p></li>
+<li><p>Next, define a threshold for the correlation between covariates. For example, we can set the threshold to 0.7. Compute the correlation matrix of the covariates. If two covariates have a correlation greater than the threshold, we will consider them as highly correlated and return the one with the highest correlation with the response variable or the one with has the most interpretation metier.</p></li>
+<li><p>Next, we will compute the variance inflation factor (VIF) for all remaining covariates. And if the VIF of a covariate is greater than 5 or 10, we will consider it as highly correlated with the other covariates and remove it from the model.</p></li>
+<li><p>Finally, we will use the model selection techniques discussed above to select the best model. We will use the Mallow’s <span class="math inline">\(C_p\)</span> to score the models and select the one with the best score and backward stepwise selection to select variables. We will implement a stepwise selection procedure that will allow us to select the best model based on all criteria discussed above and the backward or forward stepwise selection strategy.</p></li>
+</ul>
+<section id="presentation-of-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="presentation-of-the-dataset">Presentation of the dataset</h2>
+<p>We use the Communities dataset from the UCI Machine Learning Repository, which contains socio-economic and demographic information about communities in the United States. It includes over 100 variables, with the response variable being the number of violent crimes per population (<code>violentCrimesPerPop</code>). We apply the model selection techniques discussed above to identify the variables most strongly associated with the response.</p>
+</section>
+<section id="handling-missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="handling-missing-values">Handling Missing Values</h2>
+<p>In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable <code>violentCrimesPerPop</code> and the covariates. ## Selection of Relevant Variables Using Expert Judgment</p>
+<p>We apply expert knowledge to assess the relevance of each variable and determine whether its correlation with the response variable is meaningful. This involves consultation between the statistician and domain experts to understand the context and importance of each variable. For this dataset, we remove <code>communityname</code> for simplicity, as it is a categorical variable with many levels, and <code>fold</code>, which is used only for cross-validation. This leaves 101 variables, including the response variable <code>violentCrimesPerPop</code> and the covariates.</p>
+</section>
+<section id="reducing-covariates-using-a-correlation-threshold-of-0.6" class="level2">
+<h2 class="anchored" data-anchor-id="reducing-covariates-using-a-correlation-threshold-of-0.6">Reducing Covariates Using a Correlation Threshold of 0.6</h2>
+<p>To further reduce the number of covariates, we compute the correlation matrix for all covariates and the response variable. When multiple covariates are highly correlated with each other (correlation greater than 0.6), we retain only the one with the highest correlation to the response. This approach reduces the number of covariates while mitigating multicollinearity.</p>
+<p>After applying this and the previous steps, the dataset is reduced to 19 covariates with the VIF below 5. These steps are documented in detail in my article <a href="https://juniorjumbong.github.io/personal-website/00_tds/feature_selection.html">Feature Selection</a>.</p>
+<table class="caption-top table">
+<caption>Variance Inflation Factors (compact)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pctWFarmSelf</td>
+<td style="text-align: right;">1.329818</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">indianPerCap</td>
+<td style="text-align: right;">1.067939</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AsianPerCap</td>
+<td style="text-align: right;">1.221415</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctEmplManu</td>
+<td style="text-align: right;">1.700146</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctEmplProfServ</td>
+<td style="text-align: right;">1.734482</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctKids2Par</td>
+<td style="text-align: right;">2.442528</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctWorkMom</td>
+<td style="text-align: right;">1.232448</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctImmigRec10</td>
+<td style="text-align: right;">1.668404</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctVacantBoarded</td>
+<td style="text-align: right;">1.828584</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctVacMore6Mos</td>
+<td style="text-align: right;">1.816510</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MedYrHousBuilt</td>
+<td style="text-align: right;">2.587958</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctWOFullPlumb</td>
+<td style="text-align: right;">1.475350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MedRentPctHousInc</td>
+<td style="text-align: right;">1.462474</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MedOwnCostPctIncNoMtg</td>
+<td style="text-align: right;">1.452386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctSameHouse85</td>
+<td style="text-align: right;">2.382161</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LandArea</td>
+<td style="text-align: right;">1.289480</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PopDens</td>
+<td style="text-align: right;">2.360121</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctUsePubTrans</td>
+<td style="text-align: right;">2.127730</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LemasPctOfficDrugUn</td>
+<td style="text-align: right;">1.308731</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="model-selection-with-backward-stepwise-selection" class="level2">
+<h2 class="anchored" data-anchor-id="model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</h2>
+<p>With 19 variables, the total number of possible models is <span class="math inline">\(524,288\)</span>, which may be computationally infeasible for some systems. To reduce the number of models to evaluate, we use a stepwise selection procedure. We implement a function, <code>stepwise_selection</code>, that selects the most relevant variables based on a chosen selection criterion and method (forward, backward, or mixed). In this example, we use Mallows’ <span class="math inline">\(C_p\)</span> as the selection criterion and apply both forward and backward stepwise selection methods.</p>
+<section id="result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion">Result of the backward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
+<p>Using Mallows’ <span class="math inline">\(C_p\)</span> criterion within the backward stepwise selection procedure, we first remove the variable <code>pctWFarmSelf</code> because its exclusion reduces the criterion to <span class="math inline">\(C_p = 41.74\)</span>, which is lower than that of the full model. Next, we remove <code>PctWOFullPlumb</code>, whose removal decreases <span class="math inline">\(C_p\)</span> to <span class="math inline">\(41.69895\)</span>. Finally, we remove <code>indianPerCap</code>, resulting in a further reduction to <span class="math inline">\(C_p = 41.66073\)</span>. In total, three variables are eliminated from the model.</p>
+</section>
+<section id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
+<p>This method is generally recommended for model selection when the number of variables is large. Because forward stepwise selection starts with an empty model and adds variables one at a time, it is less computationally intensive than backward stepwise selection. Using this approach, we select exactly the same variables as in the backward stepwise selection presented above. The graphic below shows the variables that are successively added to the model, along with the corresponding Mallow’s <span class="math inline">\(C_p\)</span> values. The first variable added is <code>PctKids2Par</code>, followed by <code>PctWorkMom</code>, <code>LandArea</code>, and so on, until the final model is reached with a <span class="math inline">\(C_p\)</span> value of <span class="math inline">\(41.66073\)</span>.</p>
+<div id="3dce7d62" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lire les noms de colonnes à partir du fichier .names</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"communities.names"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> f.readlines()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraire les noms à partir des lignes définissant les attributs</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> []</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>start_extracting <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> line.startswith(<span class="st">"@attribute"</span>):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        parts <span class="op">=</span> line.split()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(parts) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            columns.append(parts[<span class="dv">1</span>])</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"attribute information:"</span> <span class="kw">in</span> line.lower():</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        start_extracting <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> start_extracting <span class="kw">and</span> line.strip() <span class="kw">and</span> <span class="kw">not</span> line.startswith(<span class="st">'@'</span>):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># handle lines like: "1. state: continuous"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">':'</span> <span class="kw">in</span> line:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> line.split(<span class="st">':'</span>)[<span class="dv">0</span>].strip().split()[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            columns.append(name)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Supprimer les doublons tout en conservant l'ordre</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> <span class="bu">list</span>(OrderedDict.fromkeys(columns))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérifie que ça correspond au nombre de colonnes du fichier data</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(columns)<span class="sc">}</span><span class="ss"> colonnes uniques"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>135 colonnes uniques</code></pre>
+</div>
+</div>
+<div id="f7b20610" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le fichier communities.data</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"communities.data"</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>columns, na_values<span class="op">=</span><span class="st">'?'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérifier la forme</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1994, 135)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">state</th>
+<th data-quarto-table-cell-role="th">county</th>
+<th data-quarto-table-cell-role="th">community</th>
+<th data-quarto-table-cell-role="th">communityname</th>
+<th data-quarto-table-cell-role="th">fold</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">householdsize</th>
+<th data-quarto-table-cell-role="th">racepctblack</th>
+<th data-quarto-table-cell-role="th">racePctWhite</th>
+<th data-quarto-table-cell-role="th">racePctAsian</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">LemasPctOfficDrugUn</th>
+<th data-quarto-table-cell-role="th">PolicBudgPerPop</th>
+<th data-quarto-table-cell-role="th">ViolentCrimesPerPop</th>
+<th data-quarto-table-cell-role="th">Statistics</th>
+<th data-quarto-table-cell-role="th">Population)</th>
+<th data-quarto-table-cell-role="th">Papers</th>
+<th data-quarto-table-cell-role="th">Request</th>
+<th data-quarto-table-cell-role="th">paper</th>
+<th data-quarto-table-cell-role="th">States</th>
+<th data-quarto-table-cell-role="th">Baveja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>8</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Lakewoodcity</td>
+<td>1</td>
+<td>0.19</td>
+<td>0.33</td>
+<td>0.02</td>
+<td>0.90</td>
+<td>0.12</td>
+<td>...</td>
+<td>0.32</td>
+<td>0.14</td>
+<td>0.20</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>53</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Tukwilacity</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.16</td>
+<td>0.12</td>
+<td>0.74</td>
+<td>0.45</td>
+<td>...</td>
+<td>0.00</td>
+<td>NaN</td>
+<td>0.67</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>24</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Aberdeentown</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.42</td>
+<td>0.49</td>
+<td>0.56</td>
+<td>0.17</td>
+<td>...</td>
+<td>0.00</td>
+<td>NaN</td>
+<td>0.43</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>34</td>
+<td>5.0</td>
+<td>81440.0</td>
+<td>Willingborotownship</td>
+<td>1</td>
+<td>0.04</td>
+<td>0.77</td>
+<td>1.00</td>
+<td>0.08</td>
+<td>0.12</td>
+<td>...</td>
+<td>0.00</td>
+<td>NaN</td>
+<td>0.12</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>42</td>
+<td>95.0</td>
+<td>6096.0</td>
+<td>Bethlehemtownship</td>
+<td>1</td>
+<td>0.01</td>
+<td>0.55</td>
+<td>0.02</td>
+<td>0.95</td>
+<td>0.09</td>
+<td>...</td>
+<td>0.00</td>
+<td>NaN</td>
+<td>0.03</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 135 columns</p>
+</div>
+</div>
+</div>
+<div id="aca4e7da" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fold'</span>].value_counts()  <span class="co"># Voir combien de points dans chaque fold</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>fold
+1     200
+2     200
+3     200
+4     200
+5     199
+6     199
+7     199
+8     199
+9     199
+10    199
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="c3b65d35" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des colonnes sans aucune valeur manquante</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cols_without_na <span class="op">=</span> df.columns[df.notna().<span class="bu">all</span>()].tolist()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(cols_without_na)<span class="sc">}</span><span class="ss"> colonnes sans NA :"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cols_without_na)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(df_clean.columns))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df_clean.to_csv(<span class="st">"communities_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>103 colonnes sans NA :
+['state', 'communityname', 'fold', 'population', 'householdsize', 'racepctblack', 'racePctWhite', 'racePctAsian', 'racePctHisp', 'agePct12t21', 'agePct12t29', 'agePct16t24', 'agePct65up', 'numbUrban', 'pctUrban', 'medIncome', 'pctWWage', 'pctWFarmSelf', 'pctWInvInc', 'pctWSocSec', 'pctWPubAsst', 'pctWRetire', 'medFamInc', 'perCapInc', 'whitePerCap', 'blackPerCap', 'indianPerCap', 'AsianPerCap', 'HispPerCap', 'NumUnderPov', 'PctPopUnderPov', 'PctLess9thGrade', 'PctNotHSGrad', 'PctBSorMore', 'PctUnemployed', 'PctEmploy', 'PctEmplManu', 'PctEmplProfServ', 'PctOccupManu', 'PctOccupMgmtProf', 'MalePctDivorce', 'MalePctNevMarr', 'FemalePctDiv', 'TotalPctDiv', 'PersPerFam', 'PctFam2Par', 'PctKids2Par', 'PctYoungKids2Par', 'PctTeen2Par', 'PctWorkMomYoungKids', 'PctWorkMom', 'NumIlleg', 'PctIlleg', 'NumImmig', 'PctImmigRecent', 'PctImmigRec5', 'PctImmigRec8', 'PctImmigRec10', 'PctRecentImmig', 'PctRecImmig5', 'PctRecImmig8', 'PctRecImmig10', 'PctSpeakEnglOnly', 'PctNotSpeakEnglWell', 'PctLargHouseFam', 'PctLargHouseOccup', 'PersPerOccupHous', 'PersPerOwnOccHous', 'PersPerRentOccHous', 'PctPersOwnOccup', 'PctPersDenseHous', 'PctHousLess3BR', 'MedNumBR', 'HousVacant', 'PctHousOccup', 'PctHousOwnOcc', 'PctVacantBoarded', 'PctVacMore6Mos', 'MedYrHousBuilt', 'PctHousNoPhone', 'PctWOFullPlumb', 'OwnOccLowQuart', 'OwnOccMedVal', 'OwnOccHiQuart', 'RentLowQ', 'RentMedian', 'RentHighQ', 'MedRent', 'MedRentPctHousInc', 'MedOwnCostPctInc', 'MedOwnCostPctIncNoMtg', 'NumInShelters', 'NumStreet', 'PctForeignBorn', 'PctBornSameState', 'PctSameHouse85', 'PctSameCity85', 'PctSameState85', 'LandArea', 'PopDens', 'PctUsePubTrans', 'LemasPctOfficDrugUn', 'ViolentCrimesPerPop']
+103</code></pre>
+</div>
+</div>
+<div id="01cfe6c9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"communities_clean.csv"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="st">'ViolentCrimesPerPop'</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'fold'</span>, response, <span class="st">'state'</span>, <span class="st">'county'</span>, <span class="st">'community'</span>, <span class="st">'communityname'</span>, <span class="st">'NumStreet'</span>]]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>spearman_corr <span class="op">=</span> df[covariates <span class="op">+</span> [response]].corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>sns.heatmap(spearman_corr, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix Heatmap"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model_selection_files/figure-html/cell-6-output-1.png" width="1029" height="942" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9af2e87b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[response].drop(response)  <span class="co"># exclude R-R</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Identify pairs of covariates with strong inter-correlation (e.g., &gt; 0.9)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>strong_pairs <span class="op">=</span> []</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.6</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>covariates <span class="op">=</span> spearman_corr_with_R.index</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var1 <span class="kw">in</span> <span class="bu">enumerate</span>(covariates):</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> var2 <span class="kw">in</span> covariates[i<span class="op">+</span><span class="dv">1</span>:]:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr.loc[var1, var2]) <span class="op">&gt;</span> threshold:</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            strong_pairs.append((var1, var2))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: From each correlated pair, keep only the variable most correlated with R</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>to_keep <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>to_discard <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> strong_pairs:</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(spearman_corr_with_R[var1]) <span class="op">&gt;=</span> <span class="bu">abs</span>(spearman_corr_with_R[var2]):</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var1)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var2)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        to_keep.add(var2)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        to_discard.add(var1)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Final selection: all covariates excluding the ones to discard due to redundancy</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>final_selected_variables <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> covariates <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> to_discard]</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>final_selected_variables</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of selected variables: </span><span class="sc">{</span><span class="bu">len</span>(final_selected_variables)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of selected variables: 19</code></pre>
+</div>
+</div>
+<div id="16a1b1b9" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[final_selected_variables]  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>X_with_const <span class="op">=</span> add_constant(X)  </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"variable"</span>] <span class="op">=</span> X_with_const.columns</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X_with_const.values, i)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_with_const.shape[<span class="dv">1</span>])]</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> vif_data[vif_data[<span class="st">"variable"</span>] <span class="op">!=</span> <span class="st">"const"</span>]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 variable       VIF
+1            pctWFarmSelf  1.329818
+2            indianPerCap  1.067939
+3             AsianPerCap  1.221415
+4             PctEmplManu  1.700146
+5         PctEmplProfServ  1.734482
+6             PctKids2Par  2.442528
+7              PctWorkMom  1.232448
+8           PctImmigRec10  1.668404
+9        PctVacantBoarded  1.828584
+10         PctVacMore6Mos  1.816510
+11         MedYrHousBuilt  2.587958
+12         PctWOFullPlumb  1.475350
+13      MedRentPctHousInc  1.462474
+14  MedOwnCostPctIncNoMtg  1.452386
+15         PctSameHouse85  2.382161
+16               LandArea  1.289480
+17                PopDens  2.360121
+18         PctUsePubTrans  2.127730
+19    LemasPctOfficDrugUn  1.308731</code></pre>
+</div>
+</div>
+<div id="d1dff1ad" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stepwise_selection(df, target, strategy<span class="op">=</span><span class="st">'forward'</span>, metric<span class="op">=</span><span class="st">'AIC'</span>, verbose<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Variable selection using stepwise regression (forward or backward) and AIC/BIC criterion.</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">    df : pandas.DataFrame</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">        DataFrame containing the predictors and the target column.</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">    target : str</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Name of the target column.</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">    strategy : str</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">        'forward' or 'backward'.</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">    metric : str</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">        'AIC' or 'BIC'.</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">    verbose : bool</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">        Whether to print the steps.</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">    selected_vars : list</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">        List of variables selected in the final model.</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">    best_model : statsmodels.regression.linear_model.RegressionResultsWrapper</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">        Fitted OLS model with selected variables.</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">    history : list of dict</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">        Steps taken (variables, metric).</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Vérification des NaN</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df.isnull().values.<span class="bu">any</span>():</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Des valeurs manquantes sont présentes dans le DataFrame. Veuillez les gérer avant d'appliquer la sélection."</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> df.drop(columns<span class="op">=</span>[target])</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[target]</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    variables <span class="op">=</span> <span class="bu">list</span>(X.columns)</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> []</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialisation</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span>:</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>        selected <span class="op">=</span> []</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>        remaining <span class="op">=</span> variables.copy()</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> strategy <span class="op">==</span> <span class="st">'backward'</span>:</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>        selected <span class="op">=</span> variables.copy()</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>        remaining <span class="op">=</span> []</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"strategy must be 'forward' or 'backward'"</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>    current_score <span class="op">=</span> np.inf</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    best_new_score <span class="op">=</span> np.inf</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>    step <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>        step <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>        scores_with_candidates <span class="op">=</span> []</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span>:</span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Tester chaque variable qui n'est pas dans 'selected'</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>            candidates <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> remaining <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> selected]</span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> candidate <span class="kw">in</span> candidates:</span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>                vars_to_test <span class="op">=</span> selected <span class="op">+</span> [candidate]</span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>                X_train <span class="op">=</span> sm.add_constant(X[vars_to_test])</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>                model <span class="op">=</span> sm.OLS(y, X_train).fit()</span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'AIC'</span>:</span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>                    score <span class="op">=</span> model.aic</span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'BIC'</span>:</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>                    score <span class="op">=</span> model.bic</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>                scores_with_candidates.append((score, candidate, vars_to_test))</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> scores_with_candidates:</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Chercher la variable qui améliore le plus la métrique</span></span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>            scores_with_candidates.sort()</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>            best_new_score, best_candidate, vars_to_test <span class="op">=</span> scores_with_candidates[<span class="dv">0</span>]</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> verbose:</span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Étape </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="st">"Candidats testés:"</span>, [(v, <span class="bu">round</span>(s, <span class="dv">2</span>)) <span class="cf">for</span> s, v, _ <span class="kw">in</span> scores_with_candidates])</span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Meilleure variable à ajouter : </span><span class="sc">{</span>best_candidate<span class="sc">}</span><span class="ss"> (score=</span><span class="sc">{</span><span class="bu">round</span>(best_new_score,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Critère d'arrêt</span></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(selected) <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> best_new_score <span class="op">&lt;</span> current_score <span class="op">-</span> <span class="fl">1e-6</span>:</span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a>                selected.append(best_candidate)</span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a>                remaining.remove(best_candidate)</span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>                current_score <span class="op">=</span> best_new_score</span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>                history.append({</span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'step'</span>: step,</span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'selected'</span>: selected.copy(),</span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'score'</span>: current_score,</span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'modified'</span>: best_candidate</span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a>                })</span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> verbose:</span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">"Plus aucune variable n'améliore le score."</span>)</span>
+<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> strategy <span class="op">==</span> <span class="st">'backward'</span>:</span>
+<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Tester la suppression de chaque variable restante</span></span>
+<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(selected) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a>            scores_with_candidates <span class="op">=</span> []</span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> candidate <span class="kw">in</span> selected:</span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a>                vars_to_test <span class="op">=</span> [var <span class="cf">for</span> var <span class="kw">in</span> selected <span class="cf">if</span> var <span class="op">!=</span> candidate]</span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">len</span>(vars_to_test) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">continue</span></span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a>                X_train <span class="op">=</span> sm.add_constant(X[vars_to_test])</span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a>                model <span class="op">=</span> sm.OLS(y, X_train).fit()</span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'AIC'</span>:</span>
+<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a>                    score <span class="op">=</span> model.aic</span>
+<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'BIC'</span>:</span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a>                    score <span class="op">=</span> model.bic</span>
+<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a>                scores_with_candidates.append((score, candidate, vars_to_test))</span>
+<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> scores_with_candidates:</span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Chercher la variable dont la suppression améliore le plus la métrique</span></span>
+<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a>            scores_with_candidates.sort()</span>
+<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a>            best_new_score, worst_candidate, vars_to_test <span class="op">=</span> scores_with_candidates[<span class="dv">0</span>]</span>
+<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> verbose:</span>
+<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Étape </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="st">"Suppressions testées:"</span>, [(v, <span class="bu">round</span>(s, <span class="dv">2</span>)) <span class="cf">for</span> s, v, _ <span class="kw">in</span> scores_with_candidates])</span>
+<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Meilleure variable à retirer : </span><span class="sc">{</span>worst_candidate<span class="sc">}</span><span class="ss"> (score=</span><span class="sc">{</span><span class="bu">round</span>(best_new_score,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Critère d'arrêt</span></span>
+<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> best_new_score <span class="op">&lt;</span> current_score <span class="op">-</span> <span class="fl">1e-6</span>:</span>
+<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a>                selected.remove(worst_candidate)</span>
+<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a>                current_score <span class="op">=</span> best_new_score</span>
+<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a>                history.append({</span>
+<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'step'</span>: step,</span>
+<span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'selected'</span>: selected.copy(),</span>
+<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'score'</span>: current_score,</span>
+<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'modified'</span>: worst_candidate</span>
+<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a>                })</span>
+<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> verbose:</span>
+<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">"Aucune suppression n'améliore le score."</span>)</span>
+<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit final model</span></span>
+<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a>    X_final <span class="op">=</span> sm.add_constant(X[selected])</span>
+<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a>    best_model <span class="op">=</span> sm.OLS(y, X_final).fit()</span>
+<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> verbose:</span>
+<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Variables sélectionnées :"</span>, selected)</span>
+<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Score final (</span><span class="sc">{</span>metric<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span><span class="bu">round</span>(best_model.aic <span class="cf">if</span> metric<span class="op">==</span><span class="st">'AIC'</span> <span class="cf">else</span> best_model.bic,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected, best_model, history</span>
+<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique de l'historique des scores</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="08b00060" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_stepwise_crosses(history, all_vars, metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Affiche le graphique stepwise type heatmap à croix :</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">    - X : variables explicatives modifiées à au moins une étape (ordre d'apparition)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - Y : score (AIC/BIC) à chaque étape (de l'historique)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">    - Croix noire : variable modifiée à chaque étape</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - Vide ailleurs</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">    - Courbe du score</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="bu">len</span>(history)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    scores <span class="op">=</span> [h[<span class="st">'score'</span>] <span class="cf">for</span> h <span class="kw">in</span> history]</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extraire la liste ordonnée des variables effectivement modifiées</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    modified_vars <span class="op">=</span> []</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> h <span class="kw">in</span> history:</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        var <span class="op">=</span> h[<span class="st">'modified'</span>]</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> var <span class="kw">not</span> <span class="kw">in</span> modified_vars <span class="kw">and</span> var <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            modified_vars.append(var)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    n_mod_vars <span class="op">=</span> <span class="bu">len</span>(modified_vars)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construction des positions X pour les croix (selon modified_vars)</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    mod_pos <span class="op">=</span> [modified_vars.index(h[<span class="st">'modified'</span>]) <span class="cf">if</span> h[<span class="st">'modified'</span>] <span class="kw">in</span> modified_vars <span class="cf">else</span> <span class="va">None</span> <span class="cf">for</span> h <span class="kw">in</span> history]</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="bu">min</span>(<span class="fl">1.3</span> <span class="op">*</span> n_mod_vars, <span class="dv">14</span>), <span class="dv">6</span>))</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Placer la croix noire à chaque étape</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, x <span class="kw">in</span> <span class="bu">enumerate</span>(mod_pos):</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>            ax.scatter(x, scores[i], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'x'</span>, s<span class="op">=</span><span class="dv">100</span>, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tracer la courbe du score</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>    ax.plot(<span class="bu">range</span>(n_steps), scores, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, linewidth<span class="op">=</span><span class="dv">2</span>, zorder<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Axe X : labels verticaux, police réduite (uniquement variables modifiées)</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(<span class="bu">range</span>(n_mod_vars))</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels(modified_vars, rotation<span class="op">=</span><span class="dv">90</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Variables modifiées"</span>)</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(metric)</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title <span class="kw">or</span> <span class="ss">f"Stepwise (</span><span class="sc">{</span>metric<span class="sc">}</span><span class="ss">) – Variables modifiées à chaque étape"</span>)</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>    ax.grid(<span class="va">True</span>, axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="71e97897" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_for_stepwise <span class="op">=</span> df[final_selected_variables <span class="op">+</span> [response]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d0e5ee87" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    strategy<span class="op">=</span><span class="st">'backward'</span>,    <span class="co"># Ou 'backward'</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span><span class="st">'AIC'</span>,          <span class="co"># Ou 'BIC'</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Étape 1:
+Suppressions testées: [('pctWFarmSelf', np.float64(-2050.99)), ('PctWOFullPlumb', np.float64(-2050.95)), ('indianPerCap', np.float64(-2050.84)), ('MedRentPctHousInc', np.float64(-2048.38)), ('PctVacMore6Mos', np.float64(-2047.19)), ('PctEmplManu', np.float64(-2045.67)), ('PctImmigRec10', np.float64(-2045.63)), ('PctUsePubTrans', np.float64(-2042.0)), ('PctEmplProfServ', np.float64(-2040.42)), ('MedOwnCostPctIncNoMtg', np.float64(-2039.47)), ('AsianPerCap', np.float64(-2039.39)), ('PctSameHouse85', np.float64(-2037.29)), ('LemasPctOfficDrugUn', np.float64(-2035.93)), ('PopDens', np.float64(-2034.44)), ('PctWorkMom', np.float64(-2031.19)), ('PctVacantBoarded', np.float64(-2021.95)), ('LandArea', np.float64(-2020.45)), ('MedYrHousBuilt', np.float64(-2016.35)), ('PctKids2Par', np.float64(-1246.96))]
+Meilleure variable à retirer : pctWFarmSelf (score=-2050.99)
+
+Étape 2:
+Suppressions testées: [('PctWOFullPlumb', np.float64(-2052.95)), ('indianPerCap', np.float64(-2052.83)), ('MedRentPctHousInc', np.float64(-2050.35)), ('PctVacMore6Mos', np.float64(-2049.07)), ('PctEmplManu', np.float64(-2047.65)), ('PctImmigRec10', np.float64(-2047.54)), ('PctUsePubTrans', np.float64(-2043.85)), ('PctEmplProfServ', np.float64(-2042.15)), ('MedOwnCostPctIncNoMtg', np.float64(-2041.43)), ('AsianPerCap', np.float64(-2041.35)), ('PctSameHouse85', np.float64(-2039.27)), ('LemasPctOfficDrugUn', np.float64(-2037.86)), ('PopDens', np.float64(-2036.4)), ('PctWorkMom', np.float64(-2033.17)), ('PctVacantBoarded', np.float64(-2023.94)), ('LandArea', np.float64(-2022.31)), ('MedYrHousBuilt', np.float64(-2017.9)), ('PctKids2Par', np.float64(-1227.34))]
+Meilleure variable à retirer : PctWOFullPlumb (score=-2052.95)
+
+Étape 3:
+Suppressions testées: [('indianPerCap', np.float64(-2054.79)), ('MedRentPctHousInc', np.float64(-2052.31)), ('PctVacMore6Mos', np.float64(-2051.07)), ('PctEmplManu', np.float64(-2049.64)), ('PctImmigRec10', np.float64(-2049.39)), ('PctUsePubTrans', np.float64(-2045.84)), ('PctEmplProfServ', np.float64(-2044.03)), ('MedOwnCostPctIncNoMtg', np.float64(-2043.43)), ('AsianPerCap', np.float64(-2043.35)), ('PctSameHouse85', np.float64(-2041.14)), ('LemasPctOfficDrugUn', np.float64(-2039.86)), ('PopDens', np.float64(-2038.15)), ('PctWorkMom', np.float64(-2034.37)), ('PctVacantBoarded', np.float64(-2025.71)), ('LandArea', np.float64(-2024.0)), ('MedYrHousBuilt', np.float64(-2019.8)), ('PctKids2Par', np.float64(-1169.01))]
+Meilleure variable à retirer : indianPerCap (score=-2054.79)
+
+Étape 4:
+Suppressions testées: [('MedRentPctHousInc', np.float64(-2054.16)), ('PctVacMore6Mos', np.float64(-2053.0)), ('PctEmplManu', np.float64(-2051.47)), ('PctImmigRec10', np.float64(-2051.2)), ('PctUsePubTrans', np.float64(-2047.79)), ('PctEmplProfServ', np.float64(-2045.85)), ('AsianPerCap', np.float64(-2045.34)), ('MedOwnCostPctIncNoMtg', np.float64(-2045.21)), ('PctSameHouse85', np.float64(-2043.08)), ('LemasPctOfficDrugUn', np.float64(-2041.75)), ('PopDens', np.float64(-2040.09)), ('PctWorkMom', np.float64(-2036.16)), ('PctVacantBoarded', np.float64(-2027.57)), ('LandArea', np.float64(-2025.81)), ('MedYrHousBuilt', np.float64(-2021.8)), ('PctKids2Par', np.float64(-1165.99))]
+Meilleure variable à retirer : MedRentPctHousInc (score=-2054.16)
+Aucune suppression n'améliore le score.
+
+Variables sélectionnées : ['AsianPerCap', 'PctEmplManu', 'PctEmplProfServ', 'PctKids2Par', 'PctWorkMom', 'PctImmigRec10', 'PctVacantBoarded', 'PctVacMore6Mos', 'MedYrHousBuilt', 'MedRentPctHousInc', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'LandArea', 'PopDens', 'PctUsePubTrans', 'LemasPctOfficDrugUn']
+Score final (AIC): -2054.79
+                             OLS Regression Results                            
+===============================================================================
+Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
+Model:                             OLS   Adj. R-squared:                  0.618
+Method:                  Least Squares   F-statistic:                     202.8
+Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:03:55   Log-Likelihood:                 1044.4
+No. Observations:                 1994   AIC:                            -2055.
+Df Residuals:                     1977   BIC:                            -1960.
+Df Model:                           16                                         
+Covariance Type:             nonrobust                                         
+=========================================================================================
+                            coef    std err          t      P&gt;|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     0.6121      0.041     14.766      0.000       0.531       0.693
+AsianPerCap               0.0611      0.018      3.374      0.001       0.026       0.097
+PctEmplManu              -0.0475      0.021     -2.298      0.022      -0.088      -0.007
+PctEmplProfServ          -0.0789      0.024     -3.297      0.001      -0.126      -0.032
+PctKids2Par              -0.7673      0.023    -33.369      0.000      -0.812      -0.722
+PctWorkMom               -0.0915      0.020     -4.534      0.000      -0.131      -0.052
+PctImmigRec10             0.0496      0.021      2.356      0.019       0.008       0.091
+PctVacantBoarded          0.1080      0.020      5.402      0.000       0.069       0.147
+PctVacMore6Mos           -0.0437      0.023     -1.941      0.052      -0.088       0.000
+MedYrHousBuilt            0.1306      0.022      5.916      0.000       0.087       0.174
+MedRentPctHousInc         0.0370      0.023      1.615      0.107      -0.008       0.082
+MedOwnCostPctIncNoMtg    -0.0681      0.020     -3.393      0.001      -0.108      -0.029
+PctSameHouse85            0.1011      0.027      3.693      0.000       0.047       0.155
+LandArea                  0.1854      0.033      5.564      0.000       0.120       0.251
+PopDens                   0.0991      0.024      4.078      0.000       0.051       0.147
+PctUsePubTrans            0.0609      0.020      2.990      0.003       0.021       0.101
+LemasPctOfficDrugUn       0.0591      0.015      3.868      0.000       0.029       0.089
+==============================================================================
+Omnibus:                      389.964   Durbin-Watson:                   2.035
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1040.967
+Skew:                           1.034   Prob(JB):                    9.06e-227
+Kurtosis:                       5.873   Cond. No.                         29.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+</div>
+<div id="3cbe7faf" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>all_vars <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'target'</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, all_vars, metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model_selection_files/figure-html/cell-13-output-1.png" width="368" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9868b871" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_score(y, X, vars_to_test, metric, full_model_mse<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    X_train <span class="op">=</span> sm.add_constant(X[vars_to_test])</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> sm.OLS(y, X_train).fit()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="bu">len</span>(vars_to_test) <span class="op">+</span> <span class="dv">1</span>  <span class="co"># +1 pour la constante</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'AIC'</span>:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model.aic</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'BIC'</span>:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model.bic</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'Cp'</span>:</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> full_model_mse <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"full_model_mse doit être fourni pour calculer Cp Mallows."</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        rss <span class="op">=</span> <span class="bu">sum</span>(model.resid <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> rss <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> p <span class="op">*</span> full_model_mse</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'R2_adj'</span>:</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span>model.rsquared_adj  <span class="co"># négatif pour maximiser</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Métrique inconnue. Utilisez 'AIC', 'BIC', 'Cp' ou 'R2_adj'."</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_best_candidate(y, X, selected, candidates, metric, strategy, full_model_mse<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    scores_with_candidates <span class="op">=</span> []</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> candidate <span class="kw">in</span> candidates:</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>        vars_to_test <span class="op">=</span> selected <span class="op">+</span> [candidate] <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span> <span class="cf">else</span> [var <span class="cf">for</span> var <span class="kw">in</span> selected <span class="cf">if</span> var <span class="op">!=</span> candidate]</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>        score <span class="op">=</span> compute_score(y, X, vars_to_test, metric, full_model_mse)</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>        scores_with_candidates.append((score, candidate, vars_to_test))</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    scores_with_candidates.sort()</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Suppressions testées:"</span>, [(v, <span class="bu">round</span>(s, <span class="dv">2</span>)) <span class="cf">for</span> s, v, _ <span class="kw">in</span> scores_with_candidates])</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scores_with_candidates[<span class="dv">0</span>] <span class="cf">if</span> scores_with_candidates <span class="cf">else</span> (<span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stepwise_selection(df, target, strategy<span class="op">=</span><span class="st">'forward'</span>, metric<span class="op">=</span><span class="st">'AIC'</span>, verbose<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df.isnull().values.<span class="bu">any</span>():</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Des valeurs manquantes sont présentes dans le DataFrame."</span>)</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> df.drop(columns<span class="op">=</span>[target])</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[target]</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    variables <span class="op">=</span> <span class="bu">list</span>(X.columns)</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    selected <span class="op">=</span> [] <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span> <span class="cf">else</span> variables.copy()</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    remaining <span class="op">=</span> variables.copy() <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span> <span class="cf">else</span> []</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calcul préalable du MSE du modèle complet pour Cp Mallows</span></span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'Cp'</span>:</span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>        X_full <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>        full_model <span class="op">=</span> sm.OLS(y, X_full).fit()</span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>        full_model_mse <span class="op">=</span> <span class="bu">sum</span>(full_model.resid <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(y) <span class="op">-</span> <span class="bu">len</span>(variables) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>        full_model_mse <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>    current_score <span class="op">=</span> np.inf</span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> []</span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>    step <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>        step <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>        candidates <span class="op">=</span> remaining <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span> <span class="cf">else</span> selected</span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>        best_score, best_candidate, vars_to_test <span class="op">=</span> get_best_candidate(y, X, selected, candidates, metric, strategy, full_model_mse)</span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> best_candidate <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> verbose:</span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="st">"Aucun candidat disponible."</span>)</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> verbose:</span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a>            action <span class="op">=</span> <span class="st">"ajouter"</span> <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span> <span class="cf">else</span> <span class="st">"retirer"</span></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Étape </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">: Meilleure variable à </span><span class="sc">{</span>action<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>best_candidate<span class="sc">}</span><span class="ss"> (score=</span><span class="sc">{</span><span class="bu">round</span>(best_score,<span class="dv">5</span>)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>        improvement <span class="op">=</span> best_score <span class="op">&lt;</span> current_score <span class="op">-</span> <span class="fl">1e-6</span></span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> improvement:</span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> strategy <span class="op">==</span> <span class="st">'forward'</span>:</span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a>                selected.append(best_candidate)</span>
+<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a>                remaining.remove(best_candidate)</span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a>                selected.remove(best_candidate)</span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a>            current_score <span class="op">=</span> best_score</span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a>            history.append({</span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>                <span class="st">'step'</span>: step,</span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a>                <span class="st">'selected'</span>: selected.copy(),</span>
+<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a>                <span class="st">'score'</span>: current_score,</span>
+<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a>                <span class="st">'modified'</span>: best_candidate</span>
+<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> verbose:</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="st">"Aucune amélioration supplémentaire du score."</span>)</span>
+<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>    X_final <span class="op">=</span> sm.add_constant(X[selected])</span>
+<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a>    best_model <span class="op">=</span> sm.OLS(y, X_final).fit()</span>
+<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> verbose:</span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Variables sélectionnées :"</span>, selected)</span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a>        final_score <span class="op">=</span> best_model.aic <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'AIC'</span> <span class="cf">else</span> best_model.bic</span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> metric <span class="op">==</span> <span class="st">'Cp'</span>:</span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a>            final_score <span class="op">=</span> compute_score(y, X, selected, metric, full_model_mse)</span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> metric <span class="op">==</span> <span class="st">'R2_adj'</span>:</span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a>            final_score <span class="op">=</span> <span class="op">-</span>compute_score(y, X, selected, metric)</span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Score final (</span><span class="sc">{</span>metric<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span><span class="bu">round</span>(final_score,<span class="dv">5</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected, best_model, history</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="093651a6" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    strategy<span class="op">=</span><span class="st">'backward'</span>,    <span class="co"># Ou 'backward'</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span><span class="st">'Cp'</span>,           <span class="co"># Ou 'AIC', 'BIC', 'R2_adj'</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise avec Cp Mallows"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Suppressions testées: [('pctWFarmSelf', 41.74), ('PctWOFullPlumb', 41.74), ('indianPerCap', 41.74), ('MedRentPctHousInc', 41.79), ('PctVacMore6Mos', 41.82), ('PctEmplManu', 41.85), ('PctImmigRec10', 41.85), ('PctUsePubTrans', 41.92), ('PctEmplProfServ', 41.96), ('MedOwnCostPctIncNoMtg', 41.98), ('AsianPerCap', 41.98), ('PctSameHouse85', 42.02), ('LemasPctOfficDrugUn', 42.05), ('PopDens', 42.08), ('PctWorkMom', 42.15), ('PctVacantBoarded', 42.34), ('LandArea', 42.37), ('MedYrHousBuilt', 42.46), ('PctKids2Par', 62.08)]
+
+Étape 1: Meilleure variable à retirer : pctWFarmSelf (score=41.73966)
+Suppressions testées: [('PctWOFullPlumb', 41.7), ('indianPerCap', 41.7), ('MedRentPctHousInc', 41.75), ('PctVacMore6Mos', 41.78), ('PctEmplManu', 41.81), ('PctImmigRec10', 41.81), ('PctUsePubTrans', 41.89), ('PctEmplProfServ', 41.92), ('MedOwnCostPctIncNoMtg', 41.94), ('AsianPerCap', 41.94), ('PctSameHouse85', 41.98), ('LemasPctOfficDrugUn', 42.01), ('PopDens', 42.04), ('PctWorkMom', 42.11), ('PctVacantBoarded', 42.3), ('LandArea', 42.33), ('MedYrHousBuilt', 42.43), ('PctKids2Par', 62.7)]
+
+Étape 2: Meilleure variable à retirer : PctWOFullPlumb (score=41.69895)
+Suppressions testées: [('indianPerCap', 41.66), ('MedRentPctHousInc', 41.71), ('PctVacMore6Mos', 41.74), ('PctEmplManu', 41.77), ('PctImmigRec10', 41.77), ('PctUsePubTrans', 41.84), ('PctEmplProfServ', 41.88), ('MedOwnCostPctIncNoMtg', 41.89), ('AsianPerCap', 41.9), ('PctSameHouse85', 41.94), ('LemasPctOfficDrugUn', 41.97), ('PopDens', 42.0), ('PctWorkMom', 42.08), ('PctVacantBoarded', 42.26), ('LandArea', 42.3), ('MedYrHousBuilt', 42.39), ('PctKids2Par', 64.57)]
+
+Étape 3: Meilleure variable à retirer : indianPerCap (score=41.66073)
+Suppressions testées: [('MedRentPctHousInc', 41.67), ('PctVacMore6Mos', 41.7), ('PctEmplManu', 41.73), ('PctImmigRec10', 41.73), ('PctUsePubTrans', 41.8), ('PctEmplProfServ', 41.84), ('AsianPerCap', 41.86), ('MedOwnCostPctIncNoMtg', 41.86), ('PctSameHouse85', 41.9), ('LemasPctOfficDrugUn', 41.93), ('PopDens', 41.96), ('PctWorkMom', 42.05), ('PctVacantBoarded', 42.22), ('LandArea', 42.26), ('MedYrHousBuilt', 42.34), ('PctKids2Par', 64.69)]
+
+Étape 4: Meilleure variable à retirer : MedRentPctHousInc (score=41.67325)
+Aucune amélioration supplémentaire du score.
+
+Variables sélectionnées : ['AsianPerCap', 'PctEmplManu', 'PctEmplProfServ', 'PctKids2Par', 'PctWorkMom', 'PctImmigRec10', 'PctVacantBoarded', 'PctVacMore6Mos', 'MedYrHousBuilt', 'MedRentPctHousInc', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'LandArea', 'PopDens', 'PctUsePubTrans', 'LemasPctOfficDrugUn']
+Score final (Cp): 41.66073
+                             OLS Regression Results                            
+===============================================================================
+Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
+Model:                             OLS   Adj. R-squared:                  0.618
+Method:                  Least Squares   F-statistic:                     202.8
+Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:03:56   Log-Likelihood:                 1044.4
+No. Observations:                 1994   AIC:                            -2055.
+Df Residuals:                     1977   BIC:                            -1960.
+Df Model:                           16                                         
+Covariance Type:             nonrobust                                         
+=========================================================================================
+                            coef    std err          t      P&gt;|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     0.6121      0.041     14.766      0.000       0.531       0.693
+AsianPerCap               0.0611      0.018      3.374      0.001       0.026       0.097
+PctEmplManu              -0.0475      0.021     -2.298      0.022      -0.088      -0.007
+PctEmplProfServ          -0.0789      0.024     -3.297      0.001      -0.126      -0.032
+PctKids2Par              -0.7673      0.023    -33.369      0.000      -0.812      -0.722
+PctWorkMom               -0.0915      0.020     -4.534      0.000      -0.131      -0.052
+PctImmigRec10             0.0496      0.021      2.356      0.019       0.008       0.091
+PctVacantBoarded          0.1080      0.020      5.402      0.000       0.069       0.147
+PctVacMore6Mos           -0.0437      0.023     -1.941      0.052      -0.088       0.000
+MedYrHousBuilt            0.1306      0.022      5.916      0.000       0.087       0.174
+MedRentPctHousInc         0.0370      0.023      1.615      0.107      -0.008       0.082
+MedOwnCostPctIncNoMtg    -0.0681      0.020     -3.393      0.001      -0.108      -0.029
+PctSameHouse85            0.1011      0.027      3.693      0.000       0.047       0.155
+LandArea                  0.1854      0.033      5.564      0.000       0.120       0.251
+PopDens                   0.0991      0.024      4.078      0.000       0.051       0.147
+PctUsePubTrans            0.0609      0.020      2.990      0.003       0.021       0.101
+LemasPctOfficDrugUn       0.0591      0.015      3.868      0.000       0.029       0.089
+==============================================================================
+Omnibus:                      389.964   Durbin-Watson:                   2.035
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1040.967
+Skew:                           1.034   Prob(JB):                    9.06e-227
+Kurtosis:                       5.873   Cond. No.                         29.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model_selection_files/figure-html/cell-15-output-2.png" width="427" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="f5d7f0c6" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2_adj</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    strategy<span class="op">=</span><span class="st">'forward'</span>,    <span class="co"># Ou 'backward'</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span><span class="st">'Cp'</span>,      <span class="co"># Ou 'AIC', 'BIC', 'Cp'</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise avec Cp ajusté"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Suppressions testées: [('PctKids2Par', 49.28), ('PctVacantBoarded', 83.05), ('PctWOFullPlumb', 93.9), ('LemasPctOfficDrugUn', 95.12), ('MedRentPctHousInc', 96.84), ('PctImmigRec10', 99.07), ('PopDens', 99.7), ('LandArea', 104.08), ('AsianPerCap', 105.65), ('PctSameHouse85', 105.65), ('PctUsePubTrans', 105.71), ('pctWFarmSelf', 105.73), ('PctWorkMom', 105.81), ('MedYrHousBuilt', 106.96), ('indianPerCap', 107.37), ('PctEmplProfServ', 107.71), ('MedOwnCostPctIncNoMtg', 107.95), ('PctEmplManu', 108.05), ('PctVacMore6Mos', 108.22)]
+
+Étape 1: Meilleure variable à ajouter : PctKids2Par (score=49.2775)
+Suppressions testées: [('PctWorkMom', 47.64), ('LandArea', 47.64), ('LemasPctOfficDrugUn', 47.69), ('PctUsePubTrans', 48.11), ('PctVacantBoarded', 48.21), ('PopDens', 48.26), ('MedYrHousBuilt', 48.68), ('PctVacMore6Mos', 48.75), ('PctEmplManu', 48.82), ('PctImmigRec10', 48.82), ('AsianPerCap', 48.92), ('PctEmplProfServ', 49.01), ('MedRentPctHousInc', 49.02), ('MedOwnCostPctIncNoMtg', 49.05), ('indianPerCap', 49.25), ('pctWFarmSelf', 49.25), ('PctWOFullPlumb', 49.26), ('PctSameHouse85', 49.28)]
+
+Étape 2: Meilleure variable à ajouter : PctWorkMom (score=47.64234)
+Suppressions testées: [('LandArea', 46.02), ('LemasPctOfficDrugUn', 46.23), ('MedYrHousBuilt', 46.83), ('PctUsePubTrans', 46.91), ('PctVacMore6Mos', 46.92), ('PopDens', 47.04), ('PctVacantBoarded', 47.05), ('PctImmigRec10', 47.25), ('PctEmplManu', 47.33), ('MedOwnCostPctIncNoMtg', 47.4), ('PctEmplProfServ', 47.41), ('AsianPerCap', 47.45), ('PctSameHouse85', 47.6), ('MedRentPctHousInc', 47.61), ('indianPerCap', 47.62), ('pctWFarmSelf', 47.64), ('PctWOFullPlumb', 47.68)]
+
+Étape 3: Meilleure variable à ajouter : LandArea (score=46.01599)
+Suppressions testées: [('PopDens', 44.86), ('PctVacMore6Mos', 45.26), ('PctUsePubTrans', 45.28), ('LemasPctOfficDrugUn', 45.3), ('MedYrHousBuilt', 45.55), ('PctImmigRec10', 45.7), ('PctVacantBoarded', 45.76), ('PctEmplProfServ', 45.78), ('AsianPerCap', 45.81), ('MedOwnCostPctIncNoMtg', 45.83), ('PctEmplManu', 45.86), ('MedRentPctHousInc', 45.97), ('indianPerCap', 45.99), ('pctWFarmSelf', 46.01), ('PctSameHouse85', 46.03), ('PctWOFullPlumb', 46.05)]
+
+Étape 4: Meilleure variable à ajouter : PopDens (score=44.86027)
+Suppressions testées: [('MedYrHousBuilt', 43.57), ('LemasPctOfficDrugUn', 44.49), ('PctVacMore6Mos', 44.51), ('MedOwnCostPctIncNoMtg', 44.57), ('PctVacantBoarded', 44.59), ('PctEmplProfServ', 44.66), ('AsianPerCap', 44.68), ('PctEmplManu', 44.71), ('PctImmigRec10', 44.74), ('PctUsePubTrans', 44.82), ('PctSameHouse85', 44.86), ('MedRentPctHousInc', 44.87), ('indianPerCap', 44.88), ('PctWOFullPlumb', 44.89), ('pctWFarmSelf', 44.9)]
+
+Étape 5: Meilleure variable à ajouter : MedYrHousBuilt (score=43.57156)
+Suppressions testées: [('PctVacantBoarded', 42.94), ('LemasPctOfficDrugUn', 43.2), ('PctUsePubTrans', 43.26), ('PctSameHouse85', 43.29), ('AsianPerCap', 43.32), ('MedOwnCostPctIncNoMtg', 43.57), ('PctEmplManu', 43.57), ('PctEmplProfServ', 43.57), ('pctWFarmSelf', 43.59), ('PctVacMore6Mos', 43.6), ('indianPerCap', 43.61), ('PctImmigRec10', 43.61), ('MedRentPctHousInc', 43.61), ('PctWOFullPlumb', 43.61)]
+
+Étape 6: Meilleure variable à ajouter : PctVacantBoarded (score=42.93717)
+Suppressions testées: [('LemasPctOfficDrugUn', 42.59), ('AsianPerCap', 42.67), ('PctUsePubTrans', 42.69), ('PctSameHouse85', 42.8), ('PctVacMore6Mos', 42.82), ('MedOwnCostPctIncNoMtg', 42.89), ('PctEmplProfServ', 42.93), ('pctWFarmSelf', 42.94), ('PctEmplManu', 42.95), ('PctImmigRec10', 42.97), ('PctWOFullPlumb', 42.97), ('indianPerCap', 42.97), ('MedRentPctHousInc', 42.98)]
+
+Étape 7: Meilleure variable à ajouter : LemasPctOfficDrugUn (score=42.59134)
+Suppressions testées: [('AsianPerCap', 42.34), ('PctUsePubTrans', 42.4), ('PctSameHouse85', 42.43), ('PctVacMore6Mos', 42.51), ('MedOwnCostPctIncNoMtg', 42.55), ('PctEmplProfServ', 42.58), ('pctWFarmSelf', 42.61), ('PctEmplManu', 42.61), ('PctImmigRec10', 42.63), ('indianPerCap', 42.63), ('MedRentPctHousInc', 42.63), ('PctWOFullPlumb', 42.63)]
+
+Étape 8: Meilleure variable à ajouter : AsianPerCap (score=42.34164)
+Suppressions testées: [('PctUsePubTrans', 42.21), ('PctVacMore6Mos', 42.25), ('PctSameHouse85', 42.26), ('MedOwnCostPctIncNoMtg', 42.28), ('PctEmplProfServ', 42.3), ('PctImmigRec10', 42.36), ('PctEmplManu', 42.36), ('pctWFarmSelf', 42.37), ('MedRentPctHousInc', 42.38), ('PctWOFullPlumb', 42.38), ('indianPerCap', 42.38)]
+
+Étape 9: Meilleure variable à ajouter : PctUsePubTrans (score=42.2062)
+Suppressions testées: [('MedOwnCostPctIncNoMtg', 42.05), ('PctEmplProfServ', 42.12), ('PctVacMore6Mos', 42.12), ('PctSameHouse85', 42.14), ('PctImmigRec10', 42.23), ('MedRentPctHousInc', 42.24), ('pctWFarmSelf', 42.24), ('PctEmplManu', 42.25), ('indianPerCap', 42.25), ('PctWOFullPlumb', 42.25)]
+
+Étape 10: Meilleure variable à ajouter : MedOwnCostPctIncNoMtg (score=42.0496)
+Suppressions testées: [('PctSameHouse85', 41.9), ('PctEmplProfServ', 41.93), ('PctVacMore6Mos', 42.03), ('MedRentPctHousInc', 42.08), ('pctWFarmSelf', 42.08), ('PctImmigRec10', 42.08), ('PctWOFullPlumb', 42.09), ('indianPerCap', 42.09), ('PctEmplManu', 42.09)]
+
+Étape 11: Meilleure variable à ajouter : PctSameHouse85 (score=41.90327)
+Suppressions testées: [('PctVacMore6Mos', 41.84), ('PctEmplProfServ', 41.86), ('PctImmigRec10', 41.87), ('MedRentPctHousInc', 41.9), ('PctEmplManu', 41.93), ('pctWFarmSelf', 41.94), ('indianPerCap', 41.94), ('PctWOFullPlumb', 41.94)]
+
+Étape 12: Meilleure variable à ajouter : PctVacMore6Mos (score=41.8416)
+Suppressions testées: [('PctEmplProfServ', 41.81), ('PctImmigRec10', 41.82), ('MedRentPctHousInc', 41.84), ('PctEmplManu', 41.86), ('indianPerCap', 41.88), ('PctWOFullPlumb', 41.88), ('pctWFarmSelf', 41.88)]
+
+Étape 13: Meilleure variable à ajouter : PctEmplProfServ (score=41.81169)
+Suppressions testées: [('PctEmplManu', 41.75), ('PctImmigRec10', 41.77), ('MedRentPctHousInc', 41.78), ('indianPerCap', 41.85), ('pctWFarmSelf', 41.85), ('PctWOFullPlumb', 41.85)]
+
+Étape 14: Meilleure variable à ajouter : PctEmplManu (score=41.7455)
+Suppressions testées: [('PctImmigRec10', 41.67), ('MedRentPctHousInc', 41.73), ('PctWOFullPlumb', 41.78), ('indianPerCap', 41.78), ('pctWFarmSelf', 41.79)]
+
+Étape 15: Meilleure variable à ajouter : PctImmigRec10 (score=41.67325)
+Suppressions testées: [('MedRentPctHousInc', 41.66), ('indianPerCap', 41.71), ('PctWOFullPlumb', 41.71), ('pctWFarmSelf', 41.71)]
+
+Étape 16: Meilleure variable à ajouter : MedRentPctHousInc (score=41.66073)
+Suppressions testées: [('indianPerCap', 41.7), ('PctWOFullPlumb', 41.7), ('pctWFarmSelf', 41.7)]
+
+Étape 17: Meilleure variable à ajouter : indianPerCap (score=41.69895)
+Aucune amélioration supplémentaire du score.
+
+Variables sélectionnées : ['PctKids2Par', 'PctWorkMom', 'LandArea', 'PopDens', 'MedYrHousBuilt', 'PctVacantBoarded', 'LemasPctOfficDrugUn', 'AsianPerCap', 'PctUsePubTrans', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'PctVacMore6Mos', 'PctEmplProfServ', 'PctEmplManu', 'PctImmigRec10', 'MedRentPctHousInc']
+Score final (Cp): 41.66073
+                             OLS Regression Results                            
+===============================================================================
+Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
+Model:                             OLS   Adj. R-squared:                  0.618
+Method:                  Least Squares   F-statistic:                     202.8
+Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:03:56   Log-Likelihood:                 1044.4
+No. Observations:                 1994   AIC:                            -2055.
+Df Residuals:                     1977   BIC:                            -1960.
+Df Model:                           16                                         
+Covariance Type:             nonrobust                                         
+=========================================================================================
+                            coef    std err          t      P&gt;|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     0.6121      0.041     14.766      0.000       0.531       0.693
+PctKids2Par              -0.7673      0.023    -33.369      0.000      -0.812      -0.722
+PctWorkMom               -0.0915      0.020     -4.534      0.000      -0.131      -0.052
+LandArea                  0.1854      0.033      5.564      0.000       0.120       0.251
+PopDens                   0.0991      0.024      4.078      0.000       0.051       0.147
+MedYrHousBuilt            0.1306      0.022      5.916      0.000       0.087       0.174
+PctVacantBoarded          0.1080      0.020      5.402      0.000       0.069       0.147
+LemasPctOfficDrugUn       0.0591      0.015      3.868      0.000       0.029       0.089
+AsianPerCap               0.0611      0.018      3.374      0.001       0.026       0.097
+PctUsePubTrans            0.0609      0.020      2.990      0.003       0.021       0.101
+MedOwnCostPctIncNoMtg    -0.0681      0.020     -3.393      0.001      -0.108      -0.029
+PctSameHouse85            0.1011      0.027      3.693      0.000       0.047       0.155
+PctVacMore6Mos           -0.0437      0.023     -1.941      0.052      -0.088       0.000
+PctEmplProfServ          -0.0789      0.024     -3.297      0.001      -0.126      -0.032
+PctEmplManu              -0.0475      0.021     -2.298      0.022      -0.088      -0.007
+PctImmigRec10             0.0496      0.021      2.356      0.019       0.008       0.091
+MedRentPctHousInc         0.0370      0.023      1.615      0.107      -0.008       0.082
+==============================================================================
+Omnibus:                      389.964   Durbin-Watson:                   2.035
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1040.967
+Skew:                           1.034   Prob(JB):                    9.06e-227
+Kurtosis:                       5.873   Cond. No.                         29.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model_selection_files/figure-html/cell-16-output-2.png" width="1334" height="565" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 
+</section>
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
