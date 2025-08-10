@@ -34,7 +34,7 @@ To do so, we had to implement an optimization algorithm that relies on the Fouri
 $$
 \hat{f}(\nu) = \int_{-\infty}^{+\infty} f_{\theta}(t) e^{-2i\pi\nu t} dt
 $$
-où $f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)$ et $\theta = (\phi, \gamma, \mathcal{E})$ est un vecteur de paramètres. 
+où $f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)$ andd $\theta = (\phi, \gamma, \mathcal{E})$ a vector of parameters to estimate. 
 
 
 
@@ -345,9 +345,23 @@ We are now able to compute the Fourier transform of a function using the **left 
 
 ### The approximation of the Fourier transform $\hat{f}$ using the **left rectangle quadrature method** exhibits an **oscillatory behavior** by nature.
 
-We observe that the transform $\hat{f}$ of the function $f$ is oscillatory. This oscillatory nature is due to the complex exponential term $e^{-2\pi i \nu t}$ in the integral. 
+@balac2011transformee highlights that the Fourier transform $\hat{f}$ of the function $f$ is inherently **oscillatory**. This behavior arises from the **complex exponential term** $e^{-2\pi i \nu t}$ in the integral definition of the transform.
 
-To illustrate this, the figure below represents the function $f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}$, ainsi que les parties réelle et imaginaire de sa transformée de Fourier $\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C}$, for $\nu = \frac{5}{2}$. Bien que la fonction $f$ soit lisse, on observe des fortes oscillations pour la fonction $\hat{f}$,.
+To illustrate this, the figure below shows the function
+
+$$
+f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
+$$
+
+along with the **real and imaginary parts** of its Fourier transform
+
+$$
+\hat{f} : \nu \in \mathbb{R} \mapsto \hat{f}(\nu) \in \mathbb{C},
+$$
+
+evaluated at $\nu = \frac{5}{2}$.
+
+Although $f$ is smooth, we clearly observe **strong oscillations** in $\hat{f}$, highlighting the influence of the exponential kernel.
 
 
 ```{python}
@@ -386,11 +400,15 @@ plt.show()
 
 ```
 
-Ces fortes variations peuvent poser des problèmes pour l'approximation numérique de la transformée de Fourier en utilisant des méthodes de quadrature même lorsqu'on prend un nombre de points $n$ assez grand. L'utilisation de l'agorithme de la transformée de Fourier rapide (FFT) est une solution pour surmonter ce problème.
+These rapid variations can create difficulties in the **numerical approximation** of the Fourier transform using quadrature methods, even when a large number of points $n$ is used. One way to overcome this issue is by using the **Fast Fourier Transform (FFT)** algorithm.
 
-## The approximation using the quadrature method of rectangles à gauche is periodic.
+##  The approximation obtained using the left rectangle quadrature method is periodic in nature.
 
-On remarque que même si la fonction $f$ n'est pas périodique, la transformée de Fourier $\hat{f}$ est périodique. En effet, la fonction $\hat{S}_n$ est périodique de période $T = \frac{n}{T}$ :
+We observe that even if the function $f$ is **not periodic**, its Fourier transform approximation $\hat{f}$ appears **periodic**. In fact, the function $\hat{S}_n$, resulting from the quadrature method, is periodic with period
+
+$$
+\Delta \nu = \frac{n}{T}.
+$$
 $$
 \forall \nu \in \mathbb{R} \quad 
 \widehat{S}_n\left(\nu + \frac{n}{T} \right)
@@ -404,29 +422,46 @@ $$
 = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \nu T \frac{k}{n}} = \widehat{S}_n(\nu).
 $$
 
-This periodicity of $\hat{S}_n$ has pour consequence that it is not possible to compute the Fourier transform by the quadrature method for all frequencies $\nu \in \mathbb{R}$ when the parameter $T$ and $n$ are fixed. In fact, it is impossible to compute $\hat{f}(\nu)$ when $\nu  \geq {\nu}_{max}$ or $\nu \leq -{\nu}_{max}$ where ${\nu}_{max} = \frac{n}{T}$ is the period of the Fourier transform $\hat{S}_n$. So in practice, for computing the Fourier transform of a function $f$ for $\nu$ very large, we need to increase the parameter $T$ or $n$. In fact, by evaluating the error of the approximation of the Fourier transform $\hat{f}$ by the quadrature method of rectangles à gauche, we can see that we have a good approximation au point $\nu$ when this relation holds:
+This periodicity of $\hat{S}_n$ implies that it is **not possible to compute the Fourier transform** for all frequencies $\nu \in \mathbb{R}$ using the quadrature method when the parameters $T$ and $n$ are fixed.
+In fact, it becomes **impossible to compute $\hat{f}(\nu)$** accurately when
+
+$$
+|\nu| \geq \nu_{\text{max}},
+$$
+
+where $\nu_{\text{max}} = \frac{n}{T}$ is the **maximum frequency** that can be resolved due to the periodic nature of $\hat{S}_n$.
+
+As a result, in practice, **to compute the Fourier transform for large frequencies**, one must increase either the time window $T$ or the number of points $n$.
+
+Furthermore, by evaluating the error in approximating $\hat{f}(\nu)$ using the left rectangle quadrature method, we find that the approximation is reliable **at frequency $\nu$** when the following condition holds:
+
+$$
+|\nu| \ll \frac{n}{T}
+$$
+
 
 $$
 \frac{\nu T}{n} \ll 1.
 $$
 
-@epstein2005well shows that when using the algorithm of the Fast Fourier Transform (FFT), we can correctly compute the Fourier transform of a function $f$ for all frequencies $\nu \in \mathbb{R}$, even when $\frac{\nu T}{n}$ is proche to 1 for toute fonction $f$ continue par morceaux et à support borné.
+@epstein2005well shows that when using the **Fast Fourier Transform (FFT)** algorithm, it is possible to accurately compute the Fourier transform of a function $f$ for all frequencies $\nu \in \mathbb{R}$, even when $\frac{\nu T}{n}$ is close to 1 — provided that $f$ is **piecewise continuous** and has **compact support**.
 
-## Utilisation the l'algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d'une fonction f en un point $\nu$.
+## Computing the Fourier Transform at Frequency $\nu$ Using the FFT Algorithm.
 
-Dans cette partie, nous considérons toujours que $\hat{S}_n(\nu)$ est l'approximation de la transformée de Fourier $\hat{f}(\nu)$ de la fonction $f$ en un point $\nu \in [-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]$ où $\nu_{max} = \frac{n}{T}$ ie 
+
+In this section, we denote by $\hat{S}_n(\nu)$ the approximation of the Fourier transform $\hat{f}(\nu)$ of the function $f$ at a point $\nu \in \left[-\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2}\right]$, where $\nu_{\text{max}} = \frac{n}{T}$, i.e.,
 $$
 \hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
 $$
 
-Nous allons présenter l'algorithme de la transformée qui permet d'approximer $\hat{f}(\nu)$. Nous n'allons pas détailler l'algorithme de la Transformée de Fourier Rapide (FFT) dans cet article. @balac2011transformee
-provides a simplified explanation of the FFT algorithm. Pour plus de détails, je vous recommande de lire l'article de @cooley1965algorithm. 
 
-Ce qu'il faut retenir est que l'utilisation de l'algorithme de la Transformée de Fourier Rapide (FFT) pour calculer la transformée de Fourier d'une fonction $f$ en un point $\nu$ se fait en deux étapes :
+We now present the Fourier transform algorithm used to approximate $\hat{f}(\nu)$. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article.@balac2011transformee  provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by @cooley1965algorithm.
 
-La première étape utilise le fait que @epstein2005well shows that when $\hat{S_n}(\nu)$ is evaluated at $\nu = \frac{j}{T}$ for $j = 0, 1, \ldots, n-1$, we have the good approximation of the Fourier transform $\hat{f}(\nu)$. 
+What is important to understand is that the use of the FFT algorithm to approximate the Fourier transform of a function $f$ is based on the result shown by @epstein2005well, which states that when $\hat{S}_n(\nu)$ is evaluated at the frequencies $\nu_j = \frac{j}{T}$ for $j = 0, 1, \dots, n - 1$, it gives a good approximation of the continuous Fourier transform $\hat{f}(\nu)$.
 
-De plus nous savons que $\hat{S_n}$ est périodique. Et Cette périodicité fait jouer un rôle symétrique aux indices $j \in \{0, 1, \ldots, n-1\}$ et $k \in \{-n/2, -n/2 + 1, \ldots, -1\}$. En effet, les valeurs de la transformée de Fourier de f sur l'intervalle $[-\frac{\nu_{max}}{2}, \frac{\nu_{max}}{2}]$ peuvent être déduites des valeurs de $\hat{S_n}$ aux points $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$ comme suit :
+Moreover, $\hat{S}_n$ is known to be periodic. This periodicity gives a symmetric role to the indices $j \in \{0, 1, \dots, n - 1\}$ and $k \in \{-\frac{n}{2}, -\frac{n}{2} + 1, \dots, -1\}$. In fact, the values of the Fourier transform of $f$ over the interval $\left[ -\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2} \right]$ can be derived from the values of $\hat{S}_n$ at the points $\nu_j = \frac{j}{T}$, for $j = 0, 1, \dots, n - 1$, as follows:
+
+
 
 $$
 \widehat{S}_n(\nu'_j) = \frac{T}{n} (-1)^j \sum_{k=0}^{n-1} f_k\, e^{-2i\pi j \frac{k}{n}} 
@@ -444,22 +479,29 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 \quad \text{pour } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
 $$
 
-Cette relation nous montre que l'on peut calculer la transformée de Fourier $\hat{S_n}(\frac{j}{T})$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$. De plus, lorsque $n$ est une puissance de 2, calcul est plus rapide. Ce procédé est appelé la Transformée de Fourier Rapide (FFT).
 
-Si nous récapitulons, nous avons montré que nous pouvons approximer la transformée de Fourier de la fonction $f$ dans l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ en les fréquences $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$ avec $n = 2^m$ pour un entier $m \geq 0$ en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT) en procédant comme suit :
 
-- Créer la suite finie F de valeurs $f(\frac{2k - n}{2n} T)$ pour $k = 0, 1, \ldots, n-1$.
-- Calculer la transformée de Fourier discrète $\hat{F}$ de la suite F en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT) qui est donnée par $\sum_{k=0}^{n-1} f_k e^{-2i\pi \frac{jk}{n}}$ pour $j = 0, 1, \ldots, n-1$.
+This relationship shows that we can compute the Fourier transform $\hat{S}_n\left( \frac{j}{T} \right)$ for $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$. Moreover, when $n$ is a power of 2, it can be shown that the computation becomes faster [see @balac2011transformee]. This process is known as the Fast Fourier Transform (FFT).
 
-- Symmétriser les valeurs de la seconde partie de $-\frac{n}{2}, \ldots, -1$;
-- Multiplier chacune des valeurs du tableau par $\frac{T}{n} (-1)^{j-1}$ où $j \in \{1, \ldots, n\}$.
+To summarize, we have shown that the Fourier transform of the function $f$ can be approximated over the interval $\left[-\frac{T}{2}, \frac{T}{2}\right]$ at the frequencies $\nu_j = \frac{j}{T}$ for $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$, where $n = 2^m$ for some integer $m \geq 0$, by applying the FFT algorithm as follows:
 
-On dispose ainsi d'un tableau correspondant aux valeurs de la transformée de Fourier $\hat{f}(\nu_j)$ pour $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$.
+* Construct the finite sequence $F$ of values $f\left( \frac{2k - n}{2n} T \right)$ for $k = 0, 1, \ldots, n - 1$.
 
-Donc dans la première étape, consiste à discretiser l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ en $n$ points $\nu_j = \frac{j}{T}$ pour $j = 0, 1, \ldots, n-1$.  En effet on a :
+* Compute the discrete Fourier transform $\hat{F}$ of the sequence $F$ using the Fast Fourier Transform (FFT) algorithm, which is given by
 
-La fonction matlab tffft suivante calcule la transformée de Fourier en python d’une fonction donnée en mettant
-en œuvre les différentes étapes qui ont été détaillées précédemment.
+  $$
+  \hat{F}_j = \sum_{k=0}^{n-1} f_k \, e^{-2i\pi \frac{jk}{n}}, \quad \text{for } j = 0, 1, \ldots, n-1.
+  $$
+
+* Reindex and symmetrize the values to span $j = -\frac{n}{2}, \ldots, -1$.
+
+* Multiply each value in the array by $\frac{T}{n} (-1)^{j-1}$, where $j \in \{1, \ldots, n\}$.
+
+This yields an array corresponding to the values of the Fourier transform $\hat{f}(\nu_j)$, with $\nu_j = \frac{j}{T}$ for $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$.
+
+The following Python function `tffft` implements these steps to compute the Fourier transform of a given function.
+
+
 
 ```{python}
 
@@ -497,7 +539,9 @@ def tffft(f, T, n):
 
 ```
 
-On illustre dans le programme ci-dessous le calcul de la transformée de Fourier d’une fonction de la fonction de Gaussienne $f(t) = e^{-10t^2}$ sur l'intervalle $[-10, 10]$ en utilisant l'algorithme de la Transformée de Fourier Rapide (FFT).
+
+
+The following program illustrates how to compute the Fourier transform of the Gaussian function $f(t) = e^{-10t^2}$ over the interval $[-10, 10]$, using the Fast Fourier Transform (FFT) algorithm.
 
 ```{python}
 # Paramètres
@@ -530,13 +574,18 @@ plt.tight_layout()
 plt.show()
 ```
 
-La méthode que nous venons de présenter permet le calcul et  représentation de la transformée de Fourier d'une fonction $f$. Le calcul se fait à des points $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$ où $n$ est une puissance de 2 qui appartiennent à l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$. Cependant, elle ne permet pas de calculer la transformée de Fourier pour des points $\nu$ qui sont dans l'intervalle $[-\frac{T}{2}, \frac{T}{2}]$ mais qui ne sont pas de la forme $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$.
-
-Pour calculer la transformée de Fourier d'une fonction $f$ pour un point $\nu$ qui n'est pas de la forme $\nu_j = \frac{j}{T}$ pour $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$, on a besoin d'utiliser le théorème d'interpolation de Shannon. 
 
 
+The method we have just presented allows us to compute and visualize the Fourier transform of a function $f$ at discrete points $\nu_j = \frac{j}{T}$, for $j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1$, where $n$ is a power of 2. These points lie within the interval $\left[-\frac{n}{2T}, \frac{n}{2T}\right]$. However, this approach does not allow us to evaluate the Fourier transform at arbitrary points $\nu$ in the same interval when $\nu$ is not of the form $\nu_j = \frac{j}{T}$.
 
-## Utilisation du théorème d'interpolation de Shannon pour calculer la transformée de Fourier d'une fonction $f$ en un point $\nu$.
+To compute the Fourier transform of a function $f$ at a point $\nu$ that does not coincide with one of the sampling frequencies $\nu_j$, interpolation methods can be used (e.g., linear, polynomial, spline interpolation, etc.). In this article, we adopt the approach proposed by @balac2011transformee, which relies on **Shannon’s interpolation theorem** to compute the Fourier transform of a function $f$ at any point $\nu$.
+
+
+
+
+
+
+## Using Shannon's Interpolation Theorem to Compute the Fourier Transform of a Function $f$ at a Point $\nu$
 
 Que nous dit le théorème de Shannon ?  Il nous dit que pour une fonction $g$ à bande limitée c'est-à-dire dont la transformée de Fourier $\hat{g}$ est nulle en dehors d'un intervalle $[-\frac{B}{2}, \frac{B}{2}]$, on peut reconstruire la fonction $g$ à partir de ses échantillons $g_k = g\left(\frac{k}{B}\right)$ pour $k \in \mathbb{Z}$. Si on note $\nu_c$ le plus petit réel positif tel que $\hat{g}$ est nulle en déhors de l'intervalle $[-2 \pi \nu_c, 2 \pi \nu_c]$, alors on a la formule d'interpolation de Shannon :
 Pour tout $t \in \mathbb{R}$, et $\alpha$ un réel positif, vérifiant $\alpha \geq \frac{1}{2 \nu_c}$, on a :
