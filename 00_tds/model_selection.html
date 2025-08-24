@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-08-10">
+<meta name="dcterms.date" content="2025-08-24">
 
 <title>Model Selection</title>
 <style>
@@ -229,6 +229,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#presentation-of-the-dataset" id="toc-presentation-of-the-dataset" class="nav-link" data-scroll-target="#presentation-of-the-dataset">Presentation of the dataset</a></li>
   <li><a href="#handling-missing-values" id="toc-handling-missing-values" class="nav-link" data-scroll-target="#handling-missing-values">Handling Missing Values</a></li>
+  <li><a href="#selection-of-relevant-variables-using-expert-judgment" id="toc-selection-of-relevant-variables-using-expert-judgment" class="nav-link" data-scroll-target="#selection-of-relevant-variables-using-expert-judgment">Selection of Relevant Variables Using Expert Judgment</a></li>
   <li><a href="#reducing-covariates-using-a-correlation-threshold-of-0.6" id="toc-reducing-covariates-using-a-correlation-threshold-of-0.6" class="nav-link" data-scroll-target="#reducing-covariates-using-a-correlation-threshold-of-0.6">Reducing Covariates Using a Correlation Threshold of 0.6</a></li>
   <li><a href="#model-selection-with-backward-stepwise-selection" id="toc-model-selection-with-backward-stepwise-selection" class="nav-link" data-scroll-target="#model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</a>
   <ul class="collapse">
@@ -265,7 +266,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 10, 2025</p>
+      <p class="date">August 24, 2025</p>
     </div>
   </div>
   
@@ -278,8 +279,8 @@ window.Quarto = {
 
 
 <p><strong>Introduction</strong></p>
-<p>Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious—hence easier to interpret—and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.</p>
-<p>This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others—such as traditional model selection methods—require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.</p>
+<p>Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious [hence easier to interpret] and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.</p>
+<p>This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others, such as traditional model selection methods, require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.</p>
 <p>Importantly, the choice of scoring criterion depends on the fundamental objective of the regression. In linear regression, three main objectives can be distinguished:</p>
 <ol type="1">
 <li><strong>Parameter estimation</strong> – obtaining stable and precise coefficient estimates.</li>
@@ -321,7 +322,8 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <p>The Mallow’s <span class="math inline">\(C_p\)</span> statistic is a popular method for model selection. It is defined as: <span class="math display">\[
 \hat{R}(S) = \hat{R_{tr}}(S) + 2|S| \hat{\sigma}^2
 \]</span></p>
-<p>where <span class="math inline">\(|S|\)</span> is the number of terms in <span class="math inline">\(S\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> is the estimated of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term obtained from the full model with all variables(<span class="math inline">\(k\)</span>). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow’s <span class="math inline">\(C_p\)</span> statistic will be large. The goal is to find the model that minimizes the Mallow’s <span class="math inline">\(C_p\)</span> statistic. The Mallow’s <span class="math inline">\(C_p\)</span> statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.</p>
+<p>where <span class="math inline">\(|S|\)</span> is the number of terms in <span class="math inline">\(S\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> is the estimated of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term obtained from the full model with all variables(<span class="math inline">\(k\)</span>). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow’s <span class="math inline">\(C_p\)</span> statistic will be large. The goal is to find the model that minimizes the Mallow’s <span class="math inline">\(C_p\)</span> statistic.</p>
+<p>The Mallow’s <span class="math inline">\(C_p\)</span> statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.</p>
 </section>
 <section id="likelihood-and-penalization" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-and-penalization">Likelihood and penalization</h2>
@@ -332,14 +334,14 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 &amp;= -\frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (Y_i - X_i\beta)^2 - \frac{n}{2} \log(\sigma^2).
 \end{align*}
 \]</span></p>
-<p>If you compute the maximum likelihood estimate of the parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>, for the model <span class="math inline">\(S\)</span>, that have <span class="math inline">\(|S|\)</span> variables, you will get respectively : <span class="math inline">\(\hat{\beta(S)_{MV}} = \hat{\beta(S)_{MCO}}\)</span> and <span class="math inline">\(\hat{\sigma(S)^2_{MV}} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2\)</span>.</p>
+<p>If you compute the maximum likelihood estimate of the parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>, for the model <span class="math inline">\(S\)</span>, that have <span class="math inline">\(|S|\)</span> variables, you will get respectively : <span class="math inline">\(\hat{\beta}(S)_{MV} = \hat{\beta}(S)_{MCO}\)</span> and <span class="math inline">\(\hat{\sigma}(S)^2_{MV} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2\)</span>.</p>
 <p>The log-likelihood of the model for the model <span class="math inline">\(S\)</span> which has <span class="math inline">\(|S|\)</span> variables is then given by: <span class="math display">\[
 \mathcal{l(S)} = -\frac{n}{2}(1 + \log(2\pi)) - \frac{n}{2} \log \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2}{n}
 \]</span></p>
 <p>Choosing the model that maximizes the log-likelihood is equivalent to choosing the model that have the smallest residual sum of squares (RSS), that is: <span class="math display">\[
 \hat{R}(S) = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2
 \]</span></p>
-<p>In other to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as: <span class="math display">\[
+<p>In order to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as: <span class="math display">\[
 - 2\mathcal{l}(S) + 2|S| f(n)  
 \]</span></p>
 <p>where <span class="math inline">\(f(n)\)</span> is a function of penalization that depends on the sample size <span class="math inline">\(n\)</span>. This relation allows us to define the AIC and BIC criteria, which are defined below.</p>
@@ -383,9 +385,9 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </section>
 <section id="other-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="other-criteria">Other criteria</h2>
-<p>In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted <span class="math inline">\(R^2\)</span> is a widely used criterion, defined as</p>
+<p>In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted <span class="math inline">\(R_a^2\)</span> is a widely used criterion, defined as</p>
 <p><span class="math display">\[
-\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R^2(S) \right).
+\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R_a^2(S) \right).
 \]</span></p>
 <p>Another option is to use nested model tests, such as the <strong>F-test</strong>. The F-test compares two nested models—specifically, a model <span class="math inline">\(S_1\)</span> whose covariates form a subset of those in a larger model <span class="math inline">\(S_2\)</span>. The null hypothesis states that the additional variables in <span class="math inline">\(S_2\)</span> do not improve the fit of the model compared to <span class="math inline">\(S_1\)</span>.</p>
 <p>The methods presented above primarily address two key objectives of linear regression: <strong>parameter estimation</strong> and <strong>variable selection</strong>.</p>
@@ -431,7 +433,10 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </section>
 <section id="handling-missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-values">Handling Missing Values</h2>
-<p>In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable <code>violentCrimesPerPop</code> and the covariates. ## Selection of Relevant Variables Using Expert Judgment</p>
+<p>In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable <code>violentCrimesPerPop</code> and the covariates.</p>
+</section>
+<section id="selection-of-relevant-variables-using-expert-judgment" class="level2">
+<h2 class="anchored" data-anchor-id="selection-of-relevant-variables-using-expert-judgment">Selection of Relevant Variables Using Expert Judgment</h2>
 <p>We apply expert knowledge to assess the relevance of each variable and determine whether its correlation with the response variable is meaningful. This involves consultation between the statistician and domain experts to understand the context and importance of each variable. For this dataset, we remove <code>communityname</code> for simplicity, as it is a categorical variable with many levels, and <code>fold</code>, which is used only for cross-validation. This leaves 101 variables, including the response variable <code>violentCrimesPerPop</code> and the covariates.</p>
 </section>
 <section id="reducing-covariates-using-a-correlation-threshold-of-0.6" class="level2">
@@ -536,7 +541,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <section id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
 <h3 class="anchored" data-anchor-id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
 <p>This method is generally recommended for model selection when the number of variables is large. Because forward stepwise selection starts with an empty model and adds variables one at a time, it is less computationally intensive than backward stepwise selection. Using this approach, we select exactly the same variables as in the backward stepwise selection presented above. The graphic below shows the variables that are successively added to the model, along with the corresponding Mallow’s <span class="math inline">\(C_p\)</span> values. The first variable added is <code>PctKids2Par</code>, followed by <code>PctWorkMom</code>, <code>LandArea</code>, and so on, until the final model is reached with a <span class="math inline">\(C_p\)</span> value of <span class="math inline">\(41.66073\)</span>.</p>
-<div id="3dce7d62" class="cell" data-execution_count="1">
+<div id="c5460588" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lire les noms de colonnes à partir du fichier .names</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"communities.names"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> f.readlines()</span>
@@ -567,7 +572,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <pre><code>135 colonnes uniques</code></pre>
 </div>
 </div>
-<div id="f7b20610" class="cell" data-execution_count="2">
+<div id="93b92f0d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le fichier communities.data</span></span>
@@ -738,7 +743,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </div>
 </div>
 </div>
-<div id="aca4e7da" class="cell" data-execution_count="3">
+<div id="fce140e4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fold'</span>].value_counts()  <span class="co"># Voir combien de points dans chaque fold</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>fold
@@ -755,7 +760,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="c3b65d35" class="cell" data-execution_count="4">
+<div id="1f147f8b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des colonnes sans aucune valeur manquante</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cols_without_na <span class="op">=</span> df.columns[df.notna().<span class="bu">all</span>()].tolist()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -771,7 +776,7 @@ Name: count, dtype: int64</code></pre>
 103</code></pre>
 </div>
 </div>
-<div id="01cfe6c9" class="cell" data-execution_count="5">
+<div id="ee1a4486" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -795,7 +800,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="9af2e87b" class="cell" data-execution_count="6">
+<div id="4aa3d155" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[response].drop(response)  <span class="co"># exclude R-R</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -830,7 +835,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Number of selected variables: 19</code></pre>
 </div>
 </div>
-<div id="16a1b1b9" class="cell" data-execution_count="7">
+<div id="88535452" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -871,7 +876,7 @@ Name: count, dtype: int64</code></pre>
 19    LemasPctOfficDrugUn  1.308731</code></pre>
 </div>
 </div>
-<div id="d1dff1ad" class="cell" data-execution_count="8">
+<div id="6ce3f4cf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -1024,7 +1029,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique de l'historique des scores</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="08b00060" class="cell" data-execution_count="9">
+<div id="a5c1d263" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1053,7 +1058,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construction des positions X pour les croix (selon modified_vars)</span></span>
 <span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    mod_pos <span class="op">=</span> [modified_vars.index(h[<span class="st">'modified'</span>]) <span class="cf">if</span> h[<span class="st">'modified'</span>] <span class="kw">in</span> modified_vars <span class="cf">else</span> <span class="va">None</span> <span class="cf">for</span> h <span class="kw">in</span> history]</span>
 <span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="bu">min</span>(<span class="fl">1.3</span> <span class="op">*</span> n_mod_vars, <span class="dv">14</span>), <span class="dv">6</span>))</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="bu">min</span>(<span class="fl">1.3</span> <span class="op">*</span> n_mod_vars, <span class="dv">8</span>), <span class="dv">6</span>))</span>
 <span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Placer la croix noire à chaque étape</span></span>
 <span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, x <span class="kw">in</span> <span class="bu">enumerate</span>(mod_pos):</span>
 <span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
@@ -1070,10 +1075,10 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
 <span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="71e97897" class="cell" data-execution_count="10">
+<div id="09cb75af" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_for_stepwise <span class="op">=</span> df[final_selected_variables <span class="op">+</span> [response]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d0e5ee87" class="cell" data-execution_count="11">
+<div id="c1dd3818" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1108,8 +1113,8 @@ Score final (AIC): -2054.79
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         17:03:55   Log-Likelihood:                 1044.4
+Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
+Time:                         16:49:12   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1145,7 +1150,7 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 </div>
 </div>
-<div id="3cbe7faf" class="cell" data-execution_count="12">
+<div id="1eba0abd" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>all_vars <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'target'</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, all_vars, metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1156,7 +1161,7 @@ Notes:
 </div>
 </div>
 </div>
-<div id="9868b871" class="cell" data-execution_count="13">
+<div id="11ddcdff" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1268,7 +1273,7 @@ Notes:
 <span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected, best_model, history</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="093651a6" class="cell" data-execution_count="14">
+<div id="29ef002e" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1300,8 +1305,8 @@ Score final (Cp): 41.66073
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         17:03:56   Log-Likelihood:                 1044.4
+Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
+Time:                         16:49:12   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1344,7 +1349,7 @@ Notes:
 </div>
 </div>
 </div>
-<div id="f5d7f0c6" class="cell" data-execution_count="15">
+<div id="809c5785" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2_adj</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
@@ -1354,7 +1359,7 @@ Notes:
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise avec Cp ajusté"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Variable selections – Stepwise with Cp Mallows"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Suppressions testées: [('PctKids2Par', 49.28), ('PctVacantBoarded', 83.05), ('PctWOFullPlumb', 93.9), ('LemasPctOfficDrugUn', 95.12), ('MedRentPctHousInc', 96.84), ('PctImmigRec10', 99.07), ('PopDens', 99.7), ('LandArea', 104.08), ('AsianPerCap', 105.65), ('PctSameHouse85', 105.65), ('PctUsePubTrans', 105.71), ('pctWFarmSelf', 105.73), ('PctWorkMom', 105.81), ('MedYrHousBuilt', 106.96), ('indianPerCap', 107.37), ('PctEmplProfServ', 107.71), ('MedOwnCostPctIncNoMtg', 107.95), ('PctEmplManu', 108.05), ('PctVacMore6Mos', 108.22)]
 
@@ -1416,8 +1421,8 @@ Score final (Cp): 41.66073
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         17:03:56   Log-Likelihood:                 1044.4
+Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
+Time:                         16:49:12   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1455,7 +1460,7 @@ Notes:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="model_selection_files/figure-html/cell-16-output-2.png" width="1334" height="565" class="figure-img"></p>
+<p><img src="model_selection_files/figure-html/cell-16-output-2.png" width="758" height="565" class="figure-img"></p>
 </figure>
 </div>
 </div>
