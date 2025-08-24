@@ -26,9 +26,9 @@ notice: |
 
 **Introduction**
 
-Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious—hence easier to interpret—and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.
+Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious [hence easier to interpret] and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.
 
-This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others—such as traditional model selection methods—require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.
+This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others, such as traditional model selection methods, require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.
 
 Importantly, the choice of scoring criterion depends on the fundamental objective of the regression. In linear regression, three main objectives can be distinguished:
 
@@ -92,6 +92,7 @@ $$
 $$
 
 where $|S|$ is the number of terms in $S$ and $\hat{\sigma}^2$ is the estimated of $\sigma^2$, the variance of the error term obtained from the full model with all variables($k$). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow's $C_p$ statistic will be large. The goal is to find the model that minimizes the Mallow's $C_p$ statistic.
+
 The Mallow's $C_p$ statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.
 
 
@@ -108,7 +109,7 @@ $$
 $$
 
 If you compute the maximum likelihood estimate of the parameters $\beta$ and $\sigma^2$, for the model $S$, that have $|S|$ variables, you will get respectively :
-$\hat{\beta(S)_{MV}} = \hat{\beta(S)_{MCO}}$ and $\hat{\sigma(S)^2_{MV}} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2$.
+$\hat{\beta}(S)_{MV} = \hat{\beta}(S)_{MCO}$ and $\hat{\sigma}(S)^2_{MV} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2$.
 
 The log-likelihood of the model for the model $S$ which has $|S|$ variables is then given by:
 $$
@@ -120,7 +121,7 @@ $$
 \hat{R}(S) = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2
 $$
 
-In other to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as:
+In order to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as:
 $$
 - 2\mathcal{l}(S) + 2|S| f(n)  
 $$
@@ -186,10 +187,10 @@ This method is particularly appropriate when the primary objective of the regres
 ## Other criteria
 
 
-In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted $R^2$ is a widely used criterion, defined as
+In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted $R_a^2$ is a widely used criterion, defined as
 
 $$
-\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R^2(S) \right).
+\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R_a^2(S) \right).
 $$
 
 Another option is to use nested model tests, such as the **F-test**. The F-test compares two nested models—specifically, a model $S_1$ whose covariates form a subset of those in a larger model $S_2$. The null hypothesis states that the additional variables in $S_2$ do not improve the fit of the model compared to $S_1$.
@@ -227,7 +228,6 @@ In the mixed approach, we again begin by selecting a scoring criterion (AIC, BIC
 
 
 
-
 # Application
 
 In practice, before use the model selection techniques, we need to ensure that the covariates are not highly correlated. To do that, we will use the technique below.
@@ -252,6 +252,7 @@ We use the Communities dataset from the UCI Machine Learning Repository, which c
 ## Handling Missing Values
 
 In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable `violentCrimesPerPop` and the covariates.
+
 ## Selection of Relevant Variables Using Expert Judgment
 
 We apply expert knowledge to assess the relevance of each variable and determine whether its correlation with the response variable is meaningful. This involves consultation between the statistician and domain experts to understand the context and importance of each variable. For this dataset, we remove `communityname` for simplicity, as it is a categorical variable with many levels, and `fold`, which is used only for cross-validation. This leaves 101 variables, including the response variable `violentCrimesPerPop` and the covariates.
@@ -620,7 +621,7 @@ def plot_stepwise_crosses(history, all_vars, metric="AIC", title=None):
     # Construction des positions X pour les croix (selon modified_vars)
     mod_pos = [modified_vars.index(h['modified']) if h['modified'] in modified_vars else None for h in history]
 
-    fig, ax = plt.subplots(figsize=(min(1.3 * n_mod_vars, 14), 6))
+    fig, ax = plt.subplots(figsize=(min(1.3 * n_mod_vars, 8), 6))
     # Placer la croix noire à chaque étape
     for i, x in enumerate(mod_pos):
         if x is not None:
@@ -805,5 +806,5 @@ selected_vars, best_model, history = stepwise_selection(
     verbose=True
 )
 print(best_model.summary())
-plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric="Cp", title="Sélection de variables – Stepwise avec Cp ajusté")
+plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric="Cp", title="Variable selections – Stepwise with Cp Mallows")
 ```

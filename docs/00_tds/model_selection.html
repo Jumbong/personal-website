@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-08-10">
+<meta name="dcterms.date" content="2025-08-16">
 
 <title>Model Selection</title>
 <style>
@@ -229,8 +229,13 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#presentation-of-the-dataset" id="toc-presentation-of-the-dataset" class="nav-link" data-scroll-target="#presentation-of-the-dataset">Presentation of the dataset</a></li>
   <li><a href="#handling-missing-values" id="toc-handling-missing-values" class="nav-link" data-scroll-target="#handling-missing-values">Handling Missing Values</a></li>
+  <li><a href="#selection-of-relevant-variables-using-expert-judgment" id="toc-selection-of-relevant-variables-using-expert-judgment" class="nav-link" data-scroll-target="#selection-of-relevant-variables-using-expert-judgment">Selection of Relevant Variables Using Expert Judgment</a></li>
   <li><a href="#reducing-covariates-using-a-correlation-threshold-of-0.6" id="toc-reducing-covariates-using-a-correlation-threshold-of-0.6" class="nav-link" data-scroll-target="#reducing-covariates-using-a-correlation-threshold-of-0.6">Reducing Covariates Using a Correlation Threshold of 0.6</a></li>
-  <li><a href="#model-selection-with-backward-stepwise-selection" id="toc-model-selection-with-backward-stepwise-selection" class="nav-link" data-scroll-target="#model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</a></li>
+  <li><a href="#model-selection-with-backward-stepwise-selection" id="toc-model-selection-with-backward-stepwise-selection" class="nav-link" data-scroll-target="#model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</a>
+  <ul class="collapse">
+  <li><a href="#result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" id="toc-result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" class="nav-link" data-scroll-target="#result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion">Result of the backward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</a></li>
+  <li><a href="#result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" id="toc-result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="nav-link" data-scroll-target="#result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -261,7 +266,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 10, 2025</p>
+      <p class="date">August 16, 2025</p>
     </div>
   </div>
   
@@ -274,8 +279,8 @@ window.Quarto = {
 
 
 <p><strong>Introduction</strong></p>
-<p>Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious—hence easier to interpret—and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.</p>
-<p>This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others—such as traditional model selection methods—require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.</p>
+<p>Reducing the number of variables in a regression model is not merely a technical exercise; it is a strategic choice that must be guided by the objectives of the analysis. In a previous work, we demonstrated how simple tools, such as correlation analysis or the Variance Inflation Factor (VIF), can already shrink a dataset with hundreds of predictors into a far more compact model. Yet, even after this initial reduction, models often still contain too many variables to work effectively. A smaller model with fewer predictors offers several advantages: it may yield better predictions than a larger model, it is more parsimonious [hence easier to interpret] and it often generalizes better. As more variables are added, the model’s bias decreases but its variance increases. This is the essence of the bias–variance trade-off: too few variables lead to high bias (underfitting), whereas too many lead to high variance (overfitting). Good predictive performance requires a balance between the two.</p>
+<p>This is where variable selection and dimension reduction methods come into play. There are multiple approaches to address this challenge. Some methods inherently handle multicollinearity, such as Principal Component Analysis (PCA) combined with linear regression, or sparse regression techniques like the Lasso. Others, such as traditional model selection methods, require explicit treatment of multicollinearity, for example by monitoring the VIF. In model selection, two core problems arise: (i) assigning a score to each model that reflects, in some sense, how “good” the model is, and (ii) searching through the set of candidate models to identify the one with the best score.</p>
 <p>Importantly, the choice of scoring criterion depends on the fundamental objective of the regression. In linear regression, three main objectives can be distinguished:</p>
 <ol type="1">
 <li><strong>Parameter estimation</strong> – obtaining stable and precise coefficient estimates.</li>
@@ -317,7 +322,8 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <p>The Mallow’s <span class="math inline">\(C_p\)</span> statistic is a popular method for model selection. It is defined as: <span class="math display">\[
 \hat{R}(S) = \hat{R_{tr}}(S) + 2|S| \hat{\sigma}^2
 \]</span></p>
-<p>where <span class="math inline">\(|S|\)</span> is the number of terms in <span class="math inline">\(S\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> is the estimated of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term obtained from the full model with all variables(<span class="math inline">\(k\)</span>). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow’s <span class="math inline">\(C_p\)</span> statistic will be large. The goal is to find the model that minimizes the Mallow’s <span class="math inline">\(C_p\)</span> statistic. The Mallow’s <span class="math inline">\(C_p\)</span> statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.</p>
+<p>where <span class="math inline">\(|S|\)</span> is the number of terms in <span class="math inline">\(S\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> is the estimated of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term obtained from the full model with all variables(<span class="math inline">\(k\)</span>). It is a measure of the training error plus a biais correction. The first term measures the fit of the model to the data, while the second term measures the complexity of the model. More the model is complex, more the second term will be large and the Mallow’s <span class="math inline">\(C_p\)</span> statistic will be large. The goal is to find the model that minimizes the Mallow’s <span class="math inline">\(C_p\)</span> statistic.</p>
+<p>The Mallow’s <span class="math inline">\(C_p\)</span> statistic is seen as a trade-off between the fit of the model and its complexity. Thus find a good model involves trading off fit and complexity.</p>
 </section>
 <section id="likelihood-and-penalization" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-and-penalization">Likelihood and penalization</h2>
@@ -328,14 +334,14 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 &amp;= -\frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (Y_i - X_i\beta)^2 - \frac{n}{2} \log(\sigma^2).
 \end{align*}
 \]</span></p>
-<p>If you compute the maximum likelihood estimate of the parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>, for the model <span class="math inline">\(S\)</span>, that have <span class="math inline">\(|S|\)</span> variables, you will get respectively : <span class="math inline">\(\hat{\beta(S)_{MV}} = \hat{\beta(S)_{MCO}}\)</span> and <span class="math inline">\(\hat{\sigma(S)^2_{MV}} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2\)</span>.</p>
+<p>If you compute the maximum likelihood estimate of the parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>, for the model <span class="math inline">\(S\)</span>, that have <span class="math inline">\(|S|\)</span> variables, you will get respectively : <span class="math inline">\(\hat{\beta}(S)_{MV} = \hat{\beta}(S)_{MCO}\)</span> and <span class="math inline">\(\hat{\sigma}(S)^2_{MV} = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2\)</span>.</p>
 <p>The log-likelihood of the model for the model <span class="math inline">\(S\)</span> which has <span class="math inline">\(|S|\)</span> variables is then given by: <span class="math display">\[
 \mathcal{l(S)} = -\frac{n}{2}(1 + \log(2\pi)) - \frac{n}{2} \log \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2}{n}
 \]</span></p>
 <p>Choosing the model that maximizes the log-likelihood is equivalent to choosing the model that have the smallest residual sum of squares (RSS), that is: <span class="math display">\[
 \hat{R}(S) = \frac{1}{n}\sum_{i=1}^{n} (Y_i - \hat{Y}_i(S))^2
 \]</span></p>
-<p>In other to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as: <span class="math display">\[
+<p>In order to minimize a criterion, we work with the opposite of the log-likelihood and the criteria will be generally defined as: <span class="math display">\[
 - 2\mathcal{l}(S) + 2|S| f(n)  
 \]</span></p>
 <p>where <span class="math inline">\(f(n)\)</span> is a function of penalization that depends on the sample size <span class="math inline">\(n\)</span>. This relation allows us to define the AIC and BIC criteria, which are defined below.</p>
@@ -379,9 +385,9 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </section>
 <section id="other-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="other-criteria">Other criteria</h2>
-<p>In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted <span class="math inline">\(R^2\)</span> is a widely used criterion, defined as</p>
+<p>In the literature, in addition to the criteria presented above, there are other measures that can be used for model selection. For example, the adjusted <span class="math inline">\(R_a^2\)</span> is a widely used criterion, defined as</p>
 <p><span class="math display">\[
-\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R^2(S) \right).
+\text{Adjusted } R_a^2(S) = 1 - \frac{n - 1}{n - |S| - 1} \left( 1 - R_a^2(S) \right).
 \]</span></p>
 <p>Another option is to use nested model tests, such as the <strong>F-test</strong>. The F-test compares two nested models—specifically, a model <span class="math inline">\(S_1\)</span> whose covariates form a subset of those in a larger model <span class="math inline">\(S_2\)</span>. The null hypothesis states that the additional variables in <span class="math inline">\(S_2\)</span> do not improve the fit of the model compared to <span class="math inline">\(S_1\)</span>.</p>
 <p>The methods presented above primarily address two key objectives of linear regression: <strong>parameter estimation</strong> and <strong>variable selection</strong>.</p>
@@ -427,48 +433,115 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </section>
 <section id="handling-missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-values">Handling Missing Values</h2>
-<p>In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable <code>violentCrimesPerPop</code> and the covariates. ## Selection of Relevant Variables Using Expert Judgment</p>
+<p>In this analysis, we remove all rows containing missing values. An alternative approach is to drop variables with a high proportion of missing values (e.g., more than 10%) and then determine whether the remaining missing values are Missing At Random (MAR), applying an appropriate imputation method if needed. Here, however, we remove all incomplete rows. After this step, the dataset contains no missing values and includes 103 variables, comprising the response variable <code>violentCrimesPerPop</code> and the covariates.</p>
+</section>
+<section id="selection-of-relevant-variables-using-expert-judgment" class="level2">
+<h2 class="anchored" data-anchor-id="selection-of-relevant-variables-using-expert-judgment">Selection of Relevant Variables Using Expert Judgment</h2>
 <p>We apply expert knowledge to assess the relevance of each variable and determine whether its correlation with the response variable is meaningful. This involves consultation between the statistician and domain experts to understand the context and importance of each variable. For this dataset, we remove <code>communityname</code> for simplicity, as it is a categorical variable with many levels, and <code>fold</code>, which is used only for cross-validation. This leaves 101 variables, including the response variable <code>violentCrimesPerPop</code> and the covariates.</p>
 </section>
 <section id="reducing-covariates-using-a-correlation-threshold-of-0.6" class="level2">
 <h2 class="anchored" data-anchor-id="reducing-covariates-using-a-correlation-threshold-of-0.6">Reducing Covariates Using a Correlation Threshold of 0.6</h2>
 <p>To further reduce the number of covariates, we compute the correlation matrix for all covariates and the response variable. When multiple covariates are highly correlated with each other (correlation greater than 0.6), we retain only the one with the highest correlation to the response. This approach reduces the number of covariates while mitigating multicollinearity.</p>
-<p>After applying this and the previous steps, the dataset is reduced to 19 covariates with the VIF below 5. These steps are documented in detail in my article <a href="https://juniorjumbong.github.io/personal-website/00_tds/feature_selection.html">Feature Selection</a>. <span class="math display">\[
-\begin{center}
-\scriptsize
-\caption{Variance Inflation Factor (VIF) for Selected Variables}
-\begin{tabular}{lc}
-\hline
-Variable              &amp; VIF      \\
-\hline
-pctWFarmSelf          &amp; 1.329818 \\
-indianPerCap          &amp; 1.067939 \\
-AsianPerCap           &amp; 1.221415 \\
-PctEmplManu           &amp; 1.700146 \\
-PctEmplProfServ       &amp; 1.734482 \\
-PctKids2Par           &amp; 2.442528 \\
-PctWorkMom            &amp; 1.232448 \\
-PctImmigRec10         &amp; 1.668404 \\
-PctVacantBoarded      &amp; 1.828584 \\
-PctVacMore6Mos        &amp; 1.816510 \\
-MedYrHousBuilt        &amp; 2.587958 \\
-PctWOFullPlumb        &amp; 1.475350 \\
-MedRentPctHousInc     &amp; 1.462474 \\
-MedOwnCostPctIncNoMtg &amp; 1.452386 \\
-PctSameHouse85        &amp; 2.382161 \\
-LandArea              &amp; 1.289480 \\
-PopDens               &amp; 2.360121 \\
-PctUsePubTrans        &amp; 2.127730 \\
-LemasPctOfficDrugUn   &amp; 1.308731 \\
-\hline
-\end{tabular}
-\end{center}
-\]</span></p>
+<p>After applying this and the previous steps, the dataset is reduced to 19 covariates with the VIF below 5. These steps are documented in detail in my article <a href="https://juniorjumbong.github.io/personal-website/00_tds/feature_selection.html">Feature Selection</a>.</p>
+<table class="caption-top table">
+<caption>Variance Inflation Factors (compact)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pctWFarmSelf</td>
+<td style="text-align: right;">1.329818</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">indianPerCap</td>
+<td style="text-align: right;">1.067939</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AsianPerCap</td>
+<td style="text-align: right;">1.221415</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctEmplManu</td>
+<td style="text-align: right;">1.700146</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctEmplProfServ</td>
+<td style="text-align: right;">1.734482</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctKids2Par</td>
+<td style="text-align: right;">2.442528</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctWorkMom</td>
+<td style="text-align: right;">1.232448</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctImmigRec10</td>
+<td style="text-align: right;">1.668404</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctVacantBoarded</td>
+<td style="text-align: right;">1.828584</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctVacMore6Mos</td>
+<td style="text-align: right;">1.816510</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MedYrHousBuilt</td>
+<td style="text-align: right;">2.587958</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctWOFullPlumb</td>
+<td style="text-align: right;">1.475350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MedRentPctHousInc</td>
+<td style="text-align: right;">1.462474</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MedOwnCostPctIncNoMtg</td>
+<td style="text-align: right;">1.452386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PctSameHouse85</td>
+<td style="text-align: right;">2.382161</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LandArea</td>
+<td style="text-align: right;">1.289480</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PopDens</td>
+<td style="text-align: right;">2.360121</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PctUsePubTrans</td>
+<td style="text-align: right;">2.127730</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LemasPctOfficDrugUn</td>
+<td style="text-align: right;">1.308731</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="model-selection-with-backward-stepwise-selection" class="level2">
 <h2 class="anchored" data-anchor-id="model-selection-with-backward-stepwise-selection">Model Selection with Backward Stepwise Selection</h2>
 <p>With 19 variables, the total number of possible models is <span class="math inline">\(524,288\)</span>, which may be computationally infeasible for some systems. To reduce the number of models to evaluate, we use a stepwise selection procedure. We implement a function, <code>stepwise_selection</code>, that selects the most relevant variables based on a chosen selection criterion and method (forward, backward, or mixed). In this example, we use Mallows’ <span class="math inline">\(C_p\)</span> as the selection criterion and apply both forward and backward stepwise selection methods.</p>
-<div id="23cdf48b" class="cell" data-execution_count="1">
+<section id="result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="result-of-the-backward-stepwise-selection-using-mallows-c_p-criterion">Result of the backward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
+<p>Using Mallows’ <span class="math inline">\(C_p\)</span> criterion within the backward stepwise selection procedure, we first remove the variable <code>pctWFarmSelf</code> because its exclusion reduces the criterion to <span class="math inline">\(C_p = 41.74\)</span>, which is lower than that of the full model. Next, we remove <code>PctWOFullPlumb</code>, whose removal decreases <span class="math inline">\(C_p\)</span> to <span class="math inline">\(41.69895\)</span>. Finally, we remove <code>indianPerCap</code>, resulting in a further reduction to <span class="math inline">\(C_p = 41.66073\)</span>. In total, three variables are eliminated from the model.</p>
+</section>
+<section id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
+<p>This method is generally recommended for model selection when the number of variables is large. Because forward stepwise selection starts with an empty model and adds variables one at a time, it is less computationally intensive than backward stepwise selection. Using this approach, we select exactly the same variables as in the backward stepwise selection presented above. The graphic below shows the variables that are successively added to the model, along with the corresponding Mallow’s <span class="math inline">\(C_p\)</span> values. The first variable added is <code>PctKids2Par</code>, followed by <code>PctWorkMom</code>, <code>LandArea</code>, and so on, until the final model is reached with a <span class="math inline">\(C_p\)</span> value of <span class="math inline">\(41.66073\)</span>.</p>
+<div id="1752389e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lire les noms de colonnes à partir du fichier .names</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"communities.names"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> f.readlines()</span>
@@ -499,7 +572,7 @@ LemasPctOfficDrugUn   &amp; 1.308731 \\
 <pre><code>135 colonnes uniques</code></pre>
 </div>
 </div>
-<div id="9efc1ae8" class="cell" data-execution_count="2">
+<div id="f221b526" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le fichier communities.data</span></span>
@@ -670,7 +743,7 @@ LemasPctOfficDrugUn   &amp; 1.308731 \\
 </div>
 </div>
 </div>
-<div id="bcb1e4bd" class="cell" data-execution_count="3">
+<div id="f07b73d3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fold'</span>].value_counts()  <span class="co"># Voir combien de points dans chaque fold</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>fold
@@ -687,7 +760,7 @@ LemasPctOfficDrugUn   &amp; 1.308731 \\
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="5a331266" class="cell" data-execution_count="4">
+<div id="30762056" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des colonnes sans aucune valeur manquante</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cols_without_na <span class="op">=</span> df.columns[df.notna().<span class="bu">all</span>()].tolist()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -703,7 +776,7 @@ Name: count, dtype: int64</code></pre>
 103</code></pre>
 </div>
 </div>
-<div id="834371ac" class="cell" data-execution_count="5">
+<div id="dad27176" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -727,7 +800,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="371b9b45" class="cell" data-execution_count="6">
+<div id="c6681508" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[response].drop(response)  <span class="co"># exclude R-R</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -762,7 +835,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Number of selected variables: 19</code></pre>
 </div>
 </div>
-<div id="99a9f0f2" class="cell" data-execution_count="7">
+<div id="01bcb284" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -803,7 +876,7 @@ Name: count, dtype: int64</code></pre>
 19    LemasPctOfficDrugUn  1.308731</code></pre>
 </div>
 </div>
-<div id="cfb4c490" class="cell" data-execution_count="8">
+<div id="cfee91dc" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -956,7 +1029,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique de l'historique des scores</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9cb9bb60" class="cell" data-execution_count="9">
+<div id="bb6d381d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -985,7 +1058,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construction des positions X pour les croix (selon modified_vars)</span></span>
 <span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    mod_pos <span class="op">=</span> [modified_vars.index(h[<span class="st">'modified'</span>]) <span class="cf">if</span> h[<span class="st">'modified'</span>] <span class="kw">in</span> modified_vars <span class="cf">else</span> <span class="va">None</span> <span class="cf">for</span> h <span class="kw">in</span> history]</span>
 <span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="bu">min</span>(<span class="fl">1.3</span> <span class="op">*</span> n_mod_vars, <span class="dv">14</span>), <span class="dv">6</span>))</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="bu">min</span>(<span class="fl">1.3</span> <span class="op">*</span> n_mod_vars, <span class="dv">8</span>), <span class="dv">6</span>))</span>
 <span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Placer la croix noire à chaque étape</span></span>
 <span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, x <span class="kw">in</span> <span class="bu">enumerate</span>(mod_pos):</span>
 <span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
@@ -1002,10 +1075,10 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
 <span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3d2ff1ae" class="cell" data-execution_count="10">
+<div id="e59db648" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_for_stepwise <span class="op">=</span> df[final_selected_variables <span class="op">+</span> [response]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="52e404b4" class="cell" data-execution_count="11">
+<div id="d3fbc10e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1040,8 +1113,8 @@ Score final (AIC): -2054.79
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         15:32:22   Log-Likelihood:                 1044.4
+Date:                 Sat, 16 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:32:03   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1077,7 +1150,7 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 </div>
 </div>
-<div id="fa50ed13" class="cell" data-execution_count="12">
+<div id="d04f6480" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>all_vars <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'target'</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, all_vars, metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1088,7 +1161,7 @@ Notes:
 </div>
 </div>
 </div>
-<div id="34415aed" class="cell" data-execution_count="13">
+<div id="df2099bc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1200,7 +1273,7 @@ Notes:
 <span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected, best_model, history</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="039563f7" class="cell" data-execution_count="14">
+<div id="6c24c63b" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1232,8 +1305,8 @@ Score final (Cp): 41.66073
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         15:32:22   Log-Likelihood:                 1044.4
+Date:                 Sat, 16 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:32:03   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1276,41 +1349,80 @@ Notes:
 </div>
 </div>
 </div>
-<div id="7af97b21" class="cell" data-execution_count="15">
+<div id="e8b3e6e0" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2_adj</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    strategy<span class="op">=</span><span class="st">'backward'</span>,    <span class="co"># Ou 'backward'</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span><span class="st">'AIC'</span>,      <span class="co"># Ou 'AIC', 'BIC', 'Cp'</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    strategy<span class="op">=</span><span class="st">'forward'</span>,    <span class="co"># Ou 'backward'</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span><span class="st">'Cp'</span>,      <span class="co"># Ou 'AIC', 'BIC', 'Cp'</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise avec R2 ajusté"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise avec Cp ajusté"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Suppressions testées: [('pctWFarmSelf', np.float64(-2050.99)), ('PctWOFullPlumb', np.float64(-2050.95)), ('indianPerCap', np.float64(-2050.84)), ('MedRentPctHousInc', np.float64(-2048.38)), ('PctVacMore6Mos', np.float64(-2047.19)), ('PctEmplManu', np.float64(-2045.67)), ('PctImmigRec10', np.float64(-2045.63)), ('PctUsePubTrans', np.float64(-2042.0)), ('PctEmplProfServ', np.float64(-2040.42)), ('MedOwnCostPctIncNoMtg', np.float64(-2039.47)), ('AsianPerCap', np.float64(-2039.39)), ('PctSameHouse85', np.float64(-2037.29)), ('LemasPctOfficDrugUn', np.float64(-2035.93)), ('PopDens', np.float64(-2034.44)), ('PctWorkMom', np.float64(-2031.19)), ('PctVacantBoarded', np.float64(-2021.95)), ('LandArea', np.float64(-2020.45)), ('MedYrHousBuilt', np.float64(-2016.35)), ('PctKids2Par', np.float64(-1246.96))]
+<pre><code>Suppressions testées: [('PctKids2Par', 49.28), ('PctVacantBoarded', 83.05), ('PctWOFullPlumb', 93.9), ('LemasPctOfficDrugUn', 95.12), ('MedRentPctHousInc', 96.84), ('PctImmigRec10', 99.07), ('PopDens', 99.7), ('LandArea', 104.08), ('AsianPerCap', 105.65), ('PctSameHouse85', 105.65), ('PctUsePubTrans', 105.71), ('pctWFarmSelf', 105.73), ('PctWorkMom', 105.81), ('MedYrHousBuilt', 106.96), ('indianPerCap', 107.37), ('PctEmplProfServ', 107.71), ('MedOwnCostPctIncNoMtg', 107.95), ('PctEmplManu', 108.05), ('PctVacMore6Mos', 108.22)]
 
-Étape 1: Meilleure variable à retirer : pctWFarmSelf (score=-2050.98706)
-Suppressions testées: [('PctWOFullPlumb', np.float64(-2052.95)), ('indianPerCap', np.float64(-2052.83)), ('MedRentPctHousInc', np.float64(-2050.35)), ('PctVacMore6Mos', np.float64(-2049.07)), ('PctEmplManu', np.float64(-2047.65)), ('PctImmigRec10', np.float64(-2047.54)), ('PctUsePubTrans', np.float64(-2043.85)), ('PctEmplProfServ', np.float64(-2042.15)), ('MedOwnCostPctIncNoMtg', np.float64(-2041.43)), ('AsianPerCap', np.float64(-2041.35)), ('PctSameHouse85', np.float64(-2039.27)), ('LemasPctOfficDrugUn', np.float64(-2037.86)), ('PopDens', np.float64(-2036.4)), ('PctWorkMom', np.float64(-2033.17)), ('PctVacantBoarded', np.float64(-2023.94)), ('LandArea', np.float64(-2022.31)), ('MedYrHousBuilt', np.float64(-2017.9)), ('PctKids2Par', np.float64(-1227.34))]
+Étape 1: Meilleure variable à ajouter : PctKids2Par (score=49.2775)
+Suppressions testées: [('PctWorkMom', 47.64), ('LandArea', 47.64), ('LemasPctOfficDrugUn', 47.69), ('PctUsePubTrans', 48.11), ('PctVacantBoarded', 48.21), ('PopDens', 48.26), ('MedYrHousBuilt', 48.68), ('PctVacMore6Mos', 48.75), ('PctEmplManu', 48.82), ('PctImmigRec10', 48.82), ('AsianPerCap', 48.92), ('PctEmplProfServ', 49.01), ('MedRentPctHousInc', 49.02), ('MedOwnCostPctIncNoMtg', 49.05), ('indianPerCap', 49.25), ('pctWFarmSelf', 49.25), ('PctWOFullPlumb', 49.26), ('PctSameHouse85', 49.28)]
 
-Étape 2: Meilleure variable à retirer : PctWOFullPlumb (score=-2052.94899)
-Suppressions testées: [('indianPerCap', np.float64(-2054.79)), ('MedRentPctHousInc', np.float64(-2052.31)), ('PctVacMore6Mos', np.float64(-2051.07)), ('PctEmplManu', np.float64(-2049.64)), ('PctImmigRec10', np.float64(-2049.39)), ('PctUsePubTrans', np.float64(-2045.84)), ('PctEmplProfServ', np.float64(-2044.03)), ('MedOwnCostPctIncNoMtg', np.float64(-2043.43)), ('AsianPerCap', np.float64(-2043.35)), ('PctSameHouse85', np.float64(-2041.14)), ('LemasPctOfficDrugUn', np.float64(-2039.86)), ('PopDens', np.float64(-2038.15)), ('PctWorkMom', np.float64(-2034.37)), ('PctVacantBoarded', np.float64(-2025.71)), ('LandArea', np.float64(-2024.0)), ('MedYrHousBuilt', np.float64(-2019.8)), ('PctKids2Par', np.float64(-1169.01))]
+Étape 2: Meilleure variable à ajouter : PctWorkMom (score=47.64234)
+Suppressions testées: [('LandArea', 46.02), ('LemasPctOfficDrugUn', 46.23), ('MedYrHousBuilt', 46.83), ('PctUsePubTrans', 46.91), ('PctVacMore6Mos', 46.92), ('PopDens', 47.04), ('PctVacantBoarded', 47.05), ('PctImmigRec10', 47.25), ('PctEmplManu', 47.33), ('MedOwnCostPctIncNoMtg', 47.4), ('PctEmplProfServ', 47.41), ('AsianPerCap', 47.45), ('PctSameHouse85', 47.6), ('MedRentPctHousInc', 47.61), ('indianPerCap', 47.62), ('pctWFarmSelf', 47.64), ('PctWOFullPlumb', 47.68)]
 
-Étape 3: Meilleure variable à retirer : indianPerCap (score=-2054.78992)
-Suppressions testées: [('MedRentPctHousInc', np.float64(-2054.16)), ('PctVacMore6Mos', np.float64(-2053.0)), ('PctEmplManu', np.float64(-2051.47)), ('PctImmigRec10', np.float64(-2051.2)), ('PctUsePubTrans', np.float64(-2047.79)), ('PctEmplProfServ', np.float64(-2045.85)), ('AsianPerCap', np.float64(-2045.34)), ('MedOwnCostPctIncNoMtg', np.float64(-2045.21)), ('PctSameHouse85', np.float64(-2043.08)), ('LemasPctOfficDrugUn', np.float64(-2041.75)), ('PopDens', np.float64(-2040.09)), ('PctWorkMom', np.float64(-2036.16)), ('PctVacantBoarded', np.float64(-2027.57)), ('LandArea', np.float64(-2025.81)), ('MedYrHousBuilt', np.float64(-2021.8)), ('PctKids2Par', np.float64(-1165.99))]
+Étape 3: Meilleure variable à ajouter : LandArea (score=46.01599)
+Suppressions testées: [('PopDens', 44.86), ('PctVacMore6Mos', 45.26), ('PctUsePubTrans', 45.28), ('LemasPctOfficDrugUn', 45.3), ('MedYrHousBuilt', 45.55), ('PctImmigRec10', 45.7), ('PctVacantBoarded', 45.76), ('PctEmplProfServ', 45.78), ('AsianPerCap', 45.81), ('MedOwnCostPctIncNoMtg', 45.83), ('PctEmplManu', 45.86), ('MedRentPctHousInc', 45.97), ('indianPerCap', 45.99), ('pctWFarmSelf', 46.01), ('PctSameHouse85', 46.03), ('PctWOFullPlumb', 46.05)]
 
-Étape 4: Meilleure variable à retirer : MedRentPctHousInc (score=-2054.16175)
+Étape 4: Meilleure variable à ajouter : PopDens (score=44.86027)
+Suppressions testées: [('MedYrHousBuilt', 43.57), ('LemasPctOfficDrugUn', 44.49), ('PctVacMore6Mos', 44.51), ('MedOwnCostPctIncNoMtg', 44.57), ('PctVacantBoarded', 44.59), ('PctEmplProfServ', 44.66), ('AsianPerCap', 44.68), ('PctEmplManu', 44.71), ('PctImmigRec10', 44.74), ('PctUsePubTrans', 44.82), ('PctSameHouse85', 44.86), ('MedRentPctHousInc', 44.87), ('indianPerCap', 44.88), ('PctWOFullPlumb', 44.89), ('pctWFarmSelf', 44.9)]
+
+Étape 5: Meilleure variable à ajouter : MedYrHousBuilt (score=43.57156)
+Suppressions testées: [('PctVacantBoarded', 42.94), ('LemasPctOfficDrugUn', 43.2), ('PctUsePubTrans', 43.26), ('PctSameHouse85', 43.29), ('AsianPerCap', 43.32), ('MedOwnCostPctIncNoMtg', 43.57), ('PctEmplManu', 43.57), ('PctEmplProfServ', 43.57), ('pctWFarmSelf', 43.59), ('PctVacMore6Mos', 43.6), ('indianPerCap', 43.61), ('PctImmigRec10', 43.61), ('MedRentPctHousInc', 43.61), ('PctWOFullPlumb', 43.61)]
+
+Étape 6: Meilleure variable à ajouter : PctVacantBoarded (score=42.93717)
+Suppressions testées: [('LemasPctOfficDrugUn', 42.59), ('AsianPerCap', 42.67), ('PctUsePubTrans', 42.69), ('PctSameHouse85', 42.8), ('PctVacMore6Mos', 42.82), ('MedOwnCostPctIncNoMtg', 42.89), ('PctEmplProfServ', 42.93), ('pctWFarmSelf', 42.94), ('PctEmplManu', 42.95), ('PctImmigRec10', 42.97), ('PctWOFullPlumb', 42.97), ('indianPerCap', 42.97), ('MedRentPctHousInc', 42.98)]
+
+Étape 7: Meilleure variable à ajouter : LemasPctOfficDrugUn (score=42.59134)
+Suppressions testées: [('AsianPerCap', 42.34), ('PctUsePubTrans', 42.4), ('PctSameHouse85', 42.43), ('PctVacMore6Mos', 42.51), ('MedOwnCostPctIncNoMtg', 42.55), ('PctEmplProfServ', 42.58), ('pctWFarmSelf', 42.61), ('PctEmplManu', 42.61), ('PctImmigRec10', 42.63), ('indianPerCap', 42.63), ('MedRentPctHousInc', 42.63), ('PctWOFullPlumb', 42.63)]
+
+Étape 8: Meilleure variable à ajouter : AsianPerCap (score=42.34164)
+Suppressions testées: [('PctUsePubTrans', 42.21), ('PctVacMore6Mos', 42.25), ('PctSameHouse85', 42.26), ('MedOwnCostPctIncNoMtg', 42.28), ('PctEmplProfServ', 42.3), ('PctImmigRec10', 42.36), ('PctEmplManu', 42.36), ('pctWFarmSelf', 42.37), ('MedRentPctHousInc', 42.38), ('PctWOFullPlumb', 42.38), ('indianPerCap', 42.38)]
+
+Étape 9: Meilleure variable à ajouter : PctUsePubTrans (score=42.2062)
+Suppressions testées: [('MedOwnCostPctIncNoMtg', 42.05), ('PctEmplProfServ', 42.12), ('PctVacMore6Mos', 42.12), ('PctSameHouse85', 42.14), ('PctImmigRec10', 42.23), ('MedRentPctHousInc', 42.24), ('pctWFarmSelf', 42.24), ('PctEmplManu', 42.25), ('indianPerCap', 42.25), ('PctWOFullPlumb', 42.25)]
+
+Étape 10: Meilleure variable à ajouter : MedOwnCostPctIncNoMtg (score=42.0496)
+Suppressions testées: [('PctSameHouse85', 41.9), ('PctEmplProfServ', 41.93), ('PctVacMore6Mos', 42.03), ('MedRentPctHousInc', 42.08), ('pctWFarmSelf', 42.08), ('PctImmigRec10', 42.08), ('PctWOFullPlumb', 42.09), ('indianPerCap', 42.09), ('PctEmplManu', 42.09)]
+
+Étape 11: Meilleure variable à ajouter : PctSameHouse85 (score=41.90327)
+Suppressions testées: [('PctVacMore6Mos', 41.84), ('PctEmplProfServ', 41.86), ('PctImmigRec10', 41.87), ('MedRentPctHousInc', 41.9), ('PctEmplManu', 41.93), ('pctWFarmSelf', 41.94), ('indianPerCap', 41.94), ('PctWOFullPlumb', 41.94)]
+
+Étape 12: Meilleure variable à ajouter : PctVacMore6Mos (score=41.8416)
+Suppressions testées: [('PctEmplProfServ', 41.81), ('PctImmigRec10', 41.82), ('MedRentPctHousInc', 41.84), ('PctEmplManu', 41.86), ('indianPerCap', 41.88), ('PctWOFullPlumb', 41.88), ('pctWFarmSelf', 41.88)]
+
+Étape 13: Meilleure variable à ajouter : PctEmplProfServ (score=41.81169)
+Suppressions testées: [('PctEmplManu', 41.75), ('PctImmigRec10', 41.77), ('MedRentPctHousInc', 41.78), ('indianPerCap', 41.85), ('pctWFarmSelf', 41.85), ('PctWOFullPlumb', 41.85)]
+
+Étape 14: Meilleure variable à ajouter : PctEmplManu (score=41.7455)
+Suppressions testées: [('PctImmigRec10', 41.67), ('MedRentPctHousInc', 41.73), ('PctWOFullPlumb', 41.78), ('indianPerCap', 41.78), ('pctWFarmSelf', 41.79)]
+
+Étape 15: Meilleure variable à ajouter : PctImmigRec10 (score=41.67325)
+Suppressions testées: [('MedRentPctHousInc', 41.66), ('indianPerCap', 41.71), ('PctWOFullPlumb', 41.71), ('pctWFarmSelf', 41.71)]
+
+Étape 16: Meilleure variable à ajouter : MedRentPctHousInc (score=41.66073)
+Suppressions testées: [('indianPerCap', 41.7), ('PctWOFullPlumb', 41.7), ('pctWFarmSelf', 41.7)]
+
+Étape 17: Meilleure variable à ajouter : indianPerCap (score=41.69895)
 Aucune amélioration supplémentaire du score.
 
-Variables sélectionnées : ['AsianPerCap', 'PctEmplManu', 'PctEmplProfServ', 'PctKids2Par', 'PctWorkMom', 'PctImmigRec10', 'PctVacantBoarded', 'PctVacMore6Mos', 'MedYrHousBuilt', 'MedRentPctHousInc', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'LandArea', 'PopDens', 'PctUsePubTrans', 'LemasPctOfficDrugUn']
-Score final (AIC): -2054.78992
+Variables sélectionnées : ['PctKids2Par', 'PctWorkMom', 'LandArea', 'PopDens', 'MedYrHousBuilt', 'PctVacantBoarded', 'LemasPctOfficDrugUn', 'AsianPerCap', 'PctUsePubTrans', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'PctVacMore6Mos', 'PctEmplProfServ', 'PctEmplManu', 'PctImmigRec10', 'MedRentPctHousInc']
+Score final (Cp): 41.66073
                              OLS Regression Results                            
 ===============================================================================
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 10 Aug 2025   Prob (F-statistic):               0.00
-Time:                         15:32:30   Log-Likelihood:                 1044.4
+Date:                 Sat, 16 Aug 2025   Prob (F-statistic):               0.00
+Time:                         17:32:03   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1319,22 +1431,22 @@ Covariance Type:             nonrobust
                             coef    std err          t      P&gt;|t|      [0.025      0.975]
 -----------------------------------------------------------------------------------------
 const                     0.6121      0.041     14.766      0.000       0.531       0.693
-AsianPerCap               0.0611      0.018      3.374      0.001       0.026       0.097
-PctEmplManu              -0.0475      0.021     -2.298      0.022      -0.088      -0.007
-PctEmplProfServ          -0.0789      0.024     -3.297      0.001      -0.126      -0.032
 PctKids2Par              -0.7673      0.023    -33.369      0.000      -0.812      -0.722
 PctWorkMom               -0.0915      0.020     -4.534      0.000      -0.131      -0.052
-PctImmigRec10             0.0496      0.021      2.356      0.019       0.008       0.091
-PctVacantBoarded          0.1080      0.020      5.402      0.000       0.069       0.147
-PctVacMore6Mos           -0.0437      0.023     -1.941      0.052      -0.088       0.000
-MedYrHousBuilt            0.1306      0.022      5.916      0.000       0.087       0.174
-MedRentPctHousInc         0.0370      0.023      1.615      0.107      -0.008       0.082
-MedOwnCostPctIncNoMtg    -0.0681      0.020     -3.393      0.001      -0.108      -0.029
-PctSameHouse85            0.1011      0.027      3.693      0.000       0.047       0.155
 LandArea                  0.1854      0.033      5.564      0.000       0.120       0.251
 PopDens                   0.0991      0.024      4.078      0.000       0.051       0.147
-PctUsePubTrans            0.0609      0.020      2.990      0.003       0.021       0.101
+MedYrHousBuilt            0.1306      0.022      5.916      0.000       0.087       0.174
+PctVacantBoarded          0.1080      0.020      5.402      0.000       0.069       0.147
 LemasPctOfficDrugUn       0.0591      0.015      3.868      0.000       0.029       0.089
+AsianPerCap               0.0611      0.018      3.374      0.001       0.026       0.097
+PctUsePubTrans            0.0609      0.020      2.990      0.003       0.021       0.101
+MedOwnCostPctIncNoMtg    -0.0681      0.020     -3.393      0.001      -0.108      -0.029
+PctSameHouse85            0.1011      0.027      3.693      0.000       0.047       0.155
+PctVacMore6Mos           -0.0437      0.023     -1.941      0.052      -0.088       0.000
+PctEmplProfServ          -0.0789      0.024     -3.297      0.001      -0.126      -0.032
+PctEmplManu              -0.0475      0.021     -2.298      0.022      -0.088      -0.007
+PctImmigRec10             0.0496      0.021      2.356      0.019       0.008       0.091
+MedRentPctHousInc         0.0370      0.023      1.615      0.107      -0.008       0.082
 ==============================================================================
 Omnibus:                      389.964   Durbin-Watson:                   2.035
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1040.967
@@ -1348,7 +1460,7 @@ Notes:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="model_selection_files/figure-html/cell-16-output-2.png" width="430" height="566" class="figure-img"></p>
+<p><img src="model_selection_files/figure-html/cell-16-output-2.png" width="758" height="565" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1356,6 +1468,7 @@ Notes:
 
 
 
+</section>
 </section>
 </section>
 
