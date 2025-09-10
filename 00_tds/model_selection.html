@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-08-24">
+<meta name="dcterms.date" content="2025-08-30">
 
 <title>Model Selection</title>
 <style>
@@ -266,7 +266,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 24, 2025</p>
+      <p class="date">August 30, 2025</p>
     </div>
   </div>
   
@@ -541,7 +541,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <section id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion" class="level3">
 <h3 class="anchored" data-anchor-id="result-of-the-forward-stepwise-selection-using-mallows-c_p-criterion">Result of the forward stepwise selection using Mallow’s <span class="math inline">\(C_p\)</span> criterion</h3>
 <p>This method is generally recommended for model selection when the number of variables is large. Because forward stepwise selection starts with an empty model and adds variables one at a time, it is less computationally intensive than backward stepwise selection. Using this approach, we select exactly the same variables as in the backward stepwise selection presented above. The graphic below shows the variables that are successively added to the model, along with the corresponding Mallow’s <span class="math inline">\(C_p\)</span> values. The first variable added is <code>PctKids2Par</code>, followed by <code>PctWorkMom</code>, <code>LandArea</code>, and so on, until the final model is reached with a <span class="math inline">\(C_p\)</span> value of <span class="math inline">\(41.66073\)</span>.</p>
-<div id="c5460588" class="cell" data-execution_count="1">
+<div id="65f090e4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lire les noms de colonnes à partir du fichier .names</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"communities.names"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> f.readlines()</span>
@@ -572,7 +572,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <pre><code>135 colonnes uniques</code></pre>
 </div>
 </div>
-<div id="93b92f0d" class="cell" data-execution_count="2">
+<div id="0bcf4032" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le fichier communities.data</span></span>
@@ -584,7 +584,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 <div class="cell-output cell-output-stdout">
 <pre><code>(1994, 135)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
 
@@ -743,9 +743,9 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 </div>
 </div>
 </div>
-<div id="fce140e4" class="cell" data-execution_count="3">
+<div id="4427271e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fold'</span>].value_counts()  <span class="co"># Voir combien de points dans chaque fold</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>fold
 1     200
 2     200
@@ -760,7 +760,7 @@ bias(\hat{R_{tr}}(S)) = \mathbb{E}\left(\hat{R_{tr}}(S)\right) - R(S) = -2\sum_{
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="1f147f8b" class="cell" data-execution_count="4">
+<div id="dd0d0255" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des colonnes sans aucune valeur manquante</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cols_without_na <span class="op">=</span> df.columns[df.notna().<span class="bu">all</span>()].tolist()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -776,7 +776,7 @@ Name: count, dtype: int64</code></pre>
 103</code></pre>
 </div>
 </div>
-<div id="ee1a4486" class="cell" data-execution_count="5">
+<div id="16b0ddc5" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract response variable and covariates</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -800,7 +800,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="4aa3d155" class="cell" data-execution_count="6">
+<div id="011b117c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Correlation of each variable with response R</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>spearman_corr_with_R <span class="op">=</span> spearman_corr[response].drop(response)  <span class="co"># exclude R-R</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -835,7 +835,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Number of selected variables: 19</code></pre>
 </div>
 </div>
-<div id="88535452" class="cell" data-execution_count="7">
+<div id="39d882a3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tools.tools <span class="im">import</span> add_constant</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -876,7 +876,7 @@ Name: count, dtype: int64</code></pre>
 19    LemasPctOfficDrugUn  1.308731</code></pre>
 </div>
 </div>
-<div id="6ce3f4cf" class="cell" data-execution_count="8">
+<div id="e96ef0f0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -1029,7 +1029,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique de l'historique des scores</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a5c1d263" class="cell" data-execution_count="9">
+<div id="0458f96d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1075,10 +1075,10 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
 <span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="09cb75af" class="cell" data-execution_count="10">
+<div id="8d06a4b7" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_for_stepwise <span class="op">=</span> df[final_selected_variables <span class="op">+</span> [response]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c1dd3818" class="cell" data-execution_count="11">
+<div id="9f54d628" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1113,8 +1113,8 @@ Score final (AIC): -2054.79
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
-Time:                         16:49:12   Log-Likelihood:                 1044.4
+Date:                 Sat, 30 Aug 2025   Prob (F-statistic):               0.00
+Time:                         04:18:17   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1150,7 +1150,7 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 </div>
 </div>
-<div id="1eba0abd" class="cell" data-execution_count="12">
+<div id="4bd9197b" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>all_vars <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'target'</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, all_vars, metric<span class="op">=</span><span class="st">"AIC"</span>, title<span class="op">=</span><span class="st">"Sélection de variables – Stepwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1161,7 +1161,7 @@ Notes:
 </div>
 </div>
 </div>
-<div id="11ddcdff" class="cell" data-execution_count="13">
+<div id="3ef7a001" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1273,7 +1273,7 @@ Notes:
 <span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected, best_model, history</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="29ef002e" class="cell" data-execution_count="14">
+<div id="bc21deaa" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ViolentCrimesPerPop'</span>,</span>
@@ -1305,8 +1305,8 @@ Score final (Cp): 41.66073
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
-Time:                         16:49:12   Log-Likelihood:                 1044.4
+Date:                 Sat, 30 Aug 2025   Prob (F-statistic):               0.00
+Time:                         04:18:17   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1349,7 +1349,7 @@ Notes:
 </div>
 </div>
 </div>
-<div id="809c5785" class="cell" data-execution_count="15">
+<div id="db9f4552" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2_adj</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>selected_vars, best_model, history <span class="op">=</span> stepwise_selection(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>df_for_stepwise,</span>
@@ -1359,7 +1359,9 @@ Notes:
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_model.summary())</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Variable selections – Stepwise with Cp Mallows"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric<span class="op">=</span><span class="st">"Cp"</span>, title<span class="op">=</span><span class="st">"Variable selections – Stepwise with Cp Mallows"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>df_clean[selected_vars <span class="op">+</span> [<span class="st">'ViolentCrimesPerPop'</span>,<span class="st">'fold'</span>]].to_csv(<span class="st">"communities_data.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Suppressions testées: [('PctKids2Par', 49.28), ('PctVacantBoarded', 83.05), ('PctWOFullPlumb', 93.9), ('LemasPctOfficDrugUn', 95.12), ('MedRentPctHousInc', 96.84), ('PctImmigRec10', 99.07), ('PopDens', 99.7), ('LandArea', 104.08), ('AsianPerCap', 105.65), ('PctSameHouse85', 105.65), ('PctUsePubTrans', 105.71), ('pctWFarmSelf', 105.73), ('PctWorkMom', 105.81), ('MedYrHousBuilt', 106.96), ('indianPerCap', 107.37), ('PctEmplProfServ', 107.71), ('MedOwnCostPctIncNoMtg', 107.95), ('PctEmplManu', 108.05), ('PctVacMore6Mos', 108.22)]
 
@@ -1421,8 +1423,8 @@ Score final (Cp): 41.66073
 Dep. Variable:     ViolentCrimesPerPop   R-squared:                       0.621
 Model:                             OLS   Adj. R-squared:                  0.618
 Method:                  Least Squares   F-statistic:                     202.8
-Date:                 Sun, 24 Aug 2025   Prob (F-statistic):               0.00
-Time:                         16:49:12   Log-Likelihood:                 1044.4
+Date:                 Sat, 30 Aug 2025   Prob (F-statistic):               0.00
+Time:                         04:18:17   Log-Likelihood:                 1044.4
 No. Observations:                 1994   AIC:                            -2055.
 Df Residuals:                     1977   BIC:                            -1960.
 Df Model:                           16                                         
@@ -1613,7 +1615,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
+  const darkModeDefault = true;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
