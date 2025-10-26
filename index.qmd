@@ -44,6 +44,11 @@ This website serves as the treasury of my intellectual voyage, housing the jewel
     - [Spurious Regression in Time Series](Others/spurious_reg.qmd)
     - [Multiple Linear Regression Analysis](https://towardsdatascience.com/multiple-linear-regression-analysis/multiple-linear-regression-analysis-using-python-1c0f2b7d8e3a)
      - [Fourier Transformation](00_tds/fourrier_transformation.qmd)
+     - [Stepwise Selection Made Simple: Improve Your Regression Models in Python](https://towardsdatascience.com/model-selection-in-linear-regression/)
+     - [Is Your Training Data Representative?](https://towardsdatascience.com/assessment-of-representativeness-between-two-populations-to-ensure-valid-performance-2/)
+     - [PSI and Cramér's V](00_tds/psi_cramer_v.qmd)
+     - [Implementing the Fourier Transform Numerically in Python: A Step-by-Step Guide](https://medium.com/@jumbongjunior/implementing-the-fourier-transform-numerically-in-python-a-step-by-step-guide-06d2f100d7da?source=friends_link&sk=e7eebb092e1b4db7bc02f9b84fa09eee)
+
 
 - **Others :**
     - [Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)

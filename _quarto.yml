@@ -26,7 +26,7 @@ format:
   html:
     #link-external-newwindow: false
     theme:
-      light: cosmo
+      #light: cosmo
       dark: superhero
     mainfont: Times New Roman
     css: styles.css

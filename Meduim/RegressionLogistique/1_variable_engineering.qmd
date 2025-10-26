@@ -1,0 +1,374 @@
+---
+title: "Missing Data Assessment"
+subtitle: ""
+date: last-modified
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+
+categories: []
+tags: ["MCAR", "MAR", "MNAR", "missing data"]
+title-block-banner: false
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 1.1em
+
+jupyter: python3    
+---
+
+
+
+```{python}
+import numpy as np
+import pandas as pd
+#random seed
+np.random.seed(991)
+#simulate the variable x
+x = np.random.normal(loc= 50,
+scale= 3,
+size= 1000)
+#equidistant binning
+x_edb= pd.cut(x= x,
+bins= 4)
+#check bins
+x_edb.value_counts().sort_index()
+```
+
+
+```{python}
+#quantile binning
+x_qub= pd.qcut(x= x,
+q= 4)
+#check bins
+x_qub.value_counts().sort_index()
+```
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Random seed for reproducibility
+np.random.seed(991)
+
+# Simulate the variable x
+x = np.random.normal(loc=50, scale=3, size=1000)
+
+# Equidistant binning
+x_edb = pd.cut(x, bins=4)
+
+# Quantile binning
+x_qb = pd.qcut(x, q=4)
+
+# Plot
+fig, axes = plt.subplots(2, 2, figsize=(12, 5),
+                         gridspec_kw={'height_ratios':[1,1], 'width_ratios':[1,1]})
+plt.subplots_adjust(wspace=0.3, hspace=0.5)
+
+# Histogram of original values
+axes[0,0].hist(x, bins=30, color='lightgray', edgecolor='none')
+axes[0,0].set_title("Original values", fontsize=13, weight='bold')
+axes[0,0].set_xlabel("x")
+axes[0,0].set_ylabel("count")
+
+# Remove empty cell (bottom-left)
+fig.delaxes(axes[1,0])
+
+# Equidistant binning counts
+x_edb.value_counts().sort_index().plot(kind='bar', color='lightcoral', ax=axes[0,1])
+axes[0,1].set_title("Equidistant binning", fontsize=12, weight='bold')
+axes[0,1].set_xlabel("")
+axes[0,1].set_ylabel("")
+
+# Quantile binning counts
+x_qb.value_counts().sort_index().plot(kind='bar', color='lightcoral', ax=axes[1,1])
+axes[1,1].set_title("Quantile binning", fontsize=12, weight='bold')
+axes[1,1].set_xlabel("")
+axes[1,1].set_ylabel("")
+
+# Clean style
+for ax in axes.flat:
+    if ax:
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+plt.show()
+
+```
+
+$$
+x_{\text{normalized}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}} \, ( \text{new}_{\max} - \text{new}_{\min} ) + \text{new}_{\min}
+$$
+
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# -------------------------------
+# Data simulation
+# -------------------------------
+np.random.seed(123)
+x = np.random.normal(loc=50, scale=3, size=1000)
+
+# Normalization function (min-max scaling)
+def normalize(x, new_min, new_max):
+    x_r = np.ptp(x)
+    x_t = (x - np.min(x)) / x_r * (new_max - new_min) + new_min
+    return x_t
+
+x_n = normalize(x=x, new_min=0, new_max=10)
+
+# -------------------------------
+# Visualization setup
+# -------------------------------
+sns.set_theme(style="whitegrid", font_scale=1.1)
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+plt.subplots_adjust(wspace=0.3)
+
+# Histogram of original values
+axes[0].hist(x, bins=30, color='lightgray', edgecolor='black', alpha=0.7)
+axes[0].set_title("Original values", fontsize=13, weight='bold')
+axes[0].set_xlabel("x")
+axes[0].set_ylabel("count")
+
+# Histogram of transformed values
+axes[1].hist(x_n, bins=30, color='lightcoral', edgecolor='black', alpha=0.8)
+axes[1].set_title("Transformed values", fontsize=13, weight='bold')
+axes[1].set_xlabel("x normalized")
+axes[1].set_ylabel("count")
+
+# -------------------------------
+# Global title & annotation
+# -------------------------------
+fig.suptitle("Comparison Before and After Normalization", fontsize=14, weight='bold', y=1.03)
+fig.text(0.5, 0.01,
+         "Normalization rescales the data to a defined range (here 0–10) without changing its distribution shape.",
+         ha='center', fontsize=10, color='gray')
+
+# -------------------------------
+# Style adjustments
+# -------------------------------
+for ax in axes:
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.grid(False)
+
+plt.tight_layout()
+
+plt.show()
+
+
+```
+
+$$
+x_{\text{standardized}} = \frac{x - \mu}{\sigma}
+$$
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# -------------------------------
+# Random seed
+# -------------------------------
+np.random.seed(123)
+
+# Simulate the variable x
+x = np.random.normal(loc=70, scale=5, size=1000)
+
+# Check mean and standard deviation
+print([np.mean(x), np.std(x)])
+
+# -------------------------------
+# Standardization function
+# -------------------------------
+def standardize(x):
+    """Standardize the variable x."""
+    x_s = (x - np.mean(x)) / np.std(x)
+    return x_s
+
+# Run the function
+x_s = standardize(x)
+
+# Check the standardized mean and std
+print([np.mean(x_s), np.std(x_s)])
+
+# -------------------------------
+# Visualization setup
+# -------------------------------
+sns.set_theme(style="whitegrid", font_scale=1.1)
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+plt.subplots_adjust(wspace=0.3)
+
+# Histogram: Original values
+axes[0].hist(x, bins=30, color='lightgray', edgecolor='black', alpha=0.7)
+axes[0].set_title("Original values", fontsize=13, weight='bold')
+axes[0].set_xlabel("x")
+axes[0].set_ylabel("count")
+
+# Histogram: Standardized values
+axes[1].hist(x_s, bins=30, color='lightcoral', edgecolor='black', alpha=0.8)
+axes[1].set_title("Transformed values", fontsize=13, weight='bold')
+axes[1].set_xlabel("x standardized")
+axes[1].set_ylabel("count")
+
+# -------------------------------
+# Global title and note
+# -------------------------------
+fig.suptitle("Comparison Before and After Standardization", fontsize=14, weight='bold', y=1.03)
+fig.text(0.5, 0.01,
+         "Standardization centers the data (μ = 0) and rescales it so that σ = 1, without altering its shape.",
+         ha='center', fontsize=10, color='gray')
+
+# -------------------------------
+# Clean style adjustments
+# -------------------------------
+for ax in axes:
+    ax.grid(False)  # no gridlines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+$$
+x_{\text{transformed}} = \Phi^{-1} \left( \frac{r - k}{n - 2k + 1} \right)
+$$
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import rankdata, norm
+
+# -------------------------------
+# Random seed
+# -------------------------------
+np.random.seed(984)
+
+# Simulate a bimodal variable
+x1 = np.random.normal(loc=10, scale=2, size=500)
+x2 = np.random.normal(loc=20, scale=3, size=500)
+x = np.concatenate((x1, x2))
+
+# -------------------------------
+# Rank-based inverse normal transformation
+# -------------------------------
+def inverse_normal_transform(x, k=3/8, method="average"):
+    """
+    Apply rank-based inverse normal transformation (Blom method by default).
+    x : array-like
+        Input variable
+    k : float, optional
+        Constant (default=3/8)
+    method : str, optional
+        Method for dealing with ties ('average' recommended)
+    """
+    n = len(x)
+    r = rankdata(a=x, method=method)
+    xt = norm.ppf((r - k) / (n - 2 * k + 1))
+    return xt
+
+# Apply the transformation
+x_trans = inverse_normal_transform(x)
+
+# -------------------------------
+# Visualization setup
+# -------------------------------
+sns.set_theme(style="white", font_scale=1.1)
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+plt.subplots_adjust(wspace=0.3)
+
+# -------------------------------
+# Original variable histogram
+# -------------------------------
+axes[0].hist(x, bins=30, color='lightgray', edgecolor='black', alpha=0.7)
+axes[0].set_title("Original values", fontsize=13, weight='bold')
+axes[0].set_xlabel("x")
+axes[0].set_ylabel("count")
+
+# -------------------------------
+# Transformed variable histogram
+# -------------------------------
+axes[1].hist(x_trans, bins=30, color='lightcoral', edgecolor='black', alpha=0.8)
+axes[1].set_title("Rank–based inverse normal transformation", fontsize=13, weight='bold')
+axes[1].set_xlabel("x transformed")
+axes[1].set_ylabel("count")
+
+# -------------------------------
+# Global title and caption
+# -------------------------------
+fig.suptitle("Comparison Before and After Rank–Based Inverse Normal Transformation",
+             fontsize=14, weight='bold', y=1.03)
+fig.text(0.5, 0.01,
+         "The transformation converts a non-normal distribution into a shape approximating a standard normal distribution.",
+         ha='center', fontsize=10, color='gray')
+
+# -------------------------------
+# Style adjustments
+# -------------------------------
+for ax in axes:
+    ax.grid(False)  # remove gridlines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+
+$$
+WoE = \ln \left( \frac{dist.ne}{dist.e} \right)
+$$
+
+
+```{python}
+import pandas as pd
+
+# -------------------------------
+# Simulate data
+# -------------------------------
+data = pd.DataFrame({
+    "category": ["A", "B", "A", "C", "B"],
+    "value": [1, 2, 3, 4, 5]
+})
+
+# -------------------------------
+# Dummy encoding (equivalent to model.matrix(~ 0 + category, data))
+# -------------------------------
+dummy = pd.get_dummies(data["category"], prefix="category", drop_first=True).astype(int)
+
+# Display the dummy-encoded DataFrame
+print(dummy)
+
+
+```
+
+
+```{python}
+
+import pandas as pd
+import statsmodels.api as sm
+y = data["value"]
+X_with_const = sm.add_constant(dummy)   # like adding intercept in R
+model = sm.OLS(y, X_with_const).fit()
+
+# -------------------------------
+# Summary of the regression
+# -------------------------------
+print(model.summary())
+```

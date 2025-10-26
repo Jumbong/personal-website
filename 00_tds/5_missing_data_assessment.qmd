@@ -1,0 +1,256 @@
+---
+title: "Missing Data Assessment"
+subtitle: ""
+date: last-modified
+sidebar: auto
+number-sections: false
+toc: true
+author:
+  - Jumbong Junior 
+
+categories: []
+tags: ["MCAR", "MAR", "MNAR", "missing data"]
+title-block-banner: false
+bibliography: references.bib
+format: 
+  html: 
+    mainfont: Times New Roman
+    fontsize: 1.1em
+
+jupyter: python3
+notice: |
+    @wasserman2004all 
+---
+
+## Assessing the MCAR Assumption
+
+
+```{python}
+import numpy as np
+import pandas as pd
+
+# --- Reproducibility ---
+np.random.seed(42)
+
+# --- Parameters ---
+n = 10000
+
+# --- Utility Functions ---
+def generate_continuous(mean, std, size, missing_rate=0.0):
+    """Generate a continuous variable with optional MCAR missingness."""
+    values = np.random.normal(loc=mean, scale=std, size=size)
+    if missing_rate > 0:
+        mask = np.random.rand(size) < missing_rate
+        values[mask] = np.nan
+    return values
+
+def generate_categorical(levels, probs, size, missing_rate=0.0):
+    """Generate a categorical variable with optional MCAR missingness."""
+    values = np.random.choice(levels, size=size, p=probs).astype(float)
+    if missing_rate > 0:
+        mask = np.random.rand(size) < missing_rate
+        values[mask] = np.nan
+    return values
+
+# --- Variable Generation ---
+variables = {
+    "cont_mcar": generate_continuous(mean=100, std=20, size=n, missing_rate=0.20),
+    "cat_mcar": generate_categorical(levels=[0, 1], probs=[0.7, 0.3], size=n, missing_rate=0.10),
+    "cont_full": generate_continuous(mean=50, std=10, size=n),
+    "cat_full": generate_categorical(levels=[0, 1], probs=[0.6, 0.4], size=n),
+    "target": np.random.choice([0, 1], size=n, p=[0.5, 0.5])
+}
+
+# --- Build DataFrame ---
+df = pd.DataFrame(variables)
+
+# --- Display Summary ---
+print(df.head())
+print("\nMissing value counts:")
+print(df.isnull().sum())
+
+```
+
+
+
+```{python}
+from sklearn.model_selection import train_test_split
+import pandas as pd
+
+def stratified_split(df, strat_vars, test_size=0.3, random_state=None):
+    """
+    Split a DataFrame into train and test sets with stratification
+    based on one or multiple variables.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The input dataset.
+    strat_vars : list or str
+        Column name(s) used for stratification.
+    test_size : float, default=0.3
+        Proportion of the dataset to include in the test split.
+    random_state : int, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    train_df : pandas.DataFrame
+        Training set.
+    test_df : pandas.DataFrame
+        Test set.
+    """
+    # Ensure strat_vars is a list
+    if isinstance(strat_vars, str):
+        strat_vars = [strat_vars]
+
+    # Create a combined stratification key
+    strat_key = df[strat_vars].astype(str).fillna("MISSING").agg("_".join, axis=1)
+
+    # Perform stratified split
+    train_df, test_df = train_test_split(
+        df,
+        test_size=test_size,
+        stratify=strat_key,
+        random_state=random_state
+    )
+
+    return train_df, test_df
+
+
+# --- Exemple d'utilisation ---
+# Stratification sur cat_mcar, cat_full et target
+train_df, test_df = stratified_split(df, strat_vars=["cat_mcar", "cat_full", "target"], test_size=0.3, random_state=42)
+
+print(f"Train size: {train_df.shape[0]}  ({len(train_df)/len(df):.1%})")
+print(f"Test size:  {test_df.shape[0]}  ({len(test_df)/len(df):.1%})")
+
+```
+
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# --- Step 1: Train/Test Split with Stratification ---
+train_df, test_df = stratified_split(
+    df,
+    strat_vars=["cat_mcar", "cat_full", "target"],
+    test_size=0.3,
+    random_state=42
+)
+
+# --- Step 2: Create the R indicator on the training set ---
+train_df = train_df.copy()
+train_df["R_cont_mcar"] = np.where(train_df["cont_mcar"].isnull(), 0, 1)
+
+# --- Step 3: Prepare the data for comparison ---
+df_obs = pd.DataFrame({
+    "cont_full": train_df.loc[train_df["R_cont_mcar"] == 1, "cont_full"],
+    "Group": "Observed (R=1)"
+})
+
+df_miss = pd.DataFrame({
+    "cont_full": train_df.loc[train_df["R_cont_mcar"] == 0, "cont_full"],
+    "Group": "Missing (R=0)"
+})
+
+df_all = pd.concat([df_obs, df_miss])
+
+# --- Step 4: KS Test before plotting ---
+from scipy.stats import ks_2samp
+stat, p_value = ks_2samp(
+    train_df.loc[train_df["R_cont_mcar"] == 1, "cont_full"],
+    train_df.loc[train_df["R_cont_mcar"] == 0, "cont_full"]
+)
+
+# --- Step 5: Visualization with KS result ---
+plt.figure(figsize=(8, 6))
+sns.boxplot(
+    x="Group", 
+    y="cont_full", 
+    data=df_all,
+    palette="Set2",
+    width=0.6,
+    fliersize=3
+)
+
+# Add red diamonds for means
+means = df_all.groupby("Group")["cont_full"].mean()
+for i, m in enumerate(means):
+    plt.scatter(i, m, color="red", marker="D", s=50, zorder=3, label="Mean" if i == 0 else "")
+
+# Title and KS test result
+plt.title("Distribution of cont_full by Missingness of cont_mcar (Train Set)",
+          fontsize=14, weight="bold")
+
+# Add KS result as text box
+textstr = f"KS Statistic = {stat:.3f}\nP-value = {p_value:.3f}"
+plt.gca().text(
+    0.05, 0.95, textstr,
+    transform=plt.gca().transAxes,
+    fontsize=10,
+    verticalalignment='top',
+    bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8)
+)
+
+plt.ylabel("cont_full", fontsize=12)
+plt.xlabel("")
+sns.despine()
+plt.legend()
+plt.show()
+```
+
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.stats import chi2_contingency
+
+# --- Step 1: Build contingency table on the TRAIN set ---
+contingency_table = pd.crosstab(train_df["R_cont_mcar"], train_df["cat_full"])
+chi2, p_value, dof, expected = chi2_contingency(contingency_table)
+
+# --- Step 2: Compute proportions for each group ---
+# --- Recompute proportions but flip the axes ---
+props = contingency_table.div(contingency_table.sum(axis=1), axis=0)
+
+# Transform for plotting: Group (R) on x-axis, Category as hue
+df_props = props.reset_index().melt(
+    id_vars="R_cont_mcar",
+    var_name="Category",
+    value_name="Proportion"
+)
+
+# Map R values to clear labels
+df_props["Group"] = df_props["R_cont_mcar"].map({1: "Observed (R=1)", 0: "Missing (R=0)"})
+
+# --- Plot: Group on x-axis, bars show proportions of each category ---
+sns.set_theme(style="whitegrid")
+plt.figure(figsize=(8,6))
+
+sns.barplot(
+    x="Group", y="Proportion", hue="Category",
+    data=df_props, palette="Set2"
+)
+
+# Title and Chi² result
+plt.title("Proportion of cat_full by Observed/Missing Status of cont_mcar (Train Set)",
+          fontsize=14, weight="bold")
+
+# Add Chi² result as a text box
+textstr = f"Chi² = {chi2:.3f}, p = {p_value:.3f}"
+plt.gca().text(
+    0.05, 0.95, textstr,
+    transform=plt.gca().transAxes,
+    fontsize=10,
+    verticalalignment='top',
+    bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8)
+)
+
+plt.xlabel("Observed / Missing Group (R)")
+plt.ylabel("Proportion")
+plt.legend(title="cat_full Category")
+sns.despine()
+plt.show()
+```

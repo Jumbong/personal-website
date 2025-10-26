@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jumbong Junior">
+<meta name="dcterms.date" content="2025-10-04">
+
+<title>Representiveness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../flavicon.jpeg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Accueil</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index_gdr.html"> 
+<span class="menu-text">Daily Story</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Summary</h2>
+   
+  <ul>
+  <li><a href="#i.-comparing-distributions-a-key-challenge-throughout-the-lifecycle-of-a-credit-model" id="toc-i.-comparing-distributions-a-key-challenge-throughout-the-lifecycle-of-a-credit-model" class="nav-link active" data-scroll-target="#i.-comparing-distributions-a-key-challenge-throughout-the-lifecycle-of-a-credit-model">I. Comparing Distributions: A Key Challenge Throughout the Lifecycle of a Credit Model</a>
+  <ul class="collapse">
+  <li><a href="#practical-illustrations" id="toc-practical-illustrations" class="nav-link" data-scroll-target="#practical-illustrations">Practical Illustrations</a></li>
+  </ul></li>
+  <li><a href="#ii.-comparing-distributions-to-assess-representativeness-between-datasets" id="toc-ii.-comparing-distributions-to-assess-representativeness-between-datasets" class="nav-link" data-scroll-target="#ii.-comparing-distributions-to-assess-representativeness-between-datasets">II. Comparing Distributions to Assess Representativeness Between Datasets</a></li>
+  <li><a href="#iii.-two-indicators-to-assess-representativeness-psi-and-cramérs-v" id="toc-iii.-two-indicators-to-assess-representativeness-psi-and-cramérs-v" class="nav-link" data-scroll-target="#iii.-two-indicators-to-assess-representativeness-psi-and-cramérs-v">III. Two Indicators to Assess Representativeness: PSI and Cramér’s V</a>
+  <ul class="collapse">
+  <li><a href="#the-population-stability-index-psi" id="toc-the-population-stability-index-psi" class="nav-link" data-scroll-target="#the-population-stability-index-psi">1. The Population Stability Index (PSI)</a></li>
+  </ul></li>
+  <li><a href="#cramérs-v" id="toc-cramérs-v" class="nav-link" data-scroll-target="#cramérs-v">2. Cramér’s V</a></li>
+  <li><a href="#applying-psi-and-cramérs-v-a-simple-python-example" id="toc-applying-psi-and-cramérs-v-a-simple-python-example" class="nav-link" data-scroll-target="#applying-psi-and-cramérs-v-a-simple-python-example">Applying PSI and Cramér’s V: A Simple Python Example</a>
+  <ul class="collapse">
+  <li><a href="#why-compare-a-fold-to-the-global-dataset" id="toc-why-compare-a-fold-to-the-global-dataset" class="nav-link" data-scroll-target="#why-compare-a-fold-to-the-global-dataset">Why Compare a Fold to the Global Dataset?</a></li>
+  <li><a href="#step-1-start-with-the-target-variable" id="toc-step-1-start-with-the-target-variable" class="nav-link" data-scroll-target="#step-1-start-with-the-target-variable">Step 1: Start with the Target Variable</a></li>
+  <li><a href="#step-2-automating-the-analysis-for-all-variables" id="toc-step-2-automating-the-analysis-for-all-variables" class="nav-link" data-scroll-target="#step-2-automating-the-analysis-for-all-variables">Step 2: Automating the Analysis for All Variables</a></li>
+  <li><a href="#comparing-the-target-variable-violentcrimesperpop-between-the-global-dataset-reference-and-fold-1-target" id="toc-comparing-the-target-variable-violentcrimesperpop-between-the-global-dataset-reference-and-fold-1-target" class="nav-link" data-scroll-target="#comparing-the-target-variable-violentcrimesperpop-between-the-global-dataset-reference-and-fold-1-target">Comparing the target variable <code>ViolentCrimesPerPop</code> between the global dataset (reference) and fold 1 (target)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Representiveness</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jumbong Junior </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The issue of data representativeness arises frequently in modeling projects, whether academic or professional. Beyond its apparent simplicity, it raises a fundamental question: are the data used to build a model representative of the data the model will face in the real world?</p>
+<p>By representativeness, we mean the extent to which a sample reflects the characteristics of the population it is supposed to model. In practice, this means that the distributions, proportions, and patterns observed in the training data should be consistent with those the model will encounter once implemented or deployed.</p>
+<p>The first time I encountered this issue was while building a credit scoring model for a bank’s business clients. Like many others, I had been taught to split data into train, test, and sometimes out-of-sample sets. However, I realized that the real challenge was not simply achieving strong performance on the training data, but ensuring that the model remained reliable when applied to a different dataset or a new population of clients. Addressing this required comparing the distributions of key variables across datasets and verifying that they followed the same distribution.</p>
+<p>In practice, comparing distributions is not just a theoretical exercise; it’s a critical step throughout the entire lifecycle of a model:</p>
+<ul>
+<li><strong>During design</strong>, to check whether the training sample reflects the global dataset.</li>
+<li><strong>In production</strong>, to detect population drift over time.</li>
+<li><strong>In regulatory validation</strong>, to demonstrate that the model is robust and generalizable.</li>
+</ul>
+<p>To address this, we can use a variety of tools. Visual methods—such as histograms, boxplots, and density plots—provide quick intuition, while statistical methods allow us to quantify differences and make the analysis more objective.</p>
+<p>In this article, we will focus on two particularly useful and complementary indicators:</p>
+<ul>
+<li>the <strong>Population Stability Index (PSI)</strong>, which measures distributional drift, and</li>
+<li><strong>Cramér’s V</strong>, which evaluates the strength of association between categories and helps assess whether two populations share the same structure.</li>
+</ul>
+<p>Our goal is twofold:</p>
+<ol type="1">
+<li>to show why comparing distributions is crucial in credit scoring, and</li>
+<li>to illustrate, through a concrete example, how PSI and Cramér’s V can be applied to evaluate representativeness between two datasets.</li>
+</ol>
+<section id="i.-comparing-distributions-a-key-challenge-throughout-the-lifecycle-of-a-credit-model" class="level2">
+<h2 class="anchored" data-anchor-id="i.-comparing-distributions-a-key-challenge-throughout-the-lifecycle-of-a-credit-model">I. Comparing Distributions: A Key Challenge Throughout the Lifecycle of a Credit Model</h2>
+<p>From a statistician’s perspective, the lifecycle of a credit model can be summed up in three main stages.</p>
+<p><strong>The construction phase</strong>: this is where it all begins. You gather the data, clean it, split it into training, test, and out-of-time samples, estimate the parameters, and carefully document every decision. You ensure that the test and the out-of-time samples are representative of the training data.</p>
+<p><strong>The application phase</strong>: once the model is built, it must be confronted with reality. And here a crucial question arises: do the new datasets truly resemble the ones used during construction? If not, much of the previous work may quickly lose its value.</p>
+<p><strong>The monitoring phase, or backtesting</strong>: over time, populations evolve. The model must therefore be regularly challenged. Do its predictions remain valid? Is the representativeness of the target portfolio still ensured?</p>
+<p>At each of these stages, the same recurring question plays like a refrain: <strong>Is the model still representative of the population it is supposed to score?</strong></p>
+<section id="practical-illustrations" class="level3">
+<h3 class="anchored" data-anchor-id="practical-illustrations">Practical Illustrations</h3>
+<p>To make this more concrete, let me share two situations I’ve encountered—or could easily have encountered in practice.</p>
+<p><strong>Case 1: A change in scope</strong></p>
+<p>Imagine a bank developing a scoring model for small businesses. The model performs well and is recognized internally. Encouraged by this success, the leadership decides to extend its use to large corporations. But here every statistician would pause to ask: do the characteristic variables of large corporations follow the same distributions as those of small businesses? If not, the model risks becoming fragile.</p>
+<p><strong>Case 2: A banking merger</strong></p>
+<p>Now consider Bank A, equipped with a proven model to assess client default risk. It merges with Bank B and seeks to harmonize its tools. The challenge: Bank B operates in a different economic environment, with a portfolio of clients that may not share the same structure. Before transferring the model, the distributions of key variables across the two portfolios must be compared. Once again, representativeness is at stake.</p>
+</section>
+</section>
+<section id="ii.-comparing-distributions-to-assess-representativeness-between-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-comparing-distributions-to-assess-representativeness-between-datasets">II. Comparing Distributions to Assess Representativeness Between Datasets</h2>
+<p>These examples show that behind every strategic decision; whether changing scope, merging models, or tracking their evolution over time—there lies the same underlying question: <strong>are the variable distributions sufficiently similar to guarantee the model’s robustness?</strong></p>
+<p>To answer it, statisticians can rely on a wide range of tools. Some are visual and intuitive:</p>
+<ul>
+<li>overlaying histograms to instantly spot divergent densities,</li>
+<li>using boxplots to compare medians and spreads,</li>
+<li>plotting cumulative distribution functions or estimated densities to get a global view.</li>
+</ul>
+<p>Others are statistical and more formalized:</p>
+<ul>
+<li>the <strong>Kolmogorov-Smirnov test</strong>, which measures the maximum gap between two cumulative distributions,</li>
+<li>the <strong>Chi-square test</strong>, well suited for categorical variables,</li>
+<li>the <strong>Anderson-Darling test</strong>, particularly sensitive to differences in the tails.</li>
+</ul>
+<p>These methods form a solid foundation, and Matteo Courthoud offers a clear and comprehensive overview of them in his article <em><a href="https://towardsdatascience.com/how-to-compare-two-or-more-distributions-9b06ee4d30bf/">How to Compare Two (or More) Distributions</a></em>.</p>
+<p>But in credit risk, I’ve found that two indicators deserve special attention because they are simple, easy to use, and they address representativeness issues very directly:</p>
+<ul>
+<li>the <strong>Population Stability Index (PSI)</strong>, widely used to detect distribution shifts over time, and</li>
+<li><strong>Cramér’s V</strong>, which measures the strength of association between two categorical variables and helps assess the coherence between populations.</li>
+</ul>
+<p>The next part of this article will focus on these two tools, showing how they complement classical approaches and illustrating their use with a concrete example.</p>
+</section>
+<section id="iii.-two-indicators-to-assess-representativeness-psi-and-cramérs-v" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-two-indicators-to-assess-representativeness-psi-and-cramérs-v">III. Two Indicators to Assess Representativeness: PSI and Cramér’s V</h2>
+<p>When comparing distributions, we often start by examining the basic elements: cumulative curves or density graphs. These visualizations provide an initial overview of the differences and help to form an intuition. But intuition is not always enough: in practice, decision-makers also expect quantified measurements, not just graphs or pictures.</p>
+<p>That’s where two tools come in: the Population Stability Index (PSI) and Cramér’s V. They’re easy to calculate, easy to read, and most importantly, they turn what a chart suggests into clear numbers. Instead of just saying “these distributions look different”, they tell us “this is how different they really are.” Whether you’re checking for risk drift or following portfolio stability, they make comparison both precise and practical.</p>
+<section id="the-population-stability-index-psi" class="level3">
+<h3 class="anchored" data-anchor-id="the-population-stability-index-psi">1. The Population Stability Index (PSI)</h3>
+<p>The PSI is a fundamental tool in the credit industry. It measures the difference between two distributions of the same variable:</p>
+<ul>
+<li>for example, between the training dataset and a more recent application dataset,</li>
+<li>or between a reference dataset at time <span class="math inline">\(T_0\)</span> and another at time <span class="math inline">\(T_1\)</span>.</li>
+</ul>
+<p>In other words, the <strong>PSI quantifies how much a population has drifted over time or across different scopes</strong>.</p>
+<p>Here’s how it works in practice:</p>
+<ul>
+<li>For a <strong>categorical variable</strong>, we compute the proportion of observations in each category for both datasets.</li>
+<li>For a <strong>continuous variable</strong>, we first <strong>discretize it into bins</strong>. In practice, deciles are often used to obtain a balanced distribution.</li>
+</ul>
+<p>The PSI then compares, bin by bin, the proportions observed in the reference dataset versus the target dataset. The final indicator aggregates these differences using a logarithmic formula:</p>
+<p><span class="math display">\[
+PSI = \sum_{i=1}^{k} (p_i - q_i) \cdot \ln\!\left(\frac{p_i}{q_i}\right)
+\]</span></p>
+<p>where <span class="math inline">\(p_i\)</span> and <span class="math inline">\(q_i\)</span> represent the proportions in bin <span class="math inline">\(i\)</span> for the reference dataset and the target dataset, respectively.</p>
+<p>The interpretation is highly intuitive:</p>
+<ul>
+<li>A smaller PSI means the two distributions are closer.</li>
+<li>A PSI of <strong>0</strong> means the distributions are identical.</li>
+<li>A very large PSI (tending toward infinity) means the two distributions are fundamentally different.</li>
+</ul>
+<p>In practice, industry guidelines often use the following thresholds:</p>
+<ul>
+<li><strong>PSI &lt; 0.1</strong>: the population is stable,</li>
+<li><strong>0.1 ≤ PSI &lt; 0.25</strong>: the shift is noticeable—monitor closely,</li>
+<li><strong>PSI ≥ 0.25</strong>: the shift is significant—the model may no longer be reliable.</li>
+</ul>
+</section>
+</section>
+<section id="cramérs-v" class="level2">
+<h2 class="anchored" data-anchor-id="cramérs-v">2. Cramér’s V</h2>
+<p>When assessing the representativeness of a categorical variable (or a discretized continuous variable) between two datasets, a natural starting point is the <strong>Chi-square test of independence</strong>.</p>
+<p>We build a contingency table crossing:</p>
+<ul>
+<li>the categories (modalities) of the variable of interest, and</li>
+<li>an indicator variable for dataset membership (Dataset 1 / Dataset 2).</li>
+</ul>
+<p>The test is based on the following statistic:</p>
+<p><span class="math display">\[
+\chi^2 = \sum_{i=1}^{r}\sum_{j=1}^{c} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+\]</span></p>
+<p>where <span class="math inline">\(O_{ij}\)</span> are the observed counts and <span class="math inline">\(E_{ij}\)</span> are the expected counts under the assumption of independence.</p>
+<ul>
+<li><strong>Null hypothesis <span class="math inline">\(H_0\)</span></strong>: the variable has the same distribution in both datasets (independence).</li>
+<li><strong>Alternative hypothesis <span class="math inline">\(H_1\)</span></strong>: the distributions differ.</li>
+</ul>
+<p>If <span class="math inline">\(H_0\)</span> is rejected, we conclude that the variable does not follow the same distribution across the two datasets.</p>
+<p>However, the Chi-square test has a major limitation: it only provides a binary answer (reject / do not reject), and its power is highly sensitive to sample size. With very large datasets, even tiny differences can appear statistically significant.</p>
+<p>To address this limitation, we use <strong>Cramér’s V</strong>, which rescales the Chi-square statistic to produce a normalized measure of association bounded between 0 and 1:</p>
+<p><span class="math display">\[
+V = \sqrt{\frac{\chi^2}{n \cdot \min(r-1,\,c-1)}}
+\]</span></p>
+<p>where $n$ is the total sample size, $r$ is the number of rows, and $c$ is the number of columns in the contingency table.</p>
+<p>The interpretation is intuitive:</p>
+<ul>
+<li><span class="math inline">\(V \approx 0\)</span> → the distributions are very similar; representativeness is strong.</li>
+<li><span class="math inline">\(V\)</span> close to 1 → the difference between distributions is large; the datasets are structurally different.</li>
+</ul>
+<p>Unlike the Chi-square test, which simply answers “yes” or “no,” Cramér’s V provides a graded measure of the strength of the difference. This allows us to assess whether the difference is negligible, moderate, or substantial.</p>
+</section>
+<section id="applying-psi-and-cramérs-v-a-simple-python-example" class="level1">
+<h1>Applying PSI and Cramér’s V: A Simple Python Example</h1>
+<p>In a previous article, we applied different variable selection methods to reduce the <em>Communities &amp; Crime</em> dataset to just <strong>16 explanatory variables</strong>. This step was essential to simplify the model while keeping the most relevant information.</p>
+<p>This dataset also includes a variable called <strong>fold</strong>, which splits the data into <strong>10 subsamples</strong>. These folds are commonly used in cross-validation: they allow us to test the robustness of a model by training it on one part of the data and validating it on another.</p>
+<section id="why-compare-a-fold-to-the-global-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="why-compare-a-fold-to-the-global-dataset">Why Compare a Fold to the Global Dataset?</h2>
+<p>If a fold is <strong>representative</strong> of the overall dataset, then working with this subsample—and aggregating the results across all folds—should yield reliable conclusions at the full-dataset level.</p>
+<p>In this article, we’ll look at a concrete example: checking whether <strong>fold 1</strong> is representative of the global dataset.</p>
+</section>
+<section id="step-1-start-with-the-target-variable" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-start-with-the-target-variable">Step 1: Start with the Target Variable</h2>
+<p>We begin with the <strong>target variable</strong>. The idea is simple: compare its distribution between fold 1 and the entire dataset. To quantify this difference, we’ll use two complementary indicators:</p>
+<ul>
+<li>the <strong>Population Stability Index (PSI)</strong>, which measures distributional shifts,</li>
+<li><strong>Cramér’s V</strong>, which measures the strength of association between two categorical variables.</li>
+</ul>
+</section>
+<section id="step-2-automating-the-analysis-for-all-variables" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-automating-the-analysis-for-all-variables">Step 2: Automating the Analysis for All Variables</h2>
+<p>After illustrating the approach with the target, we extend it to all features. We’ll build a <strong>Python function</strong> that computes PSI and Cramér’s V for each of the <strong>19 explanatory variables</strong>, as well as for the target variable.</p>
+<p>To make the results easy to interpret, we’ll export everything into an <strong>Excel file</strong> with:</p>
+<ul>
+<li>one <strong>sheet per variable</strong>, showing the detailed comparison by segment,</li>
+<li>a <strong>Summary tab</strong>, aggregating results across all variables.</li>
+</ul>
+</section>
+<section id="comparing-the-target-variable-violentcrimesperpop-between-the-global-dataset-reference-and-fold-1-target" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-target-variable-violentcrimesperpop-between-the-global-dataset-reference-and-fold-1-target">Comparing the target variable <code>ViolentCrimesPerPop</code> between the global dataset (reference) and fold 1 (target)</h2>
+<p>Before applying statistical tests or building decision indicators, it is essential to conduct a descriptive and graphical analysis. There are not just formalities; they provide an early intuition about the differences between populations and help interpreting the results. In practice, a well-chosen chart often reveals the conclusions that indicators like PSI or Cramér’s V will later confirm (or challenge).</p>
+<p>For visualization, we proceed in three steps:</p>
+<p><strong>1. Comparing continuous distributions</strong> We begin with graphical tools such as boxplots, cumulative distribution functions, and probability density plots. These visualizations provide an intuitive way to examine differences in the target variable’s distribution between the two datasets.</p>
+<p><strong>2. Discretization into quantiles</strong> Next, we discretize the variable in the reference dataset using quartiles (Q1, Q2, Q3, Q4), which creates five classes (Q1 through Q5). We then apply the exact same cut-off points to the target dataset, ensuring that each observation is mapped to intervals defined from the reference. This guarantees comparability between the two distributions.</p>
+<p><strong>3. Comparing categorical distributions</strong> Finally, once the variable has been discretized, we can use visualization methods suited for categorical data — such as bar charts — to compare how frequencies are distributed across the two datasets.</p>
+<p>The process depends on the type of variable:</p>
+<p><strong>For a continuous variable:</strong></p>
+<ul>
+<li>Start with standard visualizations (boxplots, cumulative distributions, and density plots).</li>
+<li>Next, split the variable into segments (Q1 to Q5) based on the reference dataset’s quantiles.</li>
+<li>Finally, treat these segments as categories and compare their distributions.</li>
+</ul>
+<p><strong>For a categorical variable:</strong></p>
+<ul>
+<li>No discretization is needed — it’s already in categorical form.</li>
+<li>Go straight to comparing category distributions, for example with a bar chart.</li>
+</ul>
+<p>The code below prepares the two datasets we want to compare and then visualizes the target variable with a boxplot, showing its distribution in both the global dataset and in fold 1.</p>
+<div id="846d82fe" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency, ks_2samp</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"data/communities_data.csv"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter sur fold =1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>data_ref <span class="op">=</span> data</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data_target <span class="op">=</span> data[data[<span class="st">"fold"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compare the two distribution of "ViolentCrimesPerPop" in the reference and target datasets with boxplots</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Build datasets with a "Group" column</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>df_ref <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ViolentCrimesPerPop"</span>: data_ref[<span class="st">"ViolentCrimesPerPop"</span>],</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Group"</span>: <span class="st">"Reference"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df_target <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ViolentCrimesPerPop"</span>: data_target[<span class="st">"ViolentCrimesPerPop"</span>],</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Group"</span>: <span class="st">"Target"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge them</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> pd.concat([df_ref, df_target])</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot with both distributions overlayed</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Group"</span>, </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"ViolentCrimesPerPop"</span>, </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_all,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    fliersize<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Add mean points</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> df_all.groupby(<span class="st">"Group"</span>)[<span class="st">"ViolentCrimesPerPop"</span>].mean()</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, m <span class="kw">in</span> <span class="bu">enumerate</span>(means):</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    plt.scatter(i, m, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"D"</span>, s<span class="op">=</span><span class="dv">50</span>, zorder<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Mean"</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Title tells the story</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Violent Crimes Per Population by Group"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Both groups show nearly identical distributions"</span>, </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Violent Crimes (Per Pop)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">""</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaner look</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>plt.grid(visible<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(data.columns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_35159/1831008403.py:35: FutureWarning:
+
+
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-2-output-2.png" width="666" height="543" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18</code></pre>
+</div>
+</div>
+<p>The figure above suggests that both groups share similar distributions for the <code>ViolentCrimesPerPop</code> variable. To take a closer look, we can use Kernel Density Estimation (KDE) plots, which provide a smooth view of the underlying distribution and make it easier to spot subtle differences.</p>
+<div id="dc92c558" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE plots with better styling</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_all,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"ViolentCrimesPerPop"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"Group"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">True</span>,         <span class="co"># use shading for overlap</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.4</span>,         <span class="co"># transparency to show overlap</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># KS-test for distribution difference</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> df_all[df_all[<span class="st">"Group"</span>] <span class="op">==</span> df_all[<span class="st">"Group"</span>].unique()[<span class="dv">0</span>]][<span class="st">"ViolentCrimesPerPop"</span>]</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>g2 <span class="op">=</span> df_all[df_all[<span class="st">"Group"</span>] <span class="op">==</span> df_all[<span class="st">"Group"</span>].unique()[<span class="dv">1</span>]][<span class="st">"ViolentCrimesPerPop"</span>]</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>stat, pval <span class="op">=</span> ks_2samp(g1, g2)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add annotation</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.text(df_all[<span class="st">"ViolentCrimesPerPop"</span>].mean(),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>         plt.ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.9</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>         <span class="ss">f"KS-test p-value = </span><span class="sc">{</span>pval<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">No significant difference observed"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>         ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles with story</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Kernel Density Estimation of Violent Crimes Per Population"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Distributions overlap almost completely between groups"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Violent Crimes (Per Pop)"</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">False</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-3-output-1.png" width="678" height="561" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The KDE graph confirms that the two distributions are very similar, showing a high degree of overlap. The Kolmogorov-Smirnov (KS) statistical test of 0.976 also indicates that there is no significant difference between the two groups. To extend the analysis, we can now examine the cumulative distribution of the target variable.</p>
+<div id="3501b9ee" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative distribution</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_all,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"ViolentCrimesPerPop"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"Group"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"density"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    element<span class="op">=</span><span class="st">"step"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="bu">len</span>(df_all),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    cumulative<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles tell the story</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cumulative Distribution of Violent Crimes Per Population"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"ECDFs overlap extensively; central tendencies are nearly identical"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels &amp; cleanup</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Violent Crimes (Per Pop)"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cumulative proportion"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.grid(visible<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-4-output-1.png" width="738" height="561" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The cumulative distribution plot provides additional evidence that the two groups are very similar. The curves overlap almost completely, suggesting that their distributions are nearly identical in both central tendency and spread.</p>
+<p>As a next step, we’ll discretize the variable into quantiles in the reference dataset and then apply the same cut-off points to the target dataset (fold 1). The code below demonstrates how to do this. Finally, we’ll compare the resulting distributions using a bar chart.</p>
+<div id="20d47dc9" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bin_numeric(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Discretize a numeric variable into quantile bins (ex: quintiles).</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    - Quantile thresholds are computed only on the reference dataset.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - Extend bins with -inf and +inf to cover all possible values.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - Returns:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">        * ref binned</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">        * tgt binned</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">        * bin labels (Q1, Q2, ...)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> np.unique(ref.dropna().quantile(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, n_bins <span class="op">+</span> <span class="dv">1</span>)).values)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(edges) <span class="op">&lt;</span> <span class="dv">3</span>:  <span class="co"># if variable is almost constant</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> np.array([<span class="op">-</span>np.inf, np.inf])</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        edges[<span class="dv">0</span>], edges[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span>np.inf, np.inf</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [<span class="ss">f"Q</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(edges))]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        pd.cut(ref, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        pd.cut(tgt, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        labels</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply binning</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>ref_binned, tgt_binned, bin_labels <span class="op">=</span> bin_numeric(data_ref[<span class="st">"ViolentCrimesPerPop"</span>], data_target[<span class="st">"ViolentCrimesPerPop"</span>], n_bins<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectifs par segment pour Reference et Target</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>ref_counts <span class="op">=</span> ref_binned.value_counts().reindex(bin_labels, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>tgt_counts <span class="op">=</span> tgt_binned.value_counts().reindex(bin_labels, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir en proportions</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>ref_props <span class="op">=</span> ref_counts <span class="op">/</span> ref_counts.<span class="bu">sum</span>()</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>tgt_props <span class="op">=</span> tgt_counts <span class="op">/</span> tgt_counts.<span class="bu">sum</span>()</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Construire un DataFrame pour seaborn</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>df_props <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Segment"</span>: bin_labels,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Reference"</span>: ref_props.values,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Target"</span>: tgt_props.values</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Restructurer en format long</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df_props.melt(id_vars<span class="op">=</span><span class="st">"Segment"</span>, </span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>                        value_vars<span class="op">=</span>[<span class="st">"Reference"</span>, <span class="st">"Target"</span>], </span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>                        var_name<span class="op">=</span><span class="st">"Source"</span>, </span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>                        value_name<span class="op">=</span><span class="st">"Proportion"</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Style sobre</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot avec proportions</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Segment"</span>, y<span class="op">=</span><span class="st">"Proportion"</span>, hue<span class="op">=</span><span class="st">"Source"</span>,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_long, palette<span class="op">=</span>[<span class="st">"#4C72B0"</span>, <span class="st">"#55A868"</span>]  <span class="co"># bleu &amp; vert sobres</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Titre et légende</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles with story</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Proportion Comparison by Segment (ViolentCrimesPerPop)"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Across all quantile segments (Q1–Q5), proportions are nearly identical"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Quantile Segment (Q1 - Q5)"</span>)</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Proportion"</span>)</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Dataset"</span>, loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">False</span>)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-5-output-1.png" width="676" height="567" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As before, we reach the same conclusion: the distributions in the reference and target datasets are very similar. To move beyond visual inspection, we will now compute the Population Stability Index (PSI) and Cramér’s V statistic. These metrics allow us to quantify the differences between distributions; both for all variables in general and for the target variable ViolentCrimesPerPop in particular.</p>
+<div id="598ea42a" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>EPS <span class="op">=</span> <span class="fl">1e-12</span>  <span class="co"># A very small constant to avoid division by zero or log(0)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Basic functions</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safe_proportions(counts):</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Convert raw counts into proportions in a safe way.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    - If the total count = 0, return all zeros (to avoid division by zero).</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - Clip values so no proportion is exactly 0 or 1 (numerical stability).</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> counts.<span class="bu">sum</span>()</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> total <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.zeros_like(counts, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> counts <span class="op">/</span> total</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.clip(p, EPS, <span class="fl">1.0</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_psi(p_ref, p_tgt):</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute the Population Stability Index (PSI) between two distributions.</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">    PSI = sum( (p_ref - p_tgt) * log(p_ref / p_tgt) )</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">    Interpretation:</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">    - PSI &lt; 0.1  → stable</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">    - 0.1–0.25   → moderate shift</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">    - &gt; 0.25     → major shift</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    p_ref <span class="op">=</span> np.clip(p_ref, EPS, <span class="fl">1.0</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    p_tgt <span class="op">=</span> np.clip(p_tgt, EPS, <span class="fl">1.0</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(np.<span class="bu">sum</span>((p_ref <span class="op">-</span> p_tgt) <span class="op">*</span> np.log(p_ref <span class="op">/</span> p_tgt)))</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_cramers_v(contingency):</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute Cramér's V statistic for association between two categorical variables.</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">    - Input: a 2 x K contingency table (counts).</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">    - Uses Chi² test.</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">    - Normalizes the result to [0, 1].</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">      * 0   → no association</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">      * 1   → perfect association</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    chi2, _, _, _ <span class="op">=</span> chi2_contingency(contingency, correction<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> contingency.<span class="bu">sum</span>()</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    r, c <span class="op">=</span> contingency.shape</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> <span class="bu">min</span>(r <span class="op">-</span> <span class="dv">1</span>, c <span class="op">-</span> <span class="dv">1</span>) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(chi2 <span class="op">/</span> (n <span class="op">*</span> (<span class="bu">min</span>(r <span class="op">-</span> <span class="dv">1</span>, c <span class="op">-</span> <span class="dv">1</span>))))</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Preparing variables</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bin_numeric(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="co">    Discretize a numeric variable into quantile bins (ex: quintiles).</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co">    - Quantile thresholds are computed only on the reference dataset.</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">    - Extend bins with -inf and +inf to cover all possible values.</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">    - Returns:</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">        * ref binned</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">        * tgt binned</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co">        * bin labels (Q1, Q2, ...)</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> np.unique(ref.dropna().quantile(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, n_bins <span class="op">+</span> <span class="dv">1</span>)).values)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(edges) <span class="op">&lt;</span> <span class="dv">3</span>:  <span class="co"># if variable is almost constant</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> np.array([<span class="op">-</span>np.inf, np.inf])</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        edges[<span class="dv">0</span>], edges[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span>np.inf, np.inf</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [<span class="ss">f"Q</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(edges))]</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        pd.cut(ref, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        pd.cut(tgt, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        labels</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_counts(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="co">    Prepare frequency counts for one variable.</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="co">    - If numeric: discretize into quantile bins.</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="co">    - If categorical: take all categories present in either dataset.</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="co">      segments, counts in reference, counts in target</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pd.api.types.is_numeric_dtype(ref) <span class="kw">and</span> pd.api.types.is_numeric_dtype(tgt):</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>        ref_b, tgt_b, labels <span class="op">=</span> bin_numeric(ref, tgt, n_bins)</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>        segments <span class="op">=</span> labels</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>        segments <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(ref.dropna().unique()) <span class="op">|</span> <span class="bu">set</span>(tgt.dropna().unique()))</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>        ref_b, tgt_b <span class="op">=</span> ref.astype(<span class="bu">str</span>), tgt.astype(<span class="bu">str</span>)</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>    ref_counts <span class="op">=</span> ref_b.value_counts().reindex(segments, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>    tgt_counts <span class="op">=</span> tgt_b.value_counts().reindex(segments, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> segments, ref_counts, tgt_counts</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Analysis per variable</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_variable(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="co">    Analyze a single variable between two datasets.</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="co">    Steps:</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co">    - Build counts by segment (bin for numeric, category for categorical).</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="co">    - Compute PSI by segment and Global PSI.</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="co">    - Compute Cramér's V from the contingency table.</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="co">    - Return:</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="co">        DataFrame with details</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="co">        Summary dictionary (psi, v_cramer)</span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>    segments, ref_counts, tgt_counts <span class="op">=</span> prepare_counts(ref, tgt, n_bins)</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>    p_ref, p_tgt <span class="op">=</span> safe_proportions(ref_counts.values), safe_proportions(tgt_counts.values)</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PSI</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    psi_global <span class="op">=</span> calculate_psi(p_ref, p_tgt)</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>    psi_by_segment <span class="op">=</span> (p_ref <span class="op">-</span> p_tgt) <span class="op">*</span> np.log(p_ref <span class="op">/</span> p_tgt)</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cramér's V</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>    contingency <span class="op">=</span> np.vstack([ref_counts.values, tgt_counts.values])</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    v_cramer <span class="op">=</span> calculate_cramers_v(contingency)</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build detailed results table</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Segment"</span>: segments,</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Count Reference"</span>: ref_counts.values,</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Count Target"</span>: tgt_counts.values,</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Percent Reference"</span>: p_ref,</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Percent Target"</span>: p_tgt,</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PSI by Segment"</span>: psi_by_segment</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add summary lines at the bottom of the table</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>    df.loc[<span class="bu">len</span>(df)] <span class="op">=</span> [<span class="st">"Global PSI"</span>, np.nan, np.nan, np.nan, np.nan, psi_global]</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>    df.loc[<span class="bu">len</span>(df)] <span class="op">=</span> [<span class="st">"Cramer's V"</span>, np.nan, np.nan, np.nan, np.nan, v_cramer]</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df, {<span class="st">"psi"</span>: psi_global, <span class="st">"v_cramer"</span>: v_cramer}</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Excel reporting utilities</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_traffic_light(ws, wb, first_row, last_row, col, low, high):</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="co">    Apply conditional formatting (traffic light colors) to a numeric column in Excel:</span></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a><span class="co">    - green  if value &lt; low</span></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a><span class="co">    - orange if low &lt;= value &lt;= high</span></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="co">    - red    if value &gt; high</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="co">    Note: first_row, last_row, and col are zero-based indices (xlsxwriter convention).</span></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>    green  <span class="op">=</span> wb.add_format({<span class="st">"bg_color"</span>: <span class="st">"#C6EFCE"</span>, <span class="st">"font_color"</span>: <span class="st">"#006100"</span>})</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>    orange <span class="op">=</span> wb.add_format({<span class="st">"bg_color"</span>: <span class="st">"#FCD5B4"</span>, <span class="st">"font_color"</span>: <span class="st">"#974706"</span>})</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>    red    <span class="op">=</span> wb.add_format({<span class="st">"bg_color"</span>: <span class="st">"#FFC7CE"</span>, <span class="st">"font_color"</span>: <span class="st">"#9C0006"</span>})</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> last_row <span class="op">&lt;</span> first_row:</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span>  <span class="co"># nothing to color</span></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>    ws.conditional_format(first_row, col, last_row, col,</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"type"</span>: <span class="st">"cell"</span>, <span class="st">"criteria"</span>: <span class="st">"&lt;"</span>, <span class="st">"value"</span>: low, <span class="st">"format"</span>: green})</span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>    ws.conditional_format(first_row, col, last_row, col,</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"type"</span>: <span class="st">"cell"</span>, <span class="st">"criteria"</span>: <span class="st">"between"</span>, <span class="st">"minimum"</span>: low, <span class="st">"maximum"</span>: high, <span class="st">"format"</span>: orange})</span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>    ws.conditional_format(first_row, col, last_row, col,</span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"type"</span>: <span class="st">"cell"</span>, <span class="st">"criteria"</span>: <span class="st">"&gt;"</span>, <span class="st">"value"</span>: high, <span class="st">"format"</span>: red})</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> representativity_report(ref_df, tgt_df, variables, output<span class="op">=</span><span class="st">"representativity.xlsx"</span>,</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>                            n_bins<span class="op">=</span><span class="dv">5</span>, psi_thresholds<span class="op">=</span>(<span class="fl">0.10</span>, <span class="fl">0.25</span>),</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>                            v_thresholds<span class="op">=</span>(<span class="fl">0.10</span>, <span class="fl">0.25</span>), color_summary<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="co">    Build a representativity report across multiple variables and export to Excel.</span></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="co">    For each variable:</span></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a><span class="co">      - Create a sheet with detailed PSI by segment, Global PSI, and Cramer's V.</span></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="co">      - Apply traffic light colors for easier interpretation.</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="co">    Create one "Résumé" sheet with overall Global PSI and Cramer's V for all variables.</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> []</span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> pd.ExcelWriter(output, engine<span class="op">=</span><span class="st">"xlsxwriter"</span>) <span class="im">as</span> writer:</span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>        wb <span class="op">=</span> writer.book</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>        fmt_header <span class="op">=</span> wb.add_format({<span class="st">"bold"</span>: <span class="va">True</span>, <span class="st">"bg_color"</span>: <span class="st">"#0070C0"</span>,</span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"font_color"</span>: <span class="st">"white"</span>, <span class="st">"align"</span>: <span class="st">"center"</span>})</span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a>        fmt_pct   <span class="op">=</span> wb.add_format({<span class="st">"num_format"</span>: <span class="st">"0.00%"</span>})</span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a>        fmt_ratio <span class="op">=</span> wb.add_format({<span class="st">"num_format"</span>: <span class="st">"0.000"</span>})</span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>        fmt_int   <span class="op">=</span> wb.add_format({<span class="st">"num_format"</span>: <span class="st">"0"</span>})</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> var <span class="kw">in</span> variables:</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Analyze variable</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>            df, meta <span class="op">=</span> analyze_variable(ref_df[var], tgt_df[var], n_bins)</span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>            sheet <span class="op">=</span> var[:<span class="dv">31</span>]  <span class="co"># Excel sheet names are limited to 31 characters</span></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>            df.to_excel(writer, sheet_name<span class="op">=</span>sheet, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>            ws <span class="op">=</span> writer.sheets[sheet]</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Format headers and columns</span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j, col <span class="kw">in</span> <span class="bu">enumerate</span>(df.columns):</span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>                ws.write(<span class="dv">0</span>, j, col, fmt_header)</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>            ws.set_column(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">18</span>)</span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>            ws.set_column(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">16</span>, fmt_int)</span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>            ws.set_column(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">20</span>, fmt_pct)</span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>            ws.set_column(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">18</span>, fmt_ratio)</span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>            nrows <span class="op">=</span> <span class="bu">len</span>(df)   <span class="co"># number of data rows (excluding header)</span></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a>            col_psi <span class="op">=</span> <span class="dv">5</span>       <span class="co"># "PSI by Segment" column index</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>            <span class="co"># PSI by Segment rows</span></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>            apply_traffic_light(ws, wb, first_row<span class="op">=</span><span class="dv">1</span>, last_row<span class="op">=</span><span class="bu">max</span>(<span class="dv">1</span>, nrows<span class="op">-</span><span class="dv">2</span>),</span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>                                col<span class="op">=</span>col_psi, low<span class="op">=</span>psi_thresholds[<span class="dv">0</span>], high<span class="op">=</span>psi_thresholds[<span class="dv">1</span>])</span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Global PSI row (second to last)</span></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>            apply_traffic_light(ws, wb, first_row<span class="op">=</span>nrows<span class="op">-</span><span class="dv">1</span>, last_row<span class="op">=</span>nrows<span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a>                                col<span class="op">=</span>col_psi, low<span class="op">=</span>psi_thresholds[<span class="dv">0</span>], high<span class="op">=</span>psi_thresholds[<span class="dv">1</span>])</span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Cramer's V row (last row) </span></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a>            apply_traffic_light(ws, wb, first_row<span class="op">=</span>nrows, last_row<span class="op">=</span>nrows,</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a>                                col<span class="op">=</span>col_psi, low<span class="op">=</span>v_thresholds[<span class="dv">0</span>], high<span class="op">=</span>v_thresholds[<span class="dv">1</span>])</span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add summary info for Résumé sheet</span></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a>            summary.append({<span class="st">"Variable"</span>: var,</span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Global PSI"</span>: meta[<span class="st">"psi"</span>],</span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Cramer's V"</span>: meta[<span class="st">"v_cramer"</span>]})</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Résumé sheet</span></span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>        df_sum <span class="op">=</span> pd.DataFrame(summary)</span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a>        df_sum.to_excel(writer, sheet_name<span class="op">=</span><span class="st">"Résumé"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>        ws <span class="op">=</span> writer.sheets[<span class="st">"Résumé"</span>]</span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, col <span class="kw">in</span> <span class="bu">enumerate</span>(df_sum.columns):</span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>            ws.write(<span class="dv">0</span>, j, col, fmt_header)</span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a>        ws.set_column(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">28</span>)</span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a>        ws.set_column(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">16</span>, fmt_ratio)</span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply traffic light to summary sheet</span></span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> color_summary <span class="kw">and</span> <span class="bu">len</span>(df_sum) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a>            last <span class="op">=</span> <span class="bu">len</span>(df_sum)</span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a>            <span class="co"># PSI column</span></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a>            apply_traffic_light(ws, wb, <span class="dv">1</span>, last, <span class="dv">1</span>, psi_thresholds[<span class="dv">0</span>], psi_thresholds[<span class="dv">1</span>])</span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Cramer's V column</span></span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a>            apply_traffic_light(ws, wb, <span class="dv">1</span>, last, <span class="dv">2</span>, v_thresholds[<span class="dv">0</span>], v_thresholds[<span class="dv">1</span>])</span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Example</span></span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>    <span class="co"># columns namees privées de fold</span></span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>    columns <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data.columns <span class="cf">if</span> x <span class="op">!=</span> <span class="st">"fold"</span>]</span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(columns)</span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the report</span></span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> representativity_report(data_ref, data_target, columns, output<span class="op">=</span><span class="st">"representativity.xlsx"</span>)</span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f" Report generated: </span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['PctKids2Par', 'PctWorkMom', 'LandArea', 'PopDens', 'MedYrHousBuilt', 'PctVacantBoarded', 'LemasPctOfficDrugUn', 'AsianPerCap', 'PctUsePubTrans', 'MedOwnCostPctIncNoMtg', 'PctSameHouse85', 'PctVacMore6Mos', 'PctEmplProfServ', 'PctEmplManu', 'PctImmigRec10', 'MedRentPctHousInc', 'ViolentCrimesPerPop']
+ Report generated: representativity.xlsx</code></pre>
+</div>
+</div>
+<p>As mentioned earlier, the results of the distribution comparisons for each variable between the two datasets, calculated using PSI and Cramér’s V, are presented in separate sheets within a single Excel file.</p>
+<p>To illustrate, we will first look at the results for the target variable. This example shows how both PSI and Cramér’s V are computed and how their values can be interpreted in practice.</p>
+<p>Finally, we will introduce the last sheet of the file, titled Summary, which consolidates the results for all variables of interest. This synthesis provides a global view of representativeness between the two datasets and makes interpretation and decision-making much easier.</p>
+<div id="c818958a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, time, requests, pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- paramètres de base ---</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>API_URL <span class="op">=</span> <span class="st">"https://api.football-data.org/v4/competitions/PL/matches"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>SEASONS <span class="op">=</span> [<span class="dv">2023</span>, <span class="dv">2024</span>]  <span class="co"># 2023-24 et 2024-25</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- hardcoder la clé pour un test local ---</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>TOKEN <span class="op">=</span> <span class="st">"46ff0dc946b740059274353d6889b27b"</span>  <span class="co"># &lt;-- colle ici ta clé brute</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># hardcoder la clé</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> TOKEN:</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"Variable d'environnement FOOTBALL_DATA_TOKEN absente."</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"X-Auth-Token"</span>: TOKEN}</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> season <span class="kw">in</span> SEASONS:</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> {<span class="st">"season"</span>: season}</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(API_URL, params<span class="op">=</span>params, headers<span class="op">=</span>headers, timeout<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">429</span>:</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># rate-limit: petite pause puis retry</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">10</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> requests.get(API_URL, params<span class="op">=</span>params, headers<span class="op">=</span>headers, timeout<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    r.raise_for_status()</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> m <span class="kw">in</span> r.json().get(<span class="st">"matches"</span>, []):</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># On garde les matches terminés ou attribués</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> m.get(<span class="st">"status"</span>) <span class="kw">in</span> {<span class="st">"FINISHED"</span>, <span class="st">"AWARDED"</span>}:</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>            md <span class="op">=</span> m.get(<span class="st">"matchday"</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> m.get(<span class="st">"score"</span>, {}).get(<span class="st">"fullTime"</span>, {})</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>            hg, ag <span class="op">=</span> score.get(<span class="st">"home"</span>), score.get(<span class="st">"away"</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> hg <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> ag <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> md <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>            rows.append({</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>                <span class="st">"season"</span>: season,</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>                <span class="st">"match_id"</span>: m.get(<span class="st">"id"</span>),</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>                <span class="st">"utcDate"</span>: m.get(<span class="st">"utcDate"</span>),</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>                <span class="st">"matchday"</span>: <span class="bu">int</span>(md),</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>                <span class="st">"homeTeam"</span>: m.get(<span class="st">"homeTeam"</span>, {}).get(<span class="st">"name"</span>),</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>                <span class="st">"awayTeam"</span>: m.get(<span class="st">"awayTeam"</span>, {}).get(<span class="st">"name"</span>),</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>                <span class="st">"homeGoals"</span>: <span class="bu">int</span>(hg),</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>                <span class="st">"awayGoals"</span>: <span class="bu">int</span>(ag),</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>                <span class="st">"totalGoals"</span>: <span class="bu">int</span>(hg) <span class="op">+</span> <span class="bu">int</span>(ag),</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>                <span class="st">"venue"</span>: (m.get(<span class="st">"area"</span>) <span class="kw">or</span> {}).get(<span class="st">"name"</span>),  <span class="co"># parfois vide</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                <span class="st">"status"</span>: m.get(<span class="st">"status"</span>),</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co"># --- ton export "par match" (inchangé) ---</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(rows).sort_values([<span class="st">"season"</span>, <span class="st">"matchday"</span>, <span class="st">"utcDate"</span>])</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>outfile <span class="op">=</span> <span class="st">"data/premier_league_goals_by_match_2023_2024.csv"</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>df.to_csv(outfile, index<span class="op">=</span><span class="va">False</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Écrit </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> lignes dans </span><span class="sc">{</span>outfile<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co"># --- agrégat par journée (inchangé) ---</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>agg <span class="op">=</span> (df.groupby([<span class="st">"season"</span>,<span class="st">"matchday"</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">"totalGoals"</span>]</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>         .<span class="bu">sum</span>()</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>         .rename(columns<span class="op">=</span>{<span class="st">"totalGoals"</span>:<span class="st">"goals_by_matchday"</span>}))</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>agg.to_csv(<span class="st">"data/premier_league_goals_by_matchday_2023_2024.csv"</span>, index<span class="op">=</span><span class="va">False</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Agrégat par journée écrit dans premier_league_goals_by_matchday_2023_2024.csv"</span>)</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="co"># --- NOUVEAU : table large (DRY/orthogonale) -&gt; matchday, goals_2023, goals_2024 ---</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>wide <span class="op">=</span> (agg.pivot(index<span class="op">=</span><span class="st">"matchday"</span>, columns<span class="op">=</span><span class="st">"season"</span>, values<span class="op">=</span><span class="st">"goals_by_matchday"</span>)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>           .sort_index())</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="co"># renommer colonnes -&gt; goals_&lt;season&gt;</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>wide.columns <span class="op">=</span> [<span class="ss">f"goals_</span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> s <span class="kw">in</span> wide.columns]</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="co"># (option) remplir les journées manquantes par 0 (cas saison en cours)</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> wide.empty:</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>    full_index <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">int</span>(wide.index.<span class="bu">max</span>()) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>    wide <span class="op">=</span> wide.reindex(full_index)</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>wide <span class="op">=</span> wide.fillna(<span class="dv">0</span>).astype(<span class="bu">int</span>).reset_index().rename(columns<span class="op">=</span>{<span class="st">"index"</span>: <span class="st">"matchday"</span>})</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="co"># garantir l'ordre des colonnes : matchday, goals_2023, goals_2024, ...</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"matchday"</span>] <span class="op">+</span> <span class="bu">sorted</span>([c <span class="cf">for</span> c <span class="kw">in</span> wide.columns <span class="cf">if</span> c <span class="op">!=</span> <span class="st">"matchday"</span>])</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>wide <span class="op">=</span> wide[cols]</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>wide_outfile <span class="op">=</span> <span class="st">"data/goals_by_matchday_wide_2023_2024.csv"</span></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>wide.to_csv(wide_outfile, index<span class="op">=</span><span class="va">False</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Table large écrite dans </span><span class="sc">{</span>wide_outfile<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wide.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Écrit 760 lignes dans data/premier_league_goals_by_match_2023_2024.csv
+Agrégat par journée écrit dans premier_league_goals_by_matchday_2023_2024.csv
+Table large écrite dans data/goals_by_matchday_wide_2023_2024.csv
+   matchday  goals_2023  goals_2024
+0         1          28          21
+1         2          30          32
+2         3          31          30
+3         4          41          23
+4         5          24          30</code></pre>
+</div>
+</div>
+<div id="928c7101" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the total number of goals in 2023 and 2024</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>total_goals_2023 <span class="op">=</span> wide[<span class="st">"goals_2023"</span>].<span class="bu">sum</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>total_goals_2024 <span class="op">=</span> wide[<span class="st">"goals_2024"</span>].<span class="bu">sum</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total goals in 2023: </span><span class="sc">{</span>total_goals_2023<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total goals in 2024: </span><span class="sc">{</span>total_goals_2024<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total goals in 2023: 1246
+Total goals in 2024: 1115</code></pre>
+</div>
+</div>
+<div id="536d3b83" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create global data.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Build datasets with a "Group" column</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>data_2023 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Goals"</span>: wide[<span class="st">"goals_2023"</span>],</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Season"</span>: <span class="st">"2023/2024"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>data_2024 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Goals"</span>: wide[<span class="st">"goals_2024"</span>],</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Season"</span>: <span class="st">"2024/2025"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge them</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>data_2_seasons <span class="op">=</span> pd.concat([data_2023, data_2024])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>data_2_seasons</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Data for 2023/2024:"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>data_2023</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data for 2023/2024:</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Goals</th>
+<th data-quarto-table-cell-role="th">Season</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>28</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>31</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>41</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>24</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>29</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>27</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>33</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>37</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>34</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>38</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>27</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>28</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>23</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>39</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>35</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>39</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>45</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>37</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>34</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>34</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>36</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>30</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>32</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>29</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>35</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>33</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>40</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>32</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>36</td>
+<td>2023/2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>33</td>
+<td>2023/2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>37</td>
+<td>2023/2024</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="46e85a87" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot des buts par saison</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot with both distributions overlayed</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Season"</span>, </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"Goals"</span>, </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data_2_seasons,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    fliersize<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add mean points</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> data_2_seasons.groupby(<span class="st">"Season"</span>)[<span class="st">"Goals"</span>].median()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, m <span class="kw">in</span> <span class="bu">enumerate</span>(median):</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    plt.scatter(i, m, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"D"</span>, s<span class="op">=</span><span class="dv">50</span>, zorder<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Median"</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Title tells the story</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Goals Per Season"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Goals were higher in 2023/2024 than in 2024/2025."</span>,</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Goals"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">""</span>)</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaner look</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>plt.grid(visible<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_35159/619544620.py:8: FutureWarning:
+
+
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-10-output-2.png" width="515" height="380" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To take a closer look, we can use Kernel Density Estimation (KDE) plots, which provide a smooth view of the underlying distribution and make it easier to spot subtle differences.</p>
+<div id="a6f70beb" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data_2_seasons,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Goals"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"Season"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.4</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Kernel Density Estimation of Goals Per Season"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"2023/2024 shows greater variability, while 2024/2025 is more concentrated around 30 goals."</span>, </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Goals"</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">False</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ≈ 50 KB</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-11-output-1.png" width="645" height="422" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The KDE graph confirms that the two distributions are very similar, showing a high degree of overlap. The Kolmogorov-Smirnov (KS) statistical test of 0.976 also indicates that there is no significant difference between the two groups. To extend the analysis, we can now examine the cumulative distribution of the target variable.</p>
+<div id="1640dc88" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative distribution</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data_2_seasons,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Goals"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"Season"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"density"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    element<span class="op">=</span><span class="st">"step"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="bu">len</span>(df_all),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    cumulative<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles tell the story</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cumulative Distribution of Goals"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Comparing goal distributions between 2023/2024 and 2024/2025"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels &amp; cleanup</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Goals"</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cumulative proportion"</span>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>plt.grid(visible<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-12-output-1.png" width="636" height="422" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="4a54a14d" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bin_numeric(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Discretize a numeric variable into quantile bins (ex: quintiles).</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">    - Quantile thresholds are computed only on the reference dataset.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - Extend bins with -inf and +inf to cover all possible values.</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - Returns:</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">        * ref binned</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">        * tgt binned</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">        * bin labels (Q1, Q2, ...)</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> np.unique(ref.dropna().quantile(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, n_bins <span class="op">+</span> <span class="dv">1</span>)).values)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(edges) <span class="op">&lt;</span> <span class="dv">3</span>:  <span class="co"># if variable is almost constant</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> np.array([<span class="op">-</span>np.inf, np.inf])</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        edges[<span class="dv">0</span>], edges[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span>np.inf, np.inf</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [<span class="ss">f"Q</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(edges))]</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        pd.cut(ref, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        pd.cut(tgt, bins<span class="op">=</span>edges, labels<span class="op">=</span>labels, include_lowest<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        labels</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply binning</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>ref_binned, tgt_binned, bin_labels <span class="op">=</span> bin_numeric(data_2023[<span class="st">"Goals"</span>], data_2024[<span class="st">"Goals"</span>], n_bins<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectifs par segment pour Reference et Target</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>ref_counts <span class="op">=</span> ref_binned.value_counts().reindex(bin_labels, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>tgt_counts <span class="op">=</span> tgt_binned.value_counts().reindex(bin_labels, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir en proportions</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>ref_props <span class="op">=</span> ref_counts <span class="op">/</span> ref_counts.<span class="bu">sum</span>()</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>tgt_props <span class="op">=</span> tgt_counts <span class="op">/</span> tgt_counts.<span class="bu">sum</span>()</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Construire un DataFrame pour seaborn</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>df_props <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Segment"</span>: bin_labels,</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2023/2024"</span>: ref_props.values,</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2024/2025"</span>: tgt_props.values</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Restructurer en format long</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df_props.melt(id_vars<span class="op">=</span><span class="st">"Segment"</span>, </span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>                        value_vars<span class="op">=</span>[<span class="st">"2023/2024"</span>, <span class="st">"2024/2025"</span>], </span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>                        var_name<span class="op">=</span><span class="st">"Source"</span>, </span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>                        value_name<span class="op">=</span><span class="st">"Proportion"</span>)</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Style sobre</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot avec proportions</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Segment"</span>, y<span class="op">=</span><span class="st">"Proportion"</span>, hue<span class="op">=</span><span class="st">"Source"</span>,</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_long, palette<span class="op">=</span><span class="st">"Set2"</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Titre et légende</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles with story</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Proportion Comparison by Segment (Goals)"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Across all quantile segments (Q1–Q5), proportions are different"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Quantile Segment (Q1 - Q5)"</span>)</span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Proportion"</span>)</span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Dataset"</span>, loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">False</span>)</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-13-output-1.png" width="645" height="422" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6e2495e9" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: goals data</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.sort(data_2023[<span class="st">"Goals"</span>].dropna().values)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sort(data_2024[<span class="st">"Goals"</span>].dropna().values)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute common quantiles</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>quantiles <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">min</span>(<span class="bu">len</span>(x), <span class="bu">len</span>(y)))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>qx <span class="op">=</span> np.quantile(x, quantiles)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>qy <span class="op">=</span> np.quantile(y, quantiles)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply seaborn style</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"white"</span>)          <span class="co"># removes background grid</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> sns.color_palette(<span class="st">"Set2"</span>, <span class="dv">2</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>qx, y<span class="op">=</span>qy, color<span class="op">=</span>palette[<span class="dv">0</span>], s<span class="op">=</span><span class="dv">60</span>, label<span class="op">=</span><span class="st">"Q-Q Points"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 45° reference line</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="bu">min</span>(qx.<span class="bu">min</span>(), qy.<span class="bu">min</span>()), <span class="bu">max</span>(qx.<span class="bu">max</span>(), qy.<span class="bu">max</span>())],</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>         [<span class="bu">min</span>(qx.<span class="bu">min</span>(), qy.<span class="bu">min</span>()), <span class="bu">max</span>(qx.<span class="bu">max</span>(), qy.<span class="bu">max</span>())],</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span>palette[<span class="dv">1</span>], linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"2024 = 2023"</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles and labels</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Q-Q Plot of Goals (2023/2024 vs 2024/2025)"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Quantiles of 2023/2024"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Quantiles of 2024/2025"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co"># No grid</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">False</span>)</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-14-output-1.png" width="589" height="457" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9f65f9b4" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the two series</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> data_2023[<span class="st">"Goals"</span>].dropna().values</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data_2024[<span class="st">"Goals"</span>].dropna().values</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute QQ plot</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>sm.qqplot_2samples(x, y, line<span class="op">=</span><span class="st">'45'</span>)   <span class="co"># '45' draws y=x line</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Q-Q Plot of Goals: 2023/2024 vs 2024/2025"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Quantiles of 2023/2024"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Quantiles of 2024/2025"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 724x407 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="psi_cramer_v_files/figure-html/cell-15-output-2.png" width="589" height="455" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d178f2e5" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data_2023.columns <span class="cf">if</span> x <span class="op">!=</span> <span class="st">"Season"</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_2023[<span class="st">"Goals"</span>].value_counts())</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the report</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> representativity_report(data_2023, data_2024, columns, output<span class="op">=</span><span class="st">"representativity_plot.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Goals
+30    8
+34    3
+37    3
+33    3
+32    2
+36    2
+35    2
+39    2
+28    2
+27    2
+29    2
+38    1
+23    1
+24    1
+45    1
+41    1
+31    1
+40    1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wasserman2004all" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. Springer Science &amp; Business Media.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

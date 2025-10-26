@@ -32,9 +32,9 @@ To do so, we had to implement an optimization algorithm that relies on the Fouri
 
 
 $$
-\hat{f}(\nu) = \int_{-\infty}^{+\infty} f_{\theta}(t) e^{-2i\pi\nu t} dt
+\hat{f}(\nu) = \int_{-\infty}^{+\infty} f_{\theta}(t) e^{-2i\pi\nu t} dt, \quad\text{for all } \nu \in \mathbb{R}
 $$
-où $f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)$ andd $\theta = (\phi, \gamma, \mathcal{E})$ a vector of parameters to estimate. 
+Where $f_{\theta}(y) = \frac{1}{2\sqrt{\pi}} \left(\frac{-i \phi y \gamma^2 \exp\left(-\frac{y^2}{2} \gamma^2\right)}{\exp\left(-i \mathcal{E} y\right) 2^{iy} \Gamma\left(\frac{1}{2} + iy\right)}\right)$ and $\theta = (\phi, \gamma, \mathcal{E})$ is the vector of parameters to be estimated.
 
 
 
@@ -167,6 +167,7 @@ I recommend reading his article for more details on these three tools. Next, we 
 
 We show that computing the Fourier transform of a function $f$ consists to approximating it by the integral the following integral over the interval $[-\frac{T}{2}, \frac{T}{2}]$:
 $$
+\boxed{
 \underbrace{
   \int_{-\infty}^{+\infty} f(t)\, e^{-2\pi i \nu t} \, dt
 }_{=\,\hat{f}(\nu)}
@@ -174,6 +175,7 @@ $$
 \underbrace{
   \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt
 }_{=\,\tilde{S}(\nu)}
+}
 $$
 
 where T is a large enough number such that the integral converges. Une valeur approchée of the integral $\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt$ can be computed using quadrature methods. In the next section, we will approximate the integral using the quadrature method of rectangles à gauche.
@@ -196,7 +198,9 @@ $$
 
 By taking into account that we have $t_{k+1} - t_k = h_t$, and $t_k = -\frac{T}{2} + k \cdot h_t = T(\frac{k}{N} - \frac{1}{2})$, we can rewrite the integral as:
 $$
+\boxed{
 \tilde{S}(\nu) = \sum_{k=0}^{N-1} f(t_k) e^{-2\pi i \nu t_k} h_t.
+}
 $$
 
 We call it the **quadrature method of left rectangles** because it uses the **left endpoint** $t_k$ of each subinterval to approximate the value of the function $f(t)$ at that point.
@@ -298,12 +302,8 @@ tfquad_vals = np.array([tfquad(f, nu, n, T) for nu in nu_vals])
 # Compute the approximation using scipy integral
 tf_integral_vals = np.array([tf_integral(f, nu, T) for nu in nu_vals])
 
-```
-
-
-
-```{python}
-fig, axs = plt.subplot_mosaic([["tfquad", "quad"]], figsize=(7, 5), layout="constrained")
+# ----- Plotting -----
+fig, axs = plt.subplot_mosaic([["tfquad", "quad"]], figsize=(7.24, 4.07), dpi=100, layout="constrained")
 
 # Plot using tfquad implementation
 axs["tfquad"].plot(nu_vals, np.real(exact_vals), 'b-', linewidth=2, label=r'$\hat{f}$ (exact)')
@@ -332,7 +332,7 @@ fig.legend(handles, labels,
            ncol=3, frameon=False)
 
 plt.suptitle("Comparison of FFT Implementations vs. Exact Fourier Transform", fontsize=14)
-plt.subplots_adjust(bottom=0.2)  # Make room for the legend
+
 plt.show()
 
 
@@ -379,7 +379,7 @@ f_vals = f(t1)
 phi_vals = phi(t2)
 
 # Plot
-fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+fig, axs = plt.subplots(1, 2, figsize=(7.24, 4.07), dpi=100)
 
 axs[0].plot(t1, f_vals, 'k', linewidth=2)
 axs[0].set_xlim(-8, 8)
@@ -451,11 +451,13 @@ $$
 
 In this section, we denote by $\hat{S}_n(\nu)$ the approximation of the Fourier transform $\hat{f}(\nu)$ of the function $f$ at a point $\nu \in \left[-\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2}\right]$, where $\nu_{\text{max}} = \frac{n}{T}$, i.e.,
 $$
+\boxed{
 \hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
+}
 $$
 
 
-We now present the Fourier transform algorithm used to approximate $\hat{f}(\nu)$. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article.@balac2011transformee  provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by @cooley1965algorithm.
+We now present the Fourier transform algorithm used to approximate $\hat{f}(\nu)$. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article.  @balac2011transformee provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by @cooley1965algorithm.
 
 What is important to understand is that the use of the FFT algorithm to approximate the Fourier transform of a function $f$ is based on the result shown by @epstein2005well, which states that when $\hat{S}_n(\nu)$ is evaluated at the frequencies $\nu_j = \frac{j}{T}$ for $j = 0, 1, \dots, n - 1$, it gives a good approximation of the continuous Fourier transform $\hat{f}(\nu)$.
 
@@ -473,10 +475,10 @@ $$
 $$
 
 $$
-\text{où on a exploité la relation} \quad
+\text{where we used the relation} \quad
 e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2i\pi k}}_{=1} 
 = e^{-2i\pi (j-n) \frac{k}{n}} 
-\quad \text{pour } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
+\quad \text{for } j \in \left\{ \frac{n}{2}, \dots, n-1 \right\}.
 $$
 
 
@@ -544,28 +546,28 @@ def tffft(f, T, n):
 The following program illustrates how to compute the Fourier transform of the Gaussian function $f(t) = e^{-10t^2}$ over the interval $[-10, 10]$, using the Fast Fourier Transform (FFT) algorithm.
 
 ```{python}
-# Paramètres
+# Parameters
 a = 10
 f = lambda t: np.exp(-a * t**2)
 T = 10
 n = 2**8  # 256
 
-# Calcul de la transformée de Fourier
+# Compute the Fourier transform using FFT
 tf, nu, t = tffft(f, T, n)
 
-# Représentation graphique
-fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+# Plotting
+fig, axs = plt.subplots(1, 2, figsize=(7.24, 4.07), dpi=100)
 
 axs[0].plot(t, f(t), '-g', linewidth=3)
-axs[0].set_xlabel("temps")
-axs[0].set_title("Fonction considérée")
+axs[0].set_xlabel("time")
+axs[0].set_title("Considered Function")
 axs[0].set_xlim(-6, 6)
 axs[0].set_ylim(-0.5, 1.1)
 axs[0].grid(True)
 
 axs[1].plot(nu, np.abs(tf), '-b', linewidth=3)
-axs[1].set_xlabel("fréquence")
-axs[1].set_title("Transformée de Fourier")
+axs[1].set_xlabel("frequency")
+axs[1].set_title("Fourier Transform using FFT")
 axs[1].set_xlim(-15, 15)
 axs[1].set_ylim(-0.5, 1)
 axs[1].grid(True)
@@ -608,16 +610,16 @@ import numpy as np
 
 def shannon(tf, nu, T):
     """
-    Approxime la valeur de la transformée de Fourier de la fonction f en la fréquence 'nu'
-    à partir de ses valeurs discrètes calculées via la FFT.
+    Approximates the value of the Fourier transform of function f at frequency 'nu'
+    using its discrete values computed from the FFT.
 
-    Paramètres :
-    - tf : tableau numpy, valeurs de la TF (centrées avec fftshift) aux fréquences j/T pour j = -n/2, ..., n/2 - 1
-    - nu : float, fréquence à laquelle on veut approximer la TF
-    - T  : float, largeur de la fenêtre temporelle utilisée pour la FFT
+    Parameters:
+    - tf : numpy array, discrete Fourier transform values (centered with fftshift) at frequencies j/T for j = -n/2, ..., n/2 - 1
+    - nu : float, frequency at which to approximate the Fourier transform
+    - T  : float, time window width used for the FFT
 
-    Retour :
-    - tfnu : approximation de la TF en la fréquence 'nu'
+    Returns:
+    - tfnu : approximation of the Fourier transform at frequency 'nu'
     """
     n = len(tf)
     tfnu = 0.0
@@ -634,8 +636,8 @@ Enfin, nous pouvons definir la
 ```{python}
 def fourier_at_nu(f, T, n, nu):
     """
-    Calcule la transformée de Fourier de f en la fréquence nu
-    en utilisant tffft + interpolation de Shannon.
+    Computes the Fourier transform of f at frequency nu
+    using tffft + Shannon interpolation.
     """
     tf, _, _ = tffft(f, T, n)
     return shannon(tf, nu, T)
@@ -655,10 +657,10 @@ n = 2**10  # nombre de points de discrétisation
 nu = 3 / T
 # Valeur exacte de la TF
 exact_value = fhat_exact(nu)
-# Approximation de la TF en nu
+# Approximation de la TF en nu 
 approx_value = fourier_at_nu(f, T, n, nu)
 print(f"Exact value at nu={nu}: {exact_value}")
-print(f"Approximation at nu={nu}: {approx_value}")
+print(f"Approximation at nu={nu}: {np.real(approx_value)}")
 
 # Calcul pour nu = pi/T
 nu = np.pi / T
@@ -667,9 +669,187 @@ exact_value = fhat_exact(nu)
 # Approximation de la TF en nu
 approx_value = fourier_at_nu(f, T, n, nu)
 print(f"Exact value at nu={nu}: {exact_value}")
-print(f"Approximation at nu={nu}: {approx_value}")
+print(f"Approximation at nu={nu}: {np.real(approx_value)}")
 ```
 
 Une alternative à l'interpolation de Shannon est d'utiliser d'autres méthodes d'interpolation comme l'interpolation de Lagrange ou l'interpolation de Newton. 
 
-## Conclusion
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.fft import fft, fftfreq, fftshift, ifftshift
+from scipy.integrate import quad
+
+# ------------------------------
+# 1. Define the function and its exact Fourier Transform
+# ------------------------------
+def f(t):
+    """Function f(t) = exp(-πt²)"""
+    return np.exp(-np.pi * t**2)
+
+def exact_fourier_transform(nu):
+    """Exact FT of f(t) = exp(-πt²) is also exp(-πν²)"""
+    return np.exp(-np.pi * nu**2)
+
+# ------------------------------
+# 2. Define parameters
+# ------------------------------
+N = 1024
+T = 1.0 / 64
+t = np.linspace(-N/2*T, N/2*T, N, endpoint=False)
+y = f(t)
+
+# ------------------------------
+# 3. FFT with SciPy
+# ------------------------------
+yf_scipy = fftshift(fft(ifftshift(y))) * T
+xf_scipy = fftshift(fftfreq(N, T))
+
+# ------------------------------
+# 4. FFT with NumPy
+# ------------------------------
+yf_numpy = np.fft.fftshift(np.fft.fft(np.fft.ifftshift(y))) * T
+xf_numpy = np.fft.fftshift(np.fft.fftfreq(N, T))
+
+# ------------------------------
+# 5. Numerical integration method (quadrature)
+# ------------------------------
+def tf_integral(f, nu, T):
+    """Compute FT of f at frequency nu over [-T/2, T/2] using scipy quad."""
+    real_part = quad(lambda t: np.real(f(t) * np.exp(-2j * np.pi * nu * t)), -T/2, T/2)[0]
+    imag_part = quad(lambda t: np.imag(f(t) * np.exp(-2j * np.pi * nu * t)), -T/2, T/2)[0]
+    return real_part + 1j * imag_part
+
+# Compute values for comparison
+nu_vals = np.linspace(-6, 6, 400)
+FT_exact = exact_fourier_transform(nu_vals)
+FT_integral = np.array([tf_integral(f, nu, 8) for nu in nu_vals])
+
+# Interpolate FFT results for better comparison
+# (FFT frequencies may not align exactly with nu_vals)
+from scipy.interpolate import interp1d
+interp_scipy = interp1d(xf_scipy, np.real(yf_scipy), kind='cubic', fill_value="extrapolate")
+interp_numpy = interp1d(xf_numpy, np.real(yf_numpy), kind='cubic', fill_value="extrapolate")
+
+FT_scipy = interp_scipy(nu_vals)
+FT_numpy = interp_numpy(nu_vals)
+
+# ------------------------------
+# 6. Plot comparison
+# ------------------------------
+plt.figure(figsize=(8, 5))
+plt.plot(nu_vals, np.real(FT_exact), 'k-', linewidth=2, label='Exact FT (Analytical)')
+plt.plot(nu_vals, np.real(FT_integral), 'r--', linewidth=1.5, label='Numerical Integral (quad)')
+plt.plot(nu_vals, FT_scipy, 'b-.', linewidth=1.2, label='FFT (SciPy)')
+plt.plot(nu_vals, FT_numpy, 'g:', linewidth=1.2, label='FFT (NumPy)')
+
+plt.title("Comparison of Fourier Transform Methods", fontsize=13)
+plt.xlabel("Frequency (ν)")
+plt.ylabel("Amplitude (Real part)")
+plt.xlim(-6, 6)
+plt.ylim(-0.2, 1.1)
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.legend(frameon=False, loc='upper right')
+plt.tight_layout()
+plt.show()
+
+```
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.fft import fft, fftfreq, fftshift, ifftshift
+
+
+# Define the function f(t) = exp(-pi * t^2)
+def f(t):
+    return np.exp(-np.pi * t**2)
+
+# Parameters
+N = 1024
+T = 1.0 / 64
+t = np.linspace(-N/2*T, N/2*T, N, endpoint=False)
+y = f(t)
+
+# FFT with scipy
+yf_scipy = fftshift(fft(ifftshift(y))) * T
+xf = fftshift(fftfreq(N, T))
+FT_exact = np.exp(-np.pi * xf**2)
+
+# FFT with numpy
+yf_numpy = np.fft.fftshift(np.fft.fft(np.fft.ifftshift(y))) * T
+xf_numpy = np.fft.fftshift(np.fft.fftfreq(N, T))
+
+# Plot with subplot_mosaic
+fig, axs = plt.subplot_mosaic([["scipy", "numpy"]], figsize=(7, 5), layout="constrained", sharey=True)
+
+# Scipy FFT
+axs["scipy"].plot(xf, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs["scipy"].plot(xf, np.real(yf_scipy), 'r--', linewidth=1, label='FFT (scipy)')
+axs["scipy"].set_xlim(-6, 6)
+axs["scipy"].set_ylim(-1, 1)
+axs["scipy"].set_title("Scipy FFT")
+axs["scipy"].set_xlabel("Frequency")
+axs["scipy"].set_ylabel("Amplitude")
+axs["scipy"].legend()
+axs["scipy"].grid(False)
+
+# NumPy FFT
+axs["numpy"].plot(xf_numpy, FT_exact, 'k-', linewidth=1.5, label='Exact FT')
+axs["numpy"].plot(xf_numpy, np.real(yf_numpy), 'b--', linewidth=1, label='FFT (numpy)')
+axs["numpy"].set_xlim(-6, 6)
+axs["numpy"].set_title("NumPy FFT")
+axs["numpy"].set_xlabel("Frequency")
+axs["numpy"].legend()
+axs["numpy"].grid(False)
+
+plt.suptitle("Comparison of FFT Implementations vs. Exact Fourier Transform", fontsize=14)
+plt.show()
+```
+
+# Computing the Fourier Transform at Frequency ν Using the FFT Algorithm in numpy and SciPy
+
+```{python}
+import numpy as np
+from scipy.fft import fft, fftshift, fftfreq, ifftshift
+
+# Function to compute the Fourier Transform using FFT using SciPy
+
+def fourier_at_nu_scipy(f, T, n, nu):
+    """
+    Computes the Fourier transform of f at frequency nu
+    using scipy's FFT + Shannon interpolation.
+    """
+    t = np.linspace(-T/2, T/2, n, endpoint=False)
+    F = f(t)
+    tf = fftshift(fft(ifftshift(F))) * (T/n)
+    return shannon(tf, nu, T)
+
+
+## Example usage
+
+a = 0.5
+f = lambda t: np.exp(-a * np.abs(t))                          # function to transform
+fhat_exact = lambda nu: (2 * a) / (a**2 + 4 * np.pi**2 * nu**2)  # exact TF
+T = 40     # window width
+n = 2**10  # number of discretization points
+# Calculation for nu = 3/T
+nu = 3 / T
+# Exact value of the TF
+exact_value = fhat_exact(nu)
+# Approximation de la TF en nu
+approx_value_scipy = fourier_at_nu_scipy(f, T, n
+, nu)
+print(f"Exact value at nu={nu}: {exact_value}")
+print(f"Approximation (SciPy) at nu={nu}: {np.real(approx_value_scipy)}")
+
+# Calculation for nu = pi/T
+nu = np.pi / T
+# Exact value of the TF
+exact_value = fhat_exact(nu)
+# Approximation de la TF en nu
+approx_value_scipy = fourier_at_nu_scipy(f, T, n, nu)
+print(f"Exact value at nu={nu}: {exact_value}")
+print(f"Approximation (SciPy) at nu={nu}: {np.real(approx_value_scipy)}")
+```

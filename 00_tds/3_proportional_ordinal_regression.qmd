@@ -285,7 +285,7 @@ We welcome any comments or suggestions. Happy reading!
 
 import pandas as pd
 
-data = pd.read_csv("winequality-red.csv", sep=";")
+data = pd.read_csv("data/winequality-red.csv", sep=";")
 data.head()
 
 # Repartition de la variable cible quality 

@@ -303,7 +303,7 @@ This method is generally recommended for model selection when the number of vari
 
 ```{python}
 # Lire les noms de colonnes à partir du fichier .names
-with open("communities.names", "r") as f:
+with open("data/communities.names", "r") as f:
     lines = f.readlines()
 
 # Extraire les noms à partir des lignes définissant les attributs
@@ -335,7 +335,7 @@ print(f"{len(columns)} colonnes uniques")
 import pandas as pd
 
 # Charger le fichier communities.data
-df = pd.read_csv("communities.data", header=None, names=columns, na_values='?')
+df = pd.read_csv("data/communities.data", header=None, names=columns, na_values='?')
 
 # Vérifier la forme
 print(df.shape)
@@ -358,7 +358,7 @@ print(f"{len(cols_without_na)} colonnes sans NA :")
 print(cols_without_na)
 df_clean = df.dropna(axis=1)
 print(len(df_clean.columns))
-df_clean.to_csv("communities_clean.csv", index=False)
+df_clean.to_csv("data/communities_clean.csv", index=False)
 ```
 
 ```{python}
@@ -367,7 +367,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-df = pd.read_csv("communities_clean.csv")
+df = pd.read_csv("data/communities_clean.csv")
 response = 'ViolentCrimesPerPop'
 covariates = [col for col in df.columns if col not in ['fold', response, 'state', 'county', 'community', 'communityname', 'NumStreet']]
 
@@ -807,4 +807,6 @@ selected_vars, best_model, history = stepwise_selection(
 )
 print(best_model.summary())
 plot_stepwise_crosses(history, df_for_stepwise.columns.tolist(), metric="Cp", title="Variable selections – Stepwise with Cp Mallows")
+
+df_clean[selected_vars + ['ViolentCrimesPerPop','fold']].to_csv("data/communities_data.csv", index=False)
 ```

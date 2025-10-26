@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-06-10">
+<meta name="dcterms.date" content="2025-10-04">
 
 <title>Proportional Odds Model for Ordinal Logistic Regression</title>
 <style>
@@ -233,7 +233,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 10, 2025</p>
+      <p class="date">October 4, 2025</p>
     </div>
   </div>
   
@@ -407,10 +407,10 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <p>Brant’s work extends beyond assessing the proportional odds assumption—it also provides methods for evaluating the overall adequacy of the ordinal logistic regression model. For instance, he discusses how to test whether the latent variable <span class="math inline">\(Y^*\)</span> truly follows a logistic distribution or whether an alternative link function might be more appropriate.</p>
 <p>In this article, we focused on a global assessment of the proportional odds assumption, without investigating which specific coefficients may be responsible for any violations. Brant also addresses this finer-grained analysis, which is why we <strong>strongly encourage</strong> you to read his 1990 article in full.</p>
 <p>We welcome any comments or suggestions. Happy reading!</p>
-<div id="4117ad42" class="cell" data-execution_count="1">
+<div id="6446a193" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"winequality-red.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"data/winequality-red.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data.head()</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Repartition de la variable cible quality </span></span>
@@ -425,7 +425,7 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <pre><code>Number of observations: 1599</code></pre>
 </div>
 </div>
-<div id="6390bf48" class="cell" data-execution_count="2">
+<div id="39bace59" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traitons les outliers des variables privées de la variable cible quality par IQR.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_outliers_iqr(df, column):</span>
@@ -439,7 +439,7 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>:</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> remove_outliers_iqr(data, col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b28e5626" class="cell" data-execution_count="3">
+<div id="5289afa8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>var_names_without_quality <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> data.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">##  Create the boxplot of each variable per group of quality</span></span>
@@ -462,7 +462,7 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 </div>
 </div>
 </div>
-<div id="51b7a205" class="cell" data-execution_count="4">
+<div id="669ddd5a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Implement the ordered logistic regression to variables 'volatile acidity', 'free sulfur dioxide', and 'total sulfur dioxide'</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.miscmodels.ordinal_model <span class="im">import</span> OrderedModel</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -491,8 +491,8 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 Dep. Variable:                quality   Log-Likelihood:                -1130.1
 Model:                   OrderedModel   AIC:                             2272.
 Method:            Maximum Likelihood   BIC:                             2302.
-Date:                Tue, 10 Jun 2025                                         
-Time:                        23:03:11                                         
+Date:                Sat, 04 Oct 2025                                         
+Time:                        01:59:19                                         
 No. Observations:                1135                                         
 Df Residuals:                    1129                                         
 Df Model:                           3                                         
@@ -509,7 +509,7 @@ total sulfur dioxide    -0.5903      0.080     -7.406      0.000      -0.747    
 Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
 </div>
 </div>
-<div id="1803504d" class="cell" data-execution_count="5">
+<div id="ca40e7e8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>num_of_thresholds <span class="op">=</span> <span class="bu">len</span>(result.params) <span class="op">-</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Number of thresholds is total params minus explanatory vars</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>OrderedModel(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        data[response_var],</span>
@@ -520,7 +520,7 @@ Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
 <pre><code>array([       -inf, -3.86010874, -0.19012621,  2.2279648 ,         inf])</code></pre>
 </div>
 </div>
-<div id="378df161" class="cell" data-execution_count="6">
+<div id="aa8e320c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The likelihood ratio test</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the full multinomial model</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -564,8 +564,8 @@ Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
 Dep. Variable:                quality   No. Observations:                 1135
 Model:                        MNLogit   Df Residuals:                     1123
 Method:                           MLE   Df Model:                            9
-Date:                Tue, 10 Jun 2025   Pseudo R-squ.:                  0.1079
-Time:                        23:03:15   Log-Likelihood:                -1103.5
+Date:                Sat, 04 Oct 2025   Pseudo R-squ.:                  0.1079
+Time:                        01:59:23   Log-Likelihood:                -1103.5
 converged:                      False   LL-Null:                       -1236.9
 Covariance Type:            nonrobust   LLR p-value:                 2.753e-52
 ========================================================================================
@@ -613,7 +613,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 </code></pre>
 </div>
 </div>
-<div id="b38f0d0d" class="cell" data-execution_count="7">
+<div id="a9057965" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -698,7 +698,7 @@ z_mat (variables binaires créées) :
 4  1.0  0.0  0.0</code></pre>
 </div>
 </div>
-<div id="ed19efe6" class="cell" data-execution_count="8">
+<div id="37f8809f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_pi_hat(binary_models, X_with_const):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">    - binary_models : liste d'objets Logit results (statsmodels)</span></span>
@@ -731,7 +731,7 @@ Aperçu de pi_hat :
  [0.94258882 0.37638681 0.02796232]]</code></pre>
 </div>
 </div>
-<div id="7c403d74" class="cell" data-execution_count="9">
+<div id="f3105abe" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assemble_varBeta(pi_hat, X_with_const):</span>
@@ -807,7 +807,7 @@ Aperçu de varBeta :
    7.48753786e-03]]</code></pre>
 </div>
 </div>
-<div id="fbb18a2e" class="cell" data-execution_count="10">
+<div id="76d9ebc8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fill_varBeta_diagonal(varBeta, var_hat):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> <span class="bu">len</span>(var_hat)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> var_hat[<span class="dv">0</span>].shape[<span class="dv">0</span>] <span class="op">-</span> <span class="dv">1</span>  <span class="co"># -1 car on enlève l'intercept</span></span>
@@ -840,7 +840,7 @@ Aperçu de varBeta après remplissage diagonal :
    7.48753786e-03]]</code></pre>
 </div>
 </div>
-<div id="4091ee74" class="cell" data-execution_count="11">
+<div id="610e4326" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construct_D(K_1, p):</span>
@@ -878,7 +878,7 @@ Aperçu de D :
  [ 0.  1.  0.  0.  0.]]</code></pre>
 </div>
 </div>
-<div id="d0b5c87e" class="cell" data-execution_count="12">
+<div id="afbcbdbc" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wald_statistic(D, betaStar, varBeta):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la statistique de Wald X^2 pour le test de proportionnalité.</span></span>
@@ -892,7 +892,7 @@ Aperçu de D :
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    X2 <span class="op">=</span> <span class="bu">float</span>(Db.T <span class="op">@</span> inv_V <span class="op">@</span> Db)</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5b7095dd" class="cell" data-execution_count="13">
+<div id="d2330b73" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Supposons que tu as K_1, p, betaStar, varBeta</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>K_1 <span class="op">=</span> <span class="bu">len</span>(binary_models)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Nombre de variables explicatives (hors intercept)</span></span>
@@ -1064,7 +1064,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
+  const darkModeDefault = true;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
@@ -1164,7 +1164,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

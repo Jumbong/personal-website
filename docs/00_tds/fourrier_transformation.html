@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-07-22">
+<meta name="dcterms.date" content="2025-10-04">
 
 <title>Fourrier Transformation</title>
 <style>
@@ -246,7 +246,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 22, 2025</p>
+      <p class="date">October 4, 2025</p>
     </div>
   </div>
   
@@ -269,7 +269,7 @@ window.Quarto = {
 <p>To compute the Fourier transform of <span class="math inline">\(f\)</span>, <span class="citation" data-cites="el2013parametric">El Kolei (<a href="#ref-el2013parametric" role="doc-biblioref">2013</a>)</span> uses the left Riemann sum (rectangle quadrature) method implemented in MATLAB and suggests that using the Fast Fourier Transform (FFT) algorithm could accelerate the computation of the Fourier transform.</p>
 <p>We decided to reproduce the paper using Python. Implementing the left rectangle quadrature method was straightforward, and we initially believed that the <code>scipy.fft</code> and <code>numpy.fft</code> libraries would allow us to compute the Fourier transform of <span class="math inline">\(f\)</span> using the FFT algorithm.</p>
 <p>However, we were surprised to discover that these functions do not compute the Fourier transform of a continuous function but rather the discrete Fourier transform (DFT) of a finite sequence. The plot below illustrates this observation.</p>
-<div id="52333aa9" class="cell" data-execution_count="1">
+<div id="3439b158" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -366,6 +366,7 @@ f(t) \, e^{-2i\pi\nu t} \, dt.
 <section id="numerical-computation-of-the-fourier-transform" class="level2">
 <h2 class="anchored" data-anchor-id="numerical-computation-of-the-fourier-transform">Numerical Computation of the Fourier Transform</h2>
 <p>We show that computing the Fourier transform of a function <span class="math inline">\(f\)</span> consists to approximating it by the integral the following integral over the interval <span class="math inline">\([-\frac{T}{2}, \frac{T}{2}]\)</span>: <span class="math display">\[
+\boxed{
 \underbrace{
   \int_{-\infty}^{+\infty} f(t)\, e^{-2\pi i \nu t} \, dt
 }_{=\,\hat{f}(\nu)}
@@ -373,6 +374,7 @@ f(t) \, e^{-2i\pi\nu t} \, dt.
 \underbrace{
   \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt
 }_{=\,\tilde{S}(\nu)}
+}
 \]</span></p>
 <p>where T is a large enough number such that the integral converges. Une valeur approchée of the integral <span class="math inline">\(\tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt\)</span> can be computed using quadrature methods. In the next section, we will approximate the integral using the quadrature method of rectangles à gauche.</p>
 </section>
@@ -392,7 +394,9 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 \tilde{S}(\nu) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\, e^{-2\pi i \nu t} \, dt = \sum_{k=0}^{N-1}  \int_{t_k}^{t_{k+1}} f(t)\, e^{-2\pi i \nu t} \, dt.
 \]</span></p>
 <p>By taking into account that we have <span class="math inline">\(t_{k+1} - t_k = h_t\)</span>, and <span class="math inline">\(t_k = -\frac{T}{2} + k \cdot h_t = T(\frac{k}{N} - \frac{1}{2})\)</span>, we can rewrite the integral as: <span class="math display">\[
+\boxed{
 \tilde{S}(\nu) = \sum_{k=0}^{N-1} f(t_k) e^{-2\pi i \nu t_k} h_t.
+}
 \]</span></p>
 <p>We call it the <strong>quadrature method of left rectangles</strong> because it uses the <strong>left endpoint</strong> <span class="math inline">\(t_k\)</span> of each subinterval to approximate the value of the function <span class="math inline">\(f(t)\)</span> at that point.</p>
 <ol start="3" type="1">
@@ -414,7 +418,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <section id="implementation-of-the-left-rectangle-quadrature-method-in-python." class="level3">
 <h3 class="anchored" data-anchor-id="implementation-of-the-left-rectangle-quadrature-method-in-python.">Implementation of the left rectangle quadrature method in Python.</h3>
 <p>The function <code>tfquad</code> below implements the <strong>left rectangle quadrature method</strong> to compute the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>.</p>
-<div id="1ac5c41d" class="cell" data-execution_count="2">
+<div id="5bdb3399" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -446,7 +450,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use SciPy’s <code>quad</code> function to define the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
-<div id="f7cad009" class="cell" data-execution_count="3">
+<div id="ca11143a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -455,7 +459,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9fc28ee8" class="cell" data-execution_count="4">
+<div id="fdd2f87e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,7 +486,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the approximation using scipy integral</span></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>tf_integral_vals <span class="op">=</span> np.array([tf_integral(f, nu, T) <span class="cf">for</span> nu <span class="kw">in</span> nu_vals])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="beaec646" class="cell" data-execution_count="5">
+<div id="c4d2a5ad" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplot_mosaic([[<span class="st">"tfquad"</span>, <span class="st">"quad"</span>]], figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using tfquad implementation</span></span>
@@ -512,18 +516,12 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>           ncol<span class="op">=</span><span class="dv">3</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Comparison of FFT Implementations vs. Exact Fourier Transform"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.2</span>)  <span class="co"># Make room for the legend</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_31663/938168490.py:30: UserWarning:
-
-This figure was using a layout engine that is incompatible with subplots_adjust and/or tight_layout; not calling subplots_adjust.
-</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="fourrier_transformation_files/figure-html/cell-6-output-2.png" width="683" height="513" class="figure-img"></p>
+<p><img src="fourrier_transformation_files/figure-html/cell-6-output-1.png" width="683" height="513" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -546,39 +544,39 @@ f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
 \]</span></p>
 <p>evaluated at <span class="math inline">\(\nu = \frac{5}{2}\)</span>.</p>
 <p>Although <span class="math inline">\(f\)</span> is smooth, we clearly observe <strong>strong oscillations</strong> in <span class="math inline">\(\hat{f}\)</span>, highlighting the influence of the exponential kernel.</p>
-<div id="4a5a68b9" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">5</span> <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">1000</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1000</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>t<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> <span class="kw">lambda</span> t: f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>f_vals <span class="op">=</span> f(t1)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>phi_vals <span class="op">=</span> phi(t2)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t1, f_vals, <span class="st">'k'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="vs">r"$f(t) = e^{-t^2}$"</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.real(phi_vals), <span class="st">'b'</span>, label<span class="op">=</span><span class="vs">r"$\Re(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.imag(phi_vals), <span class="st">'r'</span>, label<span class="op">=</span><span class="vs">r"$\Im(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="vs">r"$\phi(t) = f(t)e^{-2i\pi\nu t}$, $\nu=5/2$"</span>)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend()</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="64d4d3da" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">5</span> <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">1000</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1000</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>t<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> <span class="kw">lambda</span> t: f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>f_vals <span class="op">=</span> f(t1)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>phi_vals <span class="op">=</span> phi(t2)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t1, f_vals, <span class="st">'k'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="vs">r"$f(t) = e^{-t^2}$"</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.real(phi_vals), <span class="st">'b'</span>, label<span class="op">=</span><span class="vs">r"$\Re(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(t2, np.imag(phi_vals), <span class="st">'r'</span>, label<span class="op">=</span><span class="vs">r"$\Im(\phi)$"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="vs">r"$\phi(t) = f(t)e^{-2i\pi\nu t}$, $\nu=5/2$"</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend()</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -624,9 +622,11 @@ f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
 <section id="computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm." class="level2">
 <h2 class="anchored" data-anchor-id="computing-the-fourier-transform-at-frequency-nu-using-the-fft-algorithm.">Computing the Fourier Transform at Frequency <span class="math inline">\(\nu\)</span> Using the FFT Algorithm.</h2>
 <p>In this section, we denote by <span class="math inline">\(\hat{S}_n(\nu)\)</span> the approximation of the Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span> of the function <span class="math inline">\(f\)</span> at a point <span class="math inline">\(\nu \in \left[-\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2}\right]\)</span>, where <span class="math inline">\(\nu_{\text{max}} = \frac{n}{T}\)</span>, i.e., <span class="math display">\[
+\boxed{
 \hat{f}(\nu) \approx \hat{S}_n(\nu) = \frac{T}{n} e^{i\pi \nu T} \sum_{k=0}^{n-1} f_k\, e^{-2 i \pi \nu T k / n}.
+}
 \]</span></p>
-<p>We now present the Fourier transform algorithm used to approximate <span class="math inline">\(\hat{f}(\nu)\)</span>. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article.@balac2011transformee provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by <span class="citation" data-cites="cooley1965algorithm">Cooley and Tukey (<a href="#ref-cooley1965algorithm" role="doc-biblioref">1965</a>)</span>.</p>
+<p>We now present the Fourier transform algorithm used to approximate <span class="math inline">\(\hat{f}(\nu)\)</span>. We will not go into the details of the Fast Fourier Transform (FFT) algorithm in this article. <span class="citation" data-cites="balac2011transformee">Balac (<a href="#ref-balac2011transformee" role="doc-biblioref">2011</a>)</span> provides a simplified explanation of the FFT, and for more in-depth technical details, we recommend the original article by <span class="citation" data-cites="cooley1965algorithm">Cooley and Tukey (<a href="#ref-cooley1965algorithm" role="doc-biblioref">1965</a>)</span>.</p>
 <p>What is important to understand is that the use of the FFT algorithm to approximate the Fourier transform of a function <span class="math inline">\(f\)</span> is based on the result shown by <span class="citation" data-cites="epstein2005well">Epstein (<a href="#ref-epstein2005well" role="doc-biblioref">2005</a>)</span>, which states that when <span class="math inline">\(\hat{S}_n(\nu)\)</span> is evaluated at the frequencies <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = 0, 1, \dots, n - 1\)</span>, it gives a good approximation of the continuous Fourier transform <span class="math inline">\(\hat{f}(\nu)\)</span>.</p>
 <p>Moreover, <span class="math inline">\(\hat{S}_n\)</span> is known to be periodic. This periodicity gives a symmetric role to the indices <span class="math inline">\(j \in \{0, 1, \dots, n - 1\}\)</span> and <span class="math inline">\(k \in \{-\frac{n}{2}, -\frac{n}{2} + 1, \dots, -1\}\)</span>. In fact, the values of the Fourier transform of <span class="math inline">\(f\)</span> over the interval <span class="math inline">\(\left[ -\frac{\nu_{\text{max}}}{2}, \frac{\nu_{\text{max}}}{2} \right]\)</span> can be derived from the values of <span class="math inline">\(\hat{S}_n\)</span> at the points <span class="math inline">\(\nu_j = \frac{j}{T}\)</span>, for <span class="math inline">\(j = 0, 1, \dots, n - 1\)</span>, as follows:</p>
 <p><span class="math display">\[
@@ -656,69 +656,69 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 </ul>
 <p>This yields an array corresponding to the values of the Fourier transform <span class="math inline">\(\hat{f}(\nu_j)\)</span>, with <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
 <p>The following Python function <code>tffft</code> implements these steps to compute the Fourier transform of a given function.</p>
-<div id="b6961a2e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tffft(f, T, n):</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier approchée d'une fonction f à support dans [-T/2, T/2],</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant l’algorithme FFT.</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    f : callable</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Fonction à transformer (doit être vectorisable avec numpy).</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    T : float</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Largeur de la fenêtre temporelle (intervalle [-T/2, T/2]).</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">    n : int</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Nombre de points de discrétisation (doit être une puissance de 2 pour FFT efficace).</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Retours</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">    tf : np.ndarray</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Valeurs approximées de la transformée de Fourier aux fréquences discrètes.</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">    freq_nu : np.ndarray</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">        Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> T <span class="op">/</span> n</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> T <span class="op">+</span> np.arange(n) <span class="op">*</span> h  <span class="co"># noeuds temporels</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> f(t)                         <span class="co"># échantillonnage de f</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    tf <span class="op">=</span> h <span class="op">*</span> (<span class="op">-</span><span class="dv">1</span>) <span class="op">**</span> np.arange(n) <span class="op">*</span> fftshift(fft(F))  <span class="co"># TF approximée</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    freq_nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, freq_nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1d7f3cd8" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tffft(f, T, n):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier approchée d'une fonction f à support dans [-T/2, T/2],</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant l’algorithme FFT.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    f : callable</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Fonction à transformer (doit être vectorisable avec numpy).</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">    T : float</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Largeur de la fenêtre temporelle (intervalle [-T/2, T/2]).</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">    n : int</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">        Nombre de points de discrétisation (doit être une puissance de 2 pour FFT efficace).</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Retours</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">    tf : np.ndarray</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Valeurs approximées de la transformée de Fourier aux fréquences discrètes.</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">    freq_nu : np.ndarray</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">        Fréquences discrètes correspondantes (de -n/(2T) à (n/2 - 1)/T).</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> T <span class="op">/</span> n</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> T <span class="op">+</span> np.arange(n) <span class="op">*</span> h  <span class="co"># noeuds temporels</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> f(t)                         <span class="co"># échantillonnage de f</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    tf <span class="op">=</span> h <span class="op">*</span> (<span class="op">-</span><span class="dv">1</span>) <span class="op">**</span> np.arange(n) <span class="op">*</span> fftshift(fft(F))  <span class="co"># TF approximée</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    freq_nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, freq_nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following program illustrates how to compute the Fourier transform of the Gaussian function <span class="math inline">\(f(t) = e^{-10t^2}\)</span> over the interval <span class="math inline">\([-10, 10]\)</span>, using the Fast Fourier Transform (FFT) algorithm.</p>
-<div id="7c255f5a" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramètres</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">8</span>  <span class="co"># 256</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la transformée de Fourier</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>tf, nu, t <span class="op">=</span> tffft(f, T, n)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation graphique</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t, f(t), <span class="st">'-g'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"temps"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Fonction considérée"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.1</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(nu, np.<span class="bu">abs</span>(tf), <span class="st">'-b'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"fréquence"</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Transformée de Fourier"</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b33ef5fd" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramètres</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">8</span>  <span class="co"># 256</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la transformée de Fourier</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>tf, nu, t <span class="op">=</span> tffft(f, T, n)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation graphique</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(t, f(t), <span class="st">'-g'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"temps"</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Fonction considérée"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.1</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(nu, np.<span class="bu">abs</span>(tf), <span class="st">'-b'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"fréquence"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Transformée de Fourier"</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -741,65 +741,65 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 \hat{f}(\nu) = \sum_{j=-\frac{n}{2}}^{\frac{n}{2}-1} \hat{S}_n\left(\frac{j}{T}\right)\, \text{sinc}\left(\pi T\left(\nu - \frac{j}{T}\right)\right)
 \]</span></p>
 <p>Le programme ci-dessous illustre l’utilisation du théorème d’interpolation de Shannon pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span>.</p>
-<div id="0775eb09" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shannon(tf, nu, T):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Approxime la valeur de la transformée de Fourier de la fonction f en la fréquence 'nu'</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">    à partir de ses valeurs discrètes calculées via la FFT.</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres :</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - tf : tableau numpy, valeurs de la TF (centrées avec fftshift) aux fréquences j/T pour j = -n/2, ..., n/2 - 1</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">    - nu : float, fréquence à laquelle on veut approximer la TF</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - T  : float, largeur de la fenêtre temporelle utilisée pour la FFT</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Retour :</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    - tfnu : approximation de la TF en la fréquence 'nu'</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(tf)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    tfnu <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> j <span class="op">-</span> n <span class="op">//</span> <span class="dv">2</span>  <span class="co"># correspond à l'indice j dans {-n/2, ..., n/2 - 1}</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        tfnu <span class="op">+=</span> tf[j] <span class="op">*</span> np.sinc(T <span class="op">*</span> nu <span class="op">-</span> k)  <span class="co"># np.sinc(x) = sin(pi x)/(pi x) en numpy</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfnu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f4c53fdf" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shannon(tf, nu, T):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Approxime la valeur de la transformée de Fourier de la fonction f en la fréquence 'nu'</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">    à partir de ses valeurs discrètes calculées via la FFT.</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètres :</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - tf : tableau numpy, valeurs de la TF (centrées avec fftshift) aux fréquences j/T pour j = -n/2, ..., n/2 - 1</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">    - nu : float, fréquence à laquelle on veut approximer la TF</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - T  : float, largeur de la fenêtre temporelle utilisée pour la FFT</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Retour :</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">    - tfnu : approximation de la TF en la fréquence 'nu'</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(tf)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    tfnu <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> j <span class="op">-</span> n <span class="op">//</span> <span class="dv">2</span>  <span class="co"># correspond à l'indice j dans {-n/2, ..., n/2 - 1}</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        tfnu <span class="op">+=</span> tf[j] <span class="op">*</span> np.sinc(T <span class="op">*</span> nu <span class="op">-</span> k)  <span class="co"># np.sinc(x) = sin(pi x)/(pi x) en numpy</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfnu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Enfin, nous pouvons definir la</p>
-<div id="8a924e02" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fourier_at_nu(f, T, n, nu):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier de f en la fréquence nu</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant tffft + interpolation de Shannon.</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    tf, _, _ <span class="op">=</span> tffft(f, T, n)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> shannon(tf, nu, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a6de46db" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fourier_at_nu(f, T, n, nu):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la transformée de Fourier de f en la fréquence nu</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">    en utilisant tffft + interpolation de Shannon.</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    tf, _, _ <span class="op">=</span> tffft(f, T, n)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> shannon(tf, nu, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="16e356a5" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> np.<span class="bu">abs</span>(t))                          <span class="co"># Fonction à transformer</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fhat_exact <span class="op">=</span> <span class="kw">lambda</span> nu: (<span class="dv">2</span> <span class="op">*</span> a) <span class="op">/</span> (a<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.pi<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> nu<span class="op">**</span><span class="dv">2</span>)  <span class="co"># TF exacte</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">40</span>     <span class="co"># largeur de la fenêtre</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">10</span>  <span class="co"># nombre de points de discrétisation</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = 3/T</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">3</span> <span class="op">/</span> T</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = pi/T</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> np.pi <span class="op">/</span> T</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d023faa4" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> np.<span class="bu">abs</span>(t))                          <span class="co"># Fonction à transformer</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fhat_exact <span class="op">=</span> <span class="kw">lambda</span> nu: (<span class="dv">2</span> <span class="op">*</span> a) <span class="op">/</span> (a<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.pi<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> nu<span class="op">**</span><span class="dv">2</span>)  <span class="co"># TF exacte</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">40</span>     <span class="co"># largeur de la fenêtre</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">10</span>  <span class="co"># nombre de points de discrétisation</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = 3/T</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> <span class="dv">3</span> <span class="op">/</span> T</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul pour nu = pi/T</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> np.pi <span class="op">/</span> T</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Valeur exacte de la TF</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>exact_value <span class="op">=</span> fhat_exact(nu)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximation de la TF en nu</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>approx_value<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact value at nu=0.075: 2.118347413776218
 Approximation at nu=0.075: (2.1185707502943534-3.313537429625715e-17j)
@@ -967,7 +967,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
+  const darkModeDefault = true;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
@@ -1067,7 +1067,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
