@@ -432,7 +432,7 @@ V = \sqrt{\frac{\chi^2}{n \cdot \min(r-1,\,c-1)}}
 <li>Go straight to comparing category distributions, for example with a bar chart.</li>
 </ul>
 <p>The code below prepares the two datasets we want to compare and then visualizes the target variable with a boxplot, showing its distribution in both the global dataset and in fold 1.</p>
-<div id="846d82fe" class="cell" data-execution_count="1">
+<div id="bc43753a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -500,7 +500,7 @@ V = \sqrt{\frac{\chi^2}{n \cdot \min(r-1,\,c-1)}}
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(data.columns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_35159/1831008403.py:35: FutureWarning:
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_57553/1831008403.py:35: FutureWarning:
 
 
 
@@ -511,7 +511,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-2-output-2.png" width="666" height="543" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-2-output-2.png" width="666" height="543" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -520,7 +520,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 </div>
 <p>The figure above suggests that both groups share similar distributions for the <code>ViolentCrimesPerPop</code> variable. To take a closer look, we can use Kernel Density Estimation (KDE) plots, which provide a smooth view of the underlying distribution and make it easier to spot subtle differences.</p>
-<div id="dc92c558" class="cell" data-execution_count="2">
+<div id="e030e1b5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE plots with better styling</span></span>
@@ -559,13 +559,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-3-output-1.png" width="678" height="561" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-3-output-1.png" width="678" height="561" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The KDE graph confirms that the two distributions are very similar, showing a high degree of overlap. The Kolmogorov-Smirnov (KS) statistical test of 0.976 also indicates that there is no significant difference between the two groups. To extend the analysis, we can now examine the cumulative distribution of the target variable.</p>
-<div id="3501b9ee" class="cell" data-execution_count="3">
+<div id="2ec06dbe" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative distribution</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
@@ -592,14 +592,14 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-4-output-1.png" width="738" height="561" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-4-output-1.png" width="738" height="561" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The cumulative distribution plot provides additional evidence that the two groups are very similar. The curves overlap almost completely, suggesting that their distributions are nearly identical in both central tendency and spread.</p>
 <p>As a next step, we’ll discretize the variable into quantiles in the reference dataset and then apply the same cut-off points to the target dataset (fold 1). The code below demonstrates how to do this. Finally, we’ll compare the resulting distributions using a bar chart.</p>
-<div id="20d47dc9" class="cell" data-execution_count="4">
+<div id="17e6a8bd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bin_numeric(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Discretize a numeric variable into quantile bins (ex: quintiles).</span></span>
@@ -672,13 +672,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-5-output-1.png" width="676" height="567" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-5-output-1.png" width="676" height="567" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>As before, we reach the same conclusion: the distributions in the reference and target datasets are very similar. To move beyond visual inspection, we will now compute the Population Stability Index (PSI) and Cramér’s V statistic. These metrics allow us to quantify the differences between distributions; both for all variables in general and for the target variable ViolentCrimesPerPop in particular.</p>
-<div id="598ea42a" class="cell" data-execution_count="5">
+<div id="5ff5b59f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>EPS <span class="op">=</span> <span class="fl">1e-12</span>  <span class="co"># A very small constant to avoid division by zero or log(0)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
@@ -937,7 +937,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <p>As mentioned earlier, the results of the distribution comparisons for each variable between the two datasets, calculated using PSI and Cramér’s V, are presented in separate sheets within a single Excel file.</p>
 <p>To illustrate, we will first look at the results for the target variable. This example shows how both PSI and Cramér’s V are computed and how their values can be interpreted in practice.</p>
 <p>Finally, we will introduce the last sheet of the file, titled Summary, which consolidates the results for all variables of interest. This synthesis provides a global view of representativeness between the two datasets and makes interpretation and decision-making much easier.</p>
-<div id="c818958a" class="cell" data-execution_count="6">
+<div id="ba57df35" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, time, requests, pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- paramètres de base ---</span></span>
@@ -1032,7 +1032,7 @@ Table large écrite dans data/goals_by_matchday_wide_2023_2024.csv
 4         5          24          30</code></pre>
 </div>
 </div>
-<div id="928c7101" class="cell" data-execution_count="7">
+<div id="4c8e9b91" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the total number of goals in 2023 and 2024</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>total_goals_2023 <span class="op">=</span> wide[<span class="st">"goals_2023"</span>].<span class="bu">sum</span>()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>total_goals_2024 <span class="op">=</span> wide[<span class="st">"goals_2024"</span>].<span class="bu">sum</span>()</span>
@@ -1044,7 +1044,7 @@ Table large écrite dans data/goals_by_matchday_wide_2023_2024.csv
 Total goals in 2024: 1115</code></pre>
 </div>
 </div>
-<div id="536d3b83" class="cell" data-execution_count="8">
+<div id="ceea31fe" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create global data.</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Build datasets with a "Group" column</span></span>
@@ -1275,7 +1275,7 @@ Total goals in 2024: 1115</code></pre>
 </div>
 </div>
 </div>
-<div id="46e85a87" class="cell" data-execution_count="9">
+<div id="f154678b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot des buts par saison</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1313,7 +1313,7 @@ Total goals in 2024: 1115</code></pre>
 <span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_35159/619544620.py:8: FutureWarning:
+<pre><code>/var/folders/v8/l5q0bw4s2ln17s59y7cc86rm0000gn/T/ipykernel_57553/619544620.py:8: FutureWarning:
 
 
 
@@ -1324,13 +1324,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-10-output-2.png" width="515" height="380" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-10-output-2.png" width="515" height="380" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>To take a closer look, we can use Kernel Density Estimation (KDE) plots, which provide a smooth view of the underlying distribution and make it easier to spot subtle differences.</p>
-<div id="a6f70beb" class="cell" data-execution_count="10">
+<div id="8cbdf37e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(</span>
@@ -1359,13 +1359,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-11-output-1.png" width="645" height="422" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-11-output-1.png" width="645" height="422" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The KDE graph confirms that the two distributions are very similar, showing a high degree of overlap. The Kolmogorov-Smirnov (KS) statistical test of 0.976 also indicates that there is no significant difference between the two groups. To extend the analysis, we can now examine the cumulative distribution of the target variable.</p>
-<div id="1640dc88" class="cell" data-execution_count="11">
+<div id="a76547f8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative distribution</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">7.24</span>, <span class="fl">4.07</span>), dpi<span class="op">=</span><span class="dv">100</span>)  <span class="co"># ~724x407 px</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
@@ -1393,12 +1393,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-12-output-1.png" width="636" height="422" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-12-output-1.png" width="636" height="422" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="4a54a14d" class="cell" data-execution_count="12">
+<div id="f8e195c0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bin_numeric(ref, tgt, n_bins<span class="op">=</span><span class="dv">5</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Discretize a numeric variable into quantile bins (ex: quintiles).</span></span>
@@ -1468,12 +1468,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-13-output-1.png" width="645" height="422" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-13-output-1.png" width="645" height="422" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="6e2495e9" class="cell" data-execution_count="13">
+<div id="e8cb32ec" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1514,12 +1514,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-14-output-1.png" width="589" height="457" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-14-output-1.png" width="589" height="457" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="9f65f9b4" class="cell" data-execution_count="14">
+<div id="402b7bee" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1540,12 +1540,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="psi_cramer_v_files/figure-html/cell-15-output-2.png" width="589" height="455" class="figure-img"></p>
+<p><img src="4_psi_cramer_v_files/figure-html/cell-15-output-2.png" width="589" height="455" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="d178f2e5" class="cell" data-execution_count="15">
+<div id="0f25e567" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data_2023.columns <span class="cf">if</span> x <span class="op">!=</span> <span class="st">"Season"</span>]</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_2023[<span class="st">"Goals"</span>].value_counts())</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the report</span></span>
@@ -1820,7 +1820,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
