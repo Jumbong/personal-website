@@ -853,3 +853,138 @@ approx_value_scipy = fourier_at_nu_scipy(f, T, n, nu)
 print(f"Exact value at nu={nu}: {exact_value}")
 print(f"Approximation (SciPy) at nu={nu}: {np.real(approx_value_scipy)}")
 ```
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.animation import FuncAnimation, PillowWriter
+from scipy.spatial.distance import jensenshannon
+
+# ==============================
+# 1. Simulation des données
+# ==============================
+np.random.seed(42)
+n_steps = 80
+reference = np.random.normal(5, 1, 2000)
+threshold = 0.6
+
+# Données avec dérive progressive
+production_data = [np.random.normal(5 + 0.03*t, 1, 2000) for t in range(n_steps)]
+
+# Calcul des distances Jensen-Shannon
+bins = np.linspace(0, 12, 60)
+ref_hist, _ = np.histogram(reference, bins=bins, density=True)
+js_distances = []
+for prod in production_data:
+    prod_hist, _ = np.histogram(prod, bins=bins, density=True)
+    js = jensenshannon(ref_hist, prod_hist)
+    js_distances.append(js)
+
+# ==============================
+# 2. Préparation de la figure
+# ==============================
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6), gridspec_kw={'height_ratios': [2, 1]})
+plt.tight_layout(pad=3.0)
+
+x = np.linspace(0, 12, 200)
+sns.kdeplot(reference, ax=ax1, fill=True, color='blue', alpha=0.5, label='Reference (Train) Data')
+line_prod, = ax1.plot([], [], color='teal', lw=2, label='Production Data')
+
+ax1.set_xlim(0, 12)
+ax1.set_ylim(0, 0.8)
+ax1.set_title("Density of Feature Distributions")
+ax1.set_xlabel("Feature Value")
+ax1.set_ylabel("Density")
+ax1.legend()
+
+line_js, = ax2.plot([], [], color='blue', label='Jensen-Shannon Distance')
+threshold_line = ax2.axhline(threshold, color='black', linestyle='--', label=f'Threshold = {threshold}')
+ax2.set_xlim(0, n_steps)
+ax2.set_ylim(0, 1)
+ax2.set_title("Distance Metrics Over Time")
+ax2.set_xlabel("Time Step")
+ax2.set_ylabel("Distance Value")
+ax2.legend()
+
+# ==============================
+# 3. Animation
+# ==============================
+x_centers = (bins[:-1] + bins[1:]) / 2
+
+def init():
+    line_prod.set_data([], [])
+    line_js.set_data([], [])
+    return line_prod, line_js
+
+def update(frame):
+    # Production distribution
+    prod = production_data[frame]
+    prod_hist, _ = np.histogram(prod, bins=bins, density=True)
+    line_prod.set_data(x_centers, prod_hist)
+
+    # JS distance curve
+    line_js.set_data(np.arange(frame+1), js_distances[:frame+1])
+
+    # Couleur rouge si dérive détectée
+    if js_distances[frame] > threshold:
+        line_js.set_color('red')
+    else:
+        line_js.set_color('blue')
+
+    return line_prod, line_js
+
+anim = FuncAnimation(fig, update, frames=n_steps, init_func=init,
+                     blit=True, repeat=False, interval=100)
+
+# ==============================
+# 4. Sauvegarde en GIF
+# ==============================
+gif_writer = PillowWriter(fps=10)
+anim.save("data_drift.gif", writer=gif_writer)
+
+print("✅ GIF enregistré : data_drift.gif")
+
+```
+
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -------------------------------
+# Paramètres
+# -------------------------------
+N = 5000      # entiers possibles
+M = 50000     # nombre de simulations
+p_theorique = 0.4  # valeur calculée théoriquement
+
+# -------------------------------
+# Simulation Monte Carlo
+# -------------------------------
+# Tirages aléatoires uniformes entre 1 et 5000
+tirages = np.random.randint(1, N+1, size=M)
+
+# Événement : divisible par 4, 7 ou 10
+succes = (tirages % 4 == 0) | (tirages % 7 == 0) | (tirages % 10 == 0)
+
+# Moyenne cumulative
+proba_cumulative = np.cumsum(succes) / np.arange(1, M+1)
+
+# -------------------------------
+# Tracé
+# -------------------------------
+plt.figure(figsize=(10,5))
+plt.plot(np.arange(1, M+1), proba_cumulative, color='blue', linewidth=2, label='Estimation cumulative')
+plt.axhline(y=p_theorique, color='red', linestyle='--', linewidth=2, label='Valeur théorique = 0.4')
+
+plt.xlabel("Nombre de simulations (M)")
+plt.ylabel("Probabilité estimée")
+plt.title("Convergence de la simulation de Monte Carlo")
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.show()
+
+```

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jumbong Junior">
-<meta name="dcterms.date" content="2025-10-26">
+<meta name="dcterms.date" content="2025-11-12">
 
 <title>Fourrier Transformation</title>
 <style>
@@ -177,7 +177,7 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../index_gdr.html"> 
-<span class="menu-text">Daily Story</span></a>
+<span class="menu-text">ENSAI TD 2025-2026</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
@@ -246,7 +246,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 26, 2025</p>
+      <p class="date">November 12, 2025</p>
     </div>
   </div>
   
@@ -269,7 +269,7 @@ window.Quarto = {
 <p>To compute the Fourier transform of <span class="math inline">\(f\)</span>, <span class="citation" data-cites="el2013parametric">El Kolei (<a href="#ref-el2013parametric" role="doc-biblioref">2013</a>)</span> uses the left Riemann sum (rectangle quadrature) method implemented in MATLAB and suggests that using the Fast Fourier Transform (FFT) algorithm could accelerate the computation of the Fourier transform.</p>
 <p>We decided to reproduce the paper using Python. Implementing the left rectangle quadrature method was straightforward, and we initially believed that the <code>scipy.fft</code> and <code>numpy.fft</code> libraries would allow us to compute the Fourier transform of <span class="math inline">\(f\)</span> using the FFT algorithm.</p>
 <p>However, we were surprised to discover that these functions do not compute the Fourier transform of a continuous function but rather the discrete Fourier transform (DFT) of a finite sequence. The plot below illustrates this observation.</p>
-<div id="6b8a0266" class="cell" data-execution_count="1">
+<div id="ee0df804" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -418,7 +418,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <section id="implementation-of-the-left-rectangle-quadrature-method-in-python." class="level3">
 <h3 class="anchored" data-anchor-id="implementation-of-the-left-rectangle-quadrature-method-in-python.">Implementation of the left rectangle quadrature method in Python.</h3>
 <p>The function <code>tfquad</code> below implements the <strong>left rectangle quadrature method</strong> to compute the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>.</p>
-<div id="f86d989b" class="cell" data-execution_count="2">
+<div id="59048c0d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -450,7 +450,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use SciPy’s <code>quad</code> function to define the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
-<div id="4010aa34" class="cell" data-execution_count="3">
+<div id="a975ee87" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -459,7 +459,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fbe04461" class="cell" data-execution_count="4">
+<div id="f2f7853e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -544,7 +544,7 @@ f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
 \]</span></p>
 <p>evaluated at <span class="math inline">\(\nu = \frac{5}{2}\)</span>.</p>
 <p>Although <span class="math inline">\(f\)</span> is smooth, we clearly observe <strong>strong oscillations</strong> in <span class="math inline">\(\hat{f}\)</span>, highlighting the influence of the exponential kernel.</p>
-<div id="4a23100c" class="cell" data-execution_count="5">
+<div id="7585cf33" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -656,7 +656,7 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 </ul>
 <p>This yields an array corresponding to the values of the Fourier transform <span class="math inline">\(\hat{f}(\nu_j)\)</span>, with <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
 <p>The following Python function <code>tffft</code> implements these steps to compute the Fourier transform of a given function.</p>
-<div id="f34d2ae6" class="cell" data-execution_count="6">
+<div id="b526916c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -690,7 +690,7 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, freq_nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following program illustrates how to compute the Fourier transform of the Gaussian function <span class="math inline">\(f(t) = e^{-10t^2}\)</span> over the interval <span class="math inline">\([-10, 10]\)</span>, using the Fast Fourier Transform (FFT) algorithm.</p>
-<div id="1914449c" class="cell" data-execution_count="7">
+<div id="0608f982" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
@@ -741,7 +741,7 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 \hat{f}(\nu) = \sum_{j=-\frac{n}{2}}^{\frac{n}{2}-1} \hat{S}_n\left(\frac{j}{T}\right)\, \text{sinc}\left(\pi T\left(\nu - \frac{j}{T}\right)\right)
 \]</span></p>
 <p>Le programme ci-dessous illustre l’utilisation du théorème d’interpolation de Shannon pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span>.</p>
-<div id="d8e242af" class="cell" data-execution_count="8">
+<div id="d2b3cfe7" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shannon(tf, nu, T):</span>
@@ -766,7 +766,7 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfnu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Enfin, nous pouvons definir la</p>
-<div id="9dc31106" class="cell" data-execution_count="9">
+<div id="b1223a02" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fourier_at_nu(f, T, n, nu):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Computes the Fourier transform of f at frequency nu</span></span>
@@ -775,7 +775,7 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    tf, _, _ <span class="op">=</span> tffft(f, T, n)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> shannon(tf, nu, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="46b17d89" class="cell" data-execution_count="10">
+<div id="3751d3a1" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> np.<span class="bu">abs</span>(t))                          <span class="co"># Fonction à transformer</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fhat_exact <span class="op">=</span> <span class="kw">lambda</span> nu: (<span class="dv">2</span> <span class="op">*</span> a) <span class="op">/</span> (a<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.pi<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> nu<span class="op">**</span><span class="dv">2</span>)  <span class="co"># TF exacte</span></span>
@@ -808,7 +808,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 </div>
 <p>Une alternative à l’interpolation de Shannon est d’utiliser d’autres méthodes d’interpolation comme l’interpolation de Lagrange ou l’interpolation de Newton.</p>
-<div id="9efee06b" class="cell" data-execution_count="11">
+<div id="fc9bba6b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift, ifftshift</span>
@@ -894,7 +894,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 </div>
 </div>
-<div id="ea34b5f7" class="cell" data-execution_count="12">
+<div id="ee1af19b" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift, ifftshift</span>
@@ -956,7 +956,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </section>
 <section id="computing-the-fourier-transform-at-frequency-ν-using-the-fft-algorithm-in-numpy-and-scipy" class="level1">
 <h1>Computing the Fourier Transform at Frequency ν Using the FFT Algorithm in numpy and SciPy</h1>
-<div id="1566eee0" class="cell" data-execution_count="13">
+<div id="16b344da" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift, fftfreq, ifftshift</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1003,6 +1003,151 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 Approximation (SciPy) at nu=0.075: 2.1185707502943534
 Exact value at nu=0.07853981633974483: 2.0262491352594427
 Approximation (SciPy) at nu=0.07853981633974483: 2.0264201680784835</code></pre>
+</div>
+</div>
+<div id="2de07d98" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation, PillowWriter</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> jensenshannon</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulation des données</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">80</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>reference <span class="op">=</span> np.random.normal(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2000</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.6</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Données avec dérive progressive</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>production_data <span class="op">=</span> [np.random.normal(<span class="dv">5</span> <span class="op">+</span> <span class="fl">0.03</span><span class="op">*</span>t, <span class="dv">1</span>, <span class="dv">2000</span>) <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(n_steps)]</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul des distances Jensen-Shannon</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">60</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>ref_hist, _ <span class="op">=</span> np.histogram(reference, bins<span class="op">=</span>bins, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>js_distances <span class="op">=</span> []</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> prod <span class="kw">in</span> production_data:</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    prod_hist, _ <span class="op">=</span> np.histogram(prod, bins<span class="op">=</span>bins, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    js <span class="op">=</span> jensenshannon(ref_hist, prod_hist)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    js_distances.append(js)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Préparation de la figure</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>), gridspec_kw<span class="op">=</span>{<span class="st">'height_ratios'</span>: [<span class="dv">2</span>, <span class="dv">1</span>]})</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(pad<span class="op">=</span><span class="fl">3.0</span>)</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">200</span>)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(reference, ax<span class="op">=</span>ax1, fill<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Reference (Train) Data'</span>)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>line_prod, <span class="op">=</span> ax1.plot([], [], color<span class="op">=</span><span class="st">'teal'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Production Data'</span>)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim(<span class="dv">0</span>, <span class="dv">12</span>)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>ax1.set_ylim(<span class="dv">0</span>, <span class="fl">0.8</span>)</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Density of Feature Distributions"</span>)</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">"Feature Value"</span>)</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>line_js, <span class="op">=</span> ax2.plot([], [], color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'Jensen-Shannon Distance'</span>)</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>threshold_line <span class="op">=</span> ax2.axhline(threshold, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Threshold = </span><span class="sc">{</span>threshold<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>ax2.set_xlim(<span class="dv">0</span>, n_steps)</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Distance Metrics Over Time"</span>)</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">"Time Step"</span>)</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"Distance Value"</span>)</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>ax2.legend()</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Animation</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>x_centers <span class="op">=</span> (bins[:<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> bins[<span class="dv">1</span>:]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>    line_prod.set_data([], [])</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>    line_js.set_data([], [])</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line_prod, line_js</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(frame):</span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Production distribution</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>    prod <span class="op">=</span> production_data[frame]</span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>    prod_hist, _ <span class="op">=</span> np.histogram(prod, bins<span class="op">=</span>bins, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>    line_prod.set_data(x_centers, prod_hist)</span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>    <span class="co"># JS distance curve</span></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>    line_js.set_data(np.arange(frame<span class="op">+</span><span class="dv">1</span>), js_distances[:frame<span class="op">+</span><span class="dv">1</span>])</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Couleur rouge si dérive détectée</span></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> js_distances[frame] <span class="op">&gt;</span> threshold:</span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>        line_js.set_color(<span class="st">'red'</span>)</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>        line_js.set_color(<span class="st">'blue'</span>)</span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line_prod, line_js</span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>anim <span class="op">=</span> FuncAnimation(fig, update, frames<span class="op">=</span>n_steps, init_func<span class="op">=</span>init,</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>                     blit<span class="op">=</span><span class="va">True</span>, repeat<span class="op">=</span><span class="va">False</span>, interval<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Sauvegarde en GIF</span></span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================</span></span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>gif_writer <span class="op">=</span> PillowWriter(fps<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>anim.save(<span class="st">"data_drift.gif"</span>, writer<span class="op">=</span>gif_writer)</span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ GIF enregistré : data_drift.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ GIF enregistré : data_drift.gif</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="1_fourrier_transformation_files/figure-html/cell-15-output-2.png" width="723" height="549" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="33c11ecf" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramètres</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">5000</span>      <span class="co"># entiers possibles</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="dv">50000</span>     <span class="co"># nombre de simulations</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>p_theorique <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># valeur calculée théoriquement</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulation Monte Carlo</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tirages aléatoires uniformes entre 1 et 5000</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>tirages <span class="op">=</span> np.random.randint(<span class="dv">1</span>, N<span class="op">+</span><span class="dv">1</span>, size<span class="op">=</span>M)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Événement : divisible par 4, 7 ou 10</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>succes <span class="op">=</span> (tirages <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (tirages <span class="op">%</span> <span class="dv">7</span> <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (tirages <span class="op">%</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Moyenne cumulative</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>proba_cumulative <span class="op">=</span> np.cumsum(succes) <span class="op">/</span> np.arange(<span class="dv">1</span>, M<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracé</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.plot(np.arange(<span class="dv">1</span>, M<span class="op">+</span><span class="dv">1</span>), proba_cumulative, color<span class="op">=</span><span class="st">'blue'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Estimation cumulative'</span>)</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span>p_theorique, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Valeur théorique = 0.4'</span>)</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Nombre de simulations (M)"</span>)</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Probabilité estimée"</span>)</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Convergence de la simulation de Monte Carlo"</span>)</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="1_fourrier_transformation_files/figure-html/cell-16-output-1.png" width="812" height="449" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 
