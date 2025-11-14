@@ -296,6 +296,657 @@ flowchart LR
   E --> G[Caractérisation de la loi de X]
 ```
 
- 
+# Variables aléatoires générales
 
+
+## Exercice 1
+
+Nous considérons l’expérience aléatoire consistant à lancer 3 fois une pièce de monnaie. Soit $X$ la variable aléatoire donnant le nombre de « Pile » obtenu.
+
+1) Donner la loi de la variable aléatoire $X$.
+2) Donner la fonction de répartition de $X$, et la représenter graphiquement.
+3) Calculer l’espérance, la variance et le coefficient de variation de $X$.
+
+## Correction de l'exercice 1
+
+1) Nous considérons l'espace probabilisé $(\Omega, \mathcal{F}, P)$ associé à l'expérience aléatoire de lancer 3 fois une pièce de monnaie. L'ensemble des résultats possibles $\Omega$ est donné par :
+
+$$
+\Omega = \{PPP, PPF, PFP, PFF, FPP, FPF, FFP, FFF\} = \{P, F\}^3
+$$
+
+Nous munissons cet espace de la tribu $\mathcal{F}$ des parties de $\Omega$ et de la probabilité uniforme $P$.
+
+La variable aléatoire $X$ est définie comme le nombre de « Pile » obtenus lors des 3 lancers. Ainsi, $X$ peut prendre les valeurs suivantes :
+- $X = 0$ : lorsque le résultat est FFF
+- $X = 1$ : lorsque le résultat est PFF, FPF, ou FFP
+- $X = 2$ : lorsque le résultat est PPF, PFP, ou FPP
+- $X = 3$ : lorsque le résultat est PPP
+
+Cette variable est donc définie comme suit :
+
+
+$$
+X : \Omega^3 \longrightarrow \Omega' = \{0,1,2,3\}
+$$
+
+$$
+(\omega_1, \omega_2, \omega_3) \longmapsto
+\begin{cases}
+0 & \text{si } (\omega_1, \omega_2, \omega_3) = (FFF),\\[4pt]
+1 & \text{si } (\omega_1, \omega_2, \omega_3) \in \{(PFF),(FPF),(FFP)\},\\[4pt]
+2 & \text{si } (\omega_1, \omega_2, \omega_3) \in \{(PPF),(PFP),(FPP)\},\\[4pt]
+3 & \text{si } (\omega_1, \omega_2, \omega_3) = (PPP).
+\end{cases}
+$$
+
+Comme la variable aléatoire X est **discrète**, il suffit de déterminer la probabilité $\mathbb{P}_X$ sur les singletons.
+
+$$
+\begin{aligned}
+\mathbb{P}_X(0) &= \frac{1}{8},\
+\mathbb{P}_X(1) &= \frac{3}{8},\
+\mathbb{P}_X(2) &= \frac{3}{8},\
+\mathbb{P}_X(3) &= \frac{1}{8}.
+\end{aligned}
+$$
+
+Ainsi, ( X ) suit une **loi binomiale** :
+$$
+X \sim \mathcal{B}(n=3,, p=\tfrac{1}{2}).
+$$
+
+
+
+2. Fonction de répartition
+
+À partir de la définition de la fonction de répartition :
+$$
+F_X(x) = \mathbb{P}(X \le x),
+$$
+on obtient :
+
+$$
+F_X(x) =
+\begin{cases}
+0 & \text{si } x < 0,\\[4pt]
+\frac{1}{8} & \text{si } 0 \le x < 1,\\[4pt]
+\frac{4}{8} = \frac{1}{2} & \text{si } 1 \le x < 2,\\[4pt]
+\frac{7}{8} & \text{si } 2 \le x < 3,\\[4pt]
+1 & \text{si } 3 \le x.
+\end{cases}
+$$
+
+3. Espérance, variance et coefficient de variation
+
+Pour calculer l'espérance, la variance et le coefficient de variation de la variable aléatoire $X$, nous allons utiliser la formule de transfert en temps discret :
+
+$$
+\mathbb{E}[g(X)] = \sum_{i} g(x_i) \cdot \mathbb{P}_X(x_i),
+$$
+où $g$ est une fonction mésurable.
+
+Ainsi, pour l'espérance, nous avons :
+$$
+\mathbb{E}[X] = \sum_{x=0}^{3} x \cdot \mathbb{P}_X(x) = 0 \cdot \frac{1}{8} + 1 \cdot \frac{3}{8} + 2 \cdot \frac{3}{8} + 3 \cdot \frac{1}{8} = \frac{12}{8} = np =1.5.
+$$
+
+Pour la variance, nous utilisons la formule :
+
+$$
+\text{Var}(X) = \sum_{x=0}^{3} (x - \mathbb{E}[X])^2 \cdot \mathbb{P}_X(x) = (0 - 1.5)^2 \cdot \frac{1}{8} + (1 - 1.5)^2 \cdot \frac{3}{8} + (2 - 1.5)^2 \cdot \frac{3}{8} + (3 - 1.5)^2 \cdot \frac{1}{8} = \frac{6}{8} = np(1-p) = 0.75.
+$$
+
+Enfin, le coefficient de variation est donné par la formule :
+
+$$
+CV(X) = \frac{\sigma_X}{\mathbb{E}[X]} = \frac{\sqrt{\text{Var}(X)}}{\mathbb{E}[X]} = \frac{\sqrt{0.75}}{1.5} = \frac{\sqrt{3}}{3} \approx 0.577.
+$$
+
+# Exercice 2
+
+Nous considérons l’expérience aléatoire consistant à jeter un dé jusqu’à obtenir un **« 6 »**. Soit $X$ la variable aléatoire donnant le nombre de jets.
+
+1. Donner la loi de la variable aléatoire $X$.
+2. Donner la fonction de répartition de $X$, et la représenter graphiquement.
+3. Montrer que la fonction génératrice des moments de $X$ vaut :
+
+   $$
+   M_X(t) = \frac{pe^t}{1 - e^t(1 - p)},
+   $$
+
+   avec $p = \frac{1}{6}$.
+    
+4. En déduire l’espérance et la variance de $X$, puis son coefficient de variation.
+
+## Correction de l'exercice 2
+
+1) Loi de la variable aléatoire X
+
+Nous considérons l'espace probabilisé $(\Omega^{\mathbb{N}}, \mathcal{P}(\Omega^{\mathbb{N}}), \mathbb{P})$ avec $\Omega = \{1,2,3,4,5,6\}$ muni de la tribu produit et de la probabilité uniforme $\mathbb{P}$. La variable aléatoire étudiée est
+
+$$
+X : \Omega^{\mathbb{N}} \longrightarrow \Omega' = \mathbb{N}^*
+$$
+
+$$
+(\omega_1, \omega_2, \ldots) \longmapsto
+\begin{cases}
+1 & \text{si } \omega_1 = \{6\},\\[4pt]
+2 & \text{si } \omega_1 \neq \{6\} \text{ et } \omega_2 = \{6\},\\[4pt]
+& \cdots\\[4pt]
+k & \text{si } \omega_1, \ldots, \omega_{k-1} \neq \{6\} \text{ et } \omega_k = \{6\},\\[4pt]
+& \cdots
+\end{cases}
+$$
+
+Pour tout $k \in \mathbb{N}^*$, on a :
+
+$$
+\mathbb{P}(X = k) = \mathbb{P}(\omega_1, \ldots, \omega_{k-1} \neq \{6\} \text{ et } \omega_k = \{6\})
+$$
+
+$$
+= \prod_{i=1}^{k-1} \mathbb{P}(\omega_i \neq \{6\}) \times \mathbb{P}(\omega_k = \{6\})
+$$
+
+$$
+= (1 - p)^{k-1}p,
+$$
+
+avec $p = \frac{1}{6}$ la probabilité d'obtenir un "6" lors d'un lancer. Il s'agit d'une distribution géométrique de paramètre $p$. 
+
+2) Fonction de répartition
+
+Soit $k \geq 1$. Nous avons :
+
+$$
+\mathbb{P}(X \leq k) = \sum_{j=1}^{k} (1-p)^{j-1}p
+$$
+
+$$
+= p\sum_{j=0}^{k-1} (1-p)^{j} = p\frac{1-(1-p)^k}{1-(1-p)} = 1-(1-p)^k.
+$$
+
+A partir de la définition de la fonction de répartition, nous obtenons
+
+$$
+F_X(x) = 
+\begin{cases}
+0 & \text{si } x < 1,\\[4pt]
+p & \text{si } 1 \leq x < 2,\\[4pt]
+& \cdots,\\[4pt]
+1-(1-p)^k & \text{si } k \leq x < k+1,\\[4pt]
+& \cdots.
+\end{cases}
+$$
+
+3) Fonction génératrice des moments
+
+En utilisant la formule de transfert en temps discret, nous avons :
+$$
+M_X(t) = \int e^{tX} d\mathbb{P} = \sum_{x=1}^{\infty} e^{tx}\mathbb{P}_X(x)
+$$
+
+$$
+= p\sum_{j=1}^{\infty} e^{tj}(1-p)^{j-1}
+$$
+
+$$
+= pe^t\sum_{j=0}^{\infty} e^{tj}(1-p)^j
+$$
+
+$$
+= pe^t\sum_{j=0}^{\infty} q^j \text{ avec } q = e^t(1-p)
+$$
+
+$$
+= \frac{pe^t}{1-q} = \frac{pe^t}{1-e^t(1-p)}.
+$$
+
+La série converge si et seulement si $|q| < 1$, c'est-à-dire si $|e^t(1-p)| < 1$, soit $e^t < \frac{1}{1-p}$, ce qui donne $t < \ln\left(\frac{1}{1-p}\right) = -\ln(1-p)$.
+
+4) Espérance, variance et coefficient de variation
+
+Nous savons que la fonction $M_X$ est indéfiniment dérivable dans un voisinage de 0, et que $M'_X(0) = E(X)$ et $M''_X(0) = E(X^2)$. Nous avons après calcul
+
+$$
+M'_x(t) = \frac{pe^t}{\{1-e^t(1-p)\}^2},
+$$
+
+$$
+M''_x(t) = \frac{pe^t\{1-(1-p)^2e^{2t}\}}{\{1-e^t(1-p)\}^4},
+$$
+
+dont nous déduisons que
+
+$$
+M'_x(0) = \frac{1}{p} \equiv E(X),
+$$
+
+$$
+M''_x(0) = \frac{p\{1-(1-p)^2\}}{\{1-(1-p)\}^4} = \frac{2-p}{p^2} \equiv E(X^2),
+$$
+
+puis
+
+$$
+V(X) = \frac{1-p}{p^2},
+$$
+
+$$
+CV(X) = \sqrt{1-p}.
+$$
+
+Numériquement, nous obtenons
+
+$$
+E(X) = 6, \quad V(X) = 30, \quad CV(X) = 0.91.
+$$
+
+
+## Exercice 3
+
+Soit $X$ une variable aléatoire admettant un moment d'ordre 2. Nous notons $m = E(X)$ et $\sigma^2 = V(X)$. Soient $X_1, \ldots, X_n$ des variables aléatoires indépendantes et de même loi que $X$. Nous notons
+
+$$
+\overline{X}_n = \frac{1}{n}\sum_{i=1}^{n} X_i
+$$
+
+la moyenne empirique des $X_i$, $i = 1, \ldots, n$, et
+
+$$
+s_X^2 = \frac{1}{n-1}\sum_{i=1}^{n} (X_i - \overline{X}_n)^2
+$$
+
+la dispersion des $X_i$, $i = 1, \ldots, n$.
+
+1) Montrer que $E(\overline{X}_n) = m$.
+
+2) Montrer que $E(s_X^2) = \sigma^2$. Vous pourrez utiliser l'identité
+
+$$
+s_X^2 = \frac{1}{2n(n-1)} \sum_{i=1}^{n} \sum_{\substack{j=1\\j \neq i}}^{n} (X_i - X_j)^2.
+$$
+
+3) Utiliser ces résultats pour obtenir une approximation de Monte-Carlo de l'espérance, la variance et le coefficient de variation de la variable aléatoire $X$ de l'exercice 2.
+
+- Démonstration de l'équivalence des formules de variance
+
+Nous voulons démontrer que :
+
+$$\frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2 = \frac{1}{2n(n-1)}\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2$$
+
+- Étape 1 : Développement de la somme double
+
+Commençons par développer le membre de droite :
+
+$$\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2$$
+
+Développons $(X_i - X_j)^2$ :
+
+$$= \sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i^2 - 2X_iX_j + X_j^2)$$
+
+$$= \sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_i^2 - 2\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_iX_j + \sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_j^2$$
+
+- Étape 2 : Simplification de chaque terme
+
+Premier terme :
+$$\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_i^2 = \sum_{i=1}^{n}X_i^2 \cdot (n-1) = (n-1)\sum_{i=1}^{n}X_i^2$$
+
+Car pour chaque $i$ fixé, $X_i^2$ est sommé $(n-1)$ fois (pour tous les $j \neq i$).
+
+Troisième terme :
+Par symétrie, le troisième terme donne le même résultat :
+$$\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_j^2 = (n-1)\sum_{j=1}^{n}X_j^2 = (n-1)\sum_{i=1}^{n}X_i^2$$
+
+Deuxième terme :
+$$\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}X_iX_j$$
+
+Pour chaque paire $(i,j)$ avec $i \neq j$, le produit $X_iX_j$ apparaît dans cette double somme. On peut réécrire :
+
+$$= \sum_{i=1}^{n}X_i\sum_{\substack{j=1\\j\neq i}}^{n}X_j = \sum_{i=1}^{n}X_i\left(\sum_{j=1}^{n}X_j - X_i\right)$$
+
+$$= \sum_{i=1}^{n}X_i \cdot n\bar{X}_n - \sum_{i=1}^{n}X_i^2$$
+
+$$= n\bar{X}_n \cdot n\bar{X}_n - \sum_{i=1}^{n}X_i^2 = n^2\bar{X}_n^2 - \sum_{i=1}^{n}X_i^2$$
+
+- Étape 3 : Assemblage
+
+En rassemblant les trois termes :
+
+$$\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2 = (n-1)\sum_{i=1}^{n}X_i^2 - 2\left(n^2\bar{X}_n^2 - \sum_{i=1}^{n}X_i^2\right) + (n-1)\sum_{i=1}^{n}X_i^2$$
+
+$$= (n-1)\sum_{i=1}^{n}X_i^2 - 2n^2\bar{X}_n^2 + 2\sum_{i=1}^{n}X_i^2 + (n-1)\sum_{i=1}^{n}X_i^2$$
+
+$$= 2(n-1)\sum_{i=1}^{n}X_i^2 + 2\sum_{i=1}^{n}X_i^2 - 2n^2\bar{X}_n^2$$
+
+$$= 2n\sum_{i=1}^{n}X_i^2 - 2n^2\bar{X}_n^2$$
+
+$$= 2n\left(\sum_{i=1}^{n}X_i^2 - n\bar{X}_n^2\right)$$
+
+- Étape 4 : Lien avec la variance classique
+
+Rappelons la formule classique de la variance :
+
+$$\sum_{i=1}^{n}(X_i - \bar{X}_n)^2 = \sum_{i=1}^{n}(X_i^2 - 2X_i\bar{X}_n + \bar{X}_n^2)$$
+
+$$= \sum_{i=1}^{n}X_i^2 - 2\bar{X}_n\sum_{i=1}^{n}X_i + n\bar{X}_n^2$$
+
+$$= \sum_{i=1}^{n}X_i^2 - 2\bar{X}_n \cdot n\bar{X}_n + n\bar{X}_n^2$$
+
+$$= \sum_{i=1}^{n}X_i^2 - n\bar{X}_n^2$$
+
+- Étape 5 : Conclusion
+
+D'après l'étape 3 :
+$$
+\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2 = 2n\left(\sum_{i=1}^{n}X_i^2 - n\bar{X}_n^2\right)
+$$
+
+
+D'après l'étape 4 :
+$$
+\sum_{i=1}^{n}(X_i - \bar{X}_n)^2 = \sum_{i=1}^{n}X_i^2 - n\bar{X}_n^2
+$$
+
+Donc :
+$$
+\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2 = 2n\sum_{i=1}^{n}(X_i - \bar{X}_n)^2
+$$
+
+En divisant par $2n(n-1)$ :
+
+$$
+\frac{1}{2n(n-1)}\sum_{i=1}^{n}\sum_{\substack{j=1\\j\neq i}}^{n}(X_i - X_j)^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2
+$$
+
+## Correction de l'exercice 3
+
+1) Calcul de $E(\overline{X}_n)$
+
+Par linéarité de l'espérance, nous avons :
+
+$$
+E(\overline{X}_n) = E\left(\frac{1}{n}\sum_{i=1}^{n} X_i\right) = \frac{1}{n}\sum_{i=1}^{n} E(X_i) = \frac{1}{n} \cdot n \cdot m = m.
+$$
+
+
+
+2) Calcul de $E(s_X^2)$
+
+En utilisant l'identité donnée, nous avons en utilisant la linéarité de l'espérance :
+
+$$
+E(s_X^2) = E\left(\frac{1}{2n(n-1)} \sum_{i=1}^{n} \sum_{\substack{j=1\\j \neq i}}^{n} (X_i - X_j)^2\right)
+$$
+
+$$
+= \frac{1}{2n(n-1)} \sum_{i=1}^{n} \sum_{\substack{j=1\\j \neq i}}^{n} E\left((X_i - X_j)^2\right).
+$$
+
+Comme les $X_i$ sont indépendantes et de même loi, nous avons :
+
+$$
+= \frac{1}{2} E\left((X_1 - X_2)^2\right).
+$$
+
+D'autre part, nous avons :
+
+$$
+E\left((X_1 - X_2)^2\right) = E[{(X_1 - m) - (X_2 - m)}^2]
+$$
+
+$$
+= E\left((X_1 - m)^2\right) + E\left((X_2 - m)^2\right) - 2E\left((X_1 - m)(X_2 - m)\right)
+$$
+
+$$
+= \sigma^2 + \sigma^2 - 2 \cdot 0 = 2\sigma^2.
+$$
+
+Donc, nous obtenons :
+$$
+E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
+$$
+
+3) Approximation de Monte-Carlo
+
+Ce que nous avons montré aux points précédents, est que nous pouvons estimer l'espérance et la variance de la variable aléatoire $X$ en utilisant les statistiques d'échantillon $\overline{X}_n$ et $s_X^2$. C'est-à-dire en générant un grand nombre de réalisations indépendantes de $X$ et en calculant la moyenne empirique et la dispersion de ces réalisations.
+
+Voici un exemple de code R pour effectuer cette approximation de Monte-Carlo pour la variable aléatoire $X$ de l'exercice 2 :
+
+
+```default
+# Monte Carlo approximation in R
+
+# Répétition de l'expérience aléatoire
+# Simulation du nombre de lancers nécessaires pour obtenir un 6
+
+set.seed(360)
+n <- 50000
+ctr <- 0
+simlist <- numeric(n)
+
+while (ctr < n) {
+  ctr <- ctr + 1
   
+  # Valeur du lancer (initialisation)
+  trial <- 0
+  
+  # Nombre de tentatives (initialisation)
+  nb_tent <- 0
+  
+  while (trial != 6) {
+    nb_tent <- nb_tent + 1
+    trial <- sample(1:6, 1)
+  }
+  
+  simlist[ctr] <- nb_tent
+}
+
+# Affichage des résultats
+mean(simlist)
+var(simlist)
+
+# Statistiques supplémentaires
+cat("\n=== Résultats de la simulation ===\n")
+cat("Nombre de simulations:", n, "\n")
+cat("Moyenne du nombre de lancers:", mean(simlist), "\n")
+cat("Variance:", var(simlist), "\n")
+cat("Écart-type:", sd(simlist), "\n")
+cat("Minimum:", min(simlist), "\n")
+cat("Maximum:", max(simlist), "\n")
+cat("Médiane:", median(simlist), "\n")
+
+# Histogramme
+hist(simlist, 
+     breaks = 30, 
+     col = "lightblue", 
+     border = "white",
+     main = "Distribution du nombre de lancers pour obtenir un 6",
+     xlab = "Nombre de lancers",
+     ylab = "Fréquence",
+     xlim = c(0, max(simlist)))
+
+# Ajout de la moyenne théorique
+abline(v = 6, col = "red", lwd = 2, lty = 2)
+legend("topright", 
+       legend = c("Moyenne observée", "Moyenne théorique = 6"),
+       col = c("blue", "red"), 
+       lty = c(1, 2), 
+       lwd = 2)
+```
+
+```{python}
+
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Répétition de l'expérience
+random.seed(360)
+n = 50000
+simlist = []
+
+for _ in range(n):
+    trial = 0        # valeur du lancer
+    nb_tent = 0      # nombre de tentatives
+    
+    while trial != 6:
+        nb_tent += 1
+        trial = random.randint(1, 6)  # équivalent de sample(1:6,1)
+    
+    simlist.append(nb_tent)
+
+simlist = np.array(simlist)
+
+# Résultats
+print("\n=== Résultats de la simulation ===")
+print("Nombre de simulations:", n)
+print("Moyenne du nombre de lancers:", simlist.mean())
+print("Variance:", simlist.var(ddof=1))
+print("Écart-type:", simlist.std(ddof=1))
+print("Minimum:", simlist.min())
+print("Maximum:", simlist.max())
+print("Médiane:", np.median(simlist))
+
+# Histogramme
+plt.figure(figsize=(8, 5))
+plt.hist(simlist, bins=30, color="lightblue", edgecolor="white")
+plt.title("Distribution du nombre de lancers pour obtenir un 6")
+plt.xlabel("Nombre de lancers")
+plt.ylabel("Fréquence")
+
+# Ajout de la moyenne théorique
+plt.axvline(6, color="red", linewidth=2, linestyle="--", label="Moyenne théorique = 6")
+plt.axvline(simlist.mean(), color="blue", linewidth=2, linestyle="-", label="Moyenne observée")
+
+plt.legend()
+plt.show()
+
+```
+
+
+
+```default
+# Utilisation de la distribution géométrique
+# Alternative plus efficace à la simulation par boucle
+
+set.seed(360)
+n <- 50000
+p <- 1/6
+ctr <- 0
+simlist <- numeric(n)
+
+while (ctr < n) {
+  ctr <- ctr + 1
+  
+  # Génération d'une réalisation d'une loi géométrique
+  # Attention, rgeom(n,p) donne le nombre d'échecs avant
+  # le premier succès
+  simlist[ctr] <- rgeom(1, p) + 1
+}
+
+# Affichage des résultats
+mean(simlist)
+var(simlist)
+
+# Statistiques détaillées
+cat("\n=== Résultats de la simulation (méthode géométrique) ===\n")
+cat("Nombre de simulations:", n, "\n")
+cat("Probabilité de succès (p):", p, "\n")
+cat("Moyenne observée:", mean(simlist), "\n")
+cat("Moyenne théorique:", 1/p, "\n")
+cat("Variance observée:", var(simlist), "\n")
+cat("Variance théorique:", (1-p)/p^2, "\n")
+cat("Écart-type observé:", sd(simlist), "\n")
+cat("Médiane:", median(simlist), "\n")
+
+# Comparaison graphique
+par(mfrow = c(1, 2))
+
+# Histogramme
+hist(simlist, 
+     breaks = 50, 
+     col = "lightgreen", 
+     border = "white",
+     main = "Distribution du nombre de lancers\n(méthode rgeom)",
+     xlab = "Nombre de lancers",
+     ylab = "Fréquence",
+     probability = TRUE)
+
+# Ajout de la moyenne
+abline(v = mean(simlist), col = "blue", lwd = 2)
+abline(v = 1/p, col = "red", lwd = 2, lty = 2)
+legend("topright", 
+       legend = c("Moyenne obs.", "Moyenne théo."),
+       col = c("blue", "red"), 
+       lty = c(1, 2), 
+       lwd = 2,
+       cex = 0.8)
+
+# QQ-plot pour vérifier la distribution
+qqplot(qgeom(ppoints(n), p) + 1, simlist,
+       main = "QQ-Plot : Théorique vs Observé",
+       xlab = "Quantiles théoriques (Géométrique)",
+       ylab = "Quantiles observés",
+       col = "darkgreen",
+       pch = 20,
+       cex = 0.5)
+abline(0, 1, col = "red", lwd = 2)
+
+par(mfrow = c(1, 1))
+
+# Méthode encore plus efficace (vectorisée)
+cat("\n=== Méthode vectorisée (plus rapide) ===\n")
+set.seed(360)
+simlist_vec <- rgeom(n, p) + 1
+cat("Moyenne:", mean(simlist_vec), "\n")
+cat("Variance:", var(simlist_vec), "\n")
+```
+
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as st
+
+# Paramètres
+np.random.seed(360)
+n = 50000
+p = 1/6
+
+# La loi géométrique de R donne "nombre d'échecs avant succès"
+# => équivalent python : st.geom(p).rvs() renvoie déjà nb_tentatives
+# MAIS Python compte à partir de 1, donc c'est ce qu’on veut !
+simlist = st.geom(p).rvs(size=n)
+
+# Affichage des résultats
+print("\n=== Résultats de la simulation (méthode géométrique) ===")
+print("Nombre de simulations:", n)
+print("Probabilité de succès p:", p)
+print("Moyenne observée:", simlist.mean())
+print("Moyenne théorique:", 1/p)
+print("Variance observée:", simlist.var(ddof=1))
+print("Variance théorique:", (1 - p) / p**2)
+print("Écart-type observé:", simlist.std(ddof=1))
+print("Médiane:", np.median(simlist))
+
+
+plt.figure(figsize=(12, 5))
+
+plt.hist(simlist, bins=50, color="lightgreen", edgecolor="white", density=True)
+plt.title("Distribution du nombre de lancers (méthode géométrique)")
+plt.xlabel("Nombre de lancers")
+plt.ylabel("Densité")
+
+# Moyennes
+plt.axvline(simlist.mean(), color="blue", linewidth=2, label="Moyenne observée")
+plt.axvline(1/p, color="red", linewidth=2, linestyle="--", label="Moyenne théorique")
+
+plt.legend()
+plt.show()
+
+```
