@@ -997,7 +997,14 @@ Nous considérons l’expérience aléatoire consistant à jeter un dé jusqu’
 
 1) Loi de la variable aléatoire X
 
-Nous considérons l'espace probabilisé $(\Omega^{\mathbb{N}}, \mathcal{P}(\Omega^{\mathbb{N}}), \mathbb{P})$ avec $\Omega = \{1,2,3,4,5,6\}$ muni de la tribu produit et de la probabilité uniforme $\mathbb{P}$. La variable aléatoire étudiée est
+Nous considérons l'espace probabilisé $(\Omega^{\mathbb{N}}, \mathcal{P}(\Omega^{\mathbb{N}}), \mathbb{P})$ avec $\Omega = \{1,2,3,4,5,6\}$ muni de la tribu produit et de la probabilité uniforme $\mathbb{P}$.
+
+L'univers $\Omega^{\mathbb{N}}$ correspond à l'ensemble des suites infinies de résultats de lancers de dé. Autrement dit on peut l'écrire comme l'ensemble des suites infinies :
+$$
+\Omega^{\mathbb{N}} = \{(\omega_1, \omega_2, \ldots) \mid \omega_i \in \Omega = \{1,2,3,4,5,6\} \text{ pour tout } i \in \mathbb{N}\}.
+$$
+
+ La variable aléatoire étudiée est
 
 $$
 X : \Omega^{\mathbb{N}} \longrightarrow \Omega' = \mathbb{N}^*
@@ -1646,7 +1653,7 @@ plt.show()
 ```
 
 
-### Exercice 4
+## Exercice 4
 
 Soient X et Y deux variables aléatoires de carré $\mathbb{P}$-intégrable.
 
