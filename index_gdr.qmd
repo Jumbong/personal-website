@@ -13,7 +13,7 @@ Vous trouverez ici certains exercices de la fiche de TD, qui vous permettront de
 ## Exercice 2
 
 Supposons que $\mathbb{P}(A \cup B) = 0.6$ et $\mathbb{P}(A \cup B^c) = 0.8$.  
-Déterminer $ \mathbb{P}(A) $.
+Déterminer $\mathbb{P}(A)$.
 
 ---
 
@@ -1657,7 +1657,7 @@ plt.show()
 
 Soient X et Y deux variables aléatoires de carré $\mathbb{P}$-intégrable.
 
-1. Soit a \in \mathbb{R}\).  
+1. Soit $a \in \mathbb{R}$.  
    Écrire  
    $$
    E\big((|X| - a|Y|)^2\big)
