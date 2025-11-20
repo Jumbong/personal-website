@@ -643,7 +643,7 @@ En additionnant les deux probabilités conditionnelles, nous obtenons :
 $$
 \mathbb{P}(A \mid B) + \mathbb{P}(A^c \mid B)
 = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} + \frac{\mathbb{P}(A^c \cap B)}{\mathbb{P}(B)}
-= \frac{\mathbb{P((A \cap B) \cup (A^c \cap B))}{\mathbb{P}(B)}
+= \frac{\mathbb{P}((A \cap B) \cup (A^c \cap B))}{\mathbb{P}(B)}
 = \frac{\mathbb{P}(B)}{\mathbb{P}(B)} = 1.
 $$
 
