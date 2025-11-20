@@ -12,7 +12,7 @@ Vous trouverez ici certains exercices de la fiche de TD, qui vous permettront de
 
 ## Exercice 2
 
-Supposons que $ \mathbb{P}(A \cup B) = 0.6 $ et $ \mathbb{P}(A \cup B^c) = 0.8 $.  
+Supposons que $\mathbb{P}(A \cup B) = 0.6$ et $\mathbb{P}(A \cup B^c) = 0.8$.  
 Déterminer $ \mathbb{P}(A) $.
 
 ---
