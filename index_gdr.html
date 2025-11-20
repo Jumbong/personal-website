@@ -230,10 +230,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#correction-de-lexercice-2" id="toc-correction-de-lexercice-2" class="nav-link" data-scroll-target="#correction-de-lexercice-2">Correction de l’exercice 2</a></li>
   <li><a href="#exercice-3-2" id="toc-exercice-3-2" class="nav-link" data-scroll-target="#exercice-3-2">Exercice 3</a></li>
-  <li><a href="#correction-de-lexercice-3" id="toc-correction-de-lexercice-3" class="nav-link" data-scroll-target="#correction-de-lexercice-3">Correction de l’exercice 3</a>
-  <ul class="collapse">
+  <li><a href="#correction-de-lexercice-3" id="toc-correction-de-lexercice-3" class="nav-link" data-scroll-target="#correction-de-lexercice-3">Correction de l’exercice 3</a></li>
   <li><a href="#exercice-4-2" id="toc-exercice-4-2" class="nav-link" data-scroll-target="#exercice-4-2">Exercice 4</a></li>
-  </ul></li>
   <li><a href="#correction-de-lexercice-4" id="toc-correction-de-lexercice-4" class="nav-link" data-scroll-target="#correction-de-lexercice-4">Correction de l’exercice 4</a></li>
   </ul></li>
   </ul>
@@ -558,7 +556,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="40e582f8" class="cell" data-execution_count="1">
+<div id="68ed4460" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -961,7 +959,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="0f2bbed4" class="cell" data-execution_count="2">
+<div id="a547069e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1061,7 +1059,11 @@ M_X(t) = \frac{pe^t}{1 - e^t(1 - p)},
 <ol type="1">
 <li>Loi de la variable aléatoire X</li>
 </ol>
-<p>Nous considérons l’espace probabilisé <span class="math inline">\((\Omega^{\mathbb{N}}, \mathcal{P}(\Omega^{\mathbb{N}}), \mathbb{P})\)</span> avec <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> muni de la tribu produit et de la probabilité uniforme <span class="math inline">\(\mathbb{P}\)</span>. La variable aléatoire étudiée est</p>
+<p>Nous considérons l’espace probabilisé <span class="math inline">\((\Omega^{\mathbb{N}}, \mathcal{P}(\Omega^{\mathbb{N}}), \mathbb{P})\)</span> avec <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> muni de la tribu produit et de la probabilité uniforme <span class="math inline">\(\mathbb{P}\)</span>.</p>
+<p>L’univers <span class="math inline">\(\Omega^{\mathbb{N}}\)</span> correspond à l’ensemble des suites infinies de résultats de lancers de dé. Autrement dit on peut l’écrire comme l’ensemble des suites infinies : <span class="math display">\[
+\Omega^{\mathbb{N}} = \{(\omega_1, \omega_2, \ldots) \mid \omega_i \in \Omega = \{1,2,3,4,5,6\} \text{ pour tout } i \in \mathbb{N}\}.
+\]</span></p>
+<p>La variable aléatoire étudiée est</p>
 <p><span class="math display">\[
 X : \Omega^{\mathbb{N}} \longrightarrow \Omega' = \mathbb{N}^*
 \]</span></p>
@@ -1108,7 +1110,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="bf8ba4c4" class="cell" data-execution_count="3">
+<div id="d96eb8c2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1442,7 +1444,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="be14fc8c" class="cell" data-execution_count="4">
+<div id="49c65d0c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1581,7 +1583,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="ee5ac2ca" class="cell" data-execution_count="5">
+<div id="b3d161f8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -1642,8 +1644,9 @@ Médiane: 4.0</code></pre>
 </div>
 </div>
 </div>
-<section id="exercice-4-2" class="level3">
-<h3 class="anchored" data-anchor-id="exercice-4-2">Exercice 4</h3>
+</section>
+<section id="exercice-4-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-4-2">Exercice 4</h2>
 <p>Soient X et Y deux variables aléatoires de carré <span class="math inline">\(\mathbb{P}\)</span>-intégrable.</p>
 <ol type="1">
 <li><p>Soit a ).<br>
@@ -1676,7 +1679,6 @@ E(|Z|^r) \le \big(E(|Z|^s)\big)^{r/s}.
 \]</span></p></li>
 <li><p>En déduire que si une variable aléatoire <span class="math inline">\(Z\)</span> admet un moment d’ordre <span class="math inline">\(s &gt; 1\)</span>, alors elle admet un moment d’ordre <span class="math inline">\(r\)</span> pour tous les réels <span class="math inline">\(1 &lt; r &lt; s\)</span>.</p></li>
 </ol>
-</section>
 </section>
 <section id="correction-de-lexercice-4" class="level2">
 <h2 class="anchored" data-anchor-id="correction-de-lexercice-4">Correction de l’exercice 4</h2>
