@@ -172,7 +172,7 @@
     "href": "index_gdr.html#exercice-2",
     "title": "1. Espaces probabilisés",
     "section": "Exercice 2",
-    "text": "Exercice 2\nSupposons que $ (A B) = 0.6 $ et $ (A B^c) = 0.8 $.\nDéterminer $ (A) $."
+    "text": "Exercice 2\nSupposons que \\(\\mathbb{P}(A \\cup B) = 0.6\\) et \\(\\mathbb{P}(A \\cup B^c) = 0.8\\).\nDéterminer $ (A) $."
   },
   {
     "objectID": "index_gdr.html#correction",
