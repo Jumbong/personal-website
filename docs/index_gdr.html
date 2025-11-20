@@ -556,7 +556,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="3939ccce" class="cell" data-execution_count="1">
+<div id="2bf73255" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -612,7 +612,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -751,7 +751,7 @@ et <span class="math inline">\(\mathbb{P}\)</span> est la probabilité uniforme 
 <p>En additionnant les deux probabilités conditionnelles, nous obtenons : <span class="math display">\[
 \mathbb{P}(A \mid B) + \mathbb{P}(A^c \mid B)
 = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} + \frac{\mathbb{P}(A^c \cap B)}{\mathbb{P}(B)}
-= \frac{\mathbb{P((A \cap B) \cup (A^c \cap B))}{\mathbb{P}(B)}
+= \frac{\mathbb{P}((A \cap B) \cup (A^c \cap B))}{\mathbb{P}(B)}
 = \frac{\mathbb{P}(B)}{\mathbb{P}(B)} = 1.
 \]</span></p>
 <p>Ou tout simplement en remarquant que <span class="math inline">\(P(.|B)\)</span> définit une probabilité sur l’espace probabilisé restreint à l’événement B, et donc la somme des probabilités d’un événement et de son complément est égale à 1.</p>
@@ -959,7 +959,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="e7f7d098" class="cell" data-execution_count="2">
+<div id="329ef285" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1110,7 +1110,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="a9f2b906" class="cell" data-execution_count="3">
+<div id="cd9129f4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1444,7 +1444,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="132170ea" class="cell" data-execution_count="4">
+<div id="455aee26" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1583,7 +1583,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b2723929" class="cell" data-execution_count="5">
+<div id="697aa9a3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -1972,7 +1972,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
