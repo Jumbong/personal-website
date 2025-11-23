@@ -809,7 +809,7 @@ flowchart LR
   E --> G[Caractérisation de la loi de X]
 ```
 
-# Variables aléatoires générales
+# 3 Variables aléatoires générales
 
 
 ## Exercice 1
@@ -977,7 +977,7 @@ $$
 CV(X) = \frac{\sigma_X}{\mathbb{E}[X]} = \frac{\sqrt{\text{Var}(X)}}{\mathbb{E}[X]} = \frac{\sqrt{0.75}}{1.5} = \frac{\sqrt{3}}{3} \approx 0.577.
 $$
 
-# Exercice 2
+## Exercice 2
 
 Nous considérons l’expérience aléatoire consistant à jeter un dé jusqu’à obtenir un **« 6 »**. Soit $X$ la variable aléatoire donnant le nombre de jets.
 

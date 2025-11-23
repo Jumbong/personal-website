@@ -221,13 +221,11 @@ window.Quarto = {
   </ul></li>
   </ul></li>
   <li><a href="#rappels-de-la-séance-précédente" id="toc-rappels-de-la-séance-précédente" class="nav-link" data-scroll-target="#rappels-de-la-séance-précédente">Rappels de la séance précédente</a></li>
-  <li><a href="#variables-aléatoires-générales" id="toc-variables-aléatoires-générales" class="nav-link" data-scroll-target="#variables-aléatoires-générales">Variables aléatoires générales</a>
+  <li><a href="#variables-aléatoires-générales" id="toc-variables-aléatoires-générales" class="nav-link" data-scroll-target="#variables-aléatoires-générales">3 Variables aléatoires générales</a>
   <ul class="collapse">
   <li><a href="#exercice-1" id="toc-exercice-1" class="nav-link" data-scroll-target="#exercice-1">Exercice 1</a></li>
   <li><a href="#correction-de-lexercice-1" id="toc-correction-de-lexercice-1" class="nav-link" data-scroll-target="#correction-de-lexercice-1">Correction de l’exercice 1</a></li>
-  </ul></li>
-  <li><a href="#exercice-2-2" id="toc-exercice-2-2" class="nav-link" data-scroll-target="#exercice-2-2">Exercice 2</a>
-  <ul class="collapse">
+  <li><a href="#exercice-2-2" id="toc-exercice-2-2" class="nav-link" data-scroll-target="#exercice-2-2">Exercice 2</a></li>
   <li><a href="#correction-de-lexercice-2" id="toc-correction-de-lexercice-2" class="nav-link" data-scroll-target="#correction-de-lexercice-2">Correction de l’exercice 2</a></li>
   <li><a href="#exercice-3-2" id="toc-exercice-3-2" class="nav-link" data-scroll-target="#exercice-3-2">Exercice 3</a></li>
   <li><a href="#correction-de-lexercice-3" id="toc-correction-de-lexercice-3" class="nav-link" data-scroll-target="#correction-de-lexercice-3">Correction de l’exercice 3</a></li>
@@ -556,7 +554,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="19203e86" class="cell" data-execution_count="1">
+<div id="29dc8a3d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -612,7 +610,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -897,7 +895,7 @@ P(C_1|A) = \frac{P(A|C_1) \cdot P(C_1)}{P(A|C_1) \cdot P(C_1) + P(A|C_2) \cdot P
 </div>
 </section>
 <section id="variables-aléatoires-générales" class="level1">
-<h1>Variables aléatoires générales</h1>
+<h1>3 Variables aléatoires générales</h1>
 <section id="exercice-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1">Exercice 1</h2>
 <p>Nous considérons l’expérience aléatoire consistant à lancer 3 fois une pièce de monnaie. Soit <span class="math inline">\(X\)</span> la variable aléatoire donnant le nombre de « Pile » obtenu.</p>
@@ -959,7 +957,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="81e67554" class="cell" data-execution_count="2">
+<div id="647f42ca" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1040,9 +1038,8 @@ F_X(x) =
 CV(X) = \frac{\sigma_X}{\mathbb{E}[X]} = \frac{\sqrt{\text{Var}(X)}}{\mathbb{E}[X]} = \frac{\sqrt{0.75}}{1.5} = \frac{\sqrt{3}}{3} \approx 0.577.
 \]</span></p>
 </section>
-</section>
-<section id="exercice-2-2" class="level1">
-<h1>Exercice 2</h1>
+<section id="exercice-2-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-2">Exercice 2</h2>
 <p>Nous considérons l’expérience aléatoire consistant à jeter un dé jusqu’à obtenir un <strong>« 6 »</strong>. Soit <span class="math inline">\(X\)</span> la variable aléatoire donnant le nombre de jets.</p>
 <ol type="1">
 <li><p>Donner la loi de la variable aléatoire <span class="math inline">\(X\)</span>.</p></li>
@@ -1054,6 +1051,7 @@ M_X(t) = \frac{pe^t}{1 - e^t(1 - p)},
 <p>avec <span class="math inline">\(p = \frac{1}{6}\)</span>.</p></li>
 <li><p>En déduire l’espérance et la variance de <span class="math inline">\(X\)</span>, puis son coefficient de variation.</p></li>
 </ol>
+</section>
 <section id="correction-de-lexercice-2" class="level2">
 <h2 class="anchored" data-anchor-id="correction-de-lexercice-2">Correction de l’exercice 2</h2>
 <ol type="1">
@@ -1110,7 +1108,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="584ee790" class="cell" data-execution_count="3">
+<div id="9ec855af" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1444,7 +1442,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="24b4cd0b" class="cell" data-execution_count="4">
+<div id="e2a7ec0f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1583,7 +1581,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="075c9960" class="cell" data-execution_count="5">
+<div id="deb23ad2" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
