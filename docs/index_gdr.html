@@ -246,6 +246,24 @@ window.Quarto = {
   </ul></li>
   <li><a href="#exercice-4-3" id="toc-exercice-4-3" class="nav-link" data-scroll-target="#exercice-4-3">Exercice 4</a></li>
   <li><a href="#correction-exercice-4-2" id="toc-correction-exercice-4-2" class="nav-link" data-scroll-target="#correction-exercice-4-2">Correction — Exercice 4</a></li>
+  <li><a href="#exercice-5" id="toc-exercice-5" class="nav-link" data-scroll-target="#exercice-5">Exercice 5</a></li>
+  <li><a href="#correction-exercice-5" id="toc-correction-exercice-5" class="nav-link" data-scroll-target="#correction-exercice-5">Correction — Exercice 5</a>
+  <ul class="collapse">
+  <li><a href="#résultat-final" id="toc-résultat-final" class="nav-link" data-scroll-target="#résultat-final">Résultat final :</a></li>
+  <li><a href="#calcul-de-lespérance-de-x" id="toc-calcul-de-lespérance-de-x" class="nav-link" data-scroll-target="#calcul-de-lespérance-de-x">2) Calcul de l’espérance de <span class="math inline">\(X\)</span></a></li>
+  <li><a href="#détermination-de-lambda-pour-une-espérance-de-3" id="toc-détermination-de-lambda-pour-une-espérance-de-3" class="nav-link" data-scroll-target="#détermination-de-lambda-pour-une-espérance-de-3">Détermination de <span class="math inline">\(\lambda\)</span> pour une espérance de 3</a></li>
+  </ul></li>
+  <li><a href="#exercice-6" id="toc-exercice-6" class="nav-link" data-scroll-target="#exercice-6">Exercice 6</a></li>
+  <li><a href="#correction-exercice-6" id="toc-correction-exercice-6" class="nav-link" data-scroll-target="#correction-exercice-6">Correction — Exercice 6</a></li>
+  <li><a href="#exercice-7" id="toc-exercice-7" class="nav-link" data-scroll-target="#exercice-7">Exercice 7</a>
+  <ul class="collapse">
+  <li><a href="#correction-exercice-7" id="toc-correction-exercice-7" class="nav-link" data-scroll-target="#correction-exercice-7">Correction Exercice 7</a></li>
+  </ul></li>
+  <li><a href="#exercice-8" id="toc-exercice-8" class="nav-link" data-scroll-target="#exercice-8">Exercice 8</a></li>
+  <li><a href="#correction-exercice-8" id="toc-correction-exercice-8" class="nav-link" data-scroll-target="#correction-exercice-8">Correction — Exercice 8</a>
+  <ul class="collapse">
+  <li><a href="#calcul-de-mathbbex3" id="toc-calcul-de-mathbbex3" class="nav-link" data-scroll-target="#calcul-de-mathbbex3">Calcul de <span class="math inline">\(\mathbb{E}(X^3)\)</span></a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -569,7 +587,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="5e8f60fc" class="cell" data-execution_count="1">
+<div id="bc3f56e9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -625,7 +643,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -972,7 +990,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="b9638f4e" class="cell" data-execution_count="2">
+<div id="abbf7b6c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1123,7 +1141,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="42cbb86e" class="cell" data-execution_count="3">
+<div id="739054b9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1457,7 +1475,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b3d48587" class="cell" data-execution_count="4">
+<div id="a3ff927a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1596,7 +1614,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cd3ac4c1" class="cell" data-execution_count="5">
+<div id="150b9065" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2139,15 +2157,508 @@ p_1 = 0.1,\quad p_2 = 0.2,\quad p_3 = 0.3,\quad p_4 = 0.4.
 <span class="math display">\[(X,Y) = (4,4) \quad\Rightarrow\quad \mathbb{P}(S=8) = p_4 p_4 = 0.4\times 0.4 = 0.16.\]</span></p></li>
 </ul>
 <p>On obtient donc la loi de <span class="math inline">\(S = X+Y\)</span> :</p>
-[
-<span class="math display">\[\begin{array}{c|ccccccc}
+<p><span class="math display">\[
+\begin{array}{c|ccccccc}
 s      &amp; 2    &amp; 3    &amp; 4    &amp; 5    &amp; 6    &amp; 7    &amp; 8    \\ \hline
 \mathbb{P}(S=s) &amp; 0.01 &amp; 0.04 &amp; 0.10 &amp; 0.20 &amp; 0.25 &amp; 0.24 &amp; 0.16
-\end{array}\]</span>
-<p>]</p>
+\end{array}
+\]</span></p>
 <p>(On vérifie que la somme vaut bien <span class="math inline">\(1\)</span>: <span class="math inline">\(0.01 + 0.04 + 0.10 + 0.20 + 0.25 + 0.24 + 0.16 = 1\)</span>.)</p>
+</section>
+<section id="exercice-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-5">Exercice 5</h2>
+<p>Un statisticien a modélisé le nombre de mots d’une recherche sur internet en utilisant une loi de Poisson. Supposons que la longueur moyenne est de 3 mots, et soit <span class="math inline">\(X\)</span> le nombre de mots d’une recherche. Comme une recherche ne peut pas être vide, nous utilisons une modélisation par une loi de probabilité restreinte définie par</p>
+<p><span class="math display">\[\mathbb{P}(X = k) = \mathbb{P}(Y = k \mid Y \neq 0) \quad \text{où } Y \sim \text{Pois}(\lambda).\]</span></p>
+<ol type="1">
+<li>Trouver la loi de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>Donner la valeur de <span class="math inline">\(\lambda\)</span> correspondant à une longueur moyenne de 3 mots.<br>
+</li>
+<li>Quelle est la probabilité d’avoir une recherche de 6 mots ou plus ?</li>
+</ol>
+</section>
+<section id="correction-exercice-5" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-5">Correction — Exercice 5</h2>
+<ol type="1">
+<li>Trouver la loi de <span class="math inline">\(X\)</span></li>
+</ol>
+<p>Pour déterminer la loi d’une variable aléatoire <span class="math inline">\(X\)</span> , il faut d’abord définir son support, c’est-à-dire l’ensemble des valeurs que <span class="math inline">\(X\)</span> peut prendre avec une probabilité non nulle. Dans ce cas, le support de <span class="math inline">\(X\)</span> est l’ensemble des entiers naturels positifs, car une recherche ne peut pas être vide.</p>
+<p>Nous notons le support de <span class="math inline">\(X\)</span> par <span class="math inline">\(\Omega_X = \{1, 2, 3, \ldots\}\)</span> = <span class="math inline">\(\mathbb{N}^*\)</span>.</p>
+<p>Une fois le support identifié, nous pouvons calculer la probabilité associée à chaque valeur du support de <span class="math inline">\(X\)</span>.</p>
+<p>Rappelons nous que l’ensemble <span class="math inline">\({X \in A} = {w \in \Omega : X(w) \in A} = X^-1(A)\)</span>. Pour tout <span class="math inline">\(k \in \Omega_X\)</span>, nous avons :</p>
+<p><span class="math inline">\({X = k} = {w \in \Omega : X(w) = k} = X^{-1}(\{k\})\)</span>. où <span class="math inline">\(\Omega\)</span> est l’ensemble des issues possibles de l’expérience aléatoire.</p>
+<p>Donc, pour tout <span class="math inline">\(k \in \Omega_X\)</span>, nous avons :</p>
+<p>On part de la définition de <span class="math inline">\(X\)</span> comme loi de Poisson <strong>conditionnée à être non nulle</strong> :</p>
+<ol type="1">
+<li><p><strong>Définition de <span class="math inline">\(X\)</span> comme loi restreinte :</strong> <span class="math display">\[
+\mathbb{P}(X = k)
+= \mathbb{P}(Y = k \mid Y \neq 0).
+\]</span> C’est donné dans l’énoncé : <span class="math inline">\(X\)</span> est la loi de <span class="math inline">\(Y\)</span> sachant que <span class="math inline">\(Y\)</span> ne vaut pas 0.</p></li>
+<li><p><strong>Formule de probabilité conditionnelle :</strong> <span class="math display">\[
+\mathbb{P}(Y = k \mid Y \neq 0)
+= \frac{\mathbb{P}(Y = k \cap Y \neq 0)}{\mathbb{P}(Y \neq 0)}.
+\]</span> Par définition :<br>
+<span class="math inline">\(\displaystyle \mathbb{P}(A \mid B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}\)</span>.</p></li>
+<li><p><strong>Simplification de l’intersection :</strong> <span class="math display">\[
+\mathbb{P}(Y = k \cap Y \neq 0) = \mathbb{P}(Y = k)
+\]</span> car si <span class="math inline">\(k \ge 1\)</span>, alors l’événement « <span class="math inline">\(Y = k\)</span> » implique automatiquement « <span class="math inline">\(Y \neq 0\)</span> ».<br>
+Donc l’intersection ne change rien.</p></li>
+<li><p><strong>Remplacement du dénominateur :</strong> <span class="math display">\[
+\mathbb{P}(Y \neq 0) = 1 - \mathbb{P}(Y = 0).
+\]</span> C’est la propriété générale :<br>
+<span class="math inline">\(\displaystyle \mathbb{P}(B^c) = 1 - \mathbb{P}(B)\)</span>.</p></li>
+<li><p><strong>Utilisation de la formule de la loi de Poisson :</strong> <span class="math display">\[
+\mathbb{P}(Y = k) = e^{-\lambda} \frac{\lambda^k}{k!},
+\qquad
+\mathbb{P}(Y = 0) = e^{-\lambda}.
+\]</span></p></li>
+<li><p><strong>Substitution dans la formule :</strong> <span class="math display">\[
+\mathbb{P}(X = k)
+= \frac{e^{-\lambda} \frac{\lambda^k}{k!}}{1 - e^{-\lambda}}.
+\]</span></p></li>
+</ol>
+<section id="résultat-final" class="level3">
+<h3 class="anchored" data-anchor-id="résultat-final">Résultat final :</h3>
+<p><span class="math display">\[
+\boxed{\mathbb{P}(X = k) = \frac{e^{-\lambda} }{1 - e^{-\lambda}} \cdot \frac{\lambda^k}{k!}, \quad k = 1, 2, 3, \ldots}
+\]</span></p>
+</section>
+<section id="calcul-de-lespérance-de-x" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-de-lespérance-de-x">2) Calcul de l’espérance de <span class="math inline">\(X\)</span></h3>
+<p>Nous avons la loi : <span class="math display">\[
+\mathbb{P}(X = k)
+= \frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}, \qquad k \ge 1.
+\]</span></p>
+<p>L’espérance vaut en utilisant le théorème de transfert : <span class="math display">\[
+\mathbb{E}(X)
+= \sum_{k=1}^{+\infty} k \, \mathbb{P}(X = k)
+= \sum_{k=1}^{\infty} k \, \frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}.
+\]</span></p>
+<p><strong>On factorise les constantes</strong> : <span class="math display">\[
+\mathbb{E}(X)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}}
+   \sum_{k=1}^{\infty} k \frac{\lambda^{k}}{k!}.
+\]</span></p>
+<hr>
+<p>Justification du passage suivant</p>
+<p>On réécrit : <span class="math display">\[
+k\frac{\lambda^{k}}{k!}
+= \lambda \frac{\lambda^{k-1}}{(k-1)!}.
+\]</span></p>
+<p>En effet : <span class="math display">\[
+\frac{k}{k!} = \frac{1}{(k-1)!}.
+\]</span></p>
+<p>Donc : <span class="math display">\[
+\sum_{k=1}^{\infty} k \frac{\lambda^k}{k!}
+= \lambda \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!}.
+\]</span></p>
+<p>On effectue le <strong>changement d’indice</strong> <span class="math inline">\(j = k - 1\)</span> :</p>
+<ul>
+<li>quand <span class="math inline">\(k = 1\)</span>, <span class="math inline">\(j = 0\)</span>,</li>
+<li>quand <span class="math inline">\(k \to \infty\)</span>, <span class="math inline">\(j \to \infty\)</span>.</li>
+</ul>
+<p>D’où : <span class="math display">\[
+\sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!}
+= \sum_{j=0}^{\infty} \frac{\lambda^{j}}{j!}.
+\]</span></p>
+<p>Or cette somme est la <strong>série de Taylor de l’exponentielle</strong> : <span class="math display">\[
+\sum_{j=0}^{\infty} \frac{\lambda^{j}}{j!} = e^{\lambda}.
+\]</span></p>
+<p>On revient à l’expression de l’espérance</p>
+<p>On obtient donc : <span class="math display">\[
+\mathbb{E}(X)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}} \cdot \lambda e^{\lambda}.
+\]</span> Puis en simplifiant ( e^{-} e^{} = 1 ) : <span class="math display">\[    
+\boxed{
+\mathbb{E}(X) = \frac{\lambda}{1 - e^{-\lambda}}.
+}
+\]</span></p>
+<hr>
+</section>
+<section id="détermination-de-lambda-pour-une-espérance-de-3" class="level3">
+<h3 class="anchored" data-anchor-id="détermination-de-lambda-pour-une-espérance-de-3">Détermination de <span class="math inline">\(\lambda\)</span> pour une espérance de 3</h3>
+<p>En résolvant : <span class="math display">\[
+\frac{\lambda}{1 - e^{-\lambda}} = 3,
+\]</span></p>
+<div id="75efa1c3" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Définir la fonction</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> equation(lmbda):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lmbda <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> np.exp(<span class="op">-</span>lmbda)) <span class="op">-</span> <span class="dv">3</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Résoudre avec Newton-Raphson</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>lambda_solution <span class="op">=</span> newton(equation, x0<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lambda_solution)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.8214393721220787</code></pre>
+</div>
+</div>
+<p>on obtient numériquement : <span class="math display">\[
+\boxed{\lambda \approx 2.82}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Probabilité d’avoir une recherche de 6 mots ou plus</li>
+</ol>
+<p>On cherche : <span class="math display">\[
+\mathbb{P}(X \ge 6).
+\]</span></p>
+<p>Or : <span class="math display">\[
+\mathbb{P}(X \ge 6) = 1 - \mathbb{P}(X \le 5).
+\]</span></p>
+<p>Et comme (X) est la loi de Poisson tronquée : <span class="math display">\[
+\mathbb{P}(X \le 5)
+= \sum_{k=1}^{5} \mathbb{P}(X = k)
+= \sum_{k=1}^{5}
+\frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}.
+\]</span></p>
+<p>On factorise pour simplifier : <span class="math display">\[  
+\mathbb{P}(X \le 5)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}}
+\sum_{k=1}^{5} \frac{\lambda^k}{k!}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+\boxed{
+\mathbb{P}(X \ge 6)
+= 1 -
+\frac{e^{-\lambda}}{1 - e^{-\lambda}}
+\sum_{k=1}^{5} \frac{\lambda^k}{k!}
+}.
+\]</span></p>
+<hr>
+<p>Avec <span class="math inline">\(\lambda \approx 2.82\)</span>, on calcule :</p>
+<p>Le calcul numérique donne : <span class="math display">\[
+\boxed{\mathbb{P}(X \ge 6) \approx 0.07}
+\]</span></p>
+<p>soit <strong>environ 7%</strong>.</p>
+</section>
+</section>
+<section id="exercice-6" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-6">Exercice 6</h2>
+<p>La loi de probabilité jointe de deux variables <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> est définie par</p>
+<p><span class="math display">\[
+\mathbb{P}(X = x, Y = y)
+= \frac{1}{e^{2} \, y! \, (x - y)!}
+\qquad \text{pour } x \in \mathbb{N} \text{ et } y = 0, \ldots, x.
+\]</span></p>
+<ol type="1">
+<li>Trouver la loi de probabilité de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>En déduire la loi de probabilité de <span class="math inline">\(Y\)</span> sachant que <span class="math inline">\(X = x\)</span>.</li>
+</ol>
+</section>
+<section id="correction-exercice-6" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-6">Correction — Exercice 6</h2>
+<p>Avant de résoudre l’exercice, rappelons les formules de pascal :</p>
+<p><span class="math display">\[
+\binom{x}{y} = \frac{x!}{y! (x-y)!},
+\]</span> et <span class="math display">\[
+(a + b)^x = \sum_{y=0}^{x} \binom{x}{y} a^y b^{x-y}.
+\]</span></p>
+<p>Pour a = 1 et b = 1, on obtient : <span class="math display">\[
+2^x = \sum_{y=0}^{x} \binom{x}{y}.
+\]</span></p>
+<ol type="1">
+<li>Trouver la loi de probabilité de <span class="math inline">\(X\)</span></li>
+</ol>
+<p>Le support de X est <span class="math inline">\(\mathbb{N}\)</span>.</p>
+<p>Pour tout <span class="math inline">\(x \in \mathbb{N}\)</span>, on utilise la formule des probabilités totales : <span class="math display">\[
+\mathbb{P}(X = x)
+= \mathbb{P}(X = x, \Omega)
+= \mathbb{P}(X = x, \bigcup_{y=0}^{x} \{Y = y\})
+= \sum_{y=0}^{x} \mathbb{P}(X = x, Y = y).
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\Omega\)</span> est l’événement certain.</li>
+<li>Les événements {Y=0}, , {Y=x} sont disjoints et forment une partition des valeurs possibles de Y quand X=x.</li>
+<li>La formule générale de probabilité totale dit : <span class="math display">\[
+\mathbb{P}(A) = \sum_i \mathbb{P}(A \cap B_i)
+\quad \text{si les } B_i \text{ forment une partition}.
+\]</span></li>
+</ul>
+<p>En théorie de probabilité, on écrit souvent <span class="math inline">\(P(A, B)\)</span> pour <span class="math inline">\(P(A \cap B)\)</span>.</p>
+<p>On remplace par la loi jointe donnée : <span class="math display">\[
+\mathbb{P}(X = x)
+= \sum_{y=0}^{x} \frac{1}{e^{2} \, y! \, (x - y)!}.
+\]</span></p>
+<p>On factorise : <span class="math display">\[
+\mathbb{P}(X = x)
+= \frac{1}{e^{2}} \sum_{y=0}^{x} \frac{1}{y! \, (x - y)!}.
+\]</span></p>
+<p>On utilise la formule de pascal pour réécrire la somme : On utilise l’identité : <span class="math display">\[
+\binom{x}{y} = \frac{x!}{y! (x-y)!}.
+\]</span></p>
+<p>D’où : <span class="math display">\[
+\frac{1}{y!(x-y)!} = \frac{1}{x!}\binom{x}{y}.
+\]</span></p>
+<p>Ainsi : <span class="math display">\[
+\sum_{y=0}^{x} \frac{1}{y!(x-y)!}
+= \frac{1}{x!} \sum_{y=0}^{x} \binom{x}{y}.
+\]</span></p>
+<p>Or : <span class="math display">\[
+\sum_{y=0}^{x} \binom{x}{y} = 2^x,
+\]</span> car c’est le développement de ((1+1)^x).</p>
+<p>On obtient donc : On obtient : <span class="math display">\[
+\mathbb{P}(X = x)
+= \frac{1}{e^{2}} \cdot \frac{2^x}{x!}
+= e^{-2} \frac{2^x}{x!}.
+\]</span></p>
+<p>Nous reconnaissons la loi de Poisson de paramètre <span class="math inline">\(\lambda = 2\)</span>.</p>
+<p><span class="math display">\[
+\boxed{X \sim \text{Poisson}(2)}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Soient <span class="math inline">\(x, y \in \mathbb{N}\)</span>. Nous avons</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}(Y = y \mid X = x)
+= \frac{\mathbb{P}(X = x, Y = y)}{\mathbb{P}(X = x)},
+\]</span></p>
+<p>et cette probabilité est nulle si <span class="math inline">\(y &gt; x\)</span>.<br>
+Si <span class="math inline">\(y \le x\)</span>, nous avons :</p>
+<p><span class="math display">\[
+\mathbb{P}(Y = y \mid X = x)
+= \frac{1}{e^{2} y! (x - y)!} \times \frac{e^{2} x!}{2^{x}}
+\]</span></p>
+<p><span class="math display">\[
+= \binom{x}{y} \left(\frac{1}{2}\right)^{y} \left(\frac{1}{2}\right)^{x - y}.
+\]</span></p>
+<p>Nous reconnaissons la densité d’une loi binomiale de paramètres <span class="math inline">\(m = x\)</span> et<br>
+<span class="math inline">\(p = \frac{1}{2}\)</span>.</p>
+<p>Donc : <span class="math display">\[
+\boxed{Y \mid X = x \sim \mathcal{B}\left(x, \frac{1}{2}\right)}.
+\]</span></p>
+</section>
+<section id="exercice-7" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-7">Exercice 7</h2>
+<p>Soient <span class="math inline">\(X_1, \ldots, X_n\)</span> une suite de variables aléatoires i.i.d. suivant une loi <span class="math inline">\(\mathcal{L}\)</span>. Nous supposons que les paramètres de la loi <span class="math inline">\(\mathcal{L}\)</span> sont entièrement caractérisés par les moments <span class="math inline">\(\mu_1 \equiv \mathbb{E}(X), \ldots, \mu_k \equiv \mathbb{E}(X^k)\)</span>. La <em>méthode des moments</em> consiste à estimer les paramètres de la loi <span class="math inline">\(\mathcal{L}\)</span> en remplaçant les moments inconnus par leur estimateur empirique</p>
+<p><span class="math display">\[
+\hat{\mu}_k = \frac{1}{n} \sum_{i=1}^n (X_i)^k.
+\]</span></p>
+<p>Nous supposons que les variables aléatoires <span class="math inline">\(X_1, \ldots, X_n\)</span> suivent une loi de Bernoulli de paramètre <span class="math inline">\(p\)</span>.</p>
+<ol type="1">
+<li>Exprimer <span class="math inline">\(p\)</span> en fonction du premier moment de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>En déduire une estimation de <span class="math inline">\(p\)</span> basée sur l’échantillon.</li>
+</ol>
+<p>Nous supposons que les variables aléatoires <span class="math inline">\(X_1, \ldots, X_n\)</span> suivent une loi binomiale de paramètres <span class="math inline">\(m\)</span> et <span class="math inline">\(p\)</span>.</p>
+<ol start="3" type="1">
+<li>Exprimer <span class="math inline">\(m\)</span> et <span class="math inline">\(p\)</span> en fonction des deux premiers moments de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>En déduire une estimation de <span class="math inline">\(m\)</span> et de <span class="math inline">\(p\)</span> basée sur l’échantillon.</li>
+</ol>
+<section id="correction-exercice-7" class="level3">
+<h3 class="anchored" data-anchor-id="correction-exercice-7">Correction Exercice 7</h3>
+<ol type="1">
+<li><p>Nous avons<br>
+<span class="math display">\[
+p = \mathbb{E}(X) = \mu_1.
+\]</span></p></li>
+<li><p>Le paramètre (p) est donc estimé par <span class="math display">\[
+\hat{p} = \hat{\mu}_1 = \frac{1}{n} \sum_{i=1}^n X_i.
+\]</span></p></li>
+</ol>
+<p>Notons que dans ce cas précis, il s’agit d’un estimateur sans biais.</p>
+<hr>
+<ol start="3" type="1">
+<li>Nous avons, pour une loi binomiale ((m,p)) : <span class="math display">\[
+\mathbb{E}(X) = mp
+\qquad\text{et}\qquad
+\operatorname{Var}(X) = \mathbb{E}(X^2) - \{\mathbb{E}(X)\}^2 = mp(1 - p).
+\]</span></li>
+</ol>
+<p>Nous en déduisons que <span class="math display">\[
+1 - p = \frac{\mu_2}{\mu_1} - \mu_1,
+\]</span></p>
+<p>puis <span class="math display">\[
+p = 1 - \frac{\mu_2}{\mu_1} + \mu_1,
+\]</span></p>
+<p>et <span class="math display">\[
+m = \frac{\mu_1}{1 - \frac{\mu_2}{\mu_1} + \mu_1}.
+\]</span></p>
+<hr>
+<ol start="4" type="1">
+<li>Nous obtenons les estimateurs par la méthode des moments :</li>
+</ol>
+<p><span class="math display">\[
+\hat{p} = 1 - \frac{\hat{\mu}_2}{\hat{\mu}_1} + \hat{\mu}_1,
+\]</span></p>
+<p><span class="math display">\[
+\hat{m} =
+\frac{\hat{\mu}_1}{1 - \frac{\hat{\mu}_2}{\hat{\mu}_1} + \hat{\mu}_1}.
+\]</span></p>
+<p>À noter que ces estimateurs n’ont pas de raison particulière d’être sans biais.</p>
+</section>
+</section>
+<section id="exercice-8" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-8">Exercice 8</h2>
+<p>Soit <span class="math inline">\(X \sim \text{Pois}(\lambda)\)</span>.</p>
+<ol type="1">
+<li><p>Donner la fonction génératrice des moments de <span class="math inline">\(X\)</span> et sa fonction caractéristique.</p></li>
+<li><p>Calculer <span class="math inline">\(\mathbb{E}(X^3)\)</span>.<br>
+</p></li>
+<li><p>Calculer la probabilité que <span class="math inline">\(X\)</span> soit impair.<br>
+Utiliser un développement en série entière de <span class="math inline">\(e^\lambda\)</span> et <span class="math inline">\(e^{-\lambda}\)</span>.</p></li>
+<li><p>Calculer <span class="math inline">\(\mathbb{E}(X!)\)</span>.</p></li>
+</ol>
+</section>
+<section id="correction-exercice-8" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-8">Correction — Exercice 8</h2>
+<p>Avant de commencer, rappelons que :</p>
+<p>{X impair} qui s’écrit en latex <span class="math inline">\(X \text{ impair}\)</span> est l’ensemble des issues où la variable aléatoire <span class="math inline">\(X\)</span> prend des valeurs impaires. Cet ensemble peut être représenté comme l’union des événements disjoints {X = 1}, {X = 3}, {X = 5}, etc.</p>
+<p>On peut donc écrire :</p>
+<p>L’événement <span class="math inline">\(X\)</span> est impair s’écrit :</p>
+<p><span class="math display">\[
+\{X \text{ impair}\}
+= \{\omega \in \Omega : X(\omega) \text{ est impair}\}
+\]</span></p>
+<p>Par définition d’un entier impair :</p>
+<p><span class="math display">\[  
+\{X \text{ impair}\}
+= \{\omega : X(\omega) = 1\}
+  \cup \{\omega : X(\omega) = 3\}
+  \cup \{\omega : X(\omega) = 5\}
+  \cup \cdots
+\]</span></p>
+<p>C’est-à-dire :</p>
+<p><span class="math display">\[
+\{X \text{ impair}\}
+= \{\omega \in \Omega : \exists\, k \in \mathbb{N}, \; X(\omega) = 2k + 1\}.
+\]</span></p>
+<p>En notation abrégée :</p>
+<p><span class="math display">\[
+\{X \text{ impair}\}
+= \{X = 1\} \cup \{X = 3\} \cup \{X = 5\} \cup \cdots
+\]</span></p>
+<p>et de manière compacte :</p>
+<p><span class="math display">\[
+\boxed{
+\{X \text{ impair}\}
+= \bigcup_{k=0}^{\infty} \{X = 2k + 1\}.
+}
+\]</span></p>
+<ol type="1">
+<li>Fonction génératrice des moments et fonction caractéristique</li>
+</ol>
+<p><span class="math inline">\(\textbf{1)}\)</span> Soit <span class="math inline">\(t &gt; 0\)</span>. Nous avons</p>
+<p><span class="math display">\[
+M_X(t)
+= \mathbb{E}\{\exp(tX)\}
+= e^{-\lambda} \sum_{k=0}^{+\infty} \exp(tk)\, \frac{\lambda^k}{k!}
+\]</span></p>
+<p><span class="math display">\[
+= e^{-\lambda} \sum_{k=0}^{+\infty} \frac{\{\lambda \exp(t)\}^k}{k!}
+= e^{-\lambda} \times \exp\{\lambda \exp(t)\}
+\]</span></p>
+<p><span class="math display">\[
+= \exp\{\lambda(\exp(t) - 1)\}.
+\]</span></p>
+<p>On vérifie au passage que la fonction génératrice des moments est ici bien définie pour tout <span class="math inline">\(t \in \mathbb{R}\)</span>.</p>
+<p>La fonction caractéristique se calcule de façon analogue :</p>
+<p><span class="math display">\[
+\varphi_X(t)
+= \mathbb{E}\{\exp(itX)\}
+= e^{-\lambda} \sum_{k=0}^{+\infty} \exp(itk)\, \frac{\lambda^k}{k!}
+\]</span></p>
+<p><span class="math display">\[
+= e^{-\lambda} \sum_{k=0}^{+\infty} \frac{\{\lambda \exp(it)\}^k}{k!}
+= e^{-\lambda} \times \exp\{\lambda \exp(it)\}
+\]</span></p>
+<p><span class="math display">\[
+= \exp\{\lambda(\exp(it) - 1)\}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Calcul de <span class="math inline">\(\mathbb{E}(X^3)\)</span></li>
+</ol>
+<p>Nous utilisons la fonction génératrice des moments, qui est ici indéfiniment dérivable.</p>
+<p>Rappel : <span class="math display">\[
+M_X(t) = \exp\{\lambda(e^t - 1)\}.
+\]</span></p>
+<p>Nous calculons ses dérivées successives.</p>
+<section id="première-dérivée" class="level4">
+<h4 class="anchored" data-anchor-id="première-dérivée">Première dérivée</h4>
+<p><span class="math display">\[
+M_X'(t)
+= \lambda e^t \exp\{\lambda(e^t - 1)\}.
+\]</span> #### Deuxième dérivée</p>
+<p><span class="math display">\[
+M_X''(t)
+= \left(\lambda e^t + \lambda^2 e^{2t}\right)
+  \exp\{\lambda(e^t - 1)\}.
+\]</span> #### Troisième dérivée</p>
+<p><span class="math display">\[
+M_X^{(3)}(t)
+= \left(\lambda e^t + 3\lambda^2 e^{2t} + \lambda^3 e^{3t}\right)
+  \exp\{\lambda(e^t - 1)\}.
+\]</span> Nous pouvons maintenant obtenir le troisième moment.</p>
+<hr>
+</section>
+<section id="calcul-de-mathbbex3" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-de-mathbbex3">Calcul de <span class="math inline">\(\mathbb{E}(X^3)\)</span></h3>
+<p>Par définition : <span class="math display">\[
+\mathbb{E}(X^3) = M_X^{(3)}(0).
+\]</span></p>
+<p>Comme <span class="math inline">\(e^{0}=1\)</span>, nous obtenons : <span class="math display">\[
+M_X^{(3)}(0)
+= \left(\lambda + 3\lambda^2 + \lambda^3\right)\exp\{0\}
+= \lambda^3 + 3\lambda^2 + \lambda.
+\]</span></p>
+<p><span class="math display">\[
+\boxed{\mathbb{E}(X^3)=\lambda^3 + 3\lambda^2 + \lambda.}
+\]</span></p>
+<ol start="3" type="1">
+<li>Calcul de la probabilité que <span class="math inline">\(X\)</span> soit impair</li>
+</ol>
+<p>Nous avons</p>
+<p><span class="math display">\[
+\mathbb{P}(X \text{ impair})
+= \mathbb{P}\left(\bigcup_{k=0}^{\infty} \{X = 2k + 1\}\right)
+= \sum_{k=0}^{\infty} \mathbb{P}(X = 2k + 1)
+\]</span></p>
+<p><span class="math display">\[
+= \sum_{k=0}^{\infty} e^{-\lambda} \frac{\lambda^{2k + 1}}{(2k + 1)!}
+= e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^{2k + 1}}{(2k + 1)!}.
+\]</span></p>
+<p>D’autre part, <span class="math display">\[
+e^\lambda = \sum_{k=0}^{+\infty} \frac{\lambda^k}{k!}
+= 1 + \lambda + \frac{\lambda^2}{2} + \frac{\lambda^3}{3!} + \frac{\lambda^4}{4!} + \cdots
+\]</span></p>
+<p>et <span class="math display">\[
+e^{-\lambda} = \sum_{k=0}^{+\infty} \frac{(-\lambda)^k}{k!}
+= 1 - \lambda + \frac{\lambda^2}{2} - \frac{\lambda^3}{3!} + \frac{\lambda^4}{4!} + \cdots
+\]</span></p>
+<p>Donc, <span class="math display">\[
+e^\lambda - e^{-\lambda}
+= \sum_{k=0}^{+\infty} \frac{\lambda^k}{k!}
++ \sum_{k=0}^{+\infty} \frac{(-1)^{k+1}\lambda^k}{k!}
+= 2 \sum_{k=0}^{+\infty} \frac{\lambda^{2k+1}}{(2k+1)!}.
+\]</span></p>
+<p>Et finalement, <span class="math display">\[
+\mathbb{P}(X \text{ impair})
+= \frac{e^{-\lambda}(e^\lambda - e^{-\lambda})}{2}
+= \frac{1 - e^{-2\lambda}}{2}.
+\]</span></p>
+<ol start="4" type="1">
+<li>Nous avons</li>
+</ol>
+<p><span class="math display">\[
+E(X!) = \sum_{k=0}^{+\infty} e^{-\lambda} \frac{\lambda^k}{k!} \times k!
+\]</span></p>
+<p><span class="math display">\[
+= e^{-\lambda} \sum_{k=0}^{+\infty} \lambda^k
+=
+\begin{cases}
+\dfrac{e^{-\lambda}}{1 - \lambda}, &amp; \text{si } |\lambda| &lt; 1, \\[6pt]
++\infty, &amp; \text{si } |\lambda| \ge 1.
+\end{cases}
+\]</span></p>
 
 
+</section>
 </section>
 </section>
 

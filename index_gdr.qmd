@@ -2217,6 +2217,669 @@ $$
 
 (On vérifie que la somme vaut bien $1$: $0.01 + 0.04 + 0.10 + 0.20 + 0.25 + 0.24 + 0.16 = 1$.)
 
+## Exercice 5
+
+Un statisticien a modélisé le nombre de mots d’une recherche sur internet en utilisant une loi de Poisson. Supposons que la longueur moyenne est de 3 mots, et soit $X$ le nombre de mots d’une recherche. Comme une recherche ne peut pas être vide, nous utilisons une modélisation par une loi de probabilité restreinte définie par
+
+$$\mathbb{P}(X = k) = \mathbb{P}(Y = k \mid Y \neq 0) \quad \text{où } Y \sim \text{Pois}(\lambda).$$
+
+1) Trouver la loi de $X$.  
+2) Donner la valeur de $\lambda$ correspondant à une longueur moyenne de 3 mots.  
+3) Quelle est la probabilité d’avoir une recherche de 6 mots ou plus ?
+
+## Correction — Exercice 5
+
+1) Trouver la loi de $X$
+
+Pour déterminer la loi d'une variable aléatoire $X$ , il faut d'abord définir son support, c'est-à-dire l'ensemble des valeurs que $X$ peut prendre avec une probabilité non nulle. Dans ce cas, le support de $X$ est l'ensemble des entiers naturels positifs, car une recherche ne peut pas être vide.
+
+Nous notons le support de $X$ par $\Omega_X = \{1, 2, 3, \ldots\}$ = $\mathbb{N}^*$.
+
+Une fois le support identifié, nous pouvons calculer la probabilité associée à chaque valeur du support de $X$. 
+
+Rappelons nous que l'ensemble ${X \in A} = {w \in \Omega : X(w) \in A} = X^-1(A)$.
+Pour tout $k \in \Omega_X$, nous avons :
+
+${X = k} = {w \in \Omega : X(w) = k} = X^{-1}(\{k\})$. où $\Omega$ est l'ensemble des issues possibles de l'expérience aléatoire.
+
+Donc, pour tout $k \in \Omega_X$, nous avons :
+
+On part de la définition de $X$ comme loi de Poisson **conditionnée à être non nulle** :
+
+1. **Définition de $X$ comme loi restreinte :**
+   $$
+   \mathbb{P}(X = k)
+   = \mathbb{P}(Y = k \mid Y \neq 0).
+   $$
+   C’est donné dans l’énoncé : $X$ est la loi de $Y$ sachant que $Y$ ne vaut pas 0.
+
+2. **Formule de probabilité conditionnelle :**
+   $$
+   \mathbb{P}(Y = k \mid Y \neq 0)
+   = \frac{\mathbb{P}(Y = k \cap Y \neq 0)}{\mathbb{P}(Y \neq 0)}.
+   $$
+   Par définition :  
+   $\displaystyle \mathbb{P}(A \mid B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}$.
+
+3. **Simplification de l'intersection :**
+   $$
+   \mathbb{P}(Y = k \cap Y \neq 0) = \mathbb{P}(Y = k)
+   $$
+   car si $k \ge 1$, alors l'événement « $Y = k$ » implique automatiquement « $Y \neq 0$ ».  
+   Donc l’intersection ne change rien.
+
+4. **Remplacement du dénominateur :**
+   $$
+   \mathbb{P}(Y \neq 0) = 1 - \mathbb{P}(Y = 0).
+   $$
+   C’est la propriété générale :  
+   $\displaystyle \mathbb{P}(B^c) = 1 - \mathbb{P}(B)$.
+
+5. **Utilisation de la formule de la loi de Poisson :**
+   $$
+   \mathbb{P}(Y = k) = e^{-\lambda} \frac{\lambda^k}{k!},
+   \qquad
+   \mathbb{P}(Y = 0) = e^{-\lambda}.
+   $$
+
+6. **Substitution dans la formule :**
+   $$
+   \mathbb{P}(X = k)
+   = \frac{e^{-\lambda} \frac{\lambda^k}{k!}}{1 - e^{-\lambda}}.
+   $$
+
+
+
+
+
+###  Résultat final :
+$$
+\boxed{\mathbb{P}(X = k) = \frac{e^{-\lambda} }{1 - e^{-\lambda}} \cdot \frac{\lambda^k}{k!}, \quad k = 1, 2, 3, \ldots}
+$$
+
+
+### 2) Calcul de l’espérance de $X$
+
+Nous avons la loi :
+$$
+\mathbb{P}(X = k)
+= \frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}, \qquad k \ge 1.
+$$
+
+L’espérance vaut en utilisant le théorème de transfert :
+$$
+\mathbb{E}(X)
+= \sum_{k=1}^{+\infty} k \, \mathbb{P}(X = k)
+= \sum_{k=1}^{\infty} k \, \frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}.
+$$
+
+**On factorise les constantes** :
+$$
+\mathbb{E}(X)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}}
+   \sum_{k=1}^{\infty} k \frac{\lambda^{k}}{k!}.
+$$
+
+---
+
+Justification du passage suivant
+
+On réécrit :
+$$
+k\frac{\lambda^{k}}{k!}
+= \lambda \frac{\lambda^{k-1}}{(k-1)!}.
+$$
+
+En effet :
+$$
+\frac{k}{k!} = \frac{1}{(k-1)!}.
+$$
+
+Donc :
+$$
+\sum_{k=1}^{\infty} k \frac{\lambda^k}{k!}
+= \lambda \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!}.
+$$
+
+On effectue le **changement d’indice**  $j = k - 1$ :
+
+- quand $k = 1$, $j = 0$,
+- quand $k \to \infty$, $j \to \infty$.
+
+D’où :
+$$
+\sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!}
+= \sum_{j=0}^{\infty} \frac{\lambda^{j}}{j!}.
+$$
+
+Or cette somme est la **série de Taylor de l’exponentielle** :
+$$
+\sum_{j=0}^{\infty} \frac{\lambda^{j}}{j!} = e^{\lambda}.
+$$
+
+
+
+On revient à l’expression de l’espérance
+
+On obtient donc :
+$$
+\mathbb{E}(X)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}} \cdot \lambda e^{\lambda}.
+$$
+Puis en simplifiant \( e^{-\lambda} e^{\lambda} = 1 \) :
+$$    
+\boxed{
+\mathbb{E}(X) = \frac{\lambda}{1 - e^{-\lambda}}.
+}
+$$    
+
+---
+
+### Détermination de $\lambda$ pour une espérance de 3
+
+En résolvant :
+$$
+\frac{\lambda}{1 - e^{-\lambda}} = 3,
+$$
+
+```{python}
+
+#Utilisons Newton-Raphson pour résoudre l'équation
+
+from scipy.optimize import newton
+import numpy as np
+
+# Définir la fonction
+def equation(lmbda):
+    return lmbda / (1 - np.exp(-lmbda)) - 3
+
+# Résoudre avec Newton-Raphson
+lambda_solution = newton(equation, x0=1.0)
+print(lambda_solution)
+
+```
+
+on obtient numériquement :
+$$
+\boxed{\lambda \approx 2.82}.
+$$
+
+3) Probabilité d’avoir une recherche de 6 mots ou plus
+
+On cherche :
+$$
+\mathbb{P}(X \ge 6).
+$$
+
+Or :
+$$
+\mathbb{P}(X \ge 6) = 1 - \mathbb{P}(X \le 5).
+$$
+
+Et comme \(X\) est la loi de Poisson tronquée :
+$$
+\mathbb{P}(X \le 5)
+= \sum_{k=1}^{5} \mathbb{P}(X = k)
+= \sum_{k=1}^{5}
+\frac{e^{-\lambda} \lambda^k}{k!\,(1 - e^{-\lambda})}.
+$$
+
+On factorise pour simplifier :
+$$  
+\mathbb{P}(X \le 5)
+= \frac{e^{-\lambda}}{1 - e^{-\lambda}}
+\sum_{k=1}^{5} \frac{\lambda^k}{k!}.
+$$
+
+Donc :
+
+$$
+\boxed{
+\mathbb{P}(X \ge 6)
+= 1 -
+\frac{e^{-\lambda}}{1 - e^{-\lambda}}
+\sum_{k=1}^{5} \frac{\lambda^k}{k!}
+}.
+$$
+
+---
+
+ Avec $\lambda \approx 2.82$, on calcule :
+
+Le calcul numérique donne :
+$$
+\boxed{\mathbb{P}(X \ge 6) \approx 0.07}
+$$
+
+soit **environ 7%**.
+
+## Exercice 6
+
+La loi de probabilité jointe de deux variables $X$ et $Y$ est définie par
+
+$$
+\mathbb{P}(X = x, Y = y)
+= \frac{1}{e^{2} \, y! \, (x - y)!}
+\qquad \text{pour } x \in \mathbb{N} \text{ et } y = 0, \ldots, x.
+$$
+
+1) Trouver la loi de probabilité de $X$.  
+2) En déduire la loi de probabilité de $Y$ sachant que $X = x$.
+
+## Correction — Exercice 6
+
+Avant de résoudre l’exercice, rappelons les formules de pascal :
+
+$$
+\binom{x}{y} = \frac{x!}{y! (x-y)!},
+$$
+et
+$$
+(a + b)^x = \sum_{y=0}^{x} \binom{x}{y} a^y b^{x-y}.
+$$
+
+Pour a = 1 et b = 1, on obtient :
+$$
+2^x = \sum_{y=0}^{x} \binom{x}{y}.
+$$
+
+1) Trouver la loi de probabilité de $X$
+
+Le support de X est $\mathbb{N}$.
+
+Pour tout $x \in \mathbb{N}$, on utilise la formule des probabilités totales :
+$$
+\mathbb{P}(X = x)
+= \mathbb{P}(X = x, \Omega)
+= \mathbb{P}(X = x, \bigcup_{y=0}^{x} \{Y = y\})
+= \sum_{y=0}^{x} \mathbb{P}(X = x, Y = y).
+$$
+
+- $\Omega$ est l’événement certain.
+- Les événements {Y=0}, \ldots, {Y=x} sont disjoints et forment une partition des valeurs possibles de Y quand X=x.
+- La formule générale de probabilité totale dit :
+  $$
+  \mathbb{P}(A) = \sum_i \mathbb{P}(A \cap B_i)
+  \quad \text{si les } B_i \text{ forment une partition}.
+  $$
+
+
+En théorie de probabilité, on écrit souvent $P(A, B)$ pour $P(A \cap B)$.
+
+On remplace par la loi jointe donnée :
+$$
+\mathbb{P}(X = x)
+= \sum_{y=0}^{x} \frac{1}{e^{2} \, y! \, (x - y)!}.
+$$
+
+On factorise :
+$$
+\mathbb{P}(X = x)
+= \frac{1}{e^{2}} \sum_{y=0}^{x} \frac{1}{y! \, (x - y)!}.
+$$
+
+On utilise la formule de pascal pour réécrire la somme :
+On utilise l’identité :
+$$
+\binom{x}{y} = \frac{x!}{y! (x-y)!}.
+$$
+
+D’où :
+$$
+\frac{1}{y!(x-y)!} = \frac{1}{x!}\binom{x}{y}.
+$$
+
+Ainsi :
+$$
+\sum_{y=0}^{x} \frac{1}{y!(x-y)!}
+= \frac{1}{x!} \sum_{y=0}^{x} \binom{x}{y}.
+$$
+
+Or :
+$$
+\sum_{y=0}^{x} \binom{x}{y} = 2^x,
+$$
+car c’est le développement de \((1+1)^x\).
+
+On obtient donc :
+On obtient :
+$$
+\mathbb{P}(X = x)
+= \frac{1}{e^{2}} \cdot \frac{2^x}{x!}
+= e^{-2} \frac{2^x}{x!}.
+$$
+
+
+Nous reconnaissons la loi de Poisson de paramètre $\lambda = 2$.
+
+
+$$
+\boxed{X \sim \text{Poisson}(2)}.
+$$
+
+2) Soient $x, y \in \mathbb{N}$. Nous avons
+
+$$
+\mathbb{P}(Y = y \mid X = x)
+= \frac{\mathbb{P}(X = x, Y = y)}{\mathbb{P}(X = x)},
+$$
+
+et cette probabilité est nulle si $y > x$.  
+Si $y \le x$, nous avons :
+
+$$
+\mathbb{P}(Y = y \mid X = x)
+= \frac{1}{e^{2} y! (x - y)!} \times \frac{e^{2} x!}{2^{x}}
+$$
+
+$$
+= \binom{x}{y} \left(\frac{1}{2}\right)^{y} \left(\frac{1}{2}\right)^{x - y}.
+$$
+
+Nous reconnaissons la densité d’une loi binomiale de paramètres $m = x$ et  
+$p = \frac{1}{2}$.
+
+Donc :
+$$
+\boxed{Y \mid X = x \sim \mathcal{B}\left(x, \frac{1}{2}\right)}.
+$$
+
+## Exercice 7
+
+Soient $X_1, \ldots, X_n$ une suite de variables aléatoires i.i.d. suivant une loi $\mathcal{L}$.
+Nous supposons que les paramètres de la loi $\mathcal{L}$ sont entièrement caractérisés
+par les moments $\mu_1 \equiv \mathbb{E}(X), \ldots, \mu_k \equiv \mathbb{E}(X^k)$.
+La *méthode des moments* consiste à estimer les paramètres de la loi $\mathcal{L}$
+en remplaçant les moments inconnus par leur estimateur empirique
+
+$$
+\hat{\mu}_k = \frac{1}{n} \sum_{i=1}^n (X_i)^k.
+$$
+
+Nous supposons que les variables aléatoires $X_1, \ldots, X_n$ suivent une loi de Bernoulli
+de paramètre $p$.
+
+1) Exprimer $p$ en fonction du premier moment de $X$.  
+2) En déduire une estimation de $p$ basée sur l’échantillon.
+
+Nous supposons que les variables aléatoires $X_1, \ldots, X_n$ suivent une loi binomiale
+de paramètres $m$ et $p$.
+
+3) Exprimer $m$ et $p$ en fonction des deux premiers moments de $X$.  
+4) En déduire une estimation de $m$ et de $p$ basée sur l’échantillon.
+
+### Correction Exercice 7
+
+1) Nous avons  
+$$
+p = \mathbb{E}(X) = \mu_1.
+$$
+
+2) Le paramètre \(p\) est donc estimé par
+$$
+\hat{p} = \hat{\mu}_1 = \frac{1}{n} \sum_{i=1}^n X_i.
+$$
+
+Notons que dans ce cas précis, il s’agit d’un estimateur sans biais.
+
+---
+
+3) Nous avons, pour une loi binomiale \(\mathcal{B}(m,p)\) :
+$$
+\mathbb{E}(X) = mp
+\qquad\text{et}\qquad
+\operatorname{Var}(X) = \mathbb{E}(X^2) - \{\mathbb{E}(X)\}^2 = mp(1 - p).
+$$
+
+Nous en déduisons que
+$$
+1 - p = \frac{\mu_2}{\mu_1} - \mu_1,
+$$
+
+puis
+$$
+p = 1 - \frac{\mu_2}{\mu_1} + \mu_1,
+$$
+
+et
+$$
+m = \frac{\mu_1}{1 - \frac{\mu_2}{\mu_1} + \mu_1}.
+$$
+
+---
+
+4) Nous obtenons les estimateurs par la méthode des moments :
+
+$$
+\hat{p} = 1 - \frac{\hat{\mu}_2}{\hat{\mu}_1} + \hat{\mu}_1,
+$$
+
+$$
+\hat{m} = 
+\frac{\hat{\mu}_1}{1 - \frac{\hat{\mu}_2}{\hat{\mu}_1} + \hat{\mu}_1}.
+$$
+
+À noter que ces estimateurs n’ont pas de raison particulière d’être sans biais.
+
+## Exercice 8
+
+Soit $X \sim \text{Pois}(\lambda)$.
+
+1) Donner la fonction génératrice des moments de $X$ et sa fonction caractéristique.  
+
+2) Calculer $\mathbb{E}(X^3)$.  
+3) Calculer la probabilité que $X$ soit impair.  
+   Utiliser un développement en série entière de $e^\lambda$ et $e^{-\lambda}$.  
+
+4) Calculer $\mathbb{E}(X!)$.
+
+## Correction — Exercice 8
+
+Avant de commencer, rappelons que :
+
+{X impair} qui s'écrit en latex $X \text{ impair}$ est l'ensemble des issues où la variable aléatoire $X$ prend des valeurs impaires. Cet ensemble peut être représenté comme l'union des événements disjoints {X = 1}, {X = 3}, {X = 5}, etc.
+
+On peut donc écrire :
+
+L’événement $X$ est impair s’écrit :
+
+$$
+\{X \text{ impair}\}
+= \{\omega \in \Omega : X(\omega) \text{ est impair}\}
+$$
+
+Par définition d’un entier impair :
+
+$$  
+\{X \text{ impair}\}
+= \{\omega : X(\omega) = 1\}
+  \cup \{\omega : X(\omega) = 3\}
+  \cup \{\omega : X(\omega) = 5\}
+  \cup \cdots
+$$
+
+C’est-à-dire :
+
+$$
+\{X \text{ impair}\}
+= \{\omega \in \Omega : \exists\, k \in \mathbb{N}, \; X(\omega) = 2k + 1\}.
+$$
+
+En notation abrégée :
+
+$$
+\{X \text{ impair}\}
+= \{X = 1\} \cup \{X = 3\} \cup \{X = 5\} \cup \cdots
+$$
+
+et de manière compacte :
+
+$$
+\boxed{
+\{X \text{ impair}\}
+= \bigcup_{k=0}^{\infty} \{X = 2k + 1\}.
+}
+$$
+
+
+1) Fonction génératrice des moments et fonction caractéristique
+
+$\textbf{1)}$ Soit $t > 0$. Nous avons
+
+$$
+M_X(t)
+= \mathbb{E}\{\exp(tX)\}
+= e^{-\lambda} \sum_{k=0}^{+\infty} \exp(tk)\, \frac{\lambda^k}{k!}
+$$
+
+$$ 
+= e^{-\lambda} \sum_{k=0}^{+\infty} \frac{\{\lambda \exp(t)\}^k}{k!}
+= e^{-\lambda} \times \exp\{\lambda \exp(t)\}
+$$
+
+$$
+= \exp\{\lambda(\exp(t) - 1)\}.
+$$
+
+On vérifie au passage que la fonction génératrice des moments est ici bien
+définie pour tout $t \in \mathbb{R}$.
+
+La fonction caractéristique se calcule de façon analogue :
+
+$$
+\varphi_X(t)
+= \mathbb{E}\{\exp(itX)\}
+= e^{-\lambda} \sum_{k=0}^{+\infty} \exp(itk)\, \frac{\lambda^k}{k!}
+$$
+
+$$
+= e^{-\lambda} \sum_{k=0}^{+\infty} \frac{\{\lambda \exp(it)\}^k}{k!}
+= e^{-\lambda} \times \exp\{\lambda \exp(it)\}
+$$
+
+$$
+= \exp\{\lambda(\exp(it) - 1)\}.
+$$
+
+2) Calcul de $\mathbb{E}(X^3)$
+
+Nous utilisons la fonction génératrice des moments, qui est ici indéfiniment dérivable.
+
+Rappel :
+$$
+M_X(t) = \exp\{\lambda(e^t - 1)\}.
+$$
+
+Nous calculons ses dérivées successives.
+
+#### Première dérivée
+
+$$
+M_X'(t)
+= \lambda e^t \exp\{\lambda(e^t - 1)\}.
+$$
+#### Deuxième dérivée
+
+$$
+M_X''(t)
+= \left(\lambda e^t + \lambda^2 e^{2t}\right)
+  \exp\{\lambda(e^t - 1)\}.
+$$
+#### Troisième dérivée
+
+$$
+M_X^{(3)}(t)
+= \left(\lambda e^t + 3\lambda^2 e^{2t} + \lambda^3 e^{3t}\right)
+  \exp\{\lambda(e^t - 1)\}.
+$$
+Nous pouvons maintenant obtenir le troisième moment.
+
+---
+
+### Calcul de  $\mathbb{E}(X^3)$
+
+Par définition :
+$$
+\mathbb{E}(X^3) = M_X^{(3)}(0).
+$$
+
+Comme $e^{0}=1$, nous obtenons :
+$$
+M_X^{(3)}(0)
+= \left(\lambda + 3\lambda^2 + \lambda^3\right)\exp\{0\}
+= \lambda^3 + 3\lambda^2 + \lambda.
+$$
+
+$$
+\boxed{\mathbb{E}(X^3)=\lambda^3 + 3\lambda^2 + \lambda.}
+$$
+
+3) Calcul de la probabilité que $X$ soit impair
+
+Nous avons
+
+$$
+\mathbb{P}(X \text{ impair})
+= \mathbb{P}\left(\bigcup_{k=0}^{\infty} \{X = 2k + 1\}\right)
+= \sum_{k=0}^{\infty} \mathbb{P}(X = 2k + 1)
+$$
+
+$$
+= \sum_{k=0}^{\infty} e^{-\lambda} \frac{\lambda^{2k + 1}}{(2k + 1)!}
+= e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^{2k + 1}}{(2k + 1)!}.
+$$ 
+
+
+D’autre part,
+$$
+e^\lambda = \sum_{k=0}^{+\infty} \frac{\lambda^k}{k!}
+= 1 + \lambda + \frac{\lambda^2}{2} + \frac{\lambda^3}{3!} + \frac{\lambda^4}{4!} + \cdots
+$$  
+
+et
+$$
+e^{-\lambda} = \sum_{k=0}^{+\infty} \frac{(-\lambda)^k}{k!}
+= 1 - \lambda + \frac{\lambda^2}{2} - \frac{\lambda^3}{3!} + \frac{\lambda^4}{4!} + \cdots
+$$
+
+Donc,
+$$
+e^\lambda - e^{-\lambda}
+= \sum_{k=0}^{+\infty} \frac{\lambda^k}{k!}
++ \sum_{k=0}^{+\infty} \frac{(-1)^{k+1}\lambda^k}{k!}
+= 2 \sum_{k=0}^{+\infty} \frac{\lambda^{2k+1}}{(2k+1)!}.
+$$
+
+Et finalement,
+$$
+\mathbb{P}(X \text{ impair})
+= \frac{e^{-\lambda}(e^\lambda - e^{-\lambda})}{2}
+= \frac{1 - e^{-2\lambda}}{2}.
+$$
+
+4) Nous avons
+
+$$
+E(X!) = \sum_{k=0}^{+\infty} e^{-\lambda} \frac{\lambda^k}{k!} \times k!
+$$
+
+$$
+= e^{-\lambda} \sum_{k=0}^{+\infty} \lambda^k
+= 
+\begin{cases}
+\dfrac{e^{-\lambda}}{1 - \lambda}, & \text{si } |\lambda| < 1, \\[6pt]
++\infty, & \text{si } |\lambda| \ge 1.
+\end{cases}
+$$
+
+
+
+
+
+
+
+
+
 
 
 
