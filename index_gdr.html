@@ -264,6 +264,19 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#calcul-de-mathbbex3" id="toc-calcul-de-mathbbex3" class="nav-link" data-scroll-target="#calcul-de-mathbbex3">Calcul de <span class="math inline">\(\mathbb{E}(X^3)\)</span></a></li>
   </ul></li>
+  <li><a href="#exercice-9" id="toc-exercice-9" class="nav-link" data-scroll-target="#exercice-9">Exercice 9</a></li>
+  <li><a href="#correction-exercice-9" id="toc-correction-exercice-9" class="nav-link" data-scroll-target="#correction-exercice-9">Correction Exercice 9</a></li>
+  </ul></li>
+  <li><a href="#variables-aléatoires-continues" id="toc-variables-aléatoires-continues" class="nav-link" data-scroll-target="#variables-aléatoires-continues">5 Variables aléatoires continues</a>
+  <ul class="collapse">
+  <li><a href="#exercice-1-2" id="toc-exercice-1-2" class="nav-link" data-scroll-target="#exercice-1-2">Exercice 1</a></li>
+  <li><a href="#correction-exercice-1-1" id="toc-correction-exercice-1-1" class="nav-link" data-scroll-target="#correction-exercice-1-1">Correction — Exercice 1</a></li>
+  <li><a href="#exercice-2-4" id="toc-exercice-2-4" class="nav-link" data-scroll-target="#exercice-2-4">Exercice 2</a></li>
+  <li><a href="#exercice-2-correction" id="toc-exercice-2-correction" class="nav-link" data-scroll-target="#exercice-2-correction">Exercice 2 — Correction</a></li>
+  <li><a href="#exercice-3-4" id="toc-exercice-3-4" class="nav-link" data-scroll-target="#exercice-3-4">Exercice 3</a></li>
+  <li><a href="#correction-exercice-3-3" id="toc-correction-exercice-3-3" class="nav-link" data-scroll-target="#correction-exercice-3-3">Correction Exercice 3</a></li>
+  <li><a href="#exercice-4-4" id="toc-exercice-4-4" class="nav-link" data-scroll-target="#exercice-4-4">Exercice 4</a></li>
+  <li><a href="#correction-exercice-4-3" id="toc-correction-exercice-4-3" class="nav-link" data-scroll-target="#correction-exercice-4-3">Correction Exercice 4</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -587,7 +600,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="bc3f56e9" class="cell" data-execution_count="1">
+<div id="e90ee70e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -643,7 +656,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -990,7 +1003,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="abbf7b6c" class="cell" data-execution_count="2">
+<div id="4d27985e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1141,7 +1154,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="739054b9" class="cell" data-execution_count="3">
+<div id="8f012173" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1475,7 +1488,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="a3ff927a" class="cell" data-execution_count="4">
+<div id="88b25d4d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1614,7 +1627,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="150b9065" class="cell" data-execution_count="5">
+<div id="2e2c70dd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2280,7 +2293,7 @@ k\frac{\lambda^{k}}{k!}
 <p>En résolvant : <span class="math display">\[
 \frac{\lambda}{1 - e^{-\lambda}} = 3,
 \]</span></p>
-<div id="75efa1c3" class="cell" data-execution_count="6">
+<div id="b46fd397" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
@@ -2656,9 +2669,449 @@ E(X!) = \sum_{k=0}^{+\infty} e^{-\lambda} \frac{\lambda^k}{k!} \times k!
 +\infty, &amp; \text{si } |\lambda| \ge 1.
 \end{cases}
 \]</span></p>
-
-
 </section>
+</section>
+<section id="exercice-9" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-9">Exercice 9</h2>
+<p>Soient (X_1, , X_n) une suite de variables aléatoires i.i.d. suivant une loi de Bernoulli de paramètre (p).<br>
+Trouver la loi de (X_1) sachant que (X_1 + + X_n = k).</p>
+<hr>
+</section>
+<section id="correction-exercice-9" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-9">Correction Exercice 9</h2>
+<p>Soit (x {0,1}). Nous avons, en utilisant la formule de Bayes :</p>
+<p><span class="math display">\[
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\mathbb{P}(X_1 + \cdots + X_n = k \mid X_1 = x)\mathbb{P}(X_1 = x)}
+{\mathbb{P}(X_1 + \cdots + X_n = k)}.
+\]</span></p>
+<p>Or :</p>
+<p><span class="math display">\[
+\mathbb{P}(X_1 + \cdots + X_n = k) = \binom{n}{k} p^k (1-p)^{\,n-k},
+\]</span></p>
+<p>puisque (X_1 + + X_n (n,p)).</p>
+<hr>
+<p>Ensuite :</p>
+<p><span class="math display">\[
+X_2 + \cdots + X_n \sim \mathcal{B}(n-1,p),
+\]</span></p>
+<p>donc</p>
+<p><span class="math display">\[
+\mathbb{P}(X_2 + \cdots + X_n = k - x)
+= \binom{n-1}{k-x} p^{\,k-x} (1-p)^{\,n-1-k+x}.
+\]</span></p>
+<p>De plus :</p>
+<p><span class="math display">\[
+\mathbb{P}(X_1 = x) = p^x (1-p)^{\,1-x}.
+\]</span></p>
+<hr>
+<p>Nous obtenons finalement :</p>
+<p><span class="math display">\[
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\binom{n-1}{k-x} p^{\,k-x}(1-p)^{\,n-1-k+x} \, p^x (1-p)^{\,1-x}}
+{\binom{n}{k} p^k (1-p)^{\,n-k}}.
+\]</span></p>
+<p>En simplifiant, on trouve :</p>
+<p><span class="math display">\[
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\binom{n-1}{k-x}}{\binom{n}{k}}.
+\]</span></p>
+<p>On calcule les deux cas : - Si <span class="math inline">\(x = 0\)</span> : <span class="math display">\[
+  \mathbb{P}(X_1 = 0 \mid X_1 + \cdots + X_n = k)
+  = \frac{\binom{n-1}{k}}{\binom{n}{k}}
+  = \frac{(n-1)! \, k! \, (n-k)!}{(n-k)! \, (n)! \, k!}
+  = \frac{n-k}{n}.
+  \]</span> - Si <span class="math inline">\(x = 1\)</span> : <span class="math display">\[
+  \mathbb{P}(X_1 = 1 \mid X_1 + \cdots + X_n = k)
+  = \frac{\binom{n-1}{k-1}}{\binom{n}{k}}
+  = \frac{(n-1)! \, (k-1)! \, (n-k)!}{(n-k)! \, (n)! \, k!}
+  = \frac{k}{n}.
+  \]</span></p>
+<p>Donc</p>
+<p><span class="math display">\[
+\boxed{X_1 \mid (X_1 + \cdots + X_n = k) \sim \mathcal{B}\left(1, \frac{k}{n}\right)}.
+\]</span></p>
+</section>
+</section>
+<section id="variables-aléatoires-continues" class="level1">
+<h1>5 Variables aléatoires continues</h1>
+<section id="exercice-1-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-2">Exercice 1</h2>
+<p>Une variable aléatoire <span class="math inline">\(X\)</span> possède la fonction de densité</p>
+<p><span class="math display">\[
+f(x) = c x \quad \text{pour } 0 &lt; x &lt; 1.
+\]</span></p>
+<ol type="1">
+<li>Trouver la valeur de <span class="math inline">\(c\)</span>.<br>
+</li>
+<li>Calculer <span class="math inline">\(\mathbb{P}(X &lt; 0.5)\)</span>.<br>
+</li>
+<li>Calculer <span class="math inline">\(\mathbb{E}(X)\)</span>.<br>
+</li>
+<li>Calculer la fonction génératrice des moments de <span class="math inline">\(X\)</span>.</li>
+</ol>
+</section>
+<section id="correction-exercice-1-1" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-1-1">Correction — Exercice 1</h2>
+<p>On considère la densité</p>
+<p><span class="math display">\[
+f(x) = c x \quad \text{pour } 0 &lt; x &lt; 1.
+\]</span></p>
+<hr>
+<ol type="1">
+<li>Détermination de <span class="math inline">\(c\)</span></li>
+</ol>
+<p><span class="math inline">\(f\)</span> est une densité si et seulement si elle vérifie les deux conditions suivantes :</p>
+<ol type="1">
+<li><span class="math inline">\(f(x) \ge 0\)</span> pour tout <span class="math inline">\(x \in \mathbb{R}\)</span>.<br>
+C’est le cas ici si <span class="math inline">\(c \ge 0\)</span>.</li>
+<li>L’intégrale de <span class="math inline">\(f\)</span> sur <span class="math inline">\(\mathbb{R}\)</span> vaut 1.<br>
+Ici, cela revient à :</li>
+</ol>
+<p><span class="math display">\[
+\int_{-\infty}^{+\infty} f(x) \, dx = 1.
+\]</span></p>
+<p>Calcul :</p>
+<p><span class="math display">\[
+\int_{-\infty}^{+\infty} f(x) \, dx
+= \int_0^1 c x \, dx
+= c \left[ \frac{x^2}{2} \right]_0^1
+= \frac{c}{2}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+\frac{c}{2} = 1 \quad \Longrightarrow \quad c = 2.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Calcul de <span class="math inline">\(\mathbb{P}(X &lt; 0.5)\)</span></li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}(X &lt; 0.5) = \int_{-\infty}^{0.5} f(x) \, dx
+= \int_0^{0.5} 2x \, dx.
+\]</span></p>
+<p><span class="math display">\[
+= 2 \left[ \frac{x^2}{2} \right]_0^{0.5}
+= (0.5)^2 = 0.25.
+\]</span></p>
+<hr>
+<ol start="3" type="1">
+<li>Calcul de <span class="math inline">\(\mathbb{E}(X)\)</span></li>
+</ol>
+<p><span class="math display">\[
+\mathbb{E}(X) =
+= \int_{-\infty}^{+\infty} x \, f(x) \, dx
+= \int_0^1 x \cdot 2x \, dx
+= \int_0^1 2x^2 \, dx.
+\]</span></p>
+<p><span class="math display">\[
+\int_0^1 2x^2 \, dx = 2 \left[ \frac{x^3}{3} \right]_0^1 = \frac{2}{3}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+\mathbb{E}(X) = \frac{2}{3}.
+\]</span></p>
+<hr>
+<ol start="4" type="1">
+<li>Fonction génératrice des moments (MGF)</li>
+</ol>
+<p>La fonction génératrice des moments est :</p>
+<p>soit <span class="math inline">\(t \in \mathbb{R}\)</span>, <span class="math display">\[
+M_X(t) = \mathbb{E}(e^{tX})
+= \int_{-\infty}^{+\infty} e^{tx} \, f(x) \, dx
+= \int_0^1 2x e^{tx} \, dx.
+\]</span></p>
+<p>On calcule l’intégrale par parties.</p>
+<p>Posons :</p>
+<ul>
+<li><span class="math inline">\(u = x\)</span> donc <span class="math inline">\(du = dx\)</span></li>
+<li><span class="math inline">\(dv = e^{tx} dx\)</span> donc <span class="math inline">\(v = \frac{e^{tx}}{t}\)</span></li>
+</ul>
+<p>Alors :</p>
+<p>Si <span class="math inline">\(t \neq 0\)</span>, <span class="math display">\[
+\int_0^1 x e^{tx} dx
+= \left[ \frac{x e^{tx}}{t} \right]_0^1
+- \int_0^1 \frac{e^{tx}}{t} dx.
+\]</span></p>
+<p>On obtient :</p>
+<p><span class="math display">\[
+\int_0^1 x e^{tx} dx
+= \frac{e^{t}}{t}
+- \frac{1}{t} \int_0^1 e^{tx} dx.
+\]</span></p>
+<p>Or :</p>
+<p><span class="math display">\[
+\int_0^1 e^{tx} dx
+= \left[ \frac{e^{tx}}{t} \right]_0^1
+= \frac{e^{t} - 1}{t}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+\int_0^1 x e^{tx} dx
+= \frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}.
+\]</span></p>
+<p>Donc si <span class="math inline">\(t \neq 0\)</span>,</p>
+<p><span class="math display">\[
+M_X(t) = 2 \left(
+\frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}
+\right).
+\]</span></p>
+<p>Et si <span class="math inline">\(t = 0\)</span>, on a :</p>
+<p><span class="math display">\[
+M_X(0) = \mathbb{E}(e^{0}) = \mathbb{E}(1) = 1.
+\]</span></p>
+<hr>
+<p>Donc la fonction génératrice des moments est donnée par : <span class="math display">\[
+\boxed{
+M_X(t) =
+\begin{cases}
+2 \left(
+\frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}
+\right), &amp; \text{si } t \neq 0, \\[6pt]
+1, &amp; \text{si } t = 0.
+\end{cases}
+}
+\]</span></p>
+</section>
+<section id="exercice-2-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-4">Exercice 2</h2>
+<p>Soit la fonction définie par<br>
+<span class="math display">\[f(x) = c\,x(1 - x)\]</span><br>
+pour <span class="math inline">\(x \in [0,1]\)</span>, et <span class="math inline">\(0\)</span> sinon.</p>
+<ol type="1">
+<li><p>Pour quelle valeur de <span class="math inline">\(c\)</span> est-ce une densité de probabilité ?</p></li>
+<li><p>Déterminer la fonction de répartition de cette loi et sa médiane.</p></li>
+</ol>
+</section>
+<section id="exercice-2-correction" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-correction">Exercice 2 — Correction</h2>
+<p>On considère la fonction :</p>
+<p><span class="math display">\[
+f(x) = c\,x(1-x), \quad x \in [0,1],
+\]</span></p>
+<p>et <span class="math inline">\(f(x)=0\)</span> sinon.</p>
+<hr>
+<ol type="1">
+<li>Pour quelle valeur de <span class="math inline">\(c\)</span> est-ce une densité ?</li>
+</ol>
+<p>Pour que <span class="math inline">\(f\)</span> soit une densité, il faut :</p>
+<p><span class="math display">\[
+\int_0^1 c\,x(1-x)\,dx = 1.
+\]</span></p>
+<p>Calculons l’intégrale :</p>
+<p><span class="math display">\[
+\int_0^1 x(1-x)\,dx
+= \int_0^1 (x - x^2)\,dx
+= \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1
+= \frac12 - \frac13
+= \frac16.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+c \cdot \frac{1}{6} = 1
+\quad \Longrightarrow \quad c = 6.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Fonction de répartition <span class="math inline">\(F(x)\)</span></li>
+</ol>
+<p>Pour <span class="math inline">\(x &lt; 0\)</span> : <span class="math display">\[
+F(x) = 0.
+\]</span></p>
+<p>Pour <span class="math inline">\(x \in [0,1]\)</span> : <span class="math display">\[
+F(x) = \int_0^x 6\,t(1-t)\,dt.
+\]</span></p>
+<p>Calculons :</p>
+<p><span class="math display">\[
+\int_0^x 6(t - t^2)\,dt
+= 6\left[ \frac{t^2}{2} - \frac{t^3}{3} \right]_0^x
+= 6\left( \frac{x^2}{2} - \frac{x^3}{3} \right).
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+F(x) = 3x^2 - 2x^3.
+\]</span></p>
+<p>Pour <span class="math inline">\(x &gt; 1\)</span> : <span class="math display">\[
+F(x) = 1.
+\]</span></p>
+<hr>
+<p>Médiane</p>
+<p>La médiane <span class="math inline">\(m\)</span> vérifie :</p>
+<p><span class="math display">\[
+F(m) = 0.5.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+3m^2 - 2m^3 = \frac12.
+\]</span></p>
+<p>Soit :</p>
+<p><span class="math display">\[
+2m^3 - 3m^2 + \frac12 = 0.
+\]</span></p>
+<p>Ceci est équivalent à :</p>
+<p><span class="math display">\[
+4m^3 - 6m^2 + 1 = 0.
+\]</span></p>
+<p>C’est une équation polynomiale du troisième degré. Une racine m de cette équation se trouve dans l’intervalle [0,1].</p>
+<p>Etant donné une telle équation, les racines s’écrivent comme le rapport des diviseurs du terme constant sur les diviseurs du coefficient dominant, qui est 4 dans ce cas. Les diviseurs de 1 sont <span class="math inline">\(\pm 1\)</span>, et les diviseurs de 4 sont <span class="math inline">\(\pm 1, \pm 2, \pm 4\)</span>. Donc les racines rationnelles possibles sont <span class="math inline">\(\pm 1, \pm \frac{1}{2}, \pm \frac{1}{4}\)</span>.</p>
+<p>On doit choisir parmi ces valeurs celles qui sont dans l’intervalle [0,1], c’est-à-dire <span class="math inline">\(1, \frac{1}{2}, \frac{1}{4}\)</span>.</p>
+<p>En testant ces valeurs dans l’équation, on trouve que la racine dans l’intervalle [0,1] est : <span class="math display">\[
+m = \frac{1}{2}
+\]</span></p>
+<p>Donc la médiane est : <span class="math display">\[
+\boxed{m = \frac{1}{2}}.
+\]</span></p>
+<p>Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d’équation <span class="math inline">\(x = \frac{1}{2}\)</span> comme axe de symétrie.</p>
+<p>Pour ce faire, on peut soit tracer la fonction de densité :</p>
+<div id="3e475092" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define density on R, zero outside [0,1]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.where((x<span class="op">&gt;=</span><span class="dv">0</span>)<span class="op">&amp;</span>(x<span class="op">&lt;=</span><span class="dv">1</span>), <span class="dv">6</span><span class="op">*</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x), <span class="dv">0</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Real line range</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">800</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f(x)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">4</span>))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'x=0.5 (médiane)'</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"f(x)"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Density f(x)=6x(1-x) on the whole real line (0 outside [0,1])"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_gdr_files/figure-html/cell-8-output-1.png" width="589" height="376" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Lorsque que la droite d’équation <span class="math inline">\(x = a\)</span>, est un axe de symétrie pour une fonction <span class="math inline">\(f\)</span>, dérivable, alors <span class="math inline">\(f'(a) = 0\)</span>.</p>
+<p>Et dans notre cas, on trouve bien <span class="math inline">\(f'(\frac{1}{2}) = 0\)</span>. Et <span class="math inline">\(a = \frac{1}{2}\)</span> est la médiane recherchée.</p>
+</section>
+<section id="exercice-3-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-3-4">Exercice 3</h2>
+<p>Supposons que la fonction de répartition d’une variable aléatoire <span class="math inline">\(X\)</span>, correspondant au temps en mois avant décès pour une personne atteinte de cancer, est donnée par</p>
+<p><span class="math display">\[
+F(x) =
+\begin{cases}
+0, &amp; x \le 0, \\
+1 - e^{-0.03 x^{1.2}}, &amp; x &gt; 0.
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li><p>Vérifier que <span class="math inline">\(F\)</span> est bien une fonction de répartition.</p></li>
+<li><p>Calculer la probabilité de survivre au moins 12 mois.</p></li>
+<li><p>Donner une densité de <span class="math inline">\(X\)</span>.</p></li>
+</ol>
+</section>
+<section id="correction-exercice-3-3" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-3-3">Correction Exercice 3</h2>
+<ol type="1">
+<li>La fonction <span class="math inline">\(F\)</span> est croissante, continue sur <span class="math inline">\(\mathbb{R}\)</span>, avec<br>
+<span class="math inline">\(\displaystyle \lim_{x \to -\infty} F(x) = 0\)</span><br>
+et<br>
+<span class="math inline">\(\displaystyle \lim_{x \to +\infty} F(x) = 1\)</span>.</li>
+</ol>
+<p>C’est donc bien une fonction de répartition.</p>
+<hr>
+<ol start="2" type="1">
+<li>Nous avons</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}(X \ge 12)
+= 1 - F(12)
+= 55.3\%.
+\]</span></p>
+<hr>
+<ol start="3" type="1">
+<li>Une densité, obtenue par dérivation, vaut</li>
+</ol>
+<p><span class="math display">\[
+f(x) =
+\begin{cases}
+0, &amp; x \le 0, \\[6pt]
+0.03\, x^{0.2} e^{-0.03 x^{1.2}}, &amp; x &gt; 0.
+\end{cases}
+\]</span></p>
+</section>
+<section id="exercice-4-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-4-4">Exercice 4</h2>
+<p>Soit la fonction <span class="math inline">\(F\)</span> définie par <span class="math inline">\(F(x) = 1 - \exp(-x/2)\)</span> pour <span class="math inline">\(x &gt; 0\)</span>, et <span class="math inline">\(0\)</span> sinon.</p>
+<ol type="1">
+<li>Justifier que <span class="math inline">\(F\)</span> est une fonction de répartition.<br>
+</li>
+<li>Déterminer les quantiles d’ordres 0.25 et 0.75.<br>
+</li>
+<li>Soit <span class="math inline">\(X\)</span> une variable aléatoire suivant cette loi, calculer <span class="math inline">\(\mathbb{P}(1 &lt; X \le 2)\)</span>.</li>
+</ol>
+<hr>
+</section>
+<section id="correction-exercice-4-3" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-4-3">Correction Exercice 4</h2>
+<ol type="1">
+<li>Une fonction de répartition doit être croissante, cadlag (continue à droite, limites à gauche), avec</li>
+</ol>
+<p><span class="math display">\[
+\lim_{x \to -\infty} F(x) = 0
+\quad\text{et}\quad
+\lim_{x \to +\infty} F(x) = 1.
+\]</span></p>
+<p>La fonction <span class="math inline">\(F(\cdot)\)</span> est nulle sur <span class="math inline">\(]-\infty, 0]\)</span>.<br>
+Pour tout <span class="math inline">\(x \in ]0, +\infty[\)</span>, <span class="math inline">\(F(\cdot)\)</span> est dérivable en <span class="math inline">\(x\)</span> avec</p>
+<p><span class="math display">\[
+F'(x) = \frac{1}{2} \exp\left(-\frac{x}{2}\right) &gt; 0,
+\]</span></p>
+<p>donc la fonction <span class="math inline">\(F(\cdot)\)</span> est bien croissante.<br>
+Elle est continue sur <span class="math inline">\(\mathbb{R}\)</span>, donc en particulier continue à droite et avec des limites à gauche.</p>
+<p>Nous obtenons également facilement que</p>
+<p><span class="math display">\[
+\lim_{x \to -\infty} F(x) = 0
+\quad\text{et}\quad
+\lim_{x \to +\infty} F(x) = 1.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Quantiles</li>
+</ol>
+<p>On cherche <span class="math inline">\(x = F^{-1}(0.25)\)</span> :</p>
+<p><span class="math display">\[
+F(x) = 1 - \exp\left(-\frac{x}{2}\right) = \frac14
+\;\Longleftrightarrow\;
+\exp\left(-\frac{x}{2}\right) = \frac34
+\;\Longleftrightarrow\;
+x = -2 \ln\left(\frac34\right).
+\]</span></p>
+<p>Ensuite, pour <span class="math inline">\(x = F^{-1}(0.75)\)</span> :</p>
+<p><span class="math display">\[
+F(x) = 1 - \exp\left(-\frac{x}{2}\right) = \frac34
+\;\Longleftrightarrow\;
+\exp\left(-\frac{x}{2}\right) = \frac14
+\;\Longleftrightarrow\;
+x = -2 \ln\left(\frac14\right).
+\]</span></p>
+<hr>
+<ol start="3" type="1">
+<li>Probabilité</li>
+</ol>
+<p>Par définition de la fonction de répartition,</p>
+<p><span class="math display">\[
+\mathbb{P}(1 &lt; X \le 2)
+= F(2) - F(1)
+= \exp\left(-\frac{1}{2}\right) - \exp(-1).
+= 0.238.
+\]</span></p>
+
+
 </section>
 </section>
 
