@@ -2872,6 +2872,550 @@ $$
 \end{cases}
 $$
 
+## Exercice 9
+
+Soient \(X_1, \ldots, X_n\) une suite de variables aléatoires i.i.d. suivant une loi de Bernoulli de paramètre \(p\).  
+Trouver la loi de \(X_1\) sachant que \(X_1 + \cdots + X_n = k\).
+
+---
+
+## Correction Exercice 9
+
+Soit \(x \in \{0,1\}\). Nous avons, en utilisant la formule de Bayes :
+
+$$
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\mathbb{P}(X_1 + \cdots + X_n = k \mid X_1 = x)\mathbb{P}(X_1 = x)}
+{\mathbb{P}(X_1 + \cdots + X_n = k)}.
+$$
+
+Or :
+
+$$
+\mathbb{P}(X_1 + \cdots + X_n = k) = \binom{n}{k} p^k (1-p)^{\,n-k},
+$$
+
+puisque \(X_1 + \cdots + X_n \sim \mathcal{B}(n,p)\).
+
+---
+
+Ensuite :
+
+$$
+X_2 + \cdots + X_n \sim \mathcal{B}(n-1,p),
+$$
+
+donc
+
+$$
+\mathbb{P}(X_2 + \cdots + X_n = k - x)
+= \binom{n-1}{k-x} p^{\,k-x} (1-p)^{\,n-1-k+x}.
+$$
+
+De plus :
+
+$$
+\mathbb{P}(X_1 = x) = p^x (1-p)^{\,1-x}.
+$$
+
+---
+
+Nous obtenons finalement :
+
+$$
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\binom{n-1}{k-x} p^{\,k-x}(1-p)^{\,n-1-k+x} \, p^x (1-p)^{\,1-x}}
+{\binom{n}{k} p^k (1-p)^{\,n-k}}.
+$$
+
+En simplifiant, on trouve :
+
+$$
+\mathbb{P}(X_1 = x \mid X_1 + \cdots + X_n = k)
+= \frac{\binom{n-1}{k-x}}{\binom{n}{k}}.
+$$
+
+On calcule les deux cas :
+- Si $x = 0$ :
+  $$
+  \mathbb{P}(X_1 = 0 \mid X_1 + \cdots + X_n = k)
+  = \frac{\binom{n-1}{k}}{\binom{n}{k}}
+  = \frac{(n-1)! \, k! \, (n-k)!}{(n-k)! \, (n)! \, k!}
+  = \frac{n-k}{n}.
+  $$
+- Si $x = 1$ :
+  $$
+  \mathbb{P}(X_1 = 1 \mid X_1 + \cdots + X_n = k)
+  = \frac{\binom{n-1}{k-1}}{\binom{n}{k}}
+  = \frac{(n-1)! \, (k-1)! \, (n-k)!}{(n-k)! \, (n)! \, k!}
+  = \frac{k}{n}.
+  $$
+
+Donc 
+
+$$
+\boxed{X_1 \mid (X_1 + \cdots + X_n = k) \sim \mathcal{B}\left(1, \frac{k}{n}\right)}.
+$$
+
+# 5 Variables aléatoires continues
+
+## Exercice 1
+
+Une variable aléatoire $X$ possède la fonction de densité
+
+$$
+f(x) = c x \quad \text{pour } 0 < x < 1.
+$$
+
+1. Trouver la valeur de $c$.  
+2. Calculer $\mathbb{P}(X < 0.5)$.  
+3. Calculer $\mathbb{E}(X)$.  
+4. Calculer la fonction génératrice des moments de $X$.
+
+## Correction — Exercice 1
+
+On considère la densité
+
+$$
+f(x) = c x \quad \text{pour } 0 < x < 1.
+$$
+
+---
+
+1. Détermination de $c$
+
+$f$ est une densité si et seulement si elle vérifie les deux conditions suivantes :
+
+1. $f(x) \ge 0$ pour tout $x \in \mathbb{R}$.  
+   C’est le cas ici si $c \ge 0$.
+2. L’intégrale de $f$ sur $\mathbb{R}$ vaut 1.  
+   Ici, cela revient à :
+
+
+$$
+\int_{-\infty}^{+\infty} f(x) \, dx = 1.
+$$
+
+Calcul :
+
+$$
+\int_{-\infty}^{+\infty} f(x) \, dx
+= \int_0^1 c x \, dx
+= c \left[ \frac{x^2}{2} \right]_0^1
+= \frac{c}{2}.
+$$
+
+Donc :
+
+$$
+\frac{c}{2} = 1 \quad \Longrightarrow \quad c = 2.
+$$
+
+---
+
+2. Calcul de $\mathbb{P}(X < 0.5)$
+
+$$
+\mathbb{P}(X < 0.5) = \int_{-\infty}^{0.5} f(x) \, dx
+= \int_0^{0.5} 2x \, dx.
+$$
+
+$$
+= 2 \left[ \frac{x^2}{2} \right]_0^{0.5}
+= (0.5)^2 = 0.25.
+$$
+
+---
+
+3. Calcul de $\mathbb{E}(X)$
+
+$$
+\mathbb{E}(X) = 
+= \int_{-\infty}^{+\infty} x \, f(x) \, dx
+= \int_0^1 x \cdot 2x \, dx
+= \int_0^1 2x^2 \, dx.
+$$
+
+$$
+\int_0^1 2x^2 \, dx = 2 \left[ \frac{x^3}{3} \right]_0^1 = \frac{2}{3}.
+$$
+
+Donc :
+
+$$
+\mathbb{E}(X) = \frac{2}{3}.
+$$
+
+---
+
+4. Fonction génératrice des moments (MGF)
+
+La fonction génératrice des moments est :
+
+soit $t \in \mathbb{R}$,
+$$
+M_X(t) = \mathbb{E}(e^{tX})
+= \int_{-\infty}^{+\infty} e^{tx} \, f(x) \, dx
+= \int_0^1 2x e^{tx} \, dx.
+$$
+
+On calcule l’intégrale par parties.
+
+Posons :
+
+- $u = x$ donc $du = dx$
+- $dv = e^{tx} dx$ donc $v = \frac{e^{tx}}{t}$
+
+Alors :
+
+Si $t \neq 0$,
+$$
+\int_0^1 x e^{tx} dx
+= \left[ \frac{x e^{tx}}{t} \right]_0^1
+- \int_0^1 \frac{e^{tx}}{t} dx.
+$$
+
+On obtient :
+
+$$
+\int_0^1 x e^{tx} dx
+= \frac{e^{t}}{t}
+- \frac{1}{t} \int_0^1 e^{tx} dx.
+$$
+
+Or :
+
+$$
+\int_0^1 e^{tx} dx
+= \left[ \frac{e^{tx}}{t} \right]_0^1
+= \frac{e^{t} - 1}{t}.
+$$
+
+Donc :
+
+$$
+\int_0^1 x e^{tx} dx
+= \frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}.
+$$
+
+Donc si $t \neq 0$,
+
+$$
+M_X(t) = 2 \left( 
+\frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}
+\right).
+$$
+
+Et si $t = 0$, on a :
+
+$$
+M_X(0) = \mathbb{E}(e^{0}) = \mathbb{E}(1) = 1.
+$$
+
+---
+
+Donc la fonction génératrice des moments est donnée par :
+$$
+\boxed{
+M_X(t) =
+\begin{cases}
+2 \left( 
+\frac{e^{t}}{t}
+- \frac{e^{t} - 1}{t^2}
+\right), & \text{si } t \neq 0, \\[6pt]
+1, & \text{si } t = 0.
+\end{cases}
+}
+$$
+
+## Exercice 2
+
+Soit la fonction définie par  
+$$f(x) = c\,x(1 - x)$$  
+pour $x \in [0,1]$, et $0$ sinon.
+
+1. Pour quelle valeur de $c$ est-ce une densité de probabilité ?
+
+2. Déterminer la fonction de répartition de cette loi et sa médiane.
+
+## Exercice 2 — Correction
+
+On considère la fonction :
+
+$$
+f(x) = c\,x(1-x), \quad x \in [0,1],
+$$
+
+et $f(x)=0$ sinon.
+
+---
+
+1) Pour quelle valeur de $c$ est-ce une densité ?
+
+Pour que $f$ soit une densité, il faut :
+
+$$
+\int_0^1 c\,x(1-x)\,dx = 1.
+$$
+
+Calculons l’intégrale :
+
+$$
+\int_0^1 x(1-x)\,dx
+= \int_0^1 (x - x^2)\,dx
+= \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1
+= \frac12 - \frac13
+= \frac16.
+$$
+
+Donc :
+
+$$
+c \cdot \frac{1}{6} = 1
+\quad \Longrightarrow \quad c = 6.
+$$
+
+---
+
+2) Fonction de répartition $F(x)$
+
+Pour $x < 0$ :
+$$
+F(x) = 0.
+$$
+
+Pour $x \in [0,1]$ :
+$$
+F(x) = \int_0^x 6\,t(1-t)\,dt.
+$$
+
+Calculons :
+
+$$
+\int_0^x 6(t - t^2)\,dt
+= 6\left[ \frac{t^2}{2} - \frac{t^3}{3} \right]_0^x
+= 6\left( \frac{x^2}{2} - \frac{x^3}{3} \right).
+$$
+
+Donc :
+
+$$
+F(x) = 3x^2 - 2x^3.
+$$
+
+ Pour $x > 1$ :
+$$
+F(x) = 1.
+$$
+
+---
+
+Médiane
+
+La médiane $m$ vérifie :
+
+$$
+F(m) = 0.5.
+$$
+
+Donc :
+
+$$
+3m^2 - 2m^3 = \frac12.
+$$
+
+Soit :
+
+$$
+2m^3 - 3m^2 + \frac12 = 0.
+$$
+
+Ceci est équivalent à :
+
+$$
+4m^3 - 6m^2 + 1 = 0.
+$$
+
+C'est une équation polynomiale du troisième degré.
+Une racine m de cette équation se trouve dans l'intervalle [0,1].
+
+Etant donné une telle équation, les racines s'écrivent comme le rapport des diviseurs du terme constant sur les diviseurs du coefficient dominant, qui est 4 dans ce cas.
+Les diviseurs de 1 sont $\pm 1$, et les diviseurs de 4 sont $\pm 1, \pm 2, \pm 4$.
+Donc les racines rationnelles possibles sont $\pm 1, \pm \frac{1}{2}, \pm \frac{1}{4}$.
+
+On doit choisir parmi ces valeurs celles qui sont dans l'intervalle [0,1], c'est-à-dire $1, \frac{1}{2}, \frac{1}{4}$.
+
+En testant ces valeurs dans l'équation, on trouve que la racine dans l'intervalle [0,1] est :
+$$
+m = \frac{1}{2}
+$$
+
+Donc la médiane est :
+$$
+\boxed{m = \frac{1}{2}}.
+$$
+
+Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d'équation $x = \frac{1}{2}$ comme axe de symétrie.
+
+Pour ce faire, on peut soit tracer la fonction de densité : 
+
+```{python}
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define density on R, zero outside [0,1]
+def f(x):
+    return np.where((x>=0)&(x<=1), 6*x*(1-x), 0)
+
+# Real line range
+x = np.linspace(-5, 5, 800)
+y = f(x)
+
+plt.figure(figsize=(7,4))
+plt.plot(x, y, linewidth=2)
+plt.axvline(0.5, linewidth=2, color='red', linestyle='--', label='x=0.5 (médiane)')
+plt.legend()
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Density f(x)=6x(1-x) on the whole real line (0 outside [0,1])")
+plt.grid(True)
+plt.show()
+
+```
+
+Lorsque que la droite d'équation $x = a$, est un axe de symétrie pour une fonction $f$, dérivable, alors $f'(a) = 0$.
+
+Et dans notre cas, on trouve bien $f'(\frac{1}{2}) = 0$.
+Et $a = \frac{1}{2}$ est la médiane recherchée.
+
+## Exercice 3
+
+Supposons que la fonction de répartition d’une variable aléatoire $X$, correspondant au temps en mois avant décès pour une personne atteinte de cancer, est donnée par
+
+$$
+F(x) =
+\begin{cases}
+0, & x \le 0, \\
+1 - e^{-0.03 x^{1.2}}, & x > 0.
+\end{cases}
+$$
+
+1) Vérifier que $F$ est bien une fonction de répartition.  
+
+2) Calculer la probabilité de survivre au moins 12 mois.  
+
+3) Donner une densité de $X$.
+
+## Correction Exercice 3
+
+1) La fonction $F$ est croissante, continue sur $\mathbb{R}$, avec  
+$\displaystyle \lim_{x \to -\infty} F(x) = 0$  
+et  
+$\displaystyle \lim_{x \to +\infty} F(x) = 1$.  
+
+C’est donc bien une fonction de répartition.
+
+---
+
+2) Nous avons
+
+$$
+\mathbb{P}(X \ge 12)
+= 1 - F(12)
+= 55.3\%.
+$$
+
+---
+
+3) Une densité, obtenue par dérivation, vaut
+
+$$
+f(x) =
+\begin{cases}
+0, & x \le 0, \\[6pt]
+0.03\, x^{0.2} e^{-0.03 x^{1.2}}, & x > 0.
+\end{cases}
+$$
+
+## Exercice 4
+
+Soit la fonction $F$ définie par $F(x) = 1 - \exp(-x/2)$ pour $x > 0$, et $0$ sinon.
+
+1) Justifier que $F$ est une fonction de répartition.  
+2) Déterminer les quantiles d’ordres 0.25 et 0.75.  
+3) Soit $X$ une variable aléatoire suivant cette loi, calculer $\mathbb{P}(1 < X \le 2)$.
+
+---
+
+## Correction Exercice 4
+
+1)  
+Une fonction de répartition doit être croissante, cadlag (continue à droite, limites à gauche), avec
+
+$$
+\lim_{x \to -\infty} F(x) = 0
+\quad\text{et}\quad
+\lim_{x \to +\infty} F(x) = 1.
+$$
+
+La fonction $F(\cdot)$ est nulle sur $]-\infty, 0]$.  
+Pour tout $x \in ]0, +\infty[$, $F(\cdot)$ est dérivable en $x$ avec
+
+$$
+F'(x) = \frac{1}{2} \exp\left(-\frac{x}{2}\right) > 0,
+$$
+
+donc la fonction $F(\cdot)$ est bien croissante.  
+Elle est continue sur $\mathbb{R}$, donc en particulier continue à droite et avec des limites à gauche.  
+
+Nous obtenons également facilement que
+
+$$
+\lim_{x \to -\infty} F(x) = 0
+\quad\text{et}\quad
+\lim_{x \to +\infty} F(x) = 1.
+$$
+
+---
+
+2) Quantiles
+
+On cherche $x = F^{-1}(0.25)$ :
+
+$$
+F(x) = 1 - \exp\left(-\frac{x}{2}\right) = \frac14
+\;\Longleftrightarrow\;
+\exp\left(-\frac{x}{2}\right) = \frac34
+\;\Longleftrightarrow\;
+x = -2 \ln\left(\frac34\right).
+$$
+
+Ensuite, pour $x = F^{-1}(0.75)$ :
+
+$$
+F(x) = 1 - \exp\left(-\frac{x}{2}\right) = \frac34
+\;\Longleftrightarrow\;
+\exp\left(-\frac{x}{2}\right) = \frac14
+\;\Longleftrightarrow\;
+x = -2 \ln\left(\frac14\right).
+$$
+
+---
+
+3) Probabilité
+
+Par définition de la fonction de répartition,
+
+$$
+\mathbb{P}(1 < X \le 2)
+= F(2) - F(1)
+= \exp\left(-\frac{1}{2}\right) - \exp(-1).
+= 0.238.
+$$
+
 
 
 
