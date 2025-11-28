@@ -6,8 +6,7 @@ format:
 
 <div class="box">
 
-This website serves as the treasury of my intellectual voyage, housing the jewels of my published articles on Medium, the budding seeds of works in progress, and the pillars of knowledge acquired during my third year in the Risk Management program at the National School of Statistics and Information Analysis in Rennes.
-
+# Welcome
 </div>
 
 # Meduim Publications
