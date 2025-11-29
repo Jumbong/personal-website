@@ -3416,16 +3416,321 @@ $$
 = 0.238.
 $$
 
+## Exercice 5
 
+Soient $Y$ et $Z$ deux variables aléatoires réelles.  
+Soit $U$ une variable aléatoire indépendante de $Y$ et de $Z$, suivant une loi de Bernoulli de paramètre $\alpha > 0$.
 
+Soit $X$ la variable aléatoire définie par
 
+$$
+X =
+\begin{cases}
+Y & \text{si } U = 1,\\[4pt]
+Z & \text{si } U = 0.
+\end{cases}
+$$
 
+Autrement dit, $X = Y$ avec probabilité $\alpha$ et $X = Z$ avec probabilité $1 - \alpha$.  
+On dit que la loi de $X$ est un *mélange de deux distributions*, ce que l’on note
 
+$$
+\mathbb{P}_X = \alpha \mathbb{P}_Y + (1 - \alpha)\mathbb{P}_Z.
+$$
 
+---
 
+1) Montrer que
 
+$$
+F_X(x) = \alpha F_Y(x) + (1 - \alpha)F_Z(x).
+$$
 
+---
 
+Soit $X$ une variable aléatoire de fonction de répartition $F_X$ définie par
 
+$$
+F_X(x) =
+\begin{cases}
+0 & \text{si } x < 0,\\[4pt]
+\dfrac{1}{8} & \text{si } x \in [0,1[,\\[8pt]
+\dfrac{x + 1}{4} & \text{si } x \in [1,2[,\\[8pt]
+\dfrac{3}{4} & \text{si } x \in [2,5[,\\[8pt]
+1 & \text{si } x \ge 5.
+\end{cases}
+$$
 
+---
+
+2) Représenter graphiquement la fonction $F_X$.
+---
+
+3) Exprimer la loi de $X$ sous la forme
+
+$$
+\mathbb{P}_X = \alpha \mathbb{P}_{\text{dis}} + (1 - \alpha)\mathbb{P}_{\text{cont}},
+$$
+
+où $\alpha \in [0,1]$,  
+$\mathbb{P}_{\text{dis}}$ est une loi de probabilité discrète,  
+et $\mathbb{P}_{\text{cont}}$ est une loi de probabilité continue, qu’on déterminera.
+
+### Correction Exercice 5
+
+1) Montrons que $F_X(x) = \alpha F_Y(x) + (1 - \alpha)F_Z(x)$.
+
+Nous savons que si $U = 1$, alors $X = Y$, et si $U = 0$, alors $X = Z$. De ce fait, pour exprimer la fonction de répartition de $X$, en fonction de celles de $Y$ et $Z$, nous devons parvenir à conditionner la variable aléatoire $X$ en fonction de la variable aléatoire $U$. 
+
+Pour cela, nous utilisons la formule des probabilités totales, suivi par la formule de Bayes.
+
+$$
+F_X(x) = \mathbb{P}(X \le x)
+= \mathbb{P}(X \le x \cap \Omega)
+= \mathbb{P}(X \le x \cap \{U = 1\}) + \mathbb{P}(X \le x \cap \{U = 0\}).
+$$
+
+Nous utilisons ensuite la formule de Bayes pour chaque terme :
+
+$$
+F_X(x) = \mathbb{P}(X \le x \mid U = 1) \mathbb{P}(U = 1)
++ \mathbb{P}(X \le x \mid U = 0) \mathbb{P}(U = 0).
+$$
+
+Or, par définition de $X$ :
+$$
+\mathbb{P}(X \le x \mid U = 1) = \mathbb{P}(Y \le x) = F_Y(x),
+$$
+
+et
+$$
+\mathbb{P}(X \le x \mid U = 0) = \mathbb{P}(Z \le x) = F_Z(x).
+$$
+
+Car $U$ est indépendante de $Y$ et de $Z$.
+
+Donc,
+
+$$
+F_X(x) = F_Y(x) \mathbb{P}(U = 1)
++ F_Z(x) \mathbb{P}(U = 0).
+$$
+
+Comme $U$ suit une loi de Bernoulli de paramètre $\alpha$, nous avons :
+
+$$
+\mathbb{P}(U = 1) = \alpha
+\quad\text{et}\quad
+\mathbb{P}(U = 0) = 1 - \alpha.
+$$  
+
+Donc finalement :
+
+$$
+F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
+$$
+
+2) Représentation graphique de la fonction $F_X$.
+
+```{python} 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def F(x):
+    x = np.asarray(x)
+    return np.where(
+        x < 0, 0,
+        np.where(
+            x < 1, 1/8,
+            np.where(
+                x < 2, (x + 1)/4,
+                np.where(
+                    x < 5, 3/4,
+                    1
+                )
+            )
+        )
+    )
+
+# Segments de la fonction de répartition
+segments_horizontaux = [
+    (-10, 0, 0),     # de x=-10 à x=0 : F=0
+    (0, 1, 1/8),     # de x=0 à x=1 : F=1/8
+    (2, 5, 3/4),     # de x=2 à x=5 : F=3/4
+    (5, 10, 1)       # de x=5 à x=10 : F=1
+]
+
+plt.figure(figsize=(12, 5))
+
+# Tracé des segments horizontaux
+for x_start, x_end, y_val in segments_horizontaux:
+    plt.hlines(y_val, x_start, x_end, colors="blue", linewidth=2)
+
+# Tracé du segment linéaire entre x=1 et x=2 : F(x) = (x+1)/4
+x_linear = np.linspace(1, 2, 100)
+y_linear = (x_linear + 1) / 4
+plt.plot(x_linear, y_linear, 'b-', linewidth=2)
+
+# Points ouverts (limite à gauche non incluse)
+x_open = [0, 1, 5]
+y_open = [0, 1/8, 3/4]
+plt.scatter(x_open, y_open, facecolors="none", edgecolors="black", s=80, zorder=3, linewidths=2)
+
+# Points fermés (valeur incluse)
+x_closed = [0, 1, 2, 5]
+y_closed = [1/8, 2/4, 3/4, 1]
+plt.scatter(x_closed, y_closed, color="black", s=80, zorder=3)
+
+# Format graphique
+plt.xlabel("x", fontsize=12)
+plt.ylabel("$F_X(x)$", fontsize=12)
+plt.title("Fonction de répartition $F_X(x)$", fontsize=14)
+plt.grid(True, linestyle="--", alpha=0.4)
+plt.xlim(-10, 10)
+plt.ylim(-0.05, 1.05)
+
+# Définir les graduations sur l'axe des x
+plt.xticks([0, 1, 2, 3, 4, 5])
+
+# Ajout de repères pour les valeurs importantes
+plt.axhline(y=1/8, color='gray', linestyle=':', alpha=0.3)
+plt.axhline(y=1/2, color='gray', linestyle=':', alpha=0.3)
+plt.axhline(y=3/4, color='gray', linestyle=':', alpha=0.3)
+plt.axvline(x=0, color='gray', linestyle=':', alpha=0.3)
+plt.axvline(x=1, color='gray', linestyle=':', alpha=0.3)
+plt.axvline(x=2, color='gray', linestyle=':', alpha=0.3)
+plt.axvline(x=5, color='gray', linestyle=':', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+Les points de discontinuité sont représentés par des cercles ouverts (limite à gauche non incluse) et des cercles pleins (valeur incluse) : 0, 1 et 5.
+
+3) Expression de la loi de $X$ sous la forme d’un mélange d'une loi discrète et d’une loi continue.
+
+Nous savons que si $P_{cont}$ est une loi de probabilité continue, alors $P_{cont}(X = x) = 0$ pour tout $x \in \mathbb{R}$.
+
+De ce fait, si nous devons écrire la loi de $X$ comme un mélange d'une loi discrète et d’une loi continue, ie 
+$$
+\mathbb{P}_X = \alpha \mathbb{P}_{dis} + (1 - \alpha)\mathbb{P}_{cont},
+$$
+
+alors aux points de discontinuité de la fonction de répartition $F_X$, la partie continue ne contribue pas à la probabilité. C'est-à-dire que pour tout $x \in {0,1,5}$, nous avons :
+
+$$
+\mathbb{P}_X(X = x) = \alpha \mathbb{P_{dis}(X = x)} + (1 - \alpha) \mathbb{P_{cont}(X = x)}
+= \alpha \mathbb{P_{dis}(X = x)} + 0
+= \alpha \mathbb{P_{dis}(X = x)}.
+$$
+
+Donc, nous
+
+$$
+\mathbb{P_X(X = 0)} = \alpha \mathbb{P_{dis}(X = 0)}
+$$
+
+$$
+\mathbb{P_X(X = 1)} = \alpha \mathbb{P_{dis}(X = 1)}
+$$
+
+$$
+\mathbb{P_X(X = 5)} = \alpha \mathbb{P_{dis}(X = 5)}.
+$$
+
+C'est trois équations ci-dessous nous permettent de déterminer la loi discrète $\mathbb{P_{dis}}$ et le paramètre $\alpha$.
+
+En effet, en sommant les probabilités aux points de discontinuité, nous avons :
+
+$$
+\mathbb{P_X(X = 0)} + \mathbb{P_X(X = 1)} + \mathbb{P_X(X = 5)}
+= \alpha \left( \mathbb{P_{dis}(X = 0)} + \mathbb{P_{dis}(X = 1)} + \mathbb{P_{dis}(X = 5)} \right).
+$$
+
+Donc si nous définissons la fonction discrète $\mathbb{P_{dis}}$ comme ayant 0, 1 et 5 comme seuls points de masse, nous avons :
+$$
+\mathbb{P_{dis}(X = 0)} + \mathbb{P_{dis}(X = 1)} + \mathbb{P_{dis}(X = 5)} = 1.
+$$
+
+Dans ce cas, nous obtenons :
+
+$$
+\alpha = \mathbb{P_X(X = 0)} + \mathbb{P_X(X = 1)} + \mathbb{P_X(X = 5)}.
+$$
+
+Calculons les probabilités aux points de discontinuité à l'aide de la fonction de répartition $F_X$.
+
+$$
+\mathbb{P_X(X = 0)} = F_X(0) - F_X(0^-) = \frac{1}{8} - 0 = \frac{1}{8}.
+$$
+
+$$
+\mathbb{P_X(X = 1)} = F_X(1) - F_X(1^-) = \frac{2}{4} - \frac{1}{8} = \frac{3}{8}.
+$$
+
+$$
+\mathbb{P_X(X = 5)} = F_X(5) - F_X(5^-) = 1 - \frac{3}{4} = \frac{1}{4}.
+$$
+
+Et nous obtenons la loi de $P_{dis}$ :
+
+$$
+\mathbb{P_{dis}(X = 0)} = \frac{\frac{1}{8}}{\alpha} = \frac{1}{6},
+\quad
+\mathbb{P_{dis}(X = 1)} = \frac{\frac{3}{8}}{\alpha} = \frac{1}{2},
+\quad
+\mathbb{P_{dis}(X = 5)} = \frac{\frac{1}{4}}{\alpha} = \frac{1}{3}.
+$$
+
+La fonction de répartition correspondante est donc :
+
+$$F_{dis}(x) =
+\begin{cases}
+0 & \text{si } x < 0,\\[4pt]
+\dfrac{1}{6} & \text{si } x \in [0,1[,\\[8pt]
+\dfrac{2}{3} & \text{si } x \in [1,5[,\\[8pt]
+1 & \text{si } x \ge 5.
+\end{cases}
+$$
+
+Ceci nous permet de trouver facilement la fonction de répartition de la partie continue.
+
+En effet, nous avons :
+
+$$
+F_X(x) = \alpha F_{dis}(x) + (1 - \alpha) F_{cont}(x).
+$$
+
+Donc,
+
+$$
+F_{cont}(x) = \frac{F_X(x) - \alpha F_{dis}(x)}{1 - \alpha}.
+$$
+
+Ce qui nous donne après calcul :
+
+$$
+F_{\text{cont}}(x) =
+\begin{cases}
+0 & \text{si } x < 1,\\[4pt]
+x - 1 & \text{si } x \in [1,2[,\\[8pt]
+1 & \text{si } x \ge 2.
+\end{cases}
+$$
+
+On peut vérifier que cette fonction est bien une fonction de répartition (croissante, continue, avec des limites 0 et 1 aux extrémités). Elle est dérivable sur $\mathbb{R}$ avec une densité associée donnée par :
+
+$$
+f_{\text{cont}}(x) =
+\begin{cases}
+0 & \text{si } x < 1,\\[4pt]
+1 & \text{si } x \in [1,2[,\\[8pt]
+0 & \text{si } x \ge 2.
+\end{cases}
+$$
+
+Ce qui correspond à la densité d'une variable aléatoire uniformément distribuée sur l'intervalle $[1,2]$.
+
+---
 
