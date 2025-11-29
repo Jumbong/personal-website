@@ -277,6 +277,10 @@ window.Quarto = {
   <li><a href="#correction-exercice-3-3" id="toc-correction-exercice-3-3" class="nav-link" data-scroll-target="#correction-exercice-3-3">Correction Exercice 3</a></li>
   <li><a href="#exercice-4-4" id="toc-exercice-4-4" class="nav-link" data-scroll-target="#exercice-4-4">Exercice 4</a></li>
   <li><a href="#correction-exercice-4-3" id="toc-correction-exercice-4-3" class="nav-link" data-scroll-target="#correction-exercice-4-3">Correction Exercice 4</a></li>
+  <li><a href="#exercice-5-1" id="toc-exercice-5-1" class="nav-link" data-scroll-target="#exercice-5-1">Exercice 5</a>
+  <ul class="collapse">
+  <li><a href="#correction-exercice-5-1" id="toc-correction-exercice-5-1" class="nav-link" data-scroll-target="#correction-exercice-5-1">Correction Exercice 5</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -600,7 +604,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="f28e4448" class="cell" data-execution_count="1">
+<div id="8e9bc60a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1003,7 +1007,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="ec2d59a1" class="cell" data-execution_count="2">
+<div id="8e3f8aa5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1154,7 +1158,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="5637809d" class="cell" data-execution_count="3">
+<div id="a197d8fe" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1488,7 +1492,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="6641861c" class="cell" data-execution_count="4">
+<div id="c2f02b28" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1627,7 +1631,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="60a58fec" class="cell" data-execution_count="5">
+<div id="b2ea409e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2293,7 +2297,7 @@ k\frac{\lambda^{k}}{k!}
 <p>En résolvant : <span class="math display">\[
 \frac{\lambda}{1 - e^{-\lambda}} = 3,
 \]</span></p>
-<div id="b6494f3d" class="cell" data-execution_count="6">
+<div id="bfe8341d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
@@ -2966,7 +2970,7 @@ m = \frac{1}{2}
 \]</span></p>
 <p>Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d’équation <span class="math inline">\(x = \frac{1}{2}\)</span> comme axe de symétrie.</p>
 <p>Pour ce faire, on peut soit tracer la fonction de densité :</p>
-<div id="43f3c7df" class="cell" data-execution_count="7">
+<div id="6b8c14b5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3110,8 +3114,274 @@ x = -2 \ln\left(\frac14\right).
 = \exp\left(-\frac{1}{2}\right) - \exp(-1).
 = 0.238.
 \]</span></p>
+</section>
+<section id="exercice-5-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-5-1">Exercice 5</h2>
+<p>Soient <span class="math inline">\(Y\)</span> et <span class="math inline">\(Z\)</span> deux variables aléatoires réelles.<br>
+Soit <span class="math inline">\(U\)</span> une variable aléatoire indépendante de <span class="math inline">\(Y\)</span> et de <span class="math inline">\(Z\)</span>, suivant une loi de Bernoulli de paramètre <span class="math inline">\(\alpha &gt; 0\)</span>.</p>
+<p>Soit <span class="math inline">\(X\)</span> la variable aléatoire définie par</p>
+<p><span class="math display">\[
+X =
+\begin{cases}
+Y &amp; \text{si } U = 1,\\[4pt]
+Z &amp; \text{si } U = 0.
+\end{cases}
+\]</span></p>
+<p>Autrement dit, <span class="math inline">\(X = Y\)</span> avec probabilité <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(X = Z\)</span> avec probabilité <span class="math inline">\(1 - \alpha\)</span>.<br>
+On dit que la loi de <span class="math inline">\(X\)</span> est un <em>mélange de deux distributions</em>, ce que l’on note</p>
+<p><span class="math display">\[
+\mathbb{P}_X = \alpha \mathbb{P}_Y + (1 - \alpha)\mathbb{P}_Z.
+\]</span></p>
+<hr>
+<ol type="1">
+<li>Montrer que</li>
+</ol>
+<p><span class="math display">\[
+F_X(x) = \alpha F_Y(x) + (1 - \alpha)F_Z(x).
+\]</span></p>
+<hr>
+<p>Soit <span class="math inline">\(X\)</span> une variable aléatoire de fonction de répartition <span class="math inline">\(F_X\)</span> définie par</p>
+<p><span class="math display">\[
+F_X(x) =
+\begin{cases}
+0 &amp; \text{si } x &lt; 0,\\[4pt]
+\dfrac{1}{8} &amp; \text{si } x \in [0,1[,\\[8pt]
+\dfrac{x + 1}{4} &amp; \text{si } x \in [1,2[,\\[8pt]
+\dfrac{3}{4} &amp; \text{si } x \in [2,5[,\\[8pt]
+1 &amp; \text{si } x \ge 5.
+\end{cases}
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Représenter graphiquement la fonction <span class="math inline">\(F_X\)</span>.</li>
+</ol>
+<hr>
+<ol start="3" type="1">
+<li>Exprimer la loi de <span class="math inline">\(X\)</span> sous la forme</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}_X = \alpha \mathbb{P}_{\text{dis}} + (1 - \alpha)\mathbb{P}_{\text{cont}},
+\]</span></p>
+<p>où <span class="math inline">\(\alpha \in [0,1]\)</span>,<br>
+<span class="math inline">\(\mathbb{P}_{\text{dis}}\)</span> est une loi de probabilité discrète,<br>
+et <span class="math inline">\(\mathbb{P}_{\text{cont}}\)</span> est une loi de probabilité continue, qu’on déterminera.</p>
+<section id="correction-exercice-5-1" class="level3">
+<h3 class="anchored" data-anchor-id="correction-exercice-5-1">Correction Exercice 5</h3>
+<ol type="1">
+<li>Montrons que <span class="math inline">\(F_X(x) = \alpha F_Y(x) + (1 - \alpha)F_Z(x)\)</span>.</li>
+</ol>
+<p>Nous savons que si <span class="math inline">\(U = 1\)</span>, alors <span class="math inline">\(X = Y\)</span>, et si <span class="math inline">\(U = 0\)</span>, alors <span class="math inline">\(X = Z\)</span>. De ce fait, pour exprimer la fonction de répartition de <span class="math inline">\(X\)</span>, en fonction de celles de <span class="math inline">\(Y\)</span> et <span class="math inline">\(Z\)</span>, nous devons parvenir à conditionner la variable aléatoire <span class="math inline">\(X\)</span> en fonction de la variable aléatoire <span class="math inline">\(U\)</span>.</p>
+<p>Pour cela, nous utilisons la formule des probabilités totales, suivi par la formule de Bayes.</p>
+<p><span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x)
+= \mathbb{P}(X \le x \cap \Omega)
+= \mathbb{P}(X \le x \cap \{U = 1\}) + \mathbb{P}(X \le x \cap \{U = 0\}).
+\]</span></p>
+<p>Nous utilisons ensuite la formule de Bayes pour chaque terme :</p>
+<p><span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x \mid U = 1) \mathbb{P}(U = 1)
++ \mathbb{P}(X \le x \mid U = 0) \mathbb{P}(U = 0).
+\]</span></p>
+<p>Or, par définition de <span class="math inline">\(X\)</span> : <span class="math display">\[
+\mathbb{P}(X \le x \mid U = 1) = \mathbb{P}(Y \le x) = F_Y(x),
+\]</span></p>
+<p>et <span class="math display">\[
+\mathbb{P}(X \le x \mid U = 0) = \mathbb{P}(Z \le x) = F_Z(x).
+\]</span></p>
+<p>Car <span class="math inline">\(U\)</span> est indépendante de <span class="math inline">\(Y\)</span> et de <span class="math inline">\(Z\)</span>.</p>
+<p>Donc,</p>
+<p><span class="math display">\[
+F_X(x) = F_Y(x) \mathbb{P}(U = 1)
++ F_Z(x) \mathbb{P}(U = 0).
+\]</span></p>
+<p>Comme <span class="math inline">\(U\)</span> suit une loi de Bernoulli de paramètre <span class="math inline">\(\alpha\)</span>, nous avons :</p>
+<p><span class="math display">\[
+\mathbb{P}(U = 1) = \alpha
+\quad\text{et}\quad
+\mathbb{P}(U = 0) = 1 - \alpha.
+\]</span></p>
+<p>Donc finalement :</p>
+<p><span class="math display">\[
+F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
+\]</span></p>
+<ol start="2" type="1">
+<li>Représentation graphique de la fonction <span class="math inline">\(F_X\)</span>.</li>
+</ol>
+<div id="c9cd24d7" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> F(x):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.asarray(x)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.where(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        np.where(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            x <span class="op">&lt;</span> <span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">8</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            np.where(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                x <span class="op">&lt;</span> <span class="dv">2</span>, (x <span class="op">+</span> <span class="dv">1</span>)<span class="op">/</span><span class="dv">4</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                np.where(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                    x <span class="op">&lt;</span> <span class="dv">5</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                    <span class="dv">1</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Segments de la fonction de répartition</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>segments_horizontaux <span class="op">=</span> [</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    (<span class="op">-</span><span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>),     <span class="co"># de x=-10 à x=0 : F=0</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">8</span>),     <span class="co"># de x=0 à x=1 : F=1/8</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>),     <span class="co"># de x=2 à x=5 : F=3/4</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">1</span>)       <span class="co"># de x=5 à x=10 : F=1</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracé des segments horizontaux</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x_start, x_end, y_val <span class="kw">in</span> segments_horizontaux:</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    plt.hlines(y_val, x_start, x_end, colors<span class="op">=</span><span class="st">"blue"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracé du segment linéaire entre x=1 et x=2 : F(x) = (x+1)/4</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>x_linear <span class="op">=</span> np.linspace(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">100</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>y_linear <span class="op">=</span> (x_linear <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">4</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>plt.plot(x_linear, y_linear, <span class="st">'b-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Points ouverts (limite à gauche non incluse)</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>x_open <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>]</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>y_open <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>]</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>plt.scatter(x_open, y_open, facecolors<span class="op">=</span><span class="st">"none"</span>, edgecolors<span class="op">=</span><span class="st">"black"</span>, s<span class="op">=</span><span class="dv">80</span>, zorder<span class="op">=</span><span class="dv">3</span>, linewidths<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Points fermés (valeur incluse)</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>x_closed <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>]</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>y_closed <span class="op">=</span> [<span class="dv">1</span><span class="op">/</span><span class="dv">8</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span>]</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>plt.scatter(x_closed, y_closed, color<span class="op">=</span><span class="st">"black"</span>, s<span class="op">=</span><span class="dv">80</span>, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Format graphique</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"$F_X(x)$"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Fonction de répartition $F_X(x)$"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>)</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Définir les graduations sur l'axe des x</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajout de repères pour les valeurs importantes</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">1</span><span class="op">/</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">3</span><span class="op">/</span><span class="dv">4</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_gdr_files/figure-html/cell-9-output-1.png" width="1141" height="469" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Les points de discontinuité sont représentés par des cercles ouverts (limite à gauche non incluse) et des cercles pleins (valeur incluse) : 0, 1 et 5.</p>
+<ol start="3" type="1">
+<li>Expression de la loi de <span class="math inline">\(X\)</span> sous la forme d’un mélange d’une loi discrète et d’une loi continue.</li>
+</ol>
+<p>Nous savons que si <span class="math inline">\(P_{cont}\)</span> est une loi de probabilité continue, alors <span class="math inline">\(P_{cont}(X = x) = 0\)</span> pour tout <span class="math inline">\(x \in \mathbb{R}\)</span>.</p>
+<p>De ce fait, si nous devons écrire la loi de <span class="math inline">\(X\)</span> comme un mélange d’une loi discrète et d’une loi continue, ie <span class="math display">\[
+\mathbb{P}_X = \alpha \mathbb{P}_{dis} + (1 - \alpha)\mathbb{P}_{cont},
+\]</span></p>
+<p>alors aux points de discontinuité de la fonction de répartition <span class="math inline">\(F_X\)</span>, la partie continue ne contribue pas à la probabilité. C’est-à-dire que pour tout <span class="math inline">\(x \in {0,1,5}\)</span>, nous avons :</p>
+<p><span class="math display">\[
+\mathbb{P}_X(X = x) = \alpha \mathbb{P_{dis}(X = x)} + (1 - \alpha) \mathbb{P_{cont}(X = x)}
+= \alpha \mathbb{P_{dis}(X = x)} + 0
+= \alpha \mathbb{P_{dis}(X = x)}.
+\]</span></p>
+<p>Donc, nous</p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 0)} = \alpha \mathbb{P_{dis}(X = 0)}
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 1)} = \alpha \mathbb{P_{dis}(X = 1)}
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 5)} = \alpha \mathbb{P_{dis}(X = 5)}.
+\]</span></p>
+<p>C’est trois équations ci-dessous nous permettent de déterminer la loi discrète <span class="math inline">\(\mathbb{P_{dis}}\)</span> et le paramètre <span class="math inline">\(\alpha\)</span>.</p>
+<p>En effet, en sommant les probabilités aux points de discontinuité, nous avons :</p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 0)} + \mathbb{P_X(X = 1)} + \mathbb{P_X(X = 5)}
+= \alpha \left( \mathbb{P_{dis}(X = 0)} + \mathbb{P_{dis}(X = 1)} + \mathbb{P_{dis}(X = 5)} \right).
+\]</span></p>
+<p>Donc si nous définissons la fonction discrète <span class="math inline">\(\mathbb{P_{dis}}\)</span> comme ayant 0, 1 et 5 comme seuls points de masse, nous avons : <span class="math display">\[
+\mathbb{P_{dis}(X = 0)} + \mathbb{P_{dis}(X = 1)} + \mathbb{P_{dis}(X = 5)} = 1.
+\]</span></p>
+<p>Dans ce cas, nous obtenons :</p>
+<p><span class="math display">\[
+\alpha = \mathbb{P_X(X = 0)} + \mathbb{P_X(X = 1)} + \mathbb{P_X(X = 5)}.
+\]</span></p>
+<p>Calculons les probabilités aux points de discontinuité à l’aide de la fonction de répartition <span class="math inline">\(F_X\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 0)} = F_X(0) - F_X(0^-) = \frac{1}{8} - 0 = \frac{1}{8}.
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 1)} = F_X(1) - F_X(1^-) = \frac{2}{4} - \frac{1}{8} = \frac{3}{8}.
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{P_X(X = 5)} = F_X(5) - F_X(5^-) = 1 - \frac{3}{4} = \frac{1}{4}.
+\]</span></p>
+<p>Et nous obtenons la loi de <span class="math inline">\(P_{dis}\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{P_{dis}(X = 0)} = \frac{\frac{1}{8}}{\alpha} = \frac{1}{6},
+\quad
+\mathbb{P_{dis}(X = 1)} = \frac{\frac{3}{8}}{\alpha} = \frac{1}{2},
+\quad
+\mathbb{P_{dis}(X = 5)} = \frac{\frac{1}{4}}{\alpha} = \frac{1}{3}.
+\]</span></p>
+<p>La fonction de répartition correspondante est donc :</p>
+<p><span class="math display">\[F_{dis}(x) =
+\begin{cases}
+0 &amp; \text{si } x &lt; 0,\\[4pt]
+\dfrac{1}{6} &amp; \text{si } x \in [0,1[,\\[8pt]
+\dfrac{2}{3} &amp; \text{si } x \in [1,5[,\\[8pt]
+1 &amp; \text{si } x \ge 5.
+\end{cases}
+\]</span></p>
+<p>Ceci nous permet de trouver facilement la fonction de répartition de la partie continue.</p>
+<p>En effet, nous avons :</p>
+<p><span class="math display">\[
+F_X(x) = \alpha F_{dis}(x) + (1 - \alpha) F_{cont}(x).
+\]</span></p>
+<p>Donc,</p>
+<p><span class="math display">\[
+F_{cont}(x) = \frac{F_X(x) - \alpha F_{dis}(x)}{1 - \alpha}.
+\]</span></p>
+<p>Ce qui nous donne après calcul :</p>
+<p><span class="math display">\[
+F_{\text{cont}}(x) =
+\begin{cases}
+0 &amp; \text{si } x &lt; 1,\\[4pt]
+x - 1 &amp; \text{si } x \in [1,2[,\\[8pt]
+1 &amp; \text{si } x \ge 2.
+\end{cases}
+\]</span></p>
+<p>On peut vérifier que cette fonction est bien une fonction de répartition (croissante, continue, avec des limites 0 et 1 aux extrémités). Elle est dérivable sur <span class="math inline">\(\mathbb{R}\)</span> avec une densité associée donnée par :</p>
+<p><span class="math display">\[
+f_{\text{cont}}(x) =
+\begin{cases}
+0 &amp; \text{si } x &lt; 1,\\[4pt]
+1 &amp; \text{si } x \in [1,2[,\\[8pt]
+0 &amp; \text{si } x \ge 2.
+\end{cases}
+\]</span></p>
+<p>Ce qui correspond à la densité d’une variable aléatoire uniformément distribuée sur l’intervalle <span class="math inline">\([1,2]\)</span>.</p>
+<hr>
 
 
+</section>
 </section>
 </section>
 
