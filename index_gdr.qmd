@@ -3887,6 +3887,8 @@ $$
 f_Y(y) = \frac{1}{\theta} e^{-y/\theta},\qquad y\ge 0.
 $$
 
+# Bonne chance !
+
 
 
 
