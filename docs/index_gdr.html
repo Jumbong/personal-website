@@ -281,6 +281,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#correction-exercice-5-1" id="toc-correction-exercice-5-1" class="nav-link" data-scroll-target="#correction-exercice-5-1">Correction Exercice 5</a></li>
   </ul></li>
+  <li><a href="#exercice-6-1" id="toc-exercice-6-1" class="nav-link" data-scroll-target="#exercice-6-1">Exercice 6</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -604,7 +605,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="4a925f65" class="cell" data-execution_count="1">
+<div id="2ea5818f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -660,7 +661,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -1007,7 +1008,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="66e65459" class="cell" data-execution_count="2">
+<div id="21850522" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1158,7 +1159,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="081be59e" class="cell" data-execution_count="3">
+<div id="0a271015" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1492,7 +1493,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="9c4bd7fa" class="cell" data-execution_count="4">
+<div id="17f78200" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1631,7 +1632,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="a0b42188" class="cell" data-execution_count="5">
+<div id="610ff5d7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2297,7 +2298,7 @@ k\frac{\lambda^{k}}{k!}
 <p>En résolvant : <span class="math display">\[
 \frac{\lambda}{1 - e^{-\lambda}} = 3,
 \]</span></p>
-<div id="933ecdd3" class="cell" data-execution_count="6">
+<div id="1889ca7e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
@@ -2970,7 +2971,7 @@ m = \frac{1}{2}
 \]</span></p>
 <p>Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d’équation <span class="math inline">\(x = \frac{1}{2}\)</span> comme axe de symétrie.</p>
 <p>Pour ce faire, on peut soit tracer la fonction de densité :</p>
-<div id="1cbb20b2" class="cell" data-execution_count="7">
+<div id="5a86b35c" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3211,7 +3212,7 @@ F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
 <ol start="2" type="1">
 <li>Représentation graphique de la fonction <span class="math inline">\(F_X\)</span>.</li>
 </ol>
-<div id="59f10ded" class="cell" data-execution_count="8">
+<div id="8f032c4b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3383,9 +3384,18 @@ f_{\text{cont}}(x) =
 \]</span></p>
 <p>Ce qui correspond à la densité d’une variable aléatoire uniformément distribuée sur l’intervalle <span class="math inline">\([1,2]\)</span>.</p>
 <hr>
-
-
 </section>
+</section>
+<section id="exercice-6-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-6-1">Exercice 6</h2>
+<p>Soit <span class="math inline">\(X\)</span> une variable aléatoire suivant une loi uniforme sur <span class="math inline">\([0,1]\)</span>, et soit</p>
+<p><span class="math display">\[
+Y = -\theta \ln(1 - X)
+\]</span></p>
+<p>avec <span class="math inline">\(\theta &gt; 0\)</span>.<br>
+Déterminer la fonction de répartition et la densité de <span class="math inline">\(Y\)</span>.</p>
+
+
 </section>
 </section>
 

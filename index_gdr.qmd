@@ -3738,3 +3738,155 @@ Ce qui correspond à la densité d'une variable aléatoire uniformément distrib
 
 ---
 
+## Exercice 6
+
+Soit $X$ une variable aléatoire suivant une loi uniforme sur $[0,1]$, et soit
+
+$$
+Y = -\theta \ln(1 - X)
+$$
+
+avec $\theta > 0$.  
+Déterminer la fonction de répartition et la densité de $Y$.
+
+## Correction Exercice 6
+
+L’objectif de l’exercice est que vous soyez capables de maîtriser les différentes techniques de calcul de la densité pour une fonction d’une v.a.  
+
+
+Notons tout d’abord que la fonction
+
+$$
+g : [0,1[ \longrightarrow \mathbb{R}, \qquad x \longmapsto -\theta \ln(1 - x)
+$$
+
+est dérivable sur $[0,1[$, à valeurs dans $\mathbb{R}^+$, avec
+
+$$
+g'(x) = \frac{\theta}{1 - x} > 0,
+$$
+
+donc la fonction $g$ est de plus croissante sur $[0,1[$.
+
+Nous pouvons obtenir la fonction de répartition de $Y$ par calcul direct, puis en déduire la densité de $Y$.  
+Nous pouvons également utiliser le résultat donnant la densité de la transformation d’une variable aléatoire par une fonction croissante.
+
+Le calcul direct donne, pour tout $x \in \mathbb{R}$ :
+
+$$
+F_Y(x) = \mathbb{P}(Y \le x)
+= \mathbb{P}\{\ln(1-X) \ge -x/\theta\}
+= \mathbb{P}\left\{ X \le 1 - \exp\!\left(-\frac{x}{\theta}\right) \right\}.
+$$
+
+Ainsi,
+
+$$
+F_Y(x) =
+\begin{cases}
+0, & \text{si } x < 0,\\[6pt]
+1 - \exp(-x/\theta), & \text{si } x \ge 0,
+\end{cases}
+$$
+
+en utilisant le fait que la fonction de répartition de la loi uniforme sur $[0,1]$ vaut :
+
+$$
+F_X(x) =
+\begin{cases}
+0, & x < 0,\\
+x, & 0 \le x < 1,\\
+1, & x \ge 1.
+\end{cases}
+$$
+
+Nous reconnaissons la fonction de répartition d’une loi exponentielle de paramètre $1/\theta$.
+Pour tout $x>0$, la densité de $Y$ vaut :
+
+$$
+f_Y(x) = \frac{1}{\theta}\exp\!\left(-\frac{x}{\theta}\right).
+$$
+
+---
+
+Par la méthode de la transformation d’une variable aléatoire
+
+En utilisant le résultat donnant la densité d’une variable transformée par une fonction croissante :
+
+$$
+f_Y(y) = \left|\frac{1}{g'(g^{-1}(y))}\right| \, f_X(g^{-1}(y)).
+$$
+
+La fonction réciproque est :
+
+$$
+y = g(x) = -\theta \ln(1-x)
+\quad\Longleftrightarrow\quad
+x = g^{-1}(y) = 1 - \exp\!\left(-\frac{y}{\theta}\right).
+$$
+
+On obtient alors :
+
+$$
+g'(x) = \frac{\theta}{1-x},
+\qquad
+g'(g^{-1}(y)) = \frac{\theta}{1 - (1-e^{-y/\theta})}
+= \theta e^{y/\theta}.
+$$
+
+Donc :
+
+$$
+f_Y(y)
+= \left|\frac{1}{g'(g^{-1}(y))}\right| f_X(g^{-1}(y))
+= \frac{1}{\theta e^{y/\theta}} \times 1
+= \frac{1}{\theta} e^{-y/\theta},
+\quad y \ge 0.
+$$
+
+---
+
+Par la méthode de la fonction muette
+
+Soit $\varphi$ une fonction continue bornée. Alors :
+
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \mathbb{E}\{\varphi(-\theta\ln(1-X))\}
+= \int_{\mathbb{R}} \varphi(-\theta\ln(1-x)) f_X(x)\, dx.
+$$
+
+Comme $X\sim \text{Unif}(0,1)$ :
+
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_0^1 \varphi(-\theta\ln(1-x))\, dx.
+$$
+
+Avec le changement de variable :
+
+$$
+y = -\theta\ln(1-x)
+\quad\Longleftrightarrow\quad
+x = 1 - e^{-y/\theta},
+\qquad
+dx = \frac{1}{\theta} e^{-y/\theta}\, dy,
+$$
+
+on obtient :
+
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_0^{+\infty} \varphi(y)\, \frac{1}{\theta} e^{-y/\theta}\, dy
+= \int_{\mathbb{R}} \varphi(y) f_Y(y)\, dy,
+$$
+
+avec
+
+$$
+f_Y(y) = \frac{1}{\theta} e^{-y/\theta},\qquad y\ge 0.
+$$
+
+
+
+
