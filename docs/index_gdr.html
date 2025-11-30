@@ -604,7 +604,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="8e9bc60a" class="cell" data-execution_count="1">
+<div id="4a925f65" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -660,7 +660,7 @@ P(A)
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>np.float64(0.3965)</code></pre>
 </div>
 </div>
@@ -1007,7 +1007,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="8e3f8aa5" class="cell" data-execution_count="2">
+<div id="66e65459" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1158,7 +1158,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="a197d8fe" class="cell" data-execution_count="3">
+<div id="081be59e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1492,7 +1492,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="c2f02b28" class="cell" data-execution_count="4">
+<div id="9c4bd7fa" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1631,7 +1631,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b2ea409e" class="cell" data-execution_count="5">
+<div id="a0b42188" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2297,7 +2297,7 @@ k\frac{\lambda^{k}}{k!}
 <p>En résolvant : <span class="math display">\[
 \frac{\lambda}{1 - e^{-\lambda}} = 3,
 \]</span></p>
-<div id="bfe8341d" class="cell" data-execution_count="6">
+<div id="933ecdd3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
@@ -2970,7 +2970,7 @@ m = \frac{1}{2}
 \]</span></p>
 <p>Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d’équation <span class="math inline">\(x = \frac{1}{2}\)</span> comme axe de symétrie.</p>
 <p>Pour ce faire, on peut soit tracer la fonction de densité :</p>
-<div id="6b8c14b5" class="cell" data-execution_count="7">
+<div id="1cbb20b2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3183,10 +3183,14 @@ F_X(x) = \mathbb{P}(X \le x \mid U = 1) \mathbb{P}(U = 1)
 + \mathbb{P}(X \le x \mid U = 0) \mathbb{P}(U = 0).
 \]</span></p>
 <p>Or, par définition de <span class="math inline">\(X\)</span> : <span class="math display">\[
-\mathbb{P}(X \le x \mid U = 1) = \mathbb{P}(Y \le x) = F_Y(x),
+\mathbb{P}(X \le x \mid U = 1)
+= \mathbb{P}(Y \le x \mid U = 1)
+= \mathbb{P}(Y \le x) = F_Y(x),
 \]</span></p>
 <p>et <span class="math display">\[
-\mathbb{P}(X \le x \mid U = 0) = \mathbb{P}(Z \le x) = F_Z(x).
+\mathbb{P}(X \le x \mid U = 0)
+= \mathbb{P}(Z \le x \mid U = 0)
+= \mathbb{P}(Z \le x) = F_Z(x).
 \]</span></p>
 <p>Car <span class="math inline">\(U\)</span> est indépendante de <span class="math inline">\(Y\)</span> et de <span class="math inline">\(Z\)</span>.</p>
 <p>Donc,</p>
@@ -3207,7 +3211,7 @@ F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
 <ol start="2" type="1">
 <li>Représentation graphique de la fonction <span class="math inline">\(F_X\)</span>.</li>
 </ol>
-<div id="c9cd24d7" class="cell" data-execution_count="8">
+<div id="59f10ded" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3300,7 +3304,7 @@ F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
 = \alpha \mathbb{P_{dis}(X = x)} + 0
 = \alpha \mathbb{P_{dis}(X = x)}.
 \]</span></p>
-<p>Donc, nous</p>
+<p>Donc, nous avons les équations suivantes :</p>
 <p><span class="math display">\[
 \mathbb{P_X(X = 0)} = \alpha \mathbb{P_{dis}(X = 0)}
 \]</span></p>
@@ -3310,7 +3314,7 @@ F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
 <p><span class="math display">\[
 \mathbb{P_X(X = 5)} = \alpha \mathbb{P_{dis}(X = 5)}.
 \]</span></p>
-<p>C’est trois équations ci-dessous nous permettent de déterminer la loi discrète <span class="math inline">\(\mathbb{P_{dis}}\)</span> et le paramètre <span class="math inline">\(\alpha\)</span>.</p>
+<p>Ces trois équations ci-dessus nous permettent de déterminer la loi discrète <span class="math inline">\(\mathbb{P_{dis}}\)</span> et le paramètre <span class="math inline">\(\alpha\)</span>.</p>
 <p>En effet, en sommant les probabilités aux points de discontinuité, nous avons :</p>
 <p><span class="math display">\[
 \mathbb{P_X(X = 0)} + \mathbb{P_X(X = 1)} + \mathbb{P_X(X = 5)}

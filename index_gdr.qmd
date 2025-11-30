@@ -3499,12 +3499,16 @@ $$
 
 Or, par définition de $X$ :
 $$
-\mathbb{P}(X \le x \mid U = 1) = \mathbb{P}(Y \le x) = F_Y(x),
+\mathbb{P}(X \le x \mid U = 1) 
+= \mathbb{P}(Y \le x \mid U = 1)
+= \mathbb{P}(Y \le x) = F_Y(x),
 $$
 
 et
 $$
-\mathbb{P}(X \le x \mid U = 0) = \mathbb{P}(Z \le x) = F_Z(x).
+\mathbb{P}(X \le x \mid U = 0) 
+= \mathbb{P}(Z \le x \mid U = 0)
+= \mathbb{P}(Z \le x) = F_Z(x).
 $$
 
 Car $U$ est indépendante de $Y$ et de $Z$.
@@ -3625,7 +3629,7 @@ $$
 = \alpha \mathbb{P_{dis}(X = x)}.
 $$
 
-Donc, nous
+Donc, nous avons les équations suivantes :
 
 $$
 \mathbb{P_X(X = 0)} = \alpha \mathbb{P_{dis}(X = 0)}
@@ -3639,7 +3643,7 @@ $$
 \mathbb{P_X(X = 5)} = \alpha \mathbb{P_{dis}(X = 5)}.
 $$
 
-C'est trois équations ci-dessous nous permettent de déterminer la loi discrète $\mathbb{P_{dis}}$ et le paramètre $\alpha$.
+Ces trois équations ci-dessus nous permettent de déterminer la loi discrète $\mathbb{P_{dis}}$ et le paramètre $\alpha$.
 
 En effet, en sommant les probabilités aux points de discontinuité, nous avons :
 
