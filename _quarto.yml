@@ -17,7 +17,7 @@ website:
     left:
       - href: index.qmd
         text: Accueil
-      - href: index_gdr.qmd
+      - href: ensai1A.qmd
         text: ENSAI TD 2025-2026
       - about.qmd
 
