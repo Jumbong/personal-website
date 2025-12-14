@@ -4919,6 +4919,247 @@ V(M_n)
 $$
 
 
+## Exercice 15
+
+Soit $X$ une variable aléatoire suivant une loi normale centrée réduite.  
+On pose
+
+$$
+Y = \min(X, 0).
+$$
+
+1. Déterminer la loi de $Y$.
+
+2. Montrer que $Y$ admet un moment d’ordre 2, et calculer l’espérance et la variance de $Y$.
+
+3. En déduire que $Z = \max(X, 0)$ admet un moment d’ordre 2 et calculer son espérance et sa variance.
+
+## Correction Exercice 15
+
+1) Loi de $Y = \min(X, 0)$
+
+Nous utilisons la méthode de la fonction muette pour déterminer la densité de $Y$.
+
+Soit $\varphi$ une fonction continue bornée. Alors :
+
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_{\mathbb{R}} \varphi(\min(x, 0)) f_X(x)\, dx.
+$$
+On décompose l’intégrale en deux parties :
+
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(x) f_X(x)\, dx
++ \int_0^{+\infty} \varphi(0) f
+_X(x)\, dx.
+$$
+
+Donc,
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(y) f_X(y)\, dy
++ \varphi(0) \int_0^{+\infty} f_X(x)\, dx.
+$$
+
+Nous savons que $X$ suit une loi normale centrée réduite, donc :
+$$
+\int_0^{+\infty} f_X(x)\, dx = \frac{1}{2}.
+$$
+
+Ainsi,
+$$
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(y) f_X(y)\, dy
++ \frac{1}{2} \varphi(0).
+$$
+On en déduit que la densité de $Y$ est donnée par :
+$$
+f_Y(y) =
+\begin{cases}
+f_X(y), & y < 0, \\[6pt]
+\frac{1}{2}, & y = 0, \\[6pt]
+0, & y > 0.
+\end{cases}
+$$
+
+On aurait aussi pu écrire la fonction de répartition de $Y$ :
+
+On sait que le support de $Y$ est $(-\infty, 0]$.
+
+Pour $y < 0$,
+$$
+F_Y(y)
+= P(Y \le y)
+= P(\min(X, 0) \le y)
+= P(X \le y). 
+= F_X(y).
+$$
+
+Car lorsque $y < 0$, l’événement $\{\min(X, 0) \le y\}$ est équivalent à l’événement $\{X \le y\}$.
+
+On peut aussi le voir ainsi :
+$$
+= P(\min(X, 0) \le y | X \le 0) P(X \le 0) + P(\min(X, 0) \le y | X > 0) P(X > 0)
+$$
+
+$$
+= P(X \le y | X \le 0) \cdot \frac{1}{2} + 0 \cdot \frac{1}{2}
+$$
+
+$$
+= \frac{1}{2} P(X \le y | X \le 0)
+= \frac{1}{2} \cdot \frac{P(X \le y)}{P(X \le 0)}
+= P(X \le y).
+$$
+
+Et
+
+pour $y >= 0$,
+$$
+F_Y(y)
+= P(Y \le y)
+= P(\min(X, 0) \le y)
+= 1.
+$$
+
+Donc la fonction de répartition de $Y$ est donnée par :
+$$
+F_Y(y) =
+\begin{cases}
+F_X(y), & y < 0, \\[6pt]
+1, & y \ge 0.
+\end{cases}
+$$
+
+Et la densité de $Y$ est la dérivée de $F_Y$ :
+$$
+f_Y(y) =
+\begin{cases}
+f_X(y), & y < 0, \\[6pt]
+0, & y > 0.
+\end{cases}
+$$
+
+Pour $y = 0$, 
+on a $P(Y = 0) = P(X > 0) = \frac{1}{2}$.
+
+Donc la densité de $Y$ est bien :
+
+$$
+f_Y(y) =
+\begin{cases}
+f_X(y), & y < 0, \\[6pt]
+\frac{1}{2}, & y = 0, \\[6pt]
+0, & y > 0.
+\end{cases}
+$$
+
+2) Montrer que $Y$ admet un moment d’ordre 2, et calculer l’espérance et la variance de $Y$.
+
+Nous savons que $|Y| = |\min(X, 0)| \le |X|$.
+
+Comme $X$ suit une loi normale centrée réduite, $X$ admet un moment d’ordre 2. Par conséquent, $Y$ admet également un moment d’ordre 2.
+Calculons l’espérance de $Y$ :
+Le support de $Y$ est $(-\infty, 0]$, donc :
+
+$$
+\mathbb{E}(Y)
+= \int_{-\infty}^0 y f_X(y)\, dy
++ 0 \cdot \frac{1}{2}
+= \int_{-\infty}^0 y \cdot \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\, dy.
+$$
+
+En effectuant le changement de variable $u = -\frac{y^2}{2}$, on obtient :
+
+$$
+\mathbb{E}(Y)
+= -\frac{1}{\sqrt{2\pi}} \int_{-\infty}^0 e^{u}\, du
+= -\frac{1}{\sqrt{2\pi}}.
+$$
+
+Calculons $\mathbb{E}(Y^2)$ :
+
+$$
+\mathbb{E}(Y^2)
+= \int_{-\infty}^0 y^2 f_X(y)\, dy
++ 0^2 \cdot \frac{1}{2}
+= \int_{-\infty}^0 y^2 \cdot \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\, dy. 
+$$
+
+Par une intégration par parties, on obtient :
+$$
+\mathbb{E}(Y^2)
+= \left[ -\frac{1}{\sqrt{2\pi}} y e^{-y^2/2} \right]_{-\infty}^0
+\;+\;
+\frac{1}{\sqrt{2\pi}} \int_{-\infty}^0 e^{-y^2/2}\, dy
+= \frac{1}{\sqrt{2\pi}} \cdot \frac{\sqrt{2\pi}}{2}
+= \frac{1}{2}.
+$$
+
+Donc,
+$$
+\text{Var}(Y) = \mathbb{E}(Y^2) - (\mathbb{E}(Y))^2
+= \frac{1}{2} - \left(-\frac{1}{\sqrt{2\pi}}\right)^2
+= \frac{1}{2} - \frac{1}{2\pi}
+$$
+
+3) Loi, espérance et variance de $Z = \max(X, 0)$
+
+Nous savons que $X = Y + Z$.
+
+Donc, $Z = X - Y$.
+
+Comme $X$ et $Y$ admettent un moment d’ordre 2, $Z$ admet également un moment d’ordre 2.
+
+En effet, on a :
+$$
+|Z| = |X - Y| \le |X| + |Y| \le 2|X|.
+$$
+
+Et
+
+$$
+|Z|^2 \le 4|X|^2.
+$$
+
+
+Calculons l’espérance de $Z$ :
+
+$$
+\mathbb{E}(Z)
+= \mathbb{E}(X) - \mathbb{E}(Y)
+= 0 - \left(-\frac{1}{\sqrt{2\pi}}\right)
+= \frac{1}{\sqrt{2\pi}}.
+$$
+
+Calculons la  de $\mathbb{E}(Z^2)$ :
+
+$$
+\mathbb{E}(X^2)
+= \mathbb{E}((Y + Z)^2)
+= \mathbb{E}(Y^2) + 2\mathbb{E}(YZ) + \mathbb{E}(Z^2)
+= \mathbb{E}(Y^2) + \mathbb{E}(Z^2)
+$$
+
+Car $YZ = \min(X, 0) \cdot \max(X, 0) = 0$.
+
+Nous avons déjà calculé $\mathbb{E}(X^2) = 1$ et $\mathbb{E}(Y^2) = \frac{1}{2}$.
+
+$$
+\mathbb{E}(Z^2)
+= \mathbb{E}(X^2) - \mathbb{E}(Y^2)
+= 1 - \frac{1}{2}
+= \frac{1}{2}.
+$$
+
+Ainsi,
+$$
+\text{Var}(Z) = \mathbb{E}(Z^2) - (\mathbb{E}(Z))^2
+= \frac{1}{2} - \left(\frac{1}{\sqrt{2\pi}}\right)^2
+= \frac{1}{2} - \frac{1}{2\pi}.
+$$
+
 
 # Bonne chance !
 
