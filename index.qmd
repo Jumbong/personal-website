@@ -1,63 +1,14 @@
 ---
-format: 
-  html: 
-    fontsize: 1.1em
+title: ""
+listing:
+  contents: 
+    - 3A/**/*.qmd
+    - 2A/**/*.qmd
+    - 1A/**/*.qmd
+  type: grid
+  sort: "date desc"
+  image-placeholder: img/placeholder.jpg
+  fields: [image, date, title, author, reading-time,description]
+  categories: false
+  page-size: 6
 ---
-
-<div class="box">
-
-# Welcome
-</div>
-
-# Meduim Publications
-
-*Medium is an online publishing platform for sharing ideas, stories, and knowledge through articles written by individuals and organizations.*
-
-- **Credit Scoring modellling approach.**
-    - Definition of default and construction of the database.
-    - Outliers Identification and Treatment
-    - Missing data analysis
-    - Database splitting
-    - Pre-selection of explanatory variables
-    - Methodological Approach To Merge Modalities of qualitative variables
-    - Methodological Approach To Discretize Quantitative variables
-    - Monotony and Stability
-    - Oversampling
-    - Logistic Regression
-        - Definition
-        - Fitting The logistic Regression
-        - Evaluation of the logistic Regression
-            - Analysis of the statistical significance of the model
-            - The overall fit of the model : Likelihhod ratio test
-            - Statistical significance of individual regression coefficients: Likelihood ratio test and Z statistic
-            - <a href = "Meduim/RegressionLogistique/HosmerL.qmd" target="_self">Hosmer-Lemeshow test</a>
-        - Contribution of variables
-    - Model performances
-        - Accuracy Ratio or Gini
-        - stability test 
-
-- **Times Series**
-
-- **Towards data science (TDS) :**
-    - [Proportional Odds Model for Ordinal Logistic Regression](00_tds/proportional_ordinal_regression.qmd) 
-    - [Spurious Regression in Time Series](Others/spurious_reg.qmd)
-    - [Multiple Linear Regression Analysis](https://towardsdatascience.com/multiple-linear-regression-analysis/multiple-linear-regression-analysis-using-python-1c0f2b7d8e3a)
-     - [Fourier Transformation](00_tds/fourrier_transformation.qmd)
-     - [Stepwise Selection Made Simple: Improve Your Regression Models in Python](https://towardsdatascience.com/model-selection-in-linear-regression/)
-     - [Is Your Training Data Representative?](https://towardsdatascience.com/assessment-of-representativeness-between-two-populations-to-ensure-valid-performance-2/)
-     - [PSI and Cramér's V](00_tds/psi_cramer_v.qmd)
-     - [Implementing the Fourier Transform Numerically in Python: A Step-by-Step Guide](https://medium.com/@jumbongjunior/implementing-the-fourier-transform-numerically-in-python-a-step-by-step-guide-06d2f100d7da?source=friends_link&sk=e7eebb092e1b4db7bc02f9b84fa09eee)
-
-
-- **Others :**
-    - [Sampling Bias and Class Imbalance in Maximum-likelihood Logistic Regression](Meduim/RegressionLogistique/bias_sample.qmd)
-
-    - [Number of optimal defaults in credit rating](Others/number_obs_for_model.qmd)
-   
-
-
-# Learning SAS
-
-- **Background :**
-    - [Prerequisites](LearningSas/prerequisites.qmd)
-

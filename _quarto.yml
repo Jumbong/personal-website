@@ -1,37 +1,51 @@
 project:
   type: website
   output-dir: docs
+  resources: img
   render:
     - "*.qmd" # Render all .qmd files
-    - "!3A/var_application.qmd" # Ignore a specific file
     - "!ignored-dir/" # Ignore a specific directory
 execute:
-  #cache: true
-  freeze: auto  
+  cache: true
+  freeze: auto 
   
 website:
   title: ""
   favicon: "flavicon.jpeg"
   back-to-top-navigation: true
   navbar:
+    logo: "flavicon.jpeg"
     left:
       - href: index.qmd
         text: Accueil
-      - href: ensai1A.qmd
-        text: ENSAI TD 2025-2026
-      - about.qmd
+      - text: ENSAI
+        menu:
+          - href: ensai1A.qmd
+            text: TD Ensai 1A 
+          #- href: index_gdr.qmd
+          #  text: Gestion des risques bancaires
+      - text: Autres
+        # menu:
+          # - href: index_stat.qmd
+          #   text: Statistiques - Ensai 2A 
+          # - href: index_gdr.qmd
+          #   text: Gestion des risques bancaires
+      - href: about.qmd
+        text: À propos
+
 
 
 format:
   html:
-    #link-external-newwindow: false
+    page-layout: full
+    code-fold: true
+    code-summary: "Show the code"
     theme:
-      #light: cosmo
-      dark: superhero
-    mainfont: Times New Roman
+      light: flat
     css: styles.css
     toc: true
     toc-location: left
-    toc-title: "Summary"
+    toc-title: "Sommaire"
     df-print: kable    
-
+  # ipynb: default
+  # pdf: default
