@@ -296,6 +296,8 @@ window.Quarto = {
   <li><a href="#correction-exercice-10" id="toc-correction-exercice-10" class="nav-link" data-scroll-target="#correction-exercice-10">Correction Exercice 10</a></li>
   <li><a href="#exercice-11" id="toc-exercice-11" class="nav-link" data-scroll-target="#exercice-11">Exercice 11</a></li>
   <li><a href="#correction-exercice-11" id="toc-correction-exercice-11" class="nav-link" data-scroll-target="#correction-exercice-11">Correction Exercice 11</a></li>
+  <li><a href="#exercice-15" id="toc-exercice-15" class="nav-link" data-scroll-target="#exercice-15">Exercice 15</a></li>
+  <li><a href="#correction-exercice-15" id="toc-correction-exercice-15" class="nav-link" data-scroll-target="#correction-exercice-15">Correction Exercice 15</a></li>
   </ul></li>
   <li><a href="#bonne-chance" id="toc-bonne-chance" class="nav-link" data-scroll-target="#bonne-chance">Bonne chance !</a></li>
   </ul>
@@ -620,7 +622,7 @@ P(A)
 <li>Après avoir effectué toutes les simulations, on calcule la probabilité estimée comme le ratio du nombre de succès sur le nombre total de simulations.</li>
 </ul>
 <p>Voici un exemple de code R pour effectuer cette simulation de Monte-Carlo :</p>
-<div id="1771ce79" class="cell" data-execution_count="1">
+<div id="3aa62500" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo in Python with running estimate and plot (matplotlib only)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1023,7 +1025,7 @@ F_X(x) =
 \end{cases}
 \]</span></p>
 <p>Réprésentation graphique de la fonction de répartition :</p>
-<div id="9f30cadb" class="cell" data-execution_count="2">
+<div id="f8742754" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1174,7 +1176,7 @@ p &amp; \text{si } 1 \leq x &lt; 2,\\[4pt]
 \end{cases}
 \]</span></p>
 <p>Représentation graphique de la fonction de répartition :</p>
-<div id="3c23fab3" class="cell" data-execution_count="3">
+<div id="e87482f2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1508,7 +1510,7 @@ E(s_X^2) = \frac{1}{2} \cdot 2\sigma^2 = \sigma^2.
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>       col = c("blue", "red"), </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>       lty = c(1, 2), </span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>       lwd = 2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="ac90f961" class="cell" data-execution_count="4">
+<div id="08a3caf2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1647,7 +1649,7 @@ Médiane: 4.0</code></pre>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>simlist_vec &lt;- rgeom(n, p) + 1</span>
 <span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>cat("Moyenne:", mean(simlist_vec), "\n")</span>
 <span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>cat("Variance:", var(simlist_vec), "\n")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="8cac01f1" class="cell" data-execution_count="5">
+<div id="1e9ee41b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
@@ -2313,7 +2315,7 @@ k\frac{\lambda^{k}}{k!}
 <p>En résolvant : <span class="math display">\[
 \frac{\lambda}{1 - e^{-\lambda}} = 3,
 \]</span></p>
-<div id="acf0df27" class="cell" data-execution_count="6">
+<div id="c4b12391" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilisons Newton-Raphson pour résoudre l'équation</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> newton</span>
@@ -2986,7 +2988,7 @@ m = \frac{1}{2}
 \]</span></p>
 <p>Une autre méthode pour déterminer la médiane consiste à remarquer que la fonction de densité admet la droite d’équation <span class="math inline">\(x = \frac{1}{2}\)</span> comme axe de symétrie.</p>
 <p>Pour ce faire, on peut soit tracer la fonction de densité :</p>
-<div id="37e5059a" class="cell" data-execution_count="7">
+<div id="6807f24f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3227,7 +3229,7 @@ F_X(x) = \alpha F_Y(x) + (1 - \alpha) F_Z(x).
 <ol start="2" type="1">
 <li>Représentation graphique de la fonction <span class="math inline">\(F_X\)</span>.</li>
 </ol>
-<div id="d2253bf2" class="cell" data-execution_count="8">
+<div id="25b75444" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4289,6 +4291,186 @@ V(M_n)
 V(M_n)
 = \theta^2 \left( \frac{n}{n+1}
 - \left( \frac{2n}{2n+1} \right)^2 \right).
+\]</span></p>
+</section>
+<section id="exercice-15" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-15">Exercice 15</h2>
+<p>Soit <span class="math inline">\(X\)</span> une variable aléatoire suivant une loi normale centrée réduite.<br>
+On pose</p>
+<p><span class="math display">\[
+Y = \min(X, 0).
+\]</span></p>
+<ol type="1">
+<li><p>Déterminer la loi de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Montrer que <span class="math inline">\(Y\)</span> admet un moment d’ordre 2, et calculer l’espérance et la variance de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>En déduire que <span class="math inline">\(Z = \max(X, 0)\)</span> admet un moment d’ordre 2 et calculer son espérance et sa variance.</p></li>
+</ol>
+</section>
+<section id="correction-exercice-15" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-15">Correction Exercice 15</h2>
+<ol type="1">
+<li>Loi de <span class="math inline">\(Y = \min(X, 0)\)</span></li>
+</ol>
+<p>Nous utilisons la méthode de la fonction muette pour déterminer la densité de <span class="math inline">\(Y\)</span>.</p>
+<p>Soit <span class="math inline">\(\varphi\)</span> une fonction continue bornée. Alors :</p>
+<p><span class="math display">\[
+\mathbb{E}\{\varphi(Y)\}
+= \int_{\mathbb{R}} \varphi(\min(x, 0)) f_X(x)\, dx.
+\]</span> On décompose l’intégrale en deux parties :</p>
+<p><span class="math display">\[
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(x) f_X(x)\, dx
++ \int_0^{+\infty} \varphi(0) f
+_X(x)\, dx.
+\]</span></p>
+<p>Donc, <span class="math display">\[
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(y) f_X(y)\, dy
++ \varphi(0) \int_0^{+\infty} f_X(x)\, dx.
+\]</span></p>
+<p>Nous savons que <span class="math inline">\(X\)</span> suit une loi normale centrée réduite, donc : <span class="math display">\[
+\int_0^{+\infty} f_X(x)\, dx = \frac{1}{2}.
+\]</span></p>
+<p>Ainsi, <span class="math display">\[
+\mathbb{E}\{\varphi(Y)\}
+= \int_{-\infty}^0 \varphi(y) f_X(y)\, dy
++ \frac{1}{2} \varphi(0).
+\]</span> On en déduit que la densité de <span class="math inline">\(Y\)</span> est donnée par : <span class="math display">\[
+f_Y(y) =
+\begin{cases}
+f_X(y), &amp; y &lt; 0, \\[6pt]
+\frac{1}{2}, &amp; y = 0, \\[6pt]
+0, &amp; y &gt; 0.
+\end{cases}
+\]</span></p>
+<p>On aurait aussi pu écrire la fonction de répartition de <span class="math inline">\(Y\)</span> :</p>
+<p>On sait que le support de <span class="math inline">\(Y\)</span> est <span class="math inline">\((-\infty, 0]\)</span>.</p>
+<p>Pour <span class="math inline">\(y &lt; 0\)</span>, <span class="math display">\[
+F_Y(y)
+= P(Y \le y)
+= P(\min(X, 0) \le y)
+= P(X \le y).
+= F_X(y).
+\]</span></p>
+<p>Car lorsque <span class="math inline">\(y &lt; 0\)</span>, l’événement <span class="math inline">\(\{\min(X, 0) \le y\}\)</span> est équivalent à l’événement <span class="math inline">\(\{X \le y\}\)</span>.</p>
+<p>On peut aussi le voir ainsi : <span class="math display">\[
+= P(\min(X, 0) \le y | X \le 0) P(X \le 0) + P(\min(X, 0) \le y | X &gt; 0) P(X &gt; 0)
+\]</span></p>
+<p><span class="math display">\[
+= P(X \le y | X \le 0) \cdot \frac{1}{2} + 0 \cdot \frac{1}{2}
+\]</span></p>
+<p><span class="math display">\[
+= \frac{1}{2} P(X \le y | X \le 0)
+= \frac{1}{2} \cdot \frac{P(X \le y)}{P(X \le 0)}
+= P(X \le y).
+\]</span></p>
+<p>Et</p>
+<p>pour <span class="math inline">\(y &gt;= 0\)</span>, <span class="math display">\[
+F_Y(y)
+= P(Y \le y)
+= P(\min(X, 0) \le y)
+= 1.
+\]</span></p>
+<p>Donc la fonction de répartition de <span class="math inline">\(Y\)</span> est donnée par : <span class="math display">\[
+F_Y(y) =
+\begin{cases}
+F_X(y), &amp; y &lt; 0, \\[6pt]
+1, &amp; y \ge 0.
+\end{cases}
+\]</span></p>
+<p>Et la densité de <span class="math inline">\(Y\)</span> est la dérivée de <span class="math inline">\(F_Y\)</span> : <span class="math display">\[
+f_Y(y) =
+\begin{cases}
+f_X(y), &amp; y &lt; 0, \\[6pt]
+0, &amp; y &gt; 0.
+\end{cases}
+\]</span></p>
+<p>Pour <span class="math inline">\(y = 0\)</span>, on a <span class="math inline">\(P(Y = 0) = P(X &gt; 0) = \frac{1}{2}\)</span>.</p>
+<p>Donc la densité de <span class="math inline">\(Y\)</span> est bien :</p>
+<p><span class="math display">\[
+f_Y(y) =
+\begin{cases}
+f_X(y), &amp; y &lt; 0, \\[6pt]
+\frac{1}{2}, &amp; y = 0, \\[6pt]
+0, &amp; y &gt; 0.
+\end{cases}
+\]</span></p>
+<ol start="2" type="1">
+<li>Montrer que <span class="math inline">\(Y\)</span> admet un moment d’ordre 2, et calculer l’espérance et la variance de <span class="math inline">\(Y\)</span>.</li>
+</ol>
+<p>Nous savons que <span class="math inline">\(|Y| = |\min(X, 0)| \le |X|\)</span>.</p>
+<p>Comme <span class="math inline">\(X\)</span> suit une loi normale centrée réduite, <span class="math inline">\(X\)</span> admet un moment d’ordre 2. Par conséquent, <span class="math inline">\(Y\)</span> admet également un moment d’ordre 2. Calculons l’espérance de <span class="math inline">\(Y\)</span> : Le support de <span class="math inline">\(Y\)</span> est <span class="math inline">\((-\infty, 0]\)</span>, donc :</p>
+<p><span class="math display">\[
+\mathbb{E}(Y)
+= \int_{-\infty}^0 y f_X(y)\, dy
++ 0 \cdot \frac{1}{2}
+= \int_{-\infty}^0 y \cdot \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\, dy.
+\]</span></p>
+<p>En effectuant le changement de variable <span class="math inline">\(u = -\frac{y^2}{2}\)</span>, on obtient :</p>
+<p><span class="math display">\[
+\mathbb{E}(Y)
+= -\frac{1}{\sqrt{2\pi}} \int_{-\infty}^0 e^{u}\, du
+= -\frac{1}{\sqrt{2\pi}}.
+\]</span></p>
+<p>Calculons <span class="math inline">\(\mathbb{E}(Y^2)\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}(Y^2)
+= \int_{-\infty}^0 y^2 f_X(y)\, dy
++ 0^2 \cdot \frac{1}{2}
+= \int_{-\infty}^0 y^2 \cdot \frac{1}{\sqrt{2\pi}} e^{-y^2/2}\, dy.
+\]</span></p>
+<p>Par une intégration par parties, on obtient : <span class="math display">\[
+\mathbb{E}(Y^2)
+= \left[ -\frac{1}{\sqrt{2\pi}} y e^{-y^2/2} \right]_{-\infty}^0
+\;+\;
+\frac{1}{\sqrt{2\pi}} \int_{-\infty}^0 e^{-y^2/2}\, dy
+= \frac{1}{\sqrt{2\pi}} \cdot \frac{\sqrt{2\pi}}{2}
+= \frac{1}{2}.
+\]</span></p>
+<p>Donc, <span class="math display">\[
+\text{Var}(Y) = \mathbb{E}(Y^2) - (\mathbb{E}(Y))^2
+= \frac{1}{2} - \left(-\frac{1}{\sqrt{2\pi}}\right)^2
+= \frac{1}{2} - \frac{1}{2\pi}
+\]</span></p>
+<ol start="3" type="1">
+<li>Loi, espérance et variance de <span class="math inline">\(Z = \max(X, 0)\)</span></li>
+</ol>
+<p>Nous savons que <span class="math inline">\(X = Y + Z\)</span>.</p>
+<p>Donc, <span class="math inline">\(Z = X - Y\)</span>.</p>
+<p>Comme <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> admettent un moment d’ordre 2, <span class="math inline">\(Z\)</span> admet également un moment d’ordre 2.</p>
+<p>En effet, on a : <span class="math display">\[
+|Z| = |X - Y| \le |X| + |Y| \le 2|X|.
+\]</span></p>
+<p>Et</p>
+<p><span class="math display">\[
+|Z|^2 \le 4|X|^2.
+\]</span></p>
+<p>Calculons l’espérance de <span class="math inline">\(Z\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}(Z)
+= \mathbb{E}(X) - \mathbb{E}(Y)
+= 0 - \left(-\frac{1}{\sqrt{2\pi}}\right)
+= \frac{1}{\sqrt{2\pi}}.
+\]</span></p>
+<p>Calculons la de <span class="math inline">\(\mathbb{E}(Z^2)\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}(X^2)
+= \mathbb{E}((Y + Z)^2)
+= \mathbb{E}(Y^2) + 2\mathbb{E}(YZ) + \mathbb{E}(Z^2)
+= \mathbb{E}(Y^2) + \mathbb{E}(Z^2)
+\]</span></p>
+<p>Car <span class="math inline">\(YZ = \min(X, 0) \cdot \max(X, 0) = 0\)</span>.</p>
+<p>Nous avons déjà calculé <span class="math inline">\(\mathbb{E}(X^2) = 1\)</span> et <span class="math inline">\(\mathbb{E}(Y^2) = \frac{1}{2}\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{E}(Z^2)
+= \mathbb{E}(X^2) - \mathbb{E}(Y^2)
+= 1 - \frac{1}{2}
+= \frac{1}{2}.
+\]</span></p>
+<p>Ainsi, <span class="math display">\[
+\text{Var}(Z) = \mathbb{E}(Z^2) - (\mathbb{E}(Z))^2
+= \frac{1}{2} - \left(\frac{1}{\sqrt{2\pi}}\right)^2
+= \frac{1}{2} - \frac{1}{2\pi}.
 \]</span></p>
 </section>
 </section>
