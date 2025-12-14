@@ -92,12 +92,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -165,6 +163,11 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../flavicon.jpeg" alt="" class="navbar-logo">
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -175,28 +178,39 @@ window.Quarto = {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ensai" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ENSAI</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ensai">    
+        <li>
+    <a class="dropdown-item" href="../ensai1A.html">
+ <span class="dropdown-text">TD Ensai 1A</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../ensai1A.html"> 
-<span class="menu-text">ENSAI TD 2025-2026</span></a>
+    <span class="nav-link">
+<span class="menu-text">Autres</span>
+    </span>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About Me</span></a>
+<span class="menu-text">À propos</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Summary</h2>
+    <h2 id="toc-title">Sommaire</h2>
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
@@ -225,7 +239,7 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -234,7 +248,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-right">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -270,6 +284,8 @@ window.Quarto = {
 <p>We decided to reproduce the paper using Python. Implementing the left rectangle quadrature method was straightforward, and we initially believed that the <code>scipy.fft</code> and <code>numpy.fft</code> libraries would allow us to compute the Fourier transform of <span class="math inline">\(f\)</span> using the FFT algorithm.</p>
 <p>However, we were surprised to discover that these functions do not compute the Fourier transform of a continuous function but rather the discrete Fourier transform (DFT) of a finite sequence. The plot below illustrates this observation.</p>
 <div id="ee0df804" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift</span>
@@ -318,6 +334,7 @@ window.Quarto = {
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Comparison of FFT Implementations vs. Exact Fourier Transform"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -419,6 +436,8 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <h3 class="anchored" data-anchor-id="implementation-of-the-left-rectangle-quadrature-method-in-python.">Implementation of the left rectangle quadrature method in Python.</h3>
 <p>The function <code>tfquad</code> below implements the <strong>left rectangle quadrature method</strong> to compute the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>.</p>
 <div id="59048c0d" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tfquad(f, nu, n, T):</span>
@@ -448,9 +467,12 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    prefactor <span class="op">=</span> (T <span class="op">/</span> n) <span class="op">*</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> T)</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prefactor <span class="op">*</span> np.<span class="bu">sum</span>(f(t_k) <span class="op">*</span> weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>We can also use SciPy’s <code>quad</code> function to define the <strong>Fourier transform</strong> of a function <code>f</code> at a given frequency <code>nu</code>. The function <code>tf_integral</code> below implements this approach. It uses numerical integration to compute the Fourier transform of <code>f</code> over the interval <span class="math inline">\([-T/2, T/2]\)</span>.</p>
 <div id="a975ee87" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tf_integral(f, nu, T):</span>
@@ -458,8 +480,11 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    real_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.real(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    imag_part <span class="op">=</span> quad(<span class="kw">lambda</span> t: np.imag(f(t) <span class="op">*</span> np.exp(<span class="op">-</span><span class="ot">2j</span> <span class="op">*</span> np.pi <span class="op">*</span> nu <span class="op">*</span> t)), <span class="op">-</span>T<span class="op">/</span><span class="dv">2</span>, T<span class="op">/</span><span class="dv">2</span>)[<span class="dv">0</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> real_part <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> imag_part</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="f2f7853e" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -518,6 +543,7 @@ t_k = -\frac{T}{2} + k \cdot h_t, \quad k = 0, 1, \ldots, N-1.
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Comparison of FFT Implementations vs. Exact Fourier Transform"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -545,6 +571,8 @@ f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
 <p>evaluated at <span class="math inline">\(\nu = \frac{5}{2}\)</span>.</p>
 <p>Although <span class="math inline">\(f\)</span> is smooth, we clearly observe <strong>strong oscillations</strong> in <span class="math inline">\(\hat{f}\)</span>, highlighting the influence of the exponential kernel.</p>
 <div id="7585cf33" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -577,6 +605,7 @@ f : t \in \mathbb{R} \mapsto e^{-t^2} \in \mathbb{R}
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -657,6 +686,8 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 <p>This yields an array corresponding to the values of the Fourier transform <span class="math inline">\(\hat{f}(\nu_j)\)</span>, with <span class="math inline">\(\nu_j = \frac{j}{T}\)</span> for <span class="math inline">\(j = -\frac{n}{2}, \ldots, \frac{n}{2} - 1\)</span>.</p>
 <p>The following Python function <code>tffft</code> implements these steps to compute the Fourier transform of a given function.</p>
 <div id="b526916c" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -688,9 +719,12 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    freq_nu <span class="op">=</span> <span class="op">-</span>n <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> T) <span class="op">+</span> np.arange(n) <span class="op">/</span> T              <span class="co"># fréquences ν_j = j/T</span></span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tf, freq_nu, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The following program illustrates how to compute the Fourier transform of the Gaussian function <span class="math inline">\(f(t) = e^{-10t^2}\)</span> over the interval <span class="math inline">\([-10, 10]\)</span>, using the Fast Fourier Transform (FFT) algorithm.</p>
 <div id="0608f982" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
@@ -719,6 +753,7 @@ e^{-2i\pi j \frac{k}{n}} = e^{-2i\pi (j-n) \frac{k}{n}} \times \underbrace{e^{-2
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -742,6 +777,8 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 \]</span></p>
 <p>Le programme ci-dessous illustre l’utilisation du théorème d’interpolation de Shannon pour calculer la transformée de Fourier d’une fonction <span class="math inline">\(f\)</span> en un point <span class="math inline">\(\nu\)</span>.</p>
 <div id="d2b3cfe7" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shannon(tf, nu, T):</span>
@@ -764,9 +801,12 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        tfnu <span class="op">+=</span> tf[j] <span class="op">*</span> np.sinc(T <span class="op">*</span> nu <span class="op">-</span> k)  <span class="co"># np.sinc(x) = sin(pi x)/(pi x) en numpy</span></span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfnu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Enfin, nous pouvons definir la</p>
 <div id="b1223a02" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fourier_at_nu(f, T, n, nu):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Computes the Fourier transform of f at frequency nu</span></span>
@@ -774,8 +814,11 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    tf, _, _ <span class="op">=</span> tffft(f, T, n)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> shannon(tf, nu, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="3751d3a1" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> t: np.exp(<span class="op">-</span>a <span class="op">*</span> np.<span class="bu">abs</span>(t))                          <span class="co"># Fonction à transformer</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fhat_exact <span class="op">=</span> <span class="kw">lambda</span> nu: (<span class="dv">2</span> <span class="op">*</span> a) <span class="op">/</span> (a<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> np.pi<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> nu<span class="op">**</span><span class="dv">2</span>)  <span class="co"># TF exacte</span></span>
@@ -800,6 +843,7 @@ g(t) = \sum_{k \in \mathbb{Z}} g(k\alpha)\, \text{sinc}\left(\frac{\pi}{\alpha}(
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>approx_value <span class="op">=</span> fourier_at_nu(f, T, n, nu)</span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>np<span class="sc">.</span>real(approx_value)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact value at nu=0.075: 2.118347413776218
 Approximation at nu=0.075: 2.1185707502943534
@@ -809,6 +853,8 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 <p>Une alternative à l’interpolation de Shannon est d’utiliser d’autres méthodes d’interpolation comme l’interpolation de Lagrange ou l’interpolation de Newton.</p>
 <div id="fc9bba6b" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift, ifftshift</span>
@@ -886,6 +932,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>plt.legend(frameon<span class="op">=</span><span class="va">False</span>, loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
 <span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -895,6 +942,8 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 </div>
 <div id="ee1af19b" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftfreq, fftshift, ifftshift</span>
@@ -944,6 +993,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Comparison of FFT Implementations vs. Exact Fourier Transform"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -957,6 +1007,8 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <section id="computing-the-fourier-transform-at-frequency-ν-using-the-fft-algorithm-in-numpy-and-scipy" class="level1">
 <h1>Computing the Fourier Transform at Frequency ν Using the FFT Algorithm in numpy and SciPy</h1>
 <div id="16b344da" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.fft <span class="im">import</span> fft, fftshift, fftfreq, ifftshift</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -998,6 +1050,7 @@ Approximation at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>approx_value_scipy <span class="op">=</span> fourier_at_nu_scipy(f, T, n, nu)</span>
 <span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact value at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>exact_value<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximation (SciPy) at nu=</span><span class="sc">{</span>nu<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>np<span class="sc">.</span>real(approx_value_scipy)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact value at nu=0.075: 2.118347413776218
 Approximation (SciPy) at nu=0.075: 2.1185707502943534
@@ -1006,6 +1059,8 @@ Approximation (SciPy) at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 </div>
 <div id="2de07d98" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -1095,6 +1150,7 @@ Approximation (SciPy) at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>anim.save(<span class="st">"data_drift.gif"</span>, writer<span class="op">=</span>gif_writer)</span>
 <span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ GIF enregistré : data_drift.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>✅ GIF enregistré : data_drift.gif</code></pre>
 </div>
@@ -1107,6 +1163,8 @@ Approximation (SciPy) at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 </div>
 </div>
 <div id="33c11ecf" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1142,6 +1200,7 @@ Approximation (SciPy) at nu=0.07853981633974483: 2.0264201680784835</code></pre>
 <span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1189,150 +1248,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = true;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

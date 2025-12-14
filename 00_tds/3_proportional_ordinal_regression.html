@@ -92,12 +92,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -165,6 +163,11 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../flavicon.jpeg" alt="" class="navbar-logo">
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -175,28 +178,39 @@ window.Quarto = {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ensai" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ENSAI</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ensai">    
+        <li>
+    <a class="dropdown-item" href="../ensai1A.html">
+ <span class="dropdown-text">TD Ensai 1A</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../ensai1A.html"> 
-<span class="menu-text">ENSAI TD 2025-2026</span></a>
+    <span class="nav-link">
+<span class="menu-text">Autres</span>
+    </span>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About Me</span></a>
+<span class="menu-text">À propos</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Summary</h2>
+    <h2 id="toc-title">Sommaire</h2>
    
   <ul>
   <li><a href="#introduction-to-the-proportional-odds-model" id="toc-introduction-to-the-proportional-odds-model" class="nav-link active" data-scroll-target="#introduction-to-the-proportional-odds-model">Introduction to the Proportional Odds Model</a></li>
@@ -211,7 +225,7 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -221,7 +235,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-right">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -408,6 +422,8 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <p>In this article, we focused on a global assessment of the proportional odds assumption, without investigating which specific coefficients may be responsible for any violations. Brant also addresses this finer-grained analysis, which is why we <strong>strongly encourage</strong> you to read his 1990 article in full.</p>
 <p>We welcome any comments or suggestions. Happy reading!</p>
 <div id="f7ca4f3d" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"data/winequality-red.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>)</span>
@@ -421,11 +437,14 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'quality'</span>] <span class="op">=</span> data[<span class="st">'quality'</span>].replace({<span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">8</span>: <span class="dv">7</span>})</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'quality'</span>].value_counts(normalize<span class="op">=</span><span class="va">False</span>).sort_index()</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of observations:"</span>, data.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of observations: 1599</code></pre>
 </div>
 </div>
 <div id="0bf7a415" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traitons les outliers des variables privées de la variable cible quality par IQR.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_outliers_iqr(df, column):</span>
@@ -438,8 +457,11 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> data.columns:</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>:</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> remove_outliers_iqr(data, col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="e63f8834" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>var_names_without_quality <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> data.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'quality'</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">##  Create the boxplot of each variable per group of quality</span></span>
@@ -454,6 +476,7 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(var)</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -463,6 +486,8 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 </div>
 </div>
 <div id="7ad0d110" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Implement the ordered logistic regression to variables 'volatile acidity', 'free sulfur dioxide', and 'total sulfur dioxide'</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.miscmodels.ordinal_model <span class="im">import</span> OrderedModel</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -485,6 +510,7 @@ X^2 = (\mathbf{D} \hat{{\beta}})^\top \left[ \mathbf{D} \widehat{V}(\hat{{\beta}
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the log-likelihood of the model</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>log_reduced <span class="op">=</span> result.llf</span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Log-likelihood of the reduced model: </span><span class="sc">{</span>log_reduced<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                             OrderedModel Results                             
 ==============================================================================
@@ -510,17 +536,22 @@ Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
 </div>
 </div>
 <div id="aff59875" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>num_of_thresholds <span class="op">=</span> <span class="bu">len</span>(result.params) <span class="op">-</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Number of thresholds is total params minus explanatory vars</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>OrderedModel(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        data[response_var],</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        data[explanatory_vars],</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        distr<span class="op">=</span><span class="st">'logit'</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ).transform_threshold_params(result.params[<span class="op">-</span>num_of_thresholds:])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([       -inf, -3.86010874, -0.19012621,  2.2279648 ,         inf])</code></pre>
 </div>
 </div>
 <div id="8f847569" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The likelihood ratio test</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the full multinomial model</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -558,6 +589,7 @@ Log-likelihood of the reduced model: -1130.0713953351503</code></pre>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject the null hypothesis: The proportional odds assumption is violated."</span>)</span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject the null hypothesis: The proportional odds assumption holds."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                          MNLogit Regression Results                          
 ==============================================================================
@@ -614,6 +646,8 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 </div>
 </div>
 <div id="0eb93810" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -667,6 +701,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Thresholds:"</span>)</span>
 <span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(thresholds)   </span>
 <span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"z_mat (variables binaires créées) :</span><span class="ch">\n</span><span class="st">"</span>, z_mat.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated coefficients (beta_hat):
 [[ 4.09606917 -0.88743434  0.63477387  0.20921617]
@@ -699,6 +734,8 @@ z_mat (variables binaires créées) :
 </div>
 </div>
 <div id="4733ece9" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_pi_hat(binary_models, X_with_const):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">    - binary_models : liste d'objets Logit results (statsmodels)</span></span>
@@ -721,6 +758,7 @@ z_mat (variables binaires créées) :
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="op">=</span> compute_pi_hat(binary_models, X_with_const)</span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de pi_hat :"</span>, pi_hat.shape)  <span class="co"># (n, K-1)</span></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de pi_hat :</span><span class="ch">\n</span><span class="st">"</span>, pi_hat[:<span class="dv">5</span>, :])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape de pi_hat : (1135, 3)
 Aperçu de pi_hat :
@@ -732,6 +770,8 @@ Aperçu de pi_hat :
 </div>
 </div>
 <div id="60f86b40" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assemble_varBeta(pi_hat, X_with_const):</span>
@@ -792,6 +832,7 @@ Aperçu de pi_hat :
 <span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>varBeta <span class="op">=</span> assemble_varBeta(pi_hat, X_with_const)</span>
 <span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de varBeta :"</span>, varBeta.shape)  <span class="co"># ((K-1)*p, (K-1)*p)</span></span>
 <span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de varBeta :</span><span class="ch">\n</span><span class="st">"</span>, varBeta[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape de varBeta : (9, 9)
 Aperçu de varBeta :
@@ -808,6 +849,8 @@ Aperçu de varBeta :
 </div>
 </div>
 <div id="bf51b141" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fill_varBeta_diagonal(varBeta, var_hat):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    K_1 <span class="op">=</span> <span class="bu">len</span>(var_hat)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> var_hat[<span class="dv">0</span>].shape[<span class="dv">0</span>] <span class="op">-</span> <span class="dv">1</span>  <span class="co"># -1 car on enlève l'intercept</span></span>
@@ -825,6 +868,7 @@ Aperçu de varBeta :
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>varBeta <span class="op">=</span> fill_varBeta_diagonal(varBeta, var_hat)</span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de varBeta après remplissage diagonal :"</span>, varBeta.shape)  <span class="co"># ((K-1)*p, (K-1)*p)</span></span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de varBeta après remplissage diagonal :</span><span class="ch">\n</span><span class="st">"</span>, varBeta[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu    </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape de varBeta après remplissage diagonal : (9, 9)
 Aperçu de varBeta après remplissage diagonal :
@@ -841,6 +885,8 @@ Aperçu de varBeta après remplissage diagonal :
 </div>
 </div>
 <div id="ac222652" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construct_D(K_1, p):</span>
@@ -868,6 +914,7 @@ Aperçu de varBeta après remplissage diagonal :
 <span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> construct_D(<span class="bu">len</span>(thresholds), <span class="bu">len</span>(explanatory_vars))</span>
 <span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape de D :"</span>, D.shape)  <span class="co"># ((K-2)*p, (K-1)*p)</span></span>
 <span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Aperçu de D :</span><span class="ch">\n</span><span class="st">"</span>, D[:<span class="dv">5</span>, :<span class="dv">5</span>])  <span class="co"># Afficher un aperçu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape de D : (6, 9)
 Aperçu de D :
@@ -879,6 +926,8 @@ Aperçu de D :
 </div>
 </div>
 <div id="7fabcee9" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wald_statistic(D, betaStar, varBeta):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcule la statistique de Wald X^2 pour le test de proportionnalité.</span></span>
@@ -891,8 +940,11 @@ Aperçu de D :
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    inv_V <span class="op">=</span> np.linalg.inv(V)</span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    X2 <span class="op">=</span> <span class="bu">float</span>(Db.T <span class="op">@</span> inv_V <span class="op">@</span> Db)</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="975355e7" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Supposons que tu as K_1, p, betaStar, varBeta</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>K_1 <span class="op">=</span> <span class="bu">len</span>(binary_models)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="bu">len</span>(explanatory_vars)  <span class="co"># Nombre de variables explicatives (hors intercept)</span></span>
@@ -906,6 +958,7 @@ Aperçu de D :
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistique X² = </span><span class="sc">{</span>X2<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Degrés de liberté = </span><span class="sc">{</span>ddl<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value = </span><span class="sc">{</span>pval<span class="sc">:.4g}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Statistique X² = 42.8803
 Degrés de liberté = 6
@@ -948,150 +1001,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = true;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
