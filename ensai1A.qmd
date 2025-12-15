@@ -76,11 +76,13 @@ Vous trouverez ici certains exercices de la fiche de TD, qui vous permettront de
 ## 6. Vecteurs Aléatoires Discrets
 - [Exercice 1](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-1)
 - [Exercice 2](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-2)
+- [Exercice 3](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-3)
+- [Exercice 4](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-4)
+
 
 :::
 
 </div>
-
 
 
 

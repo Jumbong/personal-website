@@ -2,7 +2,7 @@
 title : "Exercices sur les Vecteurs Aléatoires Discrets"
 ---
 
-# 7. Vecteurs Aléatoires Discrets
+# 7. Vecteurs Aléatoires Discrets et continus
 
 ## Exercice 1
 
@@ -413,3 +413,167 @@ $$
 $$
 
 ---
+
+## Exercice 3
+
+Dans une maison de retraite, le nombre de chutes X au cours d’une année suit une loi de Poisson de paramètre $\lambda$.
+Chaque chute peut, indépendamment des autres chutes, conduire à une fracture de la hanche avec une probabilité $p$.
+Soit $Y$ le nombre total de fractures de la hanche au cours de l’année.
+
+1. Donner la loi conditionnelle de $Y$ sachant $X$.
+2. En déduire l’espérance du nombre de fractures sachant le nombre de chutes, puis l’espérance du nombre total de fractures.
+
+
+## Correction Exercice 3
+
+1) Loi conditionnelle de $Y$ sachant $X$
+
+Conditionnellement à $X = x$, il y a $x$ chutes indépendantes.
+Chaque chute entraîne une fracture avec une probabilité $p$.
+
+Ainsi, conditionnellement à $X = x$, la variable $Y$ suit une loi binomiale :
+
+$$
+Y \mid X = x \sim \text{Binomial}(x, p).
+$$
+
+Donc, pour tout $k = 0, \ldots, x$,
+
+$$
+\mathbb{P}(Y = k \mid X = x)
+= \binom{x}{k} p^{k} (1 - p)^{x - k}.
+$$
+
+---
+
+2) Espérance conditionnelle et espérance totale
+
+L'espérance d'une loi binomiale donne :
+
+$$
+E(Y \mid X = x) = px.
+$$
+
+Donc : $$E(Y \mid X) = pX.$$
+
+En appliquant la loi de l'espérance totale :
+
+$$
+E(Y) = E(E(Y \mid X)) = E(pX).
+$$
+
+Comme $X \sim \text{Poisson}(\lambda)$, on a $E(X) = \lambda$.
+
+Donc :
+
+$$
+E(Y) = p \, E(X) = \lambda p.
+$$
+
+---
+
+## Exercice 4
+
+Durant une journée, Jean reçoit des coups de téléphone et des textos.  
+Le nombre de coups de téléphone $X$ suit une loi de Poisson de paramètre $\lambda$,  
+et le nombre de textos $Y$ suit une loi de Poisson de paramètre $\mu$.  
+Les variables $X$ et $Y$ sont indépendantes.
+
+1. Sachant que Jean a reçu au total $n$ coups de téléphone ou textos, donner la distribution conditionnelle du nombre de textos.  
+   Vous montrerez que la loi conditionnelle est celle d’une loi binomiale et vous préciserez ses paramètres.
+
+2. En déduire le nombre moyen de textos reçus, conditionnellement à $n$.
+
+
+## Correction Exercice 4
+
+Nous savons que $X \sim \text{Pois}(\lambda)$, $Y \sim \text{Pois}(\mu)$, et qu’ils sont indépendants.  
+La somme $X + Y$ suit alors une loi de Poisson de paramètre $\lambda + \mu$.
+
+---
+
+1) Loi conditionnelle de $Y$ sachant $X + Y = n$
+
+Pour $k = 0, \ldots, n$,
+
+$$
+P(Y = k \mid X + Y = n)
+= \frac{P(Y = k,\, X + Y = n )}{P(X + Y = n)}.
+$$
+
+$$
+= \frac{P(Y = k) P(X+ Y = n \mid Y = k)}{P(X + Y = n)}
+= \frac{P(Y = k) P(X = n-k \mid Y = k)}{P(X + Y = n)}.
+$$
+
+Comme $X$ et $Y$ sont indépendantes,
+$$
+P(X = n-k \mid Y = k) = P(X = n-k).
+$$
+
+Donc :
+
+$$
+P(Y = k \mid X + Y = n)
+= \frac{P(X = n-k) P(Y = k)}{P(X + Y = n)}.
+$$
+
+Or,
+
+$$
+P(X = n-k) = e^{-\lambda} \frac{\lambda^{n-k}}{(n-k)!},
+\qquad
+P(Y = k) = e^{-\mu} \frac{\mu^k}{k!}.
+$$
+
+Le dénominateur est
+
+$$
+P(X + Y = n) = e^{-(\lambda+\mu)} \frac{(\lambda+\mu)^n}{n!}.
+$$
+
+En combinant :
+
+$$
+P(Y = k \mid X + Y = n)
+= \binom{n}{k}
+\left( \frac{\mu}{\lambda+\mu} \right)^k
+\left( \frac{\lambda}{\lambda+\mu} \right)^{n-k}.
+$$
+
+Ce qui donne encore :
+
+$$
+P(Y = k \mid X + Y = n ) 
+= \binom{n}{k} 
+\left( \frac{\mu}{\lambda+\mu} \right)^k
+\left( 1 - \frac{\mu}{\lambda+\mu} \right)^{n-k}.
+$$
+
+Ainsi :
+$$
+Y \mid (X+Y = n)
+\sim \text{Binomial}\left(n,\; \frac{\mu}{\lambda+\mu}\right).
+$$
+
+---
+
+2) Espérance conditionnelle
+
+Pour une loi binomiale $\text{Bin}(n,p)$, l'espérance vaut $np$.  
+Donc :
+
+$$
+E(Y \mid X+Y = n)
+= n \cdot \frac{\mu}{\lambda+\mu}.
+$$
+
+D'ou :
+$$
+E(Y \mid X+Y) = (X + Y) \cdot \frac{\mu}{\lambda+\mu}.
+$$
+
+---
+
+
+
