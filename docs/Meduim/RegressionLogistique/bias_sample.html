@@ -71,12 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,6 +145,11 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../flavicon.jpeg" alt="" class="navbar-logo">
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -157,28 +160,39 @@ window.Quarto = {
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ensai" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ENSAI</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ensai">    
+        <li>
+    <a class="dropdown-item" href="../../ensai1A.html">
+ <span class="dropdown-text">TD Ensai 1A</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../ensai1A.html"> 
-<span class="menu-text">ENSAI TD 2025-2026</span></a>
+    <span class="nav-link">
+<span class="menu-text">Autres</span>
+    </span>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About Me</span></a>
+<span class="menu-text">À propos</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Summary</h2>
+    <h2 id="toc-title">Sommaire</h2>
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
@@ -209,7 +223,7 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -221,7 +235,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-right">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -289,6 +303,8 @@ y(x, \alpha, \beta) =
 <p>where <span class="math inline">\(\text{prop}\)</span> is the proportion of y=1 in the dataset, <span class="math inline">\(x_i\)</span> is the predictor variable, and <span class="math inline">\(n\)</span> is the number of observations.</p>
 <p>The optimization problem can be solved using the <code>scipy.optimize.minimize</code> function with the Nelder-Mead method.</p>
 <div id="fd5b2aa7" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -324,6 +340,7 @@ y(x, \alpha, \beta) =
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify proportions</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> np.mean(y)</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of y=1: </span><span class="sc">{</span>y_mean<span class="sc">:.2f}</span><span class="ss">, y=0: </span><span class="sc">{</span><span class="dv">1</span><span class="op">-</span>y_mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimized alpha: -10, beta: [1.23775]
 Proportion of y=1: 0.20, y=0: 0.80</code></pre>
@@ -340,6 +357,8 @@ Proportion of y=1: 0.20, y=0: 0.80</code></pre>
 <p>The code below generates the data for the two cases and plots the proportion of y=1 as a function of beta.</p>
 <p>The graph <a href="#fig-simulate_case_data" class="quarto-xref">Figure&nbsp;1</a>, both the datasets have a total of 50,000 events, with the Case A dataset having a class distribution of about 50:50 and Case B dataset having a class distribution of about 80:20.</p>
 <div id="cell-fig-simulate_case_data" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -443,6 +462,7 @@ Proportion of y=1: 0.20, y=0: 0.80</code></pre>
 <span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-simulate_case_data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -458,6 +478,8 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 </div>
 <p>The theoretical properties of the simulated datasets are presented in <a href="#fig-plot_logit_vs_x" class="quarto-xref">Figure&nbsp;2</a>. The left subplot shows the probability of y=1 as a function of x for Case A and Case B. The right subplot shows the logit function as a function of x for Case A and Case B. The logit function is given by <span class="math inline">\(\alpha + \beta x\)</span>.</p>
 <div id="cell-fig-plot_logit_vs_x" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -514,6 +536,7 @@ Figure&nbsp;1: Simulated data from logistic model with alpha=-10, beta=2 and alp
 <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-plot_logit_vs_x" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -546,6 +569,8 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <h3 class="anchored" data-anchor-id="eight-sub-samples-generated-from-case-a.">Eight sub-samples generated from Case A.</h3>
 <p>The code below generates the eight sub-samples from the Case A dataset with varying class distributions.</p>
 <div id="c48e9d4d" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_subsample_fixed_majority(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    X, y, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    fraction_class0<span class="op">=</span><span class="fl">0.6</span>,  <span class="co"># e.g., 0.6 =&gt; 60:40</span></span>
@@ -578,9 +603,12 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(chosen_indices)</span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X[chosen_indices], y[chosen_indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The code below gives examples of generating the eight sub-samples from the Case A dataset with varying class distributions. <a href="#fig-plotsamplecasea" class="quarto-xref">Figure&nbsp;3</a> shows the distribution of the dependent variable y for each of the eight sub-samples.</p>
 <div id="cell-fig-plotsamplecasea" class="cell" data-fig="true" data-execution_count="5">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Generation</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).</span></span>
@@ -641,6 +669,7 @@ Figure&nbsp;2: Logit vs.&nbsp;x for Case A and Case B
 <span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-plotsamplecasea" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -656,6 +685,8 @@ Figure&nbsp;3: Distribution of y for Case A sub-samples
 </div>
 <p>A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true <span class="math inline">\(p(x)\)</span> versus the estimated <span class="math inline">\(p(x)\)</span> is presented in <a href="#fig-testpa" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <div id="cell-fig-testpa" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -710,6 +741,7 @@ Figure&nbsp;3: Distribution of y for Case A sub-samples
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-testpa" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -730,6 +762,8 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case A. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
 <p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case A with monte-carlo simulations.</p>
 <div id="ce390c01" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    roc_auc_score,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    precision_score,</span>
@@ -820,6 +854,7 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>df_results_A <span class="op">=</span> pd.DataFrame(results_list)</span>
 <span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean performance metrics for each ratio</span></span>
 <span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>df_results_A.groupby(<span class="st">'ratio_0'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -916,6 +951,8 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 </div>
 <p>The mean of the performance metrics for each of the eight sub-samples from Case A is presented in <a href="#fig-plot_metrics_a" class="quarto-xref">Figure&nbsp;5</a>.</p>
 <div id="cell-fig-plot_metrics_a" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Plotting</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : df_results_A</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs : fig showing the performance metrics vs the ratios</span></span>
@@ -945,6 +982,7 @@ Figure&nbsp;4: True vs.&nbsp;estimated p(x) for Case A sub-samples
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-plot_metrics_a" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -968,6 +1006,8 @@ Figure&nbsp;5: Performance metrics Vs. Ratios for Case A
 <h3 class="anchored" data-anchor-id="eight-sub-samples-generated-from-case-b.">Eight sub-samples generated from Case B.</h3>
 <p>The code below generates the eight sub-samples from the Case B dataset with varying class distributions. <a href="#fig-plotsamplecaseb" class="quarto-xref">Figure&nbsp;6</a> shows the distribution of the dependent variable y for each of the eight sub-samples.</p>
 <div id="cell-fig-plotsamplecaseb" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Generation</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : fraction_class0 = [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], create_subsample_fixed_majority.</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ourputs : A dictionnarie with keys in fraction_class0 and values a tuple (X_sub, y_sub).</span></span>
@@ -1028,6 +1068,7 @@ Figure&nbsp;5: Performance metrics Vs. Ratios for Case A
 <span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-plotsamplecaseb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1043,6 +1084,8 @@ Figure&nbsp;6: Distribution of y for Case B sub-samples
 </div>
 <p>A maximum-likelihood logistic regression model will be fitted to each of the eight sub-samples. A plot of the true <span class="math inline">\(p(x)\)</span> versus the estimated <span class="math inline">\(p(x)\)</span> is presented in <a href="#fig-plot_true_vs_estimated_p_b" class="quarto-xref">Figure&nbsp;7</a>.</p>
 <div id="cell-fig-plot_true_vs_estimated_p_b" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1099,6 +1142,7 @@ Figure&nbsp;6: Distribution of y for Case B sub-samples
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1.23775]</code></pre>
 </div>
@@ -1124,6 +1168,8 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <p>We perform 1000 monte-carlo simulations for each of the eight sub-samples from Case B. For each simulation, we fit a maximum-likelihood logistic regression model and compute the performance metrics : AUC, AU-PCR, Precision, Recall, F1-score. In order words, in the end of this exercise, we will have 1000 values for each of the performance metrics for each of the eight sub-samples.</p>
 <p>The code below gives the distribution of the performance metrics for each of the eight sub-samples from Case B with monte-carlo simulations.</p>
 <div id="79eb4f4d" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>C_RUNS <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>SAMPLE_SIZE <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># e.g., majority class size if using a fixed majority approach</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> [<span class="fl">0.50</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.98</span>, <span class="fl">0.99</span>]</span>
@@ -1183,6 +1229,7 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>df_results_B <span class="op">=</span> pd.DataFrame(results_list)</span>
 <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean performance metrics for each ratio</span></span>
 <span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>df_results_B.groupby(<span class="st">'ratio_0'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -1279,6 +1326,8 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 </div>
 <p>The mean of the performance metrics for each of the eight sub-samples from Case B is presented in <a href="#fig-plot_metrics_b" class="quarto-xref">Figure&nbsp;8</a>.</p>
 <div id="cell-fig-plot_metrics_b" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Module : Plotting</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Inputs : df_results_B</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective : Group data by ratio_0 and plot the performance metrics.</span></span>
@@ -1306,6 +1355,7 @@ Figure&nbsp;7: True vs.&nbsp;estimated p(x) for Case B sub-samples
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="fig-plot_metrics_b" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1348,150 +1398,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = true;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

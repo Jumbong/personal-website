@@ -72,6 +72,13 @@ Vous trouverez ici certains exercices de la fiche de TD, qui vous permettront de
 - [Exercice 15](1A/VariablesAleaContines/varaleacont.qmd#exercice-15)
 :::
 
+::: {.postcard}
+## 6. Vecteurs Aléatoires Discrets
+- [Exercice 1](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-1)
+- [Exercice 2](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-2)
+
+:::
+
 </div>
 
 

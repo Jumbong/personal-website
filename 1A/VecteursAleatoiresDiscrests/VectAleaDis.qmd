@@ -1,0 +1,415 @@
+---
+title : "Exercices sur les Vecteurs Aléatoires Discrets"
+---
+
+# 7. Vecteurs Aléatoires Discrets
+
+## Exercice 1
+
+La loi de probabilité jointe de deux variables aléatoires X et Y est
+
+$$
+\mathbb{P}(X = x, Y = y) = \frac{x + 1}{12},
+\qquad x \in \{0,1\}, \; y \in \{0,1,2,3\}.
+$$
+
+1. Les variables aléatoires X et Y sont-elles indépendantes ?
+
+2. Déterminer les lois marginales de X et Y, et identifier lesquelles correspondent à des distributions classiques étudiées en cours.
+
+3. Calculer E(XY) et
+   $$
+   E\!\left( \frac{X}{Y+1} \right).
+   $$
+
+
+## Correction de l’Exercice 1
+
+On considère la loi jointe :
+
+$$
+\mathbb{P}(X = x, Y = y) = \frac{x + 1}{12},
+\qquad x \in \{0,1\},\; y \in \{0,1,2,3\}.
+$$
+
+---
+
+1. Indépendance de X et Y
+
+Nous calculons d'abord les marginales.
+
+**Marginale de X**
+$$
+\mathbb{P}(X = x)
+= \sum_{y=0}^3 \frac{x+1}{12}
+= 4 \cdot \frac{x+1}{12}
+= \frac{x+1}{3}.
+$$
+
+Donc :
+
+$$
+\mathbb{P}(X=0)=\frac{1}{3},\qquad
+\mathbb{P}(X=1)=\frac{2}{3}.
+$$
+
+**Marginale de Y**
+
+$$
+\mathbb{P}(Y = y)
+= \sum_{x=0}^1 \frac{x+1}{12}
+= \frac{1}{12} + \frac{2}{12}
+= \frac{3}{12}
+= \frac{1}{4}.
+$$
+
+Donc Y est uniforme sur {0,1,2,3}.
+
+**Vérification de l’indépendance**
+
+soient $x \in \{0,1\}$ et $y \in \{0,1,2,3\}$. On a :
+$$
+\mathbb{P}(X=x)\,\mathbb{P}(Y=y) = \frac{x+1}{3} \cdot \frac{1}{4} = \frac{x+1}{12} = \mathbb{P}(X=x, Y=y).
+$$
+
+Ainsi :
+
+$$
+\boxed{X \text{ et } Y \text{ sont indépendantes.}}
+$$
+
+---
+
+2. Lois marginales de X et Y
+
+- Le support de X est donné par $\{0,1\}$, et X suit une loi de Bernoulli de paramètre $p=\frac23$ :
+
+  $$
+  \mathbb{P}(X=1)=\frac{2}{3},\quad \mathbb{P}(X=0)=\frac{1}{3}.
+  $$
+
+- Y a pour support $\{0,1,2,3\}$, et chaque valeur est equiprobable :
+
+  $$
+  \mathbb{P}(Y=y)=\frac14,\quad y=0,1,2,3.
+  $$
+
+Donc Y suit une loi uniforme discrète sur $\{0,1,2,3\}$.
+
+---
+
+3. Calcul de E(XY)
+
+Comme X et Y sont indépendantes :
+
+$$
+E(XY)=E(X)\,E(Y).
+$$
+
+**Calcul de E(X)**
+
+$$
+E(X)=0 \cdot \frac13 + 1 \cdot \frac23 = \frac23.
+$$
+
+**Calcul de E(Y)**
+
+$$
+E(Y) = \frac{0+1+2+3}{4} = \frac{6}{4} = \frac32.
+$$
+
+#### Produit
+
+$$
+E(XY)=\frac23 \cdot \frac32 = 1.
+$$
+
+---
+
+4. Calcul de $E\left(\frac{X}{Y+1}\right)$
+
+Grâce à l’indépendance :
+
+$$
+E\left(\frac{X}{Y+1}\right)
+=E(X)\,E\left(\frac{1}{Y+1}\right)
+=\frac23\,E\left(\frac{1}{Y+1}\right).
+$$
+
+Calculons :
+
+$$
+E\left(\frac{1}{Y+1}\right)
+= \frac14\left(1 + \frac12 + \frac13 + \frac14\right)
+= \frac14 \cdot \frac{25}{12}
+= \frac{25}{48}.
+$$
+
+Donc :
+
+$$
+E\left(\frac{X}{Y+1}\right)
+= \frac23 \cdot \frac{25}{48}
+= \frac{50}{144}
+= \frac{25}{72}.
+$$
+
+---
+
+## Exercice 2
+
+Soient X et Y deux variables aléatoires à valeurs dans $\mathbb{N}$, ayant la densité jointe suivante :
+
+$$
+\mathbb{P}(X = k,\, Y = n)
+=
+\begin{cases}
+\binom{n}{k} p^k (1-p)^{\,n-k} \, e^{-\lambda} \dfrac{\lambda^n}{n!}, & 0 \le k \le n, \\[6pt]
+0, & \text{sinon},
+\end{cases}
+$$
+
+avec $p \in ]0,1[$ et $\lambda > 0$ deux paramètres fixés.
+
+1. Déterminer les densités marginales de $X$ et de $Y$, et montrer que chacune suit une loi de Poisson en précisant le paramètre.
+
+2. Déterminer la loi conditionnelle de $X$ sachant $Y$.  
+   En déduire :
+   - la valeur de $E(XY)$,
+   - puis de $E(X)$,
+   - puis de $\mathrm{Cov}(X,Y)$.
+
+
+## Correction de l’Exercice 2
+
+
+
+1) Lois marginales de $X$ et $Y$
+
+a) Loi marginale de $X$
+
+Pour tout $k \in \mathbb{N}$ :
+
+$$
+\mathbb{P}(X = k) = \sum_{n=0}^{+\infty} \mathbb{P}(X=k, Y=n).
+$$
+
+$$
+= \sum_{n=0}^{k-1} \mathbb{P}({X=k, Y=n}) + \sum_{n=k}^{+\infty} \mathbb{P}(X=k, Y=n).
+$$  
+
+La première somme est nulle car $\mathbb{P}(X=k, Y=n)=0$ pour $n<k$.
+Donc :
+$$
+\mathbb{P}(X = k)
+= \sum_{n=k}^{+\infty} \binom{n}{k} p^k (1-p)^{\,n-k} e^{-\lambda} \frac{\lambda^n}{n!}.
+$$
+
+Par changement de variable, on écrit :
+
+$$
+\mathbb{P}(X = k) = \sum_{n=0}^{+\infty} \binom{n+k}{k} p^k (1-p)^{\,n} e^{-\lambda} \frac{\lambda^{n+k}}{(n+k)!}.
+$$
+
+Or $\binom{n+k}{k} = \dfrac{(n+k)!}{k! \, n!}$.
+On obtient :
+
+$$
+\mathbb{P}(X=k)
+= \sum_{n=0}^{+\infty} \frac{(n+k)!}{k! \, n!} p^k (1-p)^{\,n} e^{-\lambda} \frac{\lambda^{n+k}}{(n+k)!}.
+$$
+
+On simplifie et on factorise par tout ce qui ne dépend pas de $n$ :
+
+$$
+\mathbb{P}(X = k)
+= e^{-\lambda} \frac{(p\lambda)^k}{k!} \sum_{n=0}^{+\infty} \frac{\{(1-p)\lambda\}^n}{n!}.
+$$
+
+La somme est :
+
+$$
+\sum_{m=0}^{+\infty} \frac{\{(1-p)\lambda\}^m}{m!}
+= e^{(1-p)\lambda}.
+$$
+
+Donc :
+
+$$
+\mathbb{P}(X = k)
+= e^{-p\lambda}\frac{(p\lambda)^k}{k!}.
+$$
+
+Ainsi :
+
+$$
+X \sim \mathrm{Pois}(p\lambda).
+$$
+
+---
+
+b) Loi marginale de Y
+
+Pour $n \in \mathbb{N}$ :
+
+$$
+\mathbb{P}(Y = n)
+= \sum_{k=0}^{+ \infty} \mathbb{P}(X = k, Y = n)
+= \sum_{k=0}^{n} \mathbb{P}(X = k, Y = n) + \sum_{k=n+1}^{+\infty} \mathbb{P}(X = k, Y = n).
+$$
+
+La deuxième somme est nulle car $\mathbb{P}(X=k, Y=n)=0$ pour $k>n$.
+Donc :
+
+$$
+\mathbb{P}(Y = n)
+= \sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{\,n-k} e^{-\lambda} \frac{\lambda^n}{n!}.
+$$
+
+On factorise par tout ce qui ne dépend pas de $k$ :
+
+$$
+\mathbb{P}(Y = n)
+= e^{-\lambda} \frac{\lambda^n}{n!} \sum_{k=0}^n \binom{n}{k} p^k (1-p)^{\,n-k}.    
+$$
+
+
+Mais :
+
+$$
+\sum_{k=0}^n \binom{n}{k} p^k (1-p)^{\,n-k} = (p + (1-p))^n = 1.
+$$
+
+Donc :
+
+$$
+\mathbb{P}(Y = n)
+= e^{-\lambda}\frac{\lambda^n}{n!},
+$$
+
+ainsi :
+
+$$
+Y \sim \mathrm{Pois}(\lambda).
+$$
+
+---
+
+2) Loi conditionnelle de X sachant Y
+
+Pour $0 \le k \le n$ :
+
+$$
+\mathbb{P}(X = k \mid Y = n)
+= \frac{\mathbb{P}(X=k,Y=n)}{\mathbb{P}(Y=n)}
+= \binom{n}{k} p^k (1-p)^{\,n-k}.
+$$
+
+Ainsi :
+
+$$
+X \mid (Y=n) \sim \mathrm{Bin}(n, p).
+$$
+
+---
+
+**Conséquences sur les moments**
+
+- Espérance conditionnelle :
+
+  $$
+  E(X \mid Y = n) = np.
+  $$
+
+Donc :
+$$
+E(X \mid Y) = p Y.
+$$
+
+- Deuxième moment conditionnel :
+
+  $$
+  E(XY \mid Y = n) = n E(X \mid Y=n) = n^2 p.
+  $$
+
+Ainsi :
+$$
+E(XY \mid Y) = p Y^2.
+$$
+
+---
+
+a) Calcul de E(XY)
+
+On utilise la loi totale :
+
+$$
+E(XY) = E\big( E(XY \mid Y) \big)
+= E(p Y^2)
+= p E(Y^2).
+$$
+
+Or, pour une Poisson($\lambda$) :
+
+$$
+E(Y)=\lambda, \qquad Var(Y)=\lambda,
+$$
+
+donc :
+
+$$
+E(Y^2)=Var(Y)+[E(Y)]^2=\lambda+\lambda^2.
+$$
+
+Donc :
+
+$$
+E(XY)= p(\lambda+\lambda^2).
+$$
+
+---
+
+b) Calcul de E(X)
+
+On sait :
+
+$$
+X \sim \mathrm{Pois}(p\lambda),
+$$
+
+donc :
+
+$$
+E(X) = p\lambda.
+$$
+
+---
+
+c) Covariance $\mathrm{Cov}(X,Y)$
+
+Définition :
+
+$$
+\mathrm{Cov}(X,Y)
+= E(XY) - E(X)E(Y).
+$$
+
+On remplace :
+
+$$
+E(XY)=p(\lambda+\lambda^2),
+\qquad
+E(X)=p\lambda,
+\qquad
+E(Y)=\lambda.
+$$
+
+Donc :
+
+$$
+\mathrm{Cov}(X,Y)
+= p(\lambda+\lambda^2) - (p\lambda)(\lambda)
+= p\lambda.
+$$
+
+---
