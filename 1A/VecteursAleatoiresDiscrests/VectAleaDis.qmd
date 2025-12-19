@@ -576,4 +576,687 @@ $$
 ---
 
 
+## Exercice 5
 
+Soit $\mathbf{X} = (X, Y)^\top$ un vecteur aléatoire de densité
+
+$$
+f_X(x, y) =
+\begin{cases}
+c + 2xy, & \text{si } x, y \in [0,1], \\
+0, & \text{sinon}.
+\end{cases}
+$$
+
+1. Donner la valeur de $c$ pour que $f_X$ corresponde à une densité.
+
+2. Est-ce que les variables $X$ et $Y$ sont indépendantes ?  
+   Expliquer pourquoi elles ont la même distribution marginale, et calculer cette distribution.
+
+3. Calculer la fonction de répartition de $\mathbf{X}$.
+
+## Correction — Exercice 5
+
+On considère la densité
+
+$$
+f_{X}(x,y)=
+\begin{cases}
+c + 2xy, & x,y \in [0,1],\\[4pt]
+0, & \text{sinon}.
+\end{cases}
+$$
+
+---
+
+1) Détermination de la constante c.
+
+Pour que $f_X$ soit une densité, il faut :
+
+$$
+\iint_{\mathbb{R}^2} f_X(x,y)\,dxdy = 1.
+$$
+
+Comme la densité est nulle hors de $[0,1]^2$, on calcule :
+
+$$  
+\int_0^1 \int_0^1 (c + 2xy)\,dxdy.
+$$
+
+On sépare les termes :
+
+$$
+\int_0^1\int_0^1 c\,dxdy = c,
+$$
+
+$$  
+\int_0^1\int_0^1 2xy\,dxdy 
+= 2\left(\int_0^1 x\,dx\right)\left(\int_0^1 y\,dy\right)
+= 2\left(\frac12\right)\left(\frac12\right)
+= \frac12.
+$$
+
+Ainsi :
+
+$$
+c + \frac12 = 1 \quad \Rightarrow \quad c = \frac12.
+$$
+
+---
+
+2) Les variables $X$ et $Y$ sont-elles indépendantes ?
+On observe que :
+
+$$
+f_{X}(x,y) = \frac12 + 2xy.
+$$
+
+Il n’est **pas possible** d’écrire cette fonction comme un produit :
+
+$$
+f_X(x,y) = g(x)\,h(y),
+$$
+
+car la présence simultanée :
+
+- d’un terme *constant* $\frac12$,
+- et d’un terme *multiplicatif* $2xy$
+
+rend impossible toute factorisation de la forme $g(x)h(y)$.
+
+Ainsi :
+
+$$  
+\boxed{X \text{ et } Y \text{ ne sont pas indépendantes}.}
+$$
+
+Comme la densité est **symétrique en $x$ et $y$**, leurs marginales sont identiques. On peut vérifier que :
+
+$$
+f_X(x) = \frac12 + x, \qquad f_Y(y)=\frac12+y.
+$$
+
+---
+
+3) Fonction de répartition de $\mathbf{X}$
+
+On cherche :
+
+$$
+F_X(t_1,t_2)=\mathbb{P}(X \le t_1,\ Y \le t_2)
+= \int_0^{t_1}\int_0^{t_2} \left(\frac12 + 2xy\right) dy\,dx.
+$$
+
+On examine les différents cas :
+
+---
+
+ **Cas 1 :** $t_1 < 0$ ou $t_2 < 0$
+
+$$
+F_X(t_1,t_2)=0.
+$$
+---
+
+**Cas 2 :** $t_1 > 1$ et $t_2 > 1$
+
+$$
+F_X(t_1,t_2)=1.
+$$
+---
+
+**Cas 3 :** $t_1 \in [0,1]$ et $t_2 > 1$
+
+Symétriquement, la probabilité vaut :
+
+$$
+F_X(t_1,t_2)=\frac{t_1(t_1+1)}{2}.
+$$
+---
+
+**Cas 4 :** $t_1 > 1$ et $t_2 \in [0,1]$
+
+De façon analogue :
+
+$$
+F_X(t_1,t_2)=\frac{t_2(t_2+1)}{2}.
+$$
+
+---
+
+**Cas 5 :** $t_1,t_2 \in [0,1]$
+On calcule explicitement :
+
+$$
+F_X(t_1,t_2)
+= \int_0^{t_1} \left( \int_0^{t_2}
+\left(\frac12 + 2xy\right) dy \right) dx.
+$$
+
+Intégrale intérieure :
+
+$$
+\int_0^{t_2} \left(\frac12 + 2xy\right) dy
+= \frac{t_2}{2} + x\,t_2^2.
+$$
+
+Puis intégration en $x$ :
+
+$$
+F_X(t_1,t_2)
+= \int_0^{t_1} \left( \frac{t_2}{2} + xt_2^2 \right) dx
+= \frac{t_1t_2}{2} + \frac{t_1^2 t_2^2}{2}.
+$$
+
+---
+
+**Forme finale de la fonction de répartition**
+
+$$
+F_X(t_1,t_2)=
+\begin{cases}
+0, & t_1 < 0 \text{ ou } t_2 < 0, \\[6pt]
+\frac{t_1t_2}{2} + \frac{t_1^2t_2^2}{2}, & t_1,t_2 \in [0,1],\\[6pt]
+\frac{t_1(t_1+1)}{2}, & t_1 \in [0,1],\ t_2>1, \\[6pt]
+\frac{t_2(t_2+1)}{2}, & t_2 \in [0,1],\ t_1>1, \\[6pt]
+1, & t_1>1,\ t_2>1.
+\end{cases}
+$$
+
+
+## Exercice 7
+
+Soit $\mathbf{X} = (X, Y, Z)^\top$ un vecteur aléatoire de densité
+
+$$
+f_X(x,y,z) =
+\begin{cases}
+c \, e^{-x - y - 3z}, & \text{si } x, y, z > 0, \\[4pt]
+0, & \text{sinon}.
+\end{cases}
+$$
+
+1. Donner la valeur de c pour que $f_X$ corresponde bien à une densité.
+
+2. Les variables aléatoires $X$, $Y$ et $Z$ sont-elles indépendantes ?  
+   Déduire directement leurs densités de l’écriture de $f_X$, et utiliser vos connaissances sur la loi exponentielle.
+
+3. Déterminer la densité du vecteur aléatoire
+$$
+\mathbf{Y} = \left( \frac{X}{X+Y},\ X+Y \right)^\top.
+$$
+
+En déduire que \(\frac{X}{X+Y}\) et \(X+Y\) sont indépendantes, et donner leurs densités marginales.
+
+## Correction — Exercice 7
+
+1) Détermination de la constante c
+
+Pour que $f_X$ soit une densité, il faut :
+
+$$
+\iiint_{\mathbb{R}^3} f_X(x,y,z)\,dx\,dy\,dz = 1.
+$$
+
+Comme la densité est nulle hors du domaine \(x>0, y>0, z>0\), on calcule :
+
+$$
+\int_0^{+\infty}\!\!\int_0^{+\infty}\!\!\int_0^{+\infty}
+c e^{-x - y - 3z}\, dx\,dy\,dz.
+$$
+
+On sépare les intégrales :
+
+$$
+c \left( \int_0^{+\infty} e^{-x}\,dx \right)
+\left( \int_0^{+\infty} e^{-y}\,dy \right)
+\left( \int_0^{+\infty} e^{-3z}\,dz \right).
+$$
+
+Or,
+
+$$
+\int_0^{+\infty} e^{-x}\,dx = 1,\qquad
+\int_0^{+\infty} e^{-y}\,dy = 1,\qquad
+\int_0^{+\infty} e^{-3z}\,dz = \frac{1}{3}.
+$$
+
+Ainsi :
+
+$$
+c \cdot 1 \cdot 1 \cdot \frac{1}{3} = 1
+\quad\Rightarrow\quad
+c = 3.
+$$
+
+---
+
+ 2) Indépendance de X, Y, Z
+
+La densité jointe s’écrit :
+
+$$
+f_X(x,y,z) = 3 e^{-x} e^{-y} e^{-3z}.
+$$
+
+Cette écriture est de la forme :
+
+$$
+f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z),
+$$
+
+où :
+
+$$
+f_X(x) = e^{-x} \mathbf{1}_{x>0}, 
+\qquad f_Y(y) = e^{-y}\mathbf{1}_{y>0}, 
+\qquad f_Z(z) = 3 e^{-3z}\mathbf{1}_{z>0}.
+$$
+
+Conclusion :
+
+$$
+\boxed{X,\ Y,\ Z \text{ sont indépendants}.}
+$$
+
+De plus :
+
+- $X \sim \mathrm{Exp}(1)$
+- $Y \sim \mathrm{Exp}(1)$
+- $Z \sim \mathrm{Exp}(3)$
+
+---
+
+3) Densité du vecteur transformé 
+
+$$
+\mathbf{Y} = \left( T = \frac{X}{X+Y},\ U= X+Y \right).
+$$
+
+On considère l’application :
+
+$$
+h : (x,y) \mapsto (t,u)= \left( \frac{x}{x+y},\, x+y \right),
+\qquad x,y>0.
+$$
+
+**a) Inversion du changement de variables**
+
+À partir de :
+
+$$
+t = \frac{x}{x+y}, \qquad u = x+y,
+$$
+
+on résout :
+
+$$
+x = tu,\qquad y = u - tu = u(1-t),
+$$
+
+avec :
+
+$$
+t \in (0,1),\quad u>0.
+$$
+
+**b) Jacobien**
+
+Le jacobien vaut :
+
+$$
+J = 
+\begin{vmatrix}
+\frac{\partial x}{\partial t} & \frac{\partial x}{\partial u}\\[3pt]
+\frac{\partial y}{\partial t} & \frac{\partial y}{\partial u}
+\end{vmatrix}
+=
+\begin{vmatrix}
+u & t\\[3pt]
+-u & 1-t
+\end{vmatrix}
+= u(1-t) + ut = u.
+$$
+
+Donc :
+
+$$
+|J| = u.
+$$
+
+**c) Densité jointe de (T,U)**
+
+Puisque $X$ et $Y$ sont indépendants exponentiels :
+
+$$
+f_{X,Y}(x,y) = e^{-x} e^{-y} = e^{-u}.
+$$
+
+On applique le changement de variables :
+
+$$
+f_{T,U}(t,u)
+= f_{X,Y}(tu, u(1-t)) \cdot |J|
+= e^{-u} \cdot u,
+\qquad t\in(0,1),\ u>0.
+$$
+
+On observe que la densité ne dépend **pas** de $t$.
+
+---
+
+ **d) Indépendance de $T$ et $U$**
+
+On note :
+
+$$
+f_{T,U}(t,u) = 
+\underbrace{1_{0<t<1}}_{f_T(t)}
+\cdot
+\underbrace{u e^{-u}}_{f_U(u)}.
+$$
+
+Ainsi :
+
+$$
+f_{T,U}(t,u) = f_T(t) f_U(u).
+$$
+
+Donc :
+
+$$
+\boxed{T = \frac{X}{X+Y} \text{ et } U = X+Y \text{ sont indépendants}.}
+$$
+
+**Lois marginales**
+
+- T a pour densité :
+
+$$
+f_T(t) = 1,\qquad t\in(0,1),
+$$
+
+donc :
+
+$$
+T \sim \mathrm{Uniform}(0,1).
+$$
+
+- $U$ a pour densité :
+
+$$
+f_U(u) = u e^{-u},\qquad u>0,
+$$
+c'est-à-dire :
+
+$$
+U \sim \Gamma(2,1).
+$$
+
+## Exercice 8
+
+Soient X et Y deux variables aléatoires indépendantes suivant une loi exponentielle 
+de paramètre $\lambda > 0$. Nous considérons les variables aléatoires :
+
+$$
+U = X + Y, 
+\qquad
+V = \frac{X}{Y}.
+$$
+
+1. Donner la densité du vecteur $\mathbf{X} = (X, Y)^\top$.
+
+2. Montrer que l’application
+
+$$
+h : ]0,+\infty[ \times ]0,+\infty[ \;\longrightarrow\; I_1 \times I_2,
+\qquad
+(x,y) \longmapsto \bigl( x + y,\; \frac{x}{y} \bigr)
+$$
+est bijective, en déterminant les intervalles $I_1$ et $I_2$.  
+En déduire son application réciproque $h^{-1}$, ainsi que son Jacobien.
+
+3. rocéder par changement de variables pour obtenir la densité du vecteur
+$$
+\mathbf{Y} = (U, V)^\top.
+$$
+Caractériser la loi de $U$, et en déduire que $U$ et $V$ sont indépendantes.
+
+
+## Correction — Exercice 8
+
+1) Densité du vecteur X,Y.
+
+Comme X et Y sont indépendantes et exponentielles de paramètre $\lambda$, on a :
+
+$$
+f_{X,Y}(x,y)
+= \lambda e^{-\lambda x} \, \lambda e^{-\lambda y}
+= \lambda^2 e^{-\lambda(x+y)}, 
+\qquad x>0,\ y>0.
+$$
+
+---
+
+2) Bijectivité de l’application h
+
+L’application considérée est :
+
+$$
+h(x,y) = (u,v) = (x+y,\ \frac{x}{y}),
+\qquad x>0,\ y>0.
+$$
+
+**Détermination des intervalles $I_1, I_2$**
+
+- $u = x+y > 0 \Rightarrow I_1 = ]0,+\infty[$
+- $v = x/y > 0 \Rightarrow I_2 = ]0,+\infty[$
+
+Ainsi :
+
+$$
+h : ]0,+\infty[\times ]0,+\infty[ \longrightarrow ]0,+\infty[\times ]0,+\infty[.
+$$
+
+ **Détermination de l’application réciproque**
+
+À partir de :
+
+$$
+u = x+y, \qquad v = \frac{x}{y},
+$$
+
+on résout :
+
+$$
+x = \frac{uv}{1+v}, 
+\qquad
+y = \frac{u}{1+v}.
+$$
+
+Donc :
+
+$$
+h^{-1}(u,v)
+= \left( \frac{uv}{1+v},\ \frac{u}{1+v} \right),
+\qquad u>0,\ v>0.
+$$
+
+**Calcul du Jacobien**
+
+On calcule la matrice jacobienne de $h^{-1}$ :
+
+$$
+J_{h^{-1}}(u,v) = 
+\begin{pmatrix}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac{v}{1+v} &
+\frac{u}{(1+v)^2} \\[6pt]
+\frac{1}{1+v} &
+-\frac{u}{(1+v)^2}
+\end{pmatrix}.
+$$
+
+Son déterminant vaut :
+
+$$
+\det J_{h^{-1}}(u,v)
+= - \frac{u}{(1+v)^2}.
+$$
+
+On utilisera sa valeur absolue :
+
+$$
+\left| \det J_{h^{-1}}(u,v) \right| = \frac{u}{(1+v)^2}.
+$$
+
+---
+
+3) Densité du vecteur (U,V)
+
+Par changement de variables :
+
+$$
+f_{U,V}(u,v)
+= f_{X,Y}\bigl(h^{-1}(u,v)\bigr)\,
+\left|\det J_{h^{-1}}(u,v)\right|.
+$$
+
+On remplace :
+
+- $x = \dfrac{uv}{1+v},$
+- $y = \dfrac{u}{1+v}$,
+- $x+y = u$,
+
+donc
+
+$$
+f_{X,Y}(x,y) = \lambda^2 e^{-\lambda u}.
+$$
+
+Ainsi :
+
+$$
+f_{U,V}(u,v)
+= \lambda^2 e^{-\lambda u} \cdot \frac{u}{(1+v)^2},
+\qquad u>0,\ v>0.
+$$  
+
+---
+
+**Marginales et indépendance**
+
+**Loi marginale de U**
+
+$$
+f_U(u)
+= \int_0^{\infty} \lambda^2 e^{-\lambda u} \frac{u}{(1+v)^2}\,dv.
+$$
+
+Or :
+
+$$
+\int_0^\infty \frac{1}{(1+v)^2}\,dv = 1.
+$$
+
+Donc :
+
+$$
+f_U(u) = \lambda^2 u e^{-\lambda u},\qquad u>0.
+$$
+
+C’est la densité d’une loi Gamma de paramètres \((2,\lambda)\) :
+
+$$
+U \sim \Gamma(2,\lambda).
+$$
+
+**Loi marginale de V**
+
+$$
+f_V(v)
+= \int_0^\infty \lambda^2 e^{-\lambda u} \frac{u}{(1+v)^2}\,du.
+$$
+
+Mais :
+
+$$
+\int_0^\infty \lambda^2 u e^{-\lambda u}\,du = 1,
+$$
+
+donc :
+
+$$
+f_V(v) = \frac{1}{(1+v)^2},\qquad v>0.
+$$
+
+Il s’agit d’une **loi de Pareto (type II)**.
+
+---
+
+**Indépendance**
+
+On a :
+
+$$
+f_{U,V}(u,v)
+= 
+\underbrace{\lambda^2 u e^{-\lambda u}}_{f_U(u)}
+\cdot
+\underbrace{\frac{1}{(1+v)^2}}_{f_V(v)}.
+$$
+
+Donc :
+
+$$
+f_{U,V}(u,v) = f_U(u)\, f_V(v).
+$$
+
+Ainsi :
+
+$$
+\boxed{U \text{ et } V \text{ sont indépendantes}.}
+$$
+
+--- 
+
+## Exercice 9
+
+Soient X et Y deux variables aléatoires indépendantes suivant une loi uniformesur]0,1[.
+
+1. Montrer que la densité de $X + Y$ est
+
+$$
+f_{X+Y}(t) =
+\begin{cases}
+t, & t \in ]0,1[,\\[4pt]
+2 - t, & t \in ]1,2[,\\[4pt]
+0, & \text{sinon}.
+\end{cases}
+$$
+
+2. Montrer que la densité de $X - Y$ est
+
+$$
+f_{X-Y}(t) =
+\begin{cases}
+1 + t, & t \in ]-1,0[,\\[4pt]
+1 - t, & t \in ]0,1[,\\[4pt]
+0, & \text{sinon}.
+\end{cases}
+$$
+
+3. Montrer que la densité de $X/Y$ est
+
+$$
+f_{X/Y}(t) =
+\begin{cases}
+\frac{1}{2}, & t \in ]0,1[,\\[6pt]
+\frac{1}{2 t^{2}}, & t \in ]1,+\infty[,\\[4pt]
+0, & \text{sinon}.
+\end{cases}
+$$

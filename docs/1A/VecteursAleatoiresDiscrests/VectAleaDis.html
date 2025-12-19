@@ -157,12 +157,16 @@ window.Quarto = {
     <h2 id="toc-title">Sommaire</h2>
    
   <ul>
-  <li><a href="#vecteurs-aléatoires-discrets" id="toc-vecteurs-aléatoires-discrets" class="nav-link active" data-scroll-target="#vecteurs-aléatoires-discrets">7. Vecteurs Aléatoires Discrets</a>
+  <li><a href="#vecteurs-aléatoires-discrets-et-continus" id="toc-vecteurs-aléatoires-discrets-et-continus" class="nav-link active" data-scroll-target="#vecteurs-aléatoires-discrets-et-continus">7. Vecteurs Aléatoires Discrets et continus</a>
   <ul class="collapse">
   <li><a href="#exercice-1" id="toc-exercice-1" class="nav-link" data-scroll-target="#exercice-1">Exercice 1</a></li>
   <li><a href="#correction-de-lexercice-1" id="toc-correction-de-lexercice-1" class="nav-link" data-scroll-target="#correction-de-lexercice-1">Correction de l’Exercice 1</a></li>
   <li><a href="#exercice-2" id="toc-exercice-2" class="nav-link" data-scroll-target="#exercice-2">Exercice 2</a></li>
   <li><a href="#correction-de-lexercice-2" id="toc-correction-de-lexercice-2" class="nav-link" data-scroll-target="#correction-de-lexercice-2">Correction de l’Exercice 2</a></li>
+  <li><a href="#exercice-3" id="toc-exercice-3" class="nav-link" data-scroll-target="#exercice-3">Exercice 3</a></li>
+  <li><a href="#correction-exercice-3" id="toc-correction-exercice-3" class="nav-link" data-scroll-target="#correction-exercice-3">Correction Exercice 3</a></li>
+  <li><a href="#exercice-4" id="toc-exercice-4" class="nav-link" data-scroll-target="#exercice-4">Exercice 4</a></li>
+  <li><a href="#correction-exercice-4" id="toc-correction-exercice-4" class="nav-link" data-scroll-target="#correction-exercice-4">Correction Exercice 4</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -193,8 +197,8 @@ window.Quarto = {
 </header>
 
 
-<section id="vecteurs-aléatoires-discrets" class="level1">
-<h1>7. Vecteurs Aléatoires Discrets</h1>
+<section id="vecteurs-aléatoires-discrets-et-continus" class="level1">
+<h1>7. Vecteurs Aléatoires Discrets et continus</h1>
 <section id="exercice-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1">Exercice 1</h2>
 <p>La loi de probabilité jointe de deux variables aléatoires X et Y est</p>
@@ -508,6 +512,129 @@ E(Y)=\lambda.
 = p\lambda.
 \]</span></p>
 <hr>
+</section>
+<section id="exercice-3" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-3">Exercice 3</h2>
+<p>Dans une maison de retraite, le nombre de chutes X au cours d’une année suit une loi de Poisson de paramètre <span class="math inline">\(\lambda\)</span>. Chaque chute peut, indépendamment des autres chutes, conduire à une fracture de la hanche avec une probabilité <span class="math inline">\(p\)</span>. Soit <span class="math inline">\(Y\)</span> le nombre total de fractures de la hanche au cours de l’année.</p>
+<ol type="1">
+<li>Donner la loi conditionnelle de <span class="math inline">\(Y\)</span> sachant <span class="math inline">\(X\)</span>.</li>
+<li>En déduire l’espérance du nombre de fractures sachant le nombre de chutes, puis l’espérance du nombre total de fractures.</li>
+</ol>
+</section>
+<section id="correction-exercice-3" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-3">Correction Exercice 3</h2>
+<ol type="1">
+<li>Loi conditionnelle de <span class="math inline">\(Y\)</span> sachant <span class="math inline">\(X\)</span></li>
+</ol>
+<p>Conditionnellement à <span class="math inline">\(X = x\)</span>, il y a <span class="math inline">\(x\)</span> chutes indépendantes. Chaque chute entraîne une fracture avec une probabilité <span class="math inline">\(p\)</span>.</p>
+<p>Ainsi, conditionnellement à <span class="math inline">\(X = x\)</span>, la variable <span class="math inline">\(Y\)</span> suit une loi binomiale :</p>
+<p><span class="math display">\[
+Y \mid X = x \sim \text{Binomial}(x, p).
+\]</span></p>
+<p>Donc, pour tout <span class="math inline">\(k = 0, \ldots, x\)</span>,</p>
+<p><span class="math display">\[
+\mathbb{P}(Y = k \mid X = x)
+= \binom{x}{k} p^{k} (1 - p)^{x - k}.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Espérance conditionnelle et espérance totale</li>
+</ol>
+<p>L’espérance d’une loi binomiale donne :</p>
+<p><span class="math display">\[
+E(Y \mid X = x) = px.
+\]</span></p>
+<p>Donc : <span class="math display">\[E(Y \mid X) = pX.\]</span></p>
+<p>En appliquant la loi de l’espérance totale :</p>
+<p><span class="math display">\[
+E(Y) = E(E(Y \mid X)) = E(pX).
+\]</span></p>
+<p>Comme <span class="math inline">\(X \sim \text{Poisson}(\lambda)\)</span>, on a <span class="math inline">\(E(X) = \lambda\)</span>.</p>
+<p>Donc :</p>
+<p><span class="math display">\[
+E(Y) = p \, E(X) = \lambda p.
+\]</span></p>
+<hr>
+</section>
+<section id="exercice-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-4">Exercice 4</h2>
+<p>Durant une journée, Jean reçoit des coups de téléphone et des textos.<br>
+Le nombre de coups de téléphone <span class="math inline">\(X\)</span> suit une loi de Poisson de paramètre <span class="math inline">\(\lambda\)</span>,<br>
+et le nombre de textos <span class="math inline">\(Y\)</span> suit une loi de Poisson de paramètre <span class="math inline">\(\mu\)</span>.<br>
+Les variables <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont indépendantes.</p>
+<ol type="1">
+<li><p>Sachant que Jean a reçu au total <span class="math inline">\(n\)</span> coups de téléphone ou textos, donner la distribution conditionnelle du nombre de textos.<br>
+Vous montrerez que la loi conditionnelle est celle d’une loi binomiale et vous préciserez ses paramètres.</p></li>
+<li><p>En déduire le nombre moyen de textos reçus, conditionnellement à <span class="math inline">\(n\)</span>.</p></li>
+</ol>
+</section>
+<section id="correction-exercice-4" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-4">Correction Exercice 4</h2>
+<p>Nous savons que <span class="math inline">\(X \sim \text{Pois}(\lambda)\)</span>, <span class="math inline">\(Y \sim \text{Pois}(\mu)\)</span>, et qu’ils sont indépendants.<br>
+La somme <span class="math inline">\(X + Y\)</span> suit alors une loi de Poisson de paramètre <span class="math inline">\(\lambda + \mu\)</span>.</p>
+<hr>
+<ol type="1">
+<li>Loi conditionnelle de <span class="math inline">\(Y\)</span> sachant <span class="math inline">\(X + Y = n\)</span></li>
+</ol>
+<p>Pour <span class="math inline">\(k = 0, \ldots, n\)</span>,</p>
+<p><span class="math display">\[
+P(Y = k \mid X + Y = n)
+= \frac{P(Y = k,\, X + Y = n )}{P(X + Y = n)}.
+\]</span></p>
+<p><span class="math display">\[
+= \frac{P(Y = k) P(X+ Y = n \mid Y = k)}{P(X + Y = n)}
+= \frac{P(Y = k) P(X = n-k \mid Y = k)}{P(X + Y = n)}.
+\]</span></p>
+<p>Comme <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont indépendantes, <span class="math display">\[
+P(X = n-k \mid Y = k) = P(X = n-k).
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+P(Y = k \mid X + Y = n)
+= \frac{P(X = n-k) P(Y = k)}{P(X + Y = n)}.
+\]</span></p>
+<p>Or,</p>
+<p><span class="math display">\[
+P(X = n-k) = e^{-\lambda} \frac{\lambda^{n-k}}{(n-k)!},
+\qquad
+P(Y = k) = e^{-\mu} \frac{\mu^k}{k!}.
+\]</span></p>
+<p>Le dénominateur est</p>
+<p><span class="math display">\[
+P(X + Y = n) = e^{-(\lambda+\mu)} \frac{(\lambda+\mu)^n}{n!}.
+\]</span></p>
+<p>En combinant :</p>
+<p><span class="math display">\[
+P(Y = k \mid X + Y = n)
+= \binom{n}{k}
+\left( \frac{\mu}{\lambda+\mu} \right)^k
+\left( \frac{\lambda}{\lambda+\mu} \right)^{n-k}.
+\]</span></p>
+<p>Ce qui donne encore :</p>
+<p><span class="math display">\[
+P(Y = k \mid X + Y = n )
+= \binom{n}{k}
+\left( \frac{\mu}{\lambda+\mu} \right)^k
+\left( 1 - \frac{\mu}{\lambda+\mu} \right)^{n-k}.
+\]</span></p>
+<p>Ainsi : <span class="math display">\[
+Y \mid (X+Y = n)
+\sim \text{Binomial}\left(n,\; \frac{\mu}{\lambda+\mu}\right).
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Espérance conditionnelle</li>
+</ol>
+<p>Pour une loi binomiale <span class="math inline">\(\text{Bin}(n,p)\)</span>, l’espérance vaut <span class="math inline">\(np\)</span>.<br>
+Donc :</p>
+<p><span class="math display">\[
+E(Y \mid X+Y = n)
+= n \cdot \frac{\mu}{\lambda+\mu}.
+\]</span></p>
+<p>D’ou : <span class="math display">\[
+E(Y \mid X+Y) = (X + Y) \cdot \frac{\mu}{\lambda+\mu}.
+\]</span></p>
+<hr>
 
 
 </section>
@@ -606,7 +733,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -73,12 +73,15 @@ Vous trouverez ici certains exercices de la fiche de TD, qui vous permettront de
 :::
 
 ::: {.postcard}
-## 6. Vecteurs Aléatoires Discrets
+## 6. Vecteurs Aléatoires Discrets et continus
 - [Exercice 1](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-1)
 - [Exercice 2](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-2)
 - [Exercice 3](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-3)
 - [Exercice 4](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-4)
-
+- [Exercice 5](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-5)
+- [Exercice 7](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-7)
+- [Exercice 8](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-8)
+- [Exercice 9](1A/VecteursAleatoiresDiscrests/VectAleaDis.qmd#exercice-9)
 
 :::
 
