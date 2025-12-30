@@ -1262,12 +1262,12 @@ E[\phi(T)] = \int_{\mathbb{R}} \phi(t) f_T(t)\, dt.
 <li>Densité de X + Y</li>
 </ol>
 <p>Nous avons</p>
-<p>$$ <span class="math display">\[\begin{align}
+<p><span class="math display">\[\begin{align}
 E\{\phi(X + Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x + y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x + y) dy \right\} dx \\
 &amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{1+x} \phi(t) dt \right\} dx \quad \text{(avec le changement de var. } t = x + y\text{)} \\
 
 &amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) dt + \int_{t=1}^{1+x} \phi(t) dt \right\} dx \\
-\end{align}\]</span> $$</p>
+\end{align}\]</span></p>
 <p>On décide d’introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c’est la borne inférieure de <span class="math inline">\(t=x\)</span> lorsque <span class="math inline">\(x=0\)</span>. Les intégrales obtenues sont calculées sur deux domaines :</p>
 <p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t \le 1+x\}\)</span>.</p>
 <p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
@@ -1276,7 +1276,8 @@ E\{\phi(X + Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x + y) f_X(\mathbf{x}) dx dy = 
 <p><span class="math inline">\(\int_{D_1} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt\)</span>.</p>
 <p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([1,2], x\)</span> varie de <span class="math inline">\(t-1\)</span> à <span class="math inline">\(1\)</span>.</p>
 <p>Donc :</p>
-<p><span class="math inline">\(\int_{D_2} \phi(t) dx dt = \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt\)</span>. <span class="math display">\[
+<p><span class="math inline">\(\int_{D_2} \phi(t) dx dt = \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt\)</span>.</p>
+<p><span class="math display">\[
 \begin{align}
 &amp;= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt + \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt \\
 &amp;= \int_{t=0}^{1} \phi(t) t dt + \int_{t=1}^{2} \phi(t) (2 - t) dt \\
@@ -1298,7 +1299,9 @@ E\{\phi(X - Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x - y) f_X(\mathbf{x}) dx dy = 
 <p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x-1 \le t \le 0\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 0 \le t \le x\}\)</span>.</p>
 <p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
 <p>Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([-1,0], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t+1\)</span>.</p>
-<p>Donc : <span class="math inline">\(\int_{D_1} \phi(t) dx dt = \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt\)</span>. Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(t\)</span> à <span class="math inline">\(1\)</span>. Donc :</p>
+<p>Ainsi, on a :</p>
+<p><span class="math inline">\(\int_{D_1} \phi(t) dx dt = \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt\)</span>.</p>
+<p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(t\)</span> à <span class="math inline">\(1\)</span>. Ainsi, on a :</p>
 <p><span class="math inline">\(\int_{D_2} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
@@ -1318,7 +1321,12 @@ E\{\phi(X/Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x/y) f_X(\mathbf{x}) dx dy = \int
 \end{align}
 \]</span></p>
 <p>On décide d’introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c’est la borne inférieure de <span class="math inline">\(t=x\)</span> lorsque <span class="math inline">\(x=0\)</span>. Les intégrales obtenues sont calculées sur deux domaines :</p>
-<p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t &lt; \infty\}\)</span>. Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>. Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t\)</span>. Donc : <span class="math inline">\(\int_{D_1} \phi(t) \frac{x}{t^2} dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt\)</span>. Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([1,\infty[, x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(1\)</span>. Donc : <span class="math inline">\(\int_{D_2} \phi(t) \frac{x}{t^2} dx dt = \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt\)</span>.</p>
+<p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t &lt; \infty\}\)</span>.</p>
+<p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
+<p>Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t\)</span>. Ainsi :</p>
+<p><span class="math inline">\(\int_{D_1} \phi(t) \frac{x}{t^2} dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt\)</span>.</p>
+<p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([1,\infty[, x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(1\)</span>. De ce fait :</p>
+<p><span class="math inline">\(\int_{D_2} \phi(t) \frac{x}{t^2} dx dt = \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 &amp;= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt + \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt \\
