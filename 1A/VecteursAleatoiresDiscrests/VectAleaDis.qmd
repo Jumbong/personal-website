@@ -764,6 +764,94 @@ F_X(t_1,t_2)=
 $$
 
 
+## Exercice 6
+
+Soit $\mathbf{X} = (X, Y)^\top$ un vecteur aléatoire de densité
+
+$$
+f_X(x, y) = \begin{cases}
+c(x + y) & \text{si } x, y \in [0, a] \times [0, b] \\
+0 & \text{sinon.}
+\end{cases}
+$$
+
+1) Déterminer $c$ pour que $f_X$ corresponde à une densité de probabilité.
+
+2) Soient $p, q \in \mathbb{N}^2$. Expliquer pourquoi $E(X^p Y^q)$ est bien défini, et donner sa valeurs en fonction de $p$ et $q$.
+
+3) En déduire la matrice de variance-covariance de $\mathbf{X}$ dans le cas $a = 1$ et $b = 2$.
+
+---
+## Correction — Exercice 6
+
+1) Pour que $f_X$ soit une densité, elle doit être à valeurs positives et d'intégrale égale à 1. Nous avons
+
+$$
+\begin{align}
+\int_{\mathbb{R}^2} f_X(\mathbf{x}) d\mathbf{x} &= \int_{0}^{a} \int_{0}^{b} c(x + y) dxdy \\
+&= c \int_{0}^{a} xdx \int_{0}^{b} dy + c \int_{0}^{a} dx \int_{0}^{b} ydy \\
+&= c \left(\frac{a^2b}{2} + \frac{ab^2}{2}\right) \\
+&= c \times ab \frac{a + b}{2} = 1,
+\end{align}
+$$
+
+donc finalement $c = \frac{2}{ab(a+b)}$.
+
+2) Nous avons $|X| \leq a$ et $|Y| \leq b$, donc pour tout $p, q \in \mathbb{N}^2$ :
+
+$$
+E(|X|^p|Y|^q) \leq a^p b^q,
+$$
+
+et le moment $E(X^p Y^q)$ est donc bien défini. Il vaut
+
+$$
+\begin{align}
+E(X^p Y^q) &= \int_{\mathbb{R}^2} x^p y^q f_X(x, y) dxdy, \\
+&= \frac{2}{ab(a + b)} \int_{0}^{a} \int_{0}^{b} x^p y^q (x + y) dxdy \\
+&= \frac{2}{ab(a + b)} \int_{0}^{a} x^{p+1} dx \int_{0}^{b} y^q dy + \frac{2}{ab(a + b)} \int_{0}^{a} x^p dx \int_{0}^{b} y^{q+1} dy \\
+&= \frac{2}{ab(a + b)} \left(\frac{a^{p+2}b^{q+1}}{(p + 2)(q + 1)} + \frac{a^{p+1}b^{q+2}}{(p + 1)(q + 2)}\right) \\
+&= 2\frac{a^p b^q}{a + b} \left(\frac{a}{(p + 2)(q + 1)} + \frac{b}{(p + 1)(q + 2)}\right).
+\end{align}
+$$
+
+Avec $a = 1$ et $b = 2$, nous avons
+
+$$
+E(X^p Y^q) = \frac{2^{q+1}}{3} \left(\frac{1}{(p + 2)(q + 1)} + \frac{2}{(p + 1)(q + 2)}\right).
+$$
+
+Nous obtenons en particulier
+
+$$
+\begin{align}
+E(X) &= \frac{2}{3} \left(\frac{1}{3} + \frac{2}{4}\right) = \frac{5}{9} \\
+E(Y) &= \frac{4}{3} \left(\frac{1}{4} + \frac{2}{3}\right) = \frac{11}{9} \\
+E(X^2) &= \frac{2}{3} \left(\frac{1}{4} + \frac{2}{6}\right) = \frac{7}{18} \\
+E(Y^2) &= \frac{8}{3} \left(\frac{1}{6} + \frac{2}{4}\right) = \frac{16}{9} \\
+E(XY) &= \frac{4}{3} \left(\frac{1}{6} + \frac{2}{6}\right) = \frac{2}{3},
+\end{align}
+$$
+
+puis
+
+$$
+\begin{align}
+V(X) &= E(X^2) - \{E(X)\}^2 = \frac{13}{162}, \\
+V(Y) &= E(Y^2) - \{E(Y)\}^2 = \frac{23}{81}, \\
+Cov(X, Y) &= E(XY) - E(X)E(Y) = -\frac{1}{81},
+\end{align}
+$$
+
+et la matrice de variance-covariance
+
+$$
+V(\mathbf{X}) = \begin{pmatrix}
+\frac{13}{162} & -\frac{1}{81} \\
+-\frac{1}{81} & \frac{23}{81}
+\end{pmatrix}.
+$$
+
 ## Exercice 7
 
 Soit $\mathbf{X} = (X, Y, Z)^\top$ un vecteur aléatoire de densité
@@ -1259,4 +1347,120 @@ f_{X/Y}(t) =
 \frac{1}{2 t^{2}}, & t \in ]1,+\infty[,\\[4pt]
 0, & \text{sinon}.
 \end{cases}
+$$
+
+
+## Correction Exercice 9
+
+Dans cette exercice, nous utilisons la méthode de la **fonction muette** :  
+pour une fonction continue bornée $\phi : \mathbb{R} \to \mathbb{R}$,
+
+$$
+E[\phi(T)] = \int_{\mathbb{R}} \phi(t) f_T(t)\, dt.
+$$
+
+---
+
+1) Densité de X + Y
+
+
+Nous avons
+
+$$
+\begin{align}
+E\{\phi(X + Y)\} &= \int_{\mathbb{R}^2} \phi(x + y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x + y) dy \right\} dx \\
+&= \int_{x=0}^{1} \left\{ \int_{t=x}^{1+x} \phi(t) dt \right\} dx \quad \text{(avec le changement de var. } t = x + y\text{)} \\
+
+&= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) dt + \int_{t=1}^{1+x} \phi(t) dt \right\} dx \\
+\end{align}
+$$
+
+On décide d'introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c'est la borne inférieure de $t=x$ lorsque $x=0$. Les intégrales obtenues sont calculées sur deux domaines :
+
+$D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}$ et $D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t \le 1+x\}$.
+
+Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de $t$. 
+
+Pour $D_1$, pour un $t$ fixé entre $[0,1], x$ varie de $0$ à $t$.
+
+Donc :
+
+$\int_{D_1} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt$.
+
+Pour $D_2$, pour un $t$ fixé entre $[1,2], x$ varie de $t-1$ à $1$.
+
+Donc :
+
+$\int_{D_2} \phi(t) dx dt = \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt$.
+$$
+\begin{align}
+&= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt + \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt \\
+&= \int_{t=0}^{1} \phi(t) t dt + \int_{t=1}^{2} \phi(t) (2 - t) dt \\
+&= \int_{\mathbb{R}} \phi(t) \underbrace{\{t \mathbb{1}_{]0,1[}(t) + (2 - t) \mathbb{1}_{]1,2[}(t)\}}_{f_{X+Y}(t)}.
+\end{align}
+$$
+
+2) Densité de X - Y
+
+Nous avons
+
+$$
+\begin{align}
+E\{\phi(X - Y)\} &= \int_{\mathbb{R}^2} \phi(x - y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x - y) dx \right\} dy \\
+&= \int_{x=0}^{1} \left\{ \int_{t=x-1}^{x} \phi(t) dt \right\} dy \quad \text{(avec le changement de var. } t = x - y\text{)} \\
+&= \int_{x=0}^{1} \left\{ \int_{t=x-1}^{0} \phi(t) dt + \int_{t=0}^{x} \phi(t) dt \right\} dy \\
+\end{align}
+$$
+
+On décide d'introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 1 car c'est la borne supérieure de $t=x-1$ lorsque $x=1$. Les intégrales obtenues sont calculées sur deux domaines :
+
+$D_1 = \{(x,t) \mid 0 \le x \le 1,\, x-1 \le t \le 0\}$ et $D_2 = \{(x,t) \mid 0 \le x \le 1,\, 0 \le t \le x\}$.
+
+Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de $t$.
+
+Pour $D_1$, pour un $t$ fixé entre $[-1,0], x$ varie de $0$ à $t+1$.
+
+Donc :
+$\int_{D_1} \phi(t) dx dt = \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt$.
+Pour $D_2$, pour un $t$ fixé entre $[0,1], x$ varie de $t$ à $1$.
+Donc :
+
+$\int_{D_2} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt$.
+
+$$
+\begin{align}
+&= \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt + \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt \\
+&= \int_{t=-1}^{0} \phi(t) (1 + t) dt + \int_{t=0}^{1} \phi(t) (1 - t) dt \\
+&= \int_{\mathbb{R}} \phi(t) \underbrace{\{(1 + t) \mathbb{1}_{]-1,0[}(t) + (1 - t) \mathbb{1}_{]0,1[}(t)\}}_{f_{X-Y}(t)}.
+\end{align}
+$$
+
+3) Densité de X/Y
+
+Nous avons
+$$
+\begin{align}
+E\{\phi(X/Y)\} &= \int_{\mathbb{R}^2} \phi(x/y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x/y) dy \right\} dx \\
+&= \int_{x=0}^{1} \left\{ \int_{t=x}^{\infty} \phi(t) \frac{x}{t^2} dt \right\} dx \quad \text{(avec le changement de var. } t = x/y\text{)} \\
+&= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) \frac{x}{t^2} dt + \int_{t=1}^{\infty} \phi(t) \frac{x}{t^2} dt \right\} dx \\
+\end{align}
+$$  
+
+On décide d'introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c'est la borne inférieure de $t=x$ lorsque $x=0$. Les intégrales obtenues sont calculées sur deux domaines :
+
+$D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}$ et $D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t < \infty\}$.
+Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de $t$.
+Pour $D_1$, pour un $t$ fixé entre $[0,1], x$ varie de $0$ à $t$.
+Donc :
+$\int_{D_1} \phi(t) \frac{x}{t^2} dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt$.
+Pour $D_2$, pour un $t$ fixé entre $[1,\infty[, x$ varie de $0$ à $1$.
+Donc :
+$\int_{D_2} \phi(t) \frac{x}{t^2} dx dt = \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt$.
+
+$$
+\begin{align}
+&= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt + \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt \\
+&= \int_{t=0}^{1} \phi(t) \frac{t}{2} dt + \int_{t=1}^{\infty} \phi(t) \frac{1}{2 t^2} dt \\ 
+&= \int_{\mathbb{R}} \phi(t) \underbrace{\left\{\frac{1}{2} \mathbb{1}_{]0,1[}(t) + \frac{1}{2 t^2} \mathbb{1}_{]1,+\infty[}(t)\right\}}_{f_{X/Y}(t)}.
+\end{align}
 $$

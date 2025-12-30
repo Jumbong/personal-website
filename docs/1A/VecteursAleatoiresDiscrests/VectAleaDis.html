@@ -167,6 +167,13 @@ window.Quarto = {
   <li><a href="#correction-exercice-3" id="toc-correction-exercice-3" class="nav-link" data-scroll-target="#correction-exercice-3">Correction Exercice 3</a></li>
   <li><a href="#exercice-4" id="toc-exercice-4" class="nav-link" data-scroll-target="#exercice-4">Exercice 4</a></li>
   <li><a href="#correction-exercice-4" id="toc-correction-exercice-4" class="nav-link" data-scroll-target="#correction-exercice-4">Correction Exercice 4</a></li>
+  <li><a href="#exercice-5" id="toc-exercice-5" class="nav-link" data-scroll-target="#exercice-5">Exercice 5</a></li>
+  <li><a href="#correction-exercice-5" id="toc-correction-exercice-5" class="nav-link" data-scroll-target="#correction-exercice-5">Correction — Exercice 5</a></li>
+  <li><a href="#exercice-7" id="toc-exercice-7" class="nav-link" data-scroll-target="#exercice-7">Exercice 7</a></li>
+  <li><a href="#correction-exercice-7" id="toc-correction-exercice-7" class="nav-link" data-scroll-target="#correction-exercice-7">Correction — Exercice 7</a></li>
+  <li><a href="#exercice-8" id="toc-exercice-8" class="nav-link" data-scroll-target="#exercice-8">Exercice 8</a></li>
+  <li><a href="#correction-exercice-8" id="toc-correction-exercice-8" class="nav-link" data-scroll-target="#correction-exercice-8">Correction — Exercice 8</a></li>
+  <li><a href="#exercice-9" id="toc-exercice-9" class="nav-link" data-scroll-target="#exercice-9">Exercice 9</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -635,6 +642,534 @@ E(Y \mid X+Y = n)
 E(Y \mid X+Y) = (X + Y) \cdot \frac{\mu}{\lambda+\mu}.
 \]</span></p>
 <hr>
+</section>
+<section id="exercice-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-5">Exercice 5</h2>
+<p>Soit <span class="math inline">\(\mathbf{X} = (X, Y)^\top\)</span> un vecteur aléatoire de densité</p>
+<p><span class="math display">\[
+f_X(x, y) =
+\begin{cases}
+c + 2xy, &amp; \text{si } x, y \in [0,1], \\
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li><p>Donner la valeur de <span class="math inline">\(c\)</span> pour que <span class="math inline">\(f_X\)</span> corresponde à une densité.</p></li>
+<li><p>Est-ce que les variables <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont indépendantes ?<br>
+Expliquer pourquoi elles ont la même distribution marginale, et calculer cette distribution.</p></li>
+<li><p>Calculer la fonction de répartition de <span class="math inline">\(\mathbf{X}\)</span>.</p></li>
+</ol>
+</section>
+<section id="correction-exercice-5" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-5">Correction — Exercice 5</h2>
+<p>On considère la densité</p>
+<p><span class="math display">\[
+f_{X}(x,y)=
+\begin{cases}
+c + 2xy, &amp; x,y \in [0,1],\\[4pt]
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
+<hr>
+<ol type="1">
+<li>Détermination de la constante c.</li>
+</ol>
+<p>Pour que <span class="math inline">\(f_X\)</span> soit une densité, il faut :</p>
+<p><span class="math display">\[
+\iint_{\mathbb{R}^2} f_X(x,y)\,dxdy = 1.
+\]</span></p>
+<p>Comme la densité est nulle hors de <span class="math inline">\([0,1]^2\)</span>, on calcule :</p>
+<p><span class="math display">\[  
+\int_0^1 \int_0^1 (c + 2xy)\,dxdy.
+\]</span></p>
+<p>On sépare les termes :</p>
+<p><span class="math display">\[
+\int_0^1\int_0^1 c\,dxdy = c,
+\]</span></p>
+<p><span class="math display">\[  
+\int_0^1\int_0^1 2xy\,dxdy
+= 2\left(\int_0^1 x\,dx\right)\left(\int_0^1 y\,dy\right)
+= 2\left(\frac12\right)\left(\frac12\right)
+= \frac12.
+\]</span></p>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+c + \frac12 = 1 \quad \Rightarrow \quad c = \frac12.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Les variables <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont-elles indépendantes ? On observe que :</li>
+</ol>
+<p><span class="math display">\[
+f_{X}(x,y) = \frac12 + 2xy.
+\]</span></p>
+<p>Il n’est <strong>pas possible</strong> d’écrire cette fonction comme un produit :</p>
+<p><span class="math display">\[
+f_X(x,y) = g(x)\,h(y),
+\]</span></p>
+<p>car la présence simultanée :</p>
+<ul>
+<li>d’un terme <em>constant</em> <span class="math inline">\(\frac12\)</span>,</li>
+<li>et d’un terme <em>multiplicatif</em> <span class="math inline">\(2xy\)</span></li>
+</ul>
+<p>rend impossible toute factorisation de la forme <span class="math inline">\(g(x)h(y)\)</span>.</p>
+<p>Ainsi :</p>
+<p><span class="math display">\[  
+\boxed{X \text{ et } Y \text{ ne sont pas indépendantes}.}
+\]</span></p>
+<p>Comme la densité est <strong>symétrique en <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span></strong>, leurs marginales sont identiques. On peut vérifier que :</p>
+<p><span class="math display">\[
+f_X(x) = \frac12 + x, \qquad f_Y(y)=\frac12+y.
+\]</span></p>
+<hr>
+<ol start="3" type="1">
+<li>Fonction de répartition de <span class="math inline">\(\mathbf{X}\)</span></li>
+</ol>
+<p>On cherche :</p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=\mathbb{P}(X \le t_1,\ Y \le t_2)
+= \int_0^{t_1}\int_0^{t_2} \left(\frac12 + 2xy\right) dy\,dx.
+\]</span></p>
+<p>On examine les différents cas :</p>
+<hr>
+<p><strong>Cas 1 :</strong> <span class="math inline">\(t_1 &lt; 0\)</span> ou <span class="math inline">\(t_2 &lt; 0\)</span></p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=0.
+\]</span></p>
+<hr>
+<p><strong>Cas 2 :</strong> <span class="math inline">\(t_1 &gt; 1\)</span> et <span class="math inline">\(t_2 &gt; 1\)</span></p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=1.
+\]</span></p>
+<hr>
+<p><strong>Cas 3 :</strong> <span class="math inline">\(t_1 \in [0,1]\)</span> et <span class="math inline">\(t_2 &gt; 1\)</span></p>
+<p>Symétriquement, la probabilité vaut :</p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=\frac{t_1(t_1+1)}{2}.
+\]</span></p>
+<hr>
+<p><strong>Cas 4 :</strong> <span class="math inline">\(t_1 &gt; 1\)</span> et <span class="math inline">\(t_2 \in [0,1]\)</span></p>
+<p>De façon analogue :</p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=\frac{t_2(t_2+1)}{2}.
+\]</span></p>
+<hr>
+<p><strong>Cas 5 :</strong> <span class="math inline">\(t_1,t_2 \in [0,1]\)</span> On calcule explicitement :</p>
+<p><span class="math display">\[
+F_X(t_1,t_2)
+= \int_0^{t_1} \left( \int_0^{t_2}
+\left(\frac12 + 2xy\right) dy \right) dx.
+\]</span></p>
+<p>Intégrale intérieure :</p>
+<p><span class="math display">\[
+\int_0^{t_2} \left(\frac12 + 2xy\right) dy
+= \frac{t_2}{2} + x\,t_2^2.
+\]</span></p>
+<p>Puis intégration en <span class="math inline">\(x\)</span> :</p>
+<p><span class="math display">\[
+F_X(t_1,t_2)
+= \int_0^{t_1} \left( \frac{t_2}{2} + xt_2^2 \right) dx
+= \frac{t_1t_2}{2} + \frac{t_1^2 t_2^2}{2}.
+\]</span></p>
+<hr>
+<p><strong>Forme finale de la fonction de répartition</strong></p>
+<p><span class="math display">\[
+F_X(t_1,t_2)=
+\begin{cases}
+0, &amp; t_1 &lt; 0 \text{ ou } t_2 &lt; 0, \\[6pt]
+\frac{t_1t_2}{2} + \frac{t_1^2t_2^2}{2}, &amp; t_1,t_2 \in [0,1],\\[6pt]
+\frac{t_1(t_1+1)}{2}, &amp; t_1 \in [0,1],\ t_2&gt;1, \\[6pt]
+\frac{t_2(t_2+1)}{2}, &amp; t_2 \in [0,1],\ t_1&gt;1, \\[6pt]
+1, &amp; t_1&gt;1,\ t_2&gt;1.
+\end{cases}
+\]</span></p>
+</section>
+<section id="exercice-7" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-7">Exercice 7</h2>
+<p>Soit <span class="math inline">\(\mathbf{X} = (X, Y, Z)^\top\)</span> un vecteur aléatoire de densité</p>
+<p><span class="math display">\[
+f_X(x,y,z) =
+\begin{cases}
+c \, e^{-x - y - 3z}, &amp; \text{si } x, y, z &gt; 0, \\[4pt]
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li><p>Donner la valeur de c pour que <span class="math inline">\(f_X\)</span> corresponde bien à une densité.</p></li>
+<li><p>Les variables aléatoires <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> et <span class="math inline">\(Z\)</span> sont-elles indépendantes ?<br>
+Déduire directement leurs densités de l’écriture de <span class="math inline">\(f_X\)</span>, et utiliser vos connaissances sur la loi exponentielle.</p></li>
+<li><p>Déterminer la densité du vecteur aléatoire <span class="math display">\[
+\mathbf{Y} = \left( \frac{X}{X+Y},\ X+Y \right)^\top.
+\]</span></p></li>
+</ol>
+<p>En déduire que () et (X+Y) sont indépendantes, et donner leurs densités marginales.</p>
+</section>
+<section id="correction-exercice-7" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-7">Correction — Exercice 7</h2>
+<ol type="1">
+<li>Détermination de la constante c</li>
+</ol>
+<p>Pour que <span class="math inline">\(f_X\)</span> soit une densité, il faut :</p>
+<p><span class="math display">\[
+\iiint_{\mathbb{R}^3} f_X(x,y,z)\,dx\,dy\,dz = 1.
+\]</span></p>
+<p>Comme la densité est nulle hors du domaine (x&gt;0, y&gt;0, z&gt;0), on calcule :</p>
+<p><span class="math display">\[
+\int_0^{+\infty}\!\!\int_0^{+\infty}\!\!\int_0^{+\infty}
+c e^{-x - y - 3z}\, dx\,dy\,dz.
+\]</span></p>
+<p>On sépare les intégrales :</p>
+<p><span class="math display">\[
+c \left( \int_0^{+\infty} e^{-x}\,dx \right)
+\left( \int_0^{+\infty} e^{-y}\,dy \right)
+\left( \int_0^{+\infty} e^{-3z}\,dz \right).
+\]</span></p>
+<p>Or,</p>
+<p><span class="math display">\[
+\int_0^{+\infty} e^{-x}\,dx = 1,\qquad
+\int_0^{+\infty} e^{-y}\,dy = 1,\qquad
+\int_0^{+\infty} e^{-3z}\,dz = \frac{1}{3}.
+\]</span></p>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+c \cdot 1 \cdot 1 \cdot \frac{1}{3} = 1
+\quad\Rightarrow\quad
+c = 3.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Indépendance de X, Y, Z</li>
+</ol>
+<p>La densité jointe s’écrit :</p>
+<p><span class="math display">\[
+f_X(x,y,z) = 3 e^{-x} e^{-y} e^{-3z}.
+\]</span></p>
+<p>Cette écriture est de la forme :</p>
+<p><span class="math display">\[
+f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z),
+\]</span></p>
+<p>où :</p>
+<p><span class="math display">\[
+f_X(x) = e^{-x} \mathbf{1}_{x&gt;0},
+\qquad f_Y(y) = e^{-y}\mathbf{1}_{y&gt;0},
+\qquad f_Z(z) = 3 e^{-3z}\mathbf{1}_{z&gt;0}.
+\]</span></p>
+<p>Conclusion :</p>
+<p><span class="math display">\[
+\boxed{X,\ Y,\ Z \text{ sont indépendants}.}
+\]</span></p>
+<p>De plus :</p>
+<ul>
+<li><span class="math inline">\(X \sim \mathrm{Exp}(1)\)</span></li>
+<li><span class="math inline">\(Y \sim \mathrm{Exp}(1)\)</span></li>
+<li><span class="math inline">\(Z \sim \mathrm{Exp}(3)\)</span></li>
+</ul>
+<hr>
+<ol start="3" type="1">
+<li>Densité du vecteur transformé</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{Y} = \left( T = \frac{X}{X+Y},\ U= X+Y \right).
+\]</span></p>
+<p>On considère l’application :</p>
+<p><span class="math display">\[
+h : (x,y) \mapsto (t,u)= \left( \frac{x}{x+y},\, x+y \right),
+\qquad x,y&gt;0.
+\]</span></p>
+<p><strong>a) Inversion du changement de variables</strong></p>
+<p>À partir de :</p>
+<p><span class="math display">\[
+t = \frac{x}{x+y}, \qquad u = x+y,
+\]</span></p>
+<p>on résout :</p>
+<p><span class="math display">\[
+x = tu,\qquad y = u - tu = u(1-t),
+\]</span></p>
+<p>avec :</p>
+<p><span class="math display">\[
+t \in (0,1),\quad u&gt;0.
+\]</span></p>
+<p><strong>b) Jacobien</strong></p>
+<p>Le jacobien vaut :</p>
+<p><span class="math display">\[
+J =
+\begin{vmatrix}
+\frac{\partial x}{\partial t} &amp; \frac{\partial x}{\partial u}\\[3pt]
+\frac{\partial y}{\partial t} &amp; \frac{\partial y}{\partial u}
+\end{vmatrix}
+=
+\begin{vmatrix}
+u &amp; t\\[3pt]
+-u &amp; 1-t
+\end{vmatrix}
+= u(1-t) + ut = u.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+|J| = u.
+\]</span></p>
+<p><strong>c) Densité jointe de (T,U)</strong></p>
+<p>Puisque <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont indépendants exponentiels :</p>
+<p><span class="math display">\[
+f_{X,Y}(x,y) = e^{-x} e^{-y} = e^{-u}.
+\]</span></p>
+<p>On applique le changement de variables :</p>
+<p><span class="math display">\[
+f_{T,U}(t,u)
+= f_{X,Y}(tu, u(1-t)) \cdot |J|
+= e^{-u} \cdot u,
+\qquad t\in(0,1),\ u&gt;0.
+\]</span></p>
+<p>On observe que la densité ne dépend <strong>pas</strong> de <span class="math inline">\(t\)</span>.</p>
+<hr>
+<p><strong>d) Indépendance de <span class="math inline">\(T\)</span> et <span class="math inline">\(U\)</span></strong></p>
+<p>On note :</p>
+<p><span class="math display">\[
+f_{T,U}(t,u) =
+\underbrace{1_{0&lt;t&lt;1}}_{f_T(t)}
+\cdot
+\underbrace{u e^{-u}}_{f_U(u)}.
+\]</span></p>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+f_{T,U}(t,u) = f_T(t) f_U(u).
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+\boxed{T = \frac{X}{X+Y} \text{ et } U = X+Y \text{ sont indépendants}.}
+\]</span></p>
+<p><strong>Lois marginales</strong></p>
+<ul>
+<li>T a pour densité :</li>
+</ul>
+<p><span class="math display">\[
+f_T(t) = 1,\qquad t\in(0,1),
+\]</span></p>
+<p>donc :</p>
+<p><span class="math display">\[
+T \sim \mathrm{Uniform}(0,1).
+\]</span></p>
+<ul>
+<li><span class="math inline">\(U\)</span> a pour densité :</li>
+</ul>
+<p><span class="math display">\[
+f_U(u) = u e^{-u},\qquad u&gt;0,
+\]</span> c’est-à-dire :</p>
+<p><span class="math display">\[
+U \sim \Gamma(2,1).
+\]</span></p>
+</section>
+<section id="exercice-8" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-8">Exercice 8</h2>
+<p>Soient X et Y deux variables aléatoires indépendantes suivant une loi exponentielle de paramètre <span class="math inline">\(\lambda &gt; 0\)</span>. Nous considérons les variables aléatoires :</p>
+<p><span class="math display">\[
+U = X + Y,
+\qquad
+V = \frac{X}{Y}.
+\]</span></p>
+<ol type="1">
+<li><p>Donner la densité du vecteur <span class="math inline">\(\mathbf{X} = (X, Y)^\top\)</span>.</p></li>
+<li><p>Montrer que l’application</p></li>
+</ol>
+<p><span class="math display">\[
+h : ]0,+\infty[ \times ]0,+\infty[ \;\longrightarrow\; I_1 \times I_2,
+\qquad
+(x,y) \longmapsto \bigl( x + y,\; \frac{x}{y} \bigr)
+\]</span> est bijective, en déterminant les intervalles <span class="math inline">\(I_1\)</span> et <span class="math inline">\(I_2\)</span>.<br>
+En déduire son application réciproque <span class="math inline">\(h^{-1}\)</span>, ainsi que son Jacobien.</p>
+<ol start="3" type="1">
+<li>rocéder par changement de variables pour obtenir la densité du vecteur <span class="math display">\[
+\mathbf{Y} = (U, V)^\top.
+\]</span> Caractériser la loi de <span class="math inline">\(U\)</span>, et en déduire que <span class="math inline">\(U\)</span> et <span class="math inline">\(V\)</span> sont indépendantes.</li>
+</ol>
+</section>
+<section id="correction-exercice-8" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-8">Correction — Exercice 8</h2>
+<ol type="1">
+<li>Densité du vecteur X,Y.</li>
+</ol>
+<p>Comme X et Y sont indépendantes et exponentielles de paramètre <span class="math inline">\(\lambda\)</span>, on a :</p>
+<p><span class="math display">\[
+f_{X,Y}(x,y)
+= \lambda e^{-\lambda x} \, \lambda e^{-\lambda y}
+= \lambda^2 e^{-\lambda(x+y)},
+\qquad x&gt;0,\ y&gt;0.
+\]</span></p>
+<hr>
+<ol start="2" type="1">
+<li>Bijectivité de l’application h</li>
+</ol>
+<p>L’application considérée est :</p>
+<p><span class="math display">\[
+h(x,y) = (u,v) = (x+y,\ \frac{x}{y}),
+\qquad x&gt;0,\ y&gt;0.
+\]</span></p>
+<p><strong>Détermination des intervalles <span class="math inline">\(I_1, I_2\)</span></strong></p>
+<ul>
+<li><span class="math inline">\(u = x+y &gt; 0 \Rightarrow I_1 = ]0,+\infty[\)</span></li>
+<li><span class="math inline">\(v = x/y &gt; 0 \Rightarrow I_2 = ]0,+\infty[\)</span></li>
+</ul>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+h : ]0,+\infty[\times ]0,+\infty[ \longrightarrow ]0,+\infty[\times ]0,+\infty[.
+\]</span></p>
+<p><strong>Détermination de l’application réciproque</strong></p>
+<p>À partir de :</p>
+<p><span class="math display">\[
+u = x+y, \qquad v = \frac{x}{y},
+\]</span></p>
+<p>on résout :</p>
+<p><span class="math display">\[
+x = \frac{uv}{1+v},
+\qquad
+y = \frac{u}{1+v}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+h^{-1}(u,v)
+= \left( \frac{uv}{1+v},\ \frac{u}{1+v} \right),
+\qquad u&gt;0,\ v&gt;0.
+\]</span></p>
+<p><strong>Calcul du Jacobien</strong></p>
+<p>On calcule la matrice jacobienne de <span class="math inline">\(h^{-1}\)</span> :</p>
+<p><span class="math display">\[
+J_{h^{-1}}(u,v) =
+\begin{pmatrix}
+\frac{\partial x}{\partial u} &amp; \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} &amp; \frac{\partial y}{\partial v}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac{v}{1+v} &amp;
+\frac{u}{(1+v)^2} \\[6pt]
+\frac{1}{1+v} &amp;
+-\frac{u}{(1+v)^2}
+\end{pmatrix}.
+\]</span></p>
+<p>Son déterminant vaut :</p>
+<p><span class="math display">\[
+\det J_{h^{-1}}(u,v)
+= - \frac{u}{(1+v)^2}.
+\]</span></p>
+<p>On utilisera sa valeur absolue :</p>
+<p><span class="math display">\[
+\left| \det J_{h^{-1}}(u,v) \right| = \frac{u}{(1+v)^2}.
+\]</span></p>
+<hr>
+<ol start="3" type="1">
+<li>Densité du vecteur (U,V)</li>
+</ol>
+<p>Par changement de variables :</p>
+<p><span class="math display">\[
+f_{U,V}(u,v)
+= f_{X,Y}\bigl(h^{-1}(u,v)\bigr)\,
+\left|\det J_{h^{-1}}(u,v)\right|.
+\]</span></p>
+<p>On remplace :</p>
+<ul>
+<li><span class="math inline">\(x = \dfrac{uv}{1+v},\)</span></li>
+<li><span class="math inline">\(y = \dfrac{u}{1+v}\)</span>,</li>
+<li><span class="math inline">\(x+y = u\)</span>,</li>
+</ul>
+<p>donc</p>
+<p><span class="math display">\[
+f_{X,Y}(x,y) = \lambda^2 e^{-\lambda u}.
+\]</span></p>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+f_{U,V}(u,v)
+= \lambda^2 e^{-\lambda u} \cdot \frac{u}{(1+v)^2},
+\qquad u&gt;0,\ v&gt;0.
+\]</span></p>
+<hr>
+<p><strong>Marginales et indépendance</strong></p>
+<p><strong>Loi marginale de U</strong></p>
+<p><span class="math display">\[
+f_U(u)
+= \int_0^{\infty} \lambda^2 e^{-\lambda u} \frac{u}{(1+v)^2}\,dv.
+\]</span></p>
+<p>Or :</p>
+<p><span class="math display">\[
+\int_0^\infty \frac{1}{(1+v)^2}\,dv = 1.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+f_U(u) = \lambda^2 u e^{-\lambda u},\qquad u&gt;0.
+\]</span></p>
+<p>C’est la densité d’une loi Gamma de paramètres ((2,)) :</p>
+<p><span class="math display">\[
+U \sim \Gamma(2,\lambda).
+\]</span></p>
+<p><strong>Loi marginale de V</strong></p>
+<p><span class="math display">\[
+f_V(v)
+= \int_0^\infty \lambda^2 e^{-\lambda u} \frac{u}{(1+v)^2}\,du.
+\]</span></p>
+<p>Mais :</p>
+<p><span class="math display">\[
+\int_0^\infty \lambda^2 u e^{-\lambda u}\,du = 1,
+\]</span></p>
+<p>donc :</p>
+<p><span class="math display">\[
+f_V(v) = \frac{1}{(1+v)^2},\qquad v&gt;0.
+\]</span></p>
+<p>Il s’agit d’une <strong>loi de Pareto (type II)</strong>.</p>
+<hr>
+<p><strong>Indépendance</strong></p>
+<p>On a :</p>
+<p><span class="math display">\[
+f_{U,V}(u,v)
+=
+\underbrace{\lambda^2 u e^{-\lambda u}}_{f_U(u)}
+\cdot
+\underbrace{\frac{1}{(1+v)^2}}_{f_V(v)}.
+\]</span></p>
+<p>Donc :</p>
+<p><span class="math display">\[
+f_{U,V}(u,v) = f_U(u)\, f_V(v).
+\]</span></p>
+<p>Ainsi :</p>
+<p><span class="math display">\[
+\boxed{U \text{ et } V \text{ sont indépendantes}.}
+\]</span></p>
+<hr>
+</section>
+<section id="exercice-9" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-9">Exercice 9</h2>
+<p>Soient X et Y deux variables aléatoires indépendantes suivant une loi uniformesur]0,1[.</p>
+<ol type="1">
+<li>Montrer que la densité de <span class="math inline">\(X + Y\)</span> est</li>
+</ol>
+<p><span class="math display">\[
+f_{X+Y}(t) =
+\begin{cases}
+t, &amp; t \in ]0,1[,\\[4pt]
+2 - t, &amp; t \in ]1,2[,\\[4pt]
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
+<ol start="2" type="1">
+<li>Montrer que la densité de <span class="math inline">\(X - Y\)</span> est</li>
+</ol>
+<p><span class="math display">\[
+f_{X-Y}(t) =
+\begin{cases}
+1 + t, &amp; t \in ]-1,0[,\\[4pt]
+1 - t, &amp; t \in ]0,1[,\\[4pt]
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
+<ol start="3" type="1">
+<li>Montrer que la densité de <span class="math inline">\(X/Y\)</span> est</li>
+</ol>
+<p><span class="math display">\[
+f_{X/Y}(t) =
+\begin{cases}
+\frac{1}{2}, &amp; t \in ]0,1[,\\[6pt]
+\frac{1}{2 t^{2}}, &amp; t \in ]1,+\infty[,\\[4pt]
+0, &amp; \text{sinon}.
+\end{cases}
+\]</span></p>
 
 
 </section>
