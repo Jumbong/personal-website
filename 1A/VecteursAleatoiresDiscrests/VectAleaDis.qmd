@@ -782,6 +782,7 @@ $$
 3) En déduire la matrice de variance-covariance de $\mathbf{X}$ dans le cas $a = 1$ et $b = 2$.
 
 ---
+
 ## Correction — Exercice 6
 
 1) Pour que $f_X$ soit une densité, elle doit être à valeurs positives et d'intégrale égale à 1. Nous avons
@@ -1366,14 +1367,15 @@ $$
 
 Nous avons
 
-$$
+
 \begin{align}
 E\{\phi(X + Y)\} &= \int_{\mathbb{R}^2} \phi(x + y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x + y) dy \right\} dx \\
 &= \int_{x=0}^{1} \left\{ \int_{t=x}^{1+x} \phi(t) dt \right\} dx \quad \text{(avec le changement de var. } t = x + y\text{)} \\
 
 &= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) dt + \int_{t=1}^{1+x} \phi(t) dt \right\} dx \\
 \end{align}
-$$
+
+
 
 On décide d'introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c'est la borne inférieure de $t=x$ lorsque $x=0$. Les intégrales obtenues sont calculées sur deux domaines :
 
@@ -1392,6 +1394,7 @@ Pour $D_2$, pour un $t$ fixé entre $[1,2], x$ varie de $t-1$ à $1$.
 Donc :
 
 $\int_{D_2} \phi(t) dx dt = \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt$.
+
 $$
 \begin{align}
 &= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt + \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt \\
@@ -1420,10 +1423,12 @@ Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’inté
 
 Pour $D_1$, pour un $t$ fixé entre $[-1,0], x$ varie de $0$ à $t+1$.
 
-Donc :
+Ainsi, on a :
+
 $\int_{D_1} \phi(t) dx dt = \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt$.
+
 Pour $D_2$, pour un $t$ fixé entre $[0,1], x$ varie de $t$ à $1$.
-Donc :
+Ainsi, on a :
 
 $\int_{D_2} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt$.
 
@@ -1449,12 +1454,17 @@ $$
 On décide d'introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c'est la borne inférieure de $t=x$ lorsque $x=0$. Les intégrales obtenues sont calculées sur deux domaines :
 
 $D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}$ et $D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t < \infty\}$.
+
 Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de $t$.
+
 Pour $D_1$, pour un $t$ fixé entre $[0,1], x$ varie de $0$ à $t$.
-Donc :
+Ainsi :
+
 $\int_{D_1} \phi(t) \frac{x}{t^2} dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt$.
+
 Pour $D_2$, pour un $t$ fixé entre $[1,\infty[, x$ varie de $0$ à $1$.
-Donc :
+De ce fait :
+
 $\int_{D_2} \phi(t) \frac{x}{t^2} dx dt = \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt$.
 
 $$

@@ -169,11 +169,14 @@ window.Quarto = {
   <li><a href="#correction-exercice-4" id="toc-correction-exercice-4" class="nav-link" data-scroll-target="#correction-exercice-4">Correction Exercice 4</a></li>
   <li><a href="#exercice-5" id="toc-exercice-5" class="nav-link" data-scroll-target="#exercice-5">Exercice 5</a></li>
   <li><a href="#correction-exercice-5" id="toc-correction-exercice-5" class="nav-link" data-scroll-target="#correction-exercice-5">Correction — Exercice 5</a></li>
+  <li><a href="#exercice-6" id="toc-exercice-6" class="nav-link" data-scroll-target="#exercice-6">Exercice 6</a></li>
+  <li><a href="#correction-exercice-6" id="toc-correction-exercice-6" class="nav-link" data-scroll-target="#correction-exercice-6">Correction — Exercice 6</a></li>
   <li><a href="#exercice-7" id="toc-exercice-7" class="nav-link" data-scroll-target="#exercice-7">Exercice 7</a></li>
   <li><a href="#correction-exercice-7" id="toc-correction-exercice-7" class="nav-link" data-scroll-target="#correction-exercice-7">Correction — Exercice 7</a></li>
   <li><a href="#exercice-8" id="toc-exercice-8" class="nav-link" data-scroll-target="#exercice-8">Exercice 8</a></li>
   <li><a href="#correction-exercice-8" id="toc-correction-exercice-8" class="nav-link" data-scroll-target="#correction-exercice-8">Correction — Exercice 8</a></li>
   <li><a href="#exercice-9" id="toc-exercice-9" class="nav-link" data-scroll-target="#exercice-9">Exercice 9</a></li>
+  <li><a href="#correction-exercice-9" id="toc-correction-exercice-9" class="nav-link" data-scroll-target="#correction-exercice-9">Correction Exercice 9</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -784,6 +787,82 @@ F_X(t_1,t_2)=
 \end{cases}
 \]</span></p>
 </section>
+<section id="exercice-6" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-6">Exercice 6</h2>
+<p>Soit <span class="math inline">\(\mathbf{X} = (X, Y)^\top\)</span> un vecteur aléatoire de densité</p>
+<p><span class="math display">\[
+f_X(x, y) = \begin{cases}
+c(x + y) &amp; \text{si } x, y \in [0, a] \times [0, b] \\
+0 &amp; \text{sinon.}
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li><p>Déterminer <span class="math inline">\(c\)</span> pour que <span class="math inline">\(f_X\)</span> corresponde à une densité de probabilité.</p></li>
+<li><p>Soient <span class="math inline">\(p, q \in \mathbb{N}^2\)</span>. Expliquer pourquoi <span class="math inline">\(E(X^p Y^q)\)</span> est bien défini, et donner sa valeurs en fonction de <span class="math inline">\(p\)</span> et <span class="math inline">\(q\)</span>.</p></li>
+<li><p>En déduire la matrice de variance-covariance de <span class="math inline">\(\mathbf{X}\)</span> dans le cas <span class="math inline">\(a = 1\)</span> et <span class="math inline">\(b = 2\)</span>.</p></li>
+</ol>
+<hr>
+</section>
+<section id="correction-exercice-6" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-6">Correction — Exercice 6</h2>
+<ol type="1">
+<li>Pour que <span class="math inline">\(f_X\)</span> soit une densité, elle doit être à valeurs positives et d’intégrale égale à 1. Nous avons</li>
+</ol>
+<p><span class="math display">\[
+\begin{align}
+\int_{\mathbb{R}^2} f_X(\mathbf{x}) d\mathbf{x} &amp;= \int_{0}^{a} \int_{0}^{b} c(x + y) dxdy \\
+&amp;= c \int_{0}^{a} xdx \int_{0}^{b} dy + c \int_{0}^{a} dx \int_{0}^{b} ydy \\
+&amp;= c \left(\frac{a^2b}{2} + \frac{ab^2}{2}\right) \\
+&amp;= c \times ab \frac{a + b}{2} = 1,
+\end{align}
+\]</span></p>
+<p>donc finalement <span class="math inline">\(c = \frac{2}{ab(a+b)}\)</span>.</p>
+<ol start="2" type="1">
+<li>Nous avons <span class="math inline">\(|X| \leq a\)</span> et <span class="math inline">\(|Y| \leq b\)</span>, donc pour tout <span class="math inline">\(p, q \in \mathbb{N}^2\)</span> :</li>
+</ol>
+<p><span class="math display">\[
+E(|X|^p|Y|^q) \leq a^p b^q,
+\]</span></p>
+<p>et le moment <span class="math inline">\(E(X^p Y^q)\)</span> est donc bien défini. Il vaut</p>
+<p><span class="math display">\[
+\begin{align}
+E(X^p Y^q) &amp;= \int_{\mathbb{R}^2} x^p y^q f_X(x, y) dxdy, \\
+&amp;= \frac{2}{ab(a + b)} \int_{0}^{a} \int_{0}^{b} x^p y^q (x + y) dxdy \\
+&amp;= \frac{2}{ab(a + b)} \int_{0}^{a} x^{p+1} dx \int_{0}^{b} y^q dy + \frac{2}{ab(a + b)} \int_{0}^{a} x^p dx \int_{0}^{b} y^{q+1} dy \\
+&amp;= \frac{2}{ab(a + b)} \left(\frac{a^{p+2}b^{q+1}}{(p + 2)(q + 1)} + \frac{a^{p+1}b^{q+2}}{(p + 1)(q + 2)}\right) \\
+&amp;= 2\frac{a^p b^q}{a + b} \left(\frac{a}{(p + 2)(q + 1)} + \frac{b}{(p + 1)(q + 2)}\right).
+\end{align}
+\]</span></p>
+<p>Avec <span class="math inline">\(a = 1\)</span> et <span class="math inline">\(b = 2\)</span>, nous avons</p>
+<p><span class="math display">\[
+E(X^p Y^q) = \frac{2^{q+1}}{3} \left(\frac{1}{(p + 2)(q + 1)} + \frac{2}{(p + 1)(q + 2)}\right).
+\]</span></p>
+<p>Nous obtenons en particulier</p>
+<p><span class="math display">\[
+\begin{align}
+E(X) &amp;= \frac{2}{3} \left(\frac{1}{3} + \frac{2}{4}\right) = \frac{5}{9} \\
+E(Y) &amp;= \frac{4}{3} \left(\frac{1}{4} + \frac{2}{3}\right) = \frac{11}{9} \\
+E(X^2) &amp;= \frac{2}{3} \left(\frac{1}{4} + \frac{2}{6}\right) = \frac{7}{18} \\
+E(Y^2) &amp;= \frac{8}{3} \left(\frac{1}{6} + \frac{2}{4}\right) = \frac{16}{9} \\
+E(XY) &amp;= \frac{4}{3} \left(\frac{1}{6} + \frac{2}{6}\right) = \frac{2}{3},
+\end{align}
+\]</span></p>
+<p>puis</p>
+<p><span class="math display">\[
+\begin{align}
+V(X) &amp;= E(X^2) - \{E(X)\}^2 = \frac{13}{162}, \\
+V(Y) &amp;= E(Y^2) - \{E(Y)\}^2 = \frac{23}{81}, \\
+Cov(X, Y) &amp;= E(XY) - E(X)E(Y) = -\frac{1}{81},
+\end{align}
+\]</span></p>
+<p>et la matrice de variance-covariance</p>
+<p><span class="math display">\[
+V(\mathbf{X}) = \begin{pmatrix}
+\frac{13}{162} &amp; -\frac{1}{81} \\
+-\frac{1}{81} &amp; \frac{23}{81}
+\end{pmatrix}.
+\]</span></p>
+</section>
 <section id="exercice-7" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-7">Exercice 7</h2>
 <p>Soit <span class="math inline">\(\mathbf{X} = (X, Y, Z)^\top\)</span> un vecteur aléatoire de densité</p>
@@ -1170,6 +1249,91 @@ f_{X/Y}(t) =
 0, &amp; \text{sinon}.
 \end{cases}
 \]</span></p>
+</section>
+<section id="correction-exercice-9" class="level2">
+<h2 class="anchored" data-anchor-id="correction-exercice-9">Correction Exercice 9</h2>
+<p>Dans cette exercice, nous utilisons la méthode de la <strong>fonction muette</strong> :<br>
+pour une fonction continue bornée <span class="math inline">\(\phi : \mathbb{R} \to \mathbb{R}\)</span>,</p>
+<p><span class="math display">\[
+E[\phi(T)] = \int_{\mathbb{R}} \phi(t) f_T(t)\, dt.
+\]</span></p>
+<hr>
+<ol type="1">
+<li>Densité de X + Y</li>
+</ol>
+<p>Nous avons</p>
+<p>$$ <span class="math display">\[\begin{align}
+E\{\phi(X + Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x + y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x + y) dy \right\} dx \\
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{1+x} \phi(t) dt \right\} dx \quad \text{(avec le changement de var. } t = x + y\text{)} \\
+
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) dt + \int_{t=1}^{1+x} \phi(t) dt \right\} dx \\
+\end{align}\]</span> $$</p>
+<p>On décide d’introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c’est la borne inférieure de <span class="math inline">\(t=x\)</span> lorsque <span class="math inline">\(x=0\)</span>. Les intégrales obtenues sont calculées sur deux domaines :</p>
+<p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t \le 1+x\}\)</span>.</p>
+<p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
+<p>Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t\)</span>.</p>
+<p>Donc :</p>
+<p><span class="math inline">\(\int_{D_1} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt\)</span>.</p>
+<p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([1,2], x\)</span> varie de <span class="math inline">\(t-1\)</span> à <span class="math inline">\(1\)</span>.</p>
+<p>Donc :</p>
+<p><span class="math inline">\(\int_{D_2} \phi(t) dx dt = \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} dx \right\} dt + \int_{t=1}^{2} \phi(t) \left\{ \int_{x=t-1}^{1} dx \right\} dt \\
+&amp;= \int_{t=0}^{1} \phi(t) t dt + \int_{t=1}^{2} \phi(t) (2 - t) dt \\
+&amp;= \int_{\mathbb{R}} \phi(t) \underbrace{\{t \mathbb{1}_{]0,1[}(t) + (2 - t) \mathbb{1}_{]1,2[}(t)\}}_{f_{X+Y}(t)}.
+\end{align}
+\]</span></p>
+<ol start="2" type="1">
+<li>Densité de X - Y</li>
+</ol>
+<p>Nous avons</p>
+<p><span class="math display">\[
+\begin{align}
+E\{\phi(X - Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x - y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x - y) dx \right\} dy \\
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x-1}^{x} \phi(t) dt \right\} dy \quad \text{(avec le changement de var. } t = x - y\text{)} \\
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x-1}^{0} \phi(t) dt + \int_{t=0}^{x} \phi(t) dt \right\} dy \\
+\end{align}
+\]</span></p>
+<p>On décide d’introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 1 car c’est la borne supérieure de <span class="math inline">\(t=x-1\)</span> lorsque <span class="math inline">\(x=1\)</span>. Les intégrales obtenues sont calculées sur deux domaines :</p>
+<p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x-1 \le t \le 0\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 0 \le t \le x\}\)</span>.</p>
+<p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
+<p>Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([-1,0], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t+1\)</span>.</p>
+<p>Ainsi, on a :</p>
+<p><span class="math inline">\(\int_{D_1} \phi(t) dx dt = \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt\)</span>.</p>
+<p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(t\)</span> à <span class="math inline">\(1\)</span>. Ainsi, on a :</p>
+<p><span class="math inline">\(\int_{D_2} \phi(t) dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;= \int_{t=-1}^{0} \phi(t) \left\{ \int_{x=0}^{t+1} dx \right\} dt + \int_{t=0}^{1} \phi(t) \left\{ \int_{x=t}^{1} dx \right\} dt \\
+&amp;= \int_{t=-1}^{0} \phi(t) (1 + t) dt + \int_{t=0}^{1} \phi(t) (1 - t) dt \\
+&amp;= \int_{\mathbb{R}} \phi(t) \underbrace{\{(1 + t) \mathbb{1}_{]-1,0[}(t) + (1 - t) \mathbb{1}_{]0,1[}(t)\}}_{f_{X-Y}(t)}.
+\end{align}
+\]</span></p>
+<ol start="3" type="1">
+<li>Densité de X/Y</li>
+</ol>
+<p>Nous avons <span class="math display">\[
+\begin{align}
+E\{\phi(X/Y)\} &amp;= \int_{\mathbb{R}^2} \phi(x/y) f_X(\mathbf{x}) dx dy = \int_{x=0}^{1} \left\{ \int_{y=0}^{1} \phi(x/y) dy \right\} dx \\
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{\infty} \phi(t) \frac{x}{t^2} dt \right\} dx \quad \text{(avec le changement de var. } t = x/y\text{)} \\
+&amp;= \int_{x=0}^{1} \left\{ \int_{t=x}^{1} \phi(t) \frac{x}{t^2} dt + \int_{t=1}^{\infty} \phi(t) \frac{x}{t^2} dt \right\} dx \\
+\end{align}
+\]</span></p>
+<p>On décide d’introduire une borne de la première intégrale pour pouvoir utiliser le théorème de Fubini. On ne choisit pas 0 car c’est la borne inférieure de <span class="math inline">\(t=x\)</span> lorsque <span class="math inline">\(x=0\)</span>. Les intégrales obtenues sont calculées sur deux domaines :</p>
+<p><span class="math inline">\(D_1 = \{(x,t) \mid 0 \le x \le 1,\, x \le t \le 1\}\)</span> et <span class="math inline">\(D_2 = \{(x,t) \mid 0 \le x \le 1,\, 1 \le t &lt; \infty\}\)</span>.</p>
+<p>Lorsque nous utilisons le théorème de Fubini pour inverser l’ordre d’intégration, nous devons exprimer ces domaines en termes de <span class="math inline">\(t\)</span>.</p>
+<p>Pour <span class="math inline">\(D_1\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([0,1], x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(t\)</span>. Ainsi :</p>
+<p><span class="math inline">\(\int_{D_1} \phi(t) \frac{x}{t^2} dx dt = \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt\)</span>.</p>
+<p>Pour <span class="math inline">\(D_2\)</span>, pour un <span class="math inline">\(t\)</span> fixé entre <span class="math inline">\([1,\infty[, x\)</span> varie de <span class="math inline">\(0\)</span> à <span class="math inline">\(1\)</span>. De ce fait :</p>
+<p><span class="math inline">\(\int_{D_2} \phi(t) \frac{x}{t^2} dx dt = \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;= \int_{t=0}^{1} \phi(t) \left\{ \int_{x=0}^{t} \frac{x}{t^2} dx \right\} dt + \int_{t=1}^{\infty} \phi(t) \left\{ \int_{x=0}^{1} \frac{x}{t^2} dx \right\} dt \\
+&amp;= \int_{t=0}^{1} \phi(t) \frac{t}{2} dt + \int_{t=1}^{\infty} \phi(t) \frac{1}{2 t^2} dt \\
+&amp;= \int_{\mathbb{R}} \phi(t) \underbrace{\left\{\frac{1}{2} \mathbb{1}_{]0,1[}(t) + \frac{1}{2 t^2} \mathbb{1}_{]1,+\infty[}(t)\right\}}_{f_{X/Y}(t)}.
+\end{align}
+\]</span></p>
 
 
 </section>
@@ -1268,7 +1432,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Jumbong\.github\.io\/personal-website\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
